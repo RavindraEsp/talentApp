@@ -1,0 +1,9 @@
+{
+  "hello": "नमस्ते, आप कैसे हैं?",
+  "welcome_text": "नमस्ते, यह स्वागत स्क्रीन है",
+  "buttonIAmTalent": "मैं एक टैलेंट हूं",
+  "buttonIAmCasting": "मैं कास्टिंग कर रहा हूं",
+  "validationName": "नाम आवश्यक है।",
+  "validationPass": "पासवर्ड की आवश्यकता है।",
+  "validationEmail": "ईमेल की जरूरत है."
+}
