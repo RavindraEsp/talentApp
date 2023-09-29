@@ -14,6 +14,15 @@ class ColorUtility {
     ColorUtility.colorD6A34C,
     ColorUtility.colorD09B45,
   ];
+
+  static const List<Color> castHeaderGradientColor = [
+    ColorUtility.color1B215C,
+    ColorUtility.color263287,
+    ColorUtility.color857784,
+    ColorUtility.colorEFC275,
+  ];
+
+
   static const Color color703297 = Color(0xFF703297);
   static const Color color65389A = Color(0xFF65389A);
   static const Color color445DB8 = Color(0xFF445DB8);
@@ -49,4 +58,5 @@ class ColorUtility {
   static const Color colorD3D6D6 = Color(0xFFD3D6D6);
   static const Color colorEFF2F4 = Color(0xFFEFF2F4);
   static const Color colorEDEDEF = Color(0xFFEDEDEF);
+  static const Color colorE4E4E8 = Color(0xFFE4E4E8);
 }

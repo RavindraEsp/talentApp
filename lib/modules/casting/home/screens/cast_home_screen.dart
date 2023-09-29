@@ -131,13 +131,6 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
               labelStyle: StyleUtility.quicksandRegular16TextStyle
                   .copyWith(fontSize: TextSizeUtility.textSize16.sp),
               unselectedLabelStyle: StyleUtility.hintTextStyle,
-              // indicatorColor: ColorUtility.color5457BE,
-
-              // indicator: UnderlineTabIndicator(
-              //     borderRadius: BorderRadius.circular(20.r),
-              //     borderSide: const BorderSide(
-              //         width: 5.0, color: ColorUtility.color5457BE),
-              //     insets: const EdgeInsets.symmetric(horizontal: 16.0)),
 
               indicator: BoxDecoration(
                 gradient: const LinearGradient(

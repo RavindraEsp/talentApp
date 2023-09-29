@@ -71,6 +71,10 @@ class StyleUtility {
       fontWeight: FontWeight.w600,
       //   fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
+  static TextStyle quicksandSemiBoldBlackTextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w600,
+      //   fontSize: TextSizeUtility.textSize16,
+      color: Colors.black);
 
   static TextStyle quicksandRegular5457BETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400,

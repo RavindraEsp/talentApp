@@ -11,6 +11,7 @@ import 'package:talent_app/modules/casting/bottomBar/screen/bottom_bar_screen.da
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
 import 'package:talent_app/modules/casting/helloCasting/hello_casting_screen.dart';
+import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/manage_finished_audition_screen.dart';
 import 'package:talent_app/modules/casting/menu/menu_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
@@ -78,6 +79,11 @@ class AppRoute {
       case RouteName.createAuditionPlaceTimeScreen:
         return MaterialPageRoute(
           builder: (context) => const CreateAuditionPlaceTimeScreen(),
+        );
+
+      case RouteName.manageFinishedAuditionScreen:
+        return MaterialPageRoute(
+          builder: (context) => const ManageFinishedAuditionScreen(),
         );
       default:
         return MaterialPageRoute(builder: (context) => const IntroScreen());

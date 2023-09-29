@@ -41,154 +41,177 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
+
         body: GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(ImageUtility.castSignupBgImage),
-                fit: BoxFit.fill),
+      child: Stack(
+        children: [
+          Container(
+            height: 80.h,
+            width: double.infinity,
+            alignment: Alignment.topCenter,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: ColorUtility.castHeaderGradientColor)),
           ),
-          child: SafeArea(
-            child: Column(children: [
-              Container(
-                margin: EdgeInsets.only(left: 24.w, top: 5.h),
-                child: AppBar(
-                  automaticallyImplyLeading: true,
-                  leading: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(Icons.arrow_back),
-                  ),
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  centerTitle: true,
-                  title: Text(
-                    context.loc.headerSignUp,
-                    style: StyleUtility.headerTextStyle
-                        .copyWith(fontSize: TextSizeUtility.textSize22.sp),
-                  ),
+          SafeArea(
+            child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(ImageUtility.castSignupBgImage),
+                      fit: BoxFit.fill),
                 ),
-              ),
-              Expanded(child: Consumer<CastVerifyPhoneProvider>(
-                  builder: (context, provider, child) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 25.h,
+                child: Column(children: [
+                  Container(
+                  //  margin: EdgeInsets.only(left: 24.w, top: 5.h),
+                    margin: EdgeInsets.only(left: 24.w, top: 22.h),
+                    child: AppBar(
+                      automaticallyImplyLeading: true,
+                      leading: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(Icons.arrow_back),
                       ),
-                      Text(
-                        context.loc.verifyPhone,
-                        style: StyleUtility.kantumruyProSemiBold5457BETextStyle
-                            .copyWith(fontSize: TextSizeUtility.textSize26.sp),
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      centerTitle: true,
+                      title: Text(
+                        context.loc.headerSignUp,
+                        style: StyleUtility.headerTextStyle
+                            .copyWith(fontSize: TextSizeUtility.textSize22.sp),
                       ),
-                      SizedBox(
-                        height: 25.h,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: context.loc.enter4DigitCode,
-                          style:
-                              StyleUtility.quicksandRegular16TextStyle.copyWith(
-                            fontSize: TextSizeUtility.textSize16.sp,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: "544-546-xxxx",
-                              style: StyleUtility.quicksandRegular16TextStyle
-                                  .copyWith(
-                                      color: ColorUtility.color5457BE,
-                                      fontSize: TextSizeUtility.textSize16.sp,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 35.h,
-                      ),
-                      CustomOtpTextField(controller: otpController),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ),
+                  Expanded(child: Consumer<CastVerifyPhoneProvider>(
+                      builder: (context, provider, child) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: Column(
                         children: [
-                          Text(
-                            context.loc.didntReceive,
-                            style:
-                                StyleUtility.mulishRegular16TextStyle.copyWith(
-                              color: ColorUtility.color9A9A9F,
-                              fontSize: TextSizeUtility.textSize16.sp,
-                            ),
+                          SizedBox(
+                            height: 25.h,
                           ),
                           Text(
-                            context.loc.resendCode,
-                            style: StyleUtility.mulishRegular16TextStyle
-                                .copyWith(
-                                    fontSize: TextSizeUtility.textSize16.sp,
-                                    color: ColorUtility.color5457BE,
-                                    fontWeight: FontWeight.bold),
+                            context.loc.verifyPhone,
+                            style: StyleUtility.kantumruyProSemiBold5457BETextStyle
+                                .copyWith(fontSize: TextSizeUtility.textSize26.sp),
+                          ),
+                          SizedBox(
+                            height: 25.h,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              text: context.loc.enter4DigitCode,
+                              style:
+                                  StyleUtility.quicksandRegular16TextStyle.copyWith(
+                                fontSize: TextSizeUtility.textSize16.sp,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "544-546-xxxx",
+                                  style: StyleUtility.quicksandRegular16TextStyle
+                                      .copyWith(
+                                          color: ColorUtility.color5457BE,
+                                          fontSize: TextSizeUtility.textSize16.sp,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 35.h,
+                          ),
+                          CustomOtpTextField(controller: otpController),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                context.loc.didntReceive,
+                                style:
+                                    StyleUtility.mulishRegular16TextStyle.copyWith(
+                                  color: ColorUtility.color9A9A9F,
+                                  fontSize: TextSizeUtility.textSize16.sp,
+                                ),
+                              ),
+                              Text(
+                                context.loc.resendCode,
+                                style: StyleUtility.mulishRegular16TextStyle
+                                    .copyWith(
+                                        fontSize: TextSizeUtility.textSize16.sp,
+                                        color: ColorUtility.color5457BE,
+                                        fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.h),
+                            child: CustomButton(
+                                buttonText: context.loc.buttonContinue,
+                                buttonType: ButtonType.yellow,
+                                onTap: () {
+                                  if (otpController.text.length != 4) {
+                                    Common.showErrorSnackBar(
+                                        context, "Please eneter 4 digit otp.");
+                                  } else {
+                                    /// TODO temp
+
+                                    showCongratulationDialog(
+                                        context: context, onButtonTap: () {});
+
+
+                                    // CommonDialog.showLoadingDialog(context);
+                                    // provider.signUp(
+                                    //     onSuccess: (message) {
+                                    //       Navigator.pop(context);
+                                    //
+                                    //       showCongratulationDialog(context: context,onButtonTap: (){
+                                    //
+                                    //       });
+                                    //        },
+                                    //     onFailure: (message) {
+                                    //       Navigator.pop(context);
+                                    //       Common.showErrorSnackBar(
+                                    //           context, message);
+                                    //     },
+                                    //     request: SignupRequest(
+                                    //         email: widget.email,
+                                    //         mobileNumber: widget.phone,
+                                    //         userName: widget.userName,
+                                    //         password: widget.password,
+                                    //         confirmPassword: widget.confirmPassword,
+                                    //         oTP: otpController.text,
+                                    //         talentType: 1 // for caster
+                                    //
+                                    //         ));
+                                  }
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             const CastCreateCard()));
+                                }),
                           )
                         ],
                       ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.h),
-                        child: CustomButton(
-                            buttonText: context.loc.buttonContinue,
-                            buttonType: ButtonType.yellow,
-                            onTap: () {
-                              if (otpController.text.length != 4) {
-                                Common.showErrorSnackBar(
-                                    context, "Please eneter 4 digit otp.");
-                              } else {
-                                CommonDialog.showLoadingDialog(context);
-                                provider.signUp(
-                                    onSuccess: (message) {
-                                      Navigator.pop(context);
-
-                                      showCongratulationDialog(context: context,onButtonTap: (){
-
-                                      });
-                                       },
-                                    onFailure: (message) {
-                                      Navigator.pop(context);
-                                      Common.showErrorSnackBar(
-                                          context, message);
-                                    },
-                                    request: SignupRequest(
-                                        email: widget.email,
-                                        mobileNumber: widget.phone,
-                                        userName: widget.userName,
-                                        password: widget.password,
-                                        confirmPassword: widget.confirmPassword,
-                                        oTP: otpController.text,
-                                        talentType: 1 // for caster
-
-                                        ));
-                              }
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const CastCreateCard()));
-                            }),
-                      )
-                    ],
-                  ),
-                );
-              })),
-            ]),
-          )),
+                    );
+                  })),
+                ])),
+          ),
+        ],
+      ),
     ));
   }
 
@@ -205,15 +228,11 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
             title: context.loc.congratulations,
             description: context.loc.dialogAccountReadyDesc,
             buttonText: context.loc.buttonNext,
-
           );
         }).then((value) {
       Navigator.pop(context);
       Navigator.pop(context);
-      Navigator.pushNamed(
-          context, RouteName.castLoginScreen);
-
+      Navigator.pushNamed(context, RouteName.castLoginScreen);
     });
   }
-
 }

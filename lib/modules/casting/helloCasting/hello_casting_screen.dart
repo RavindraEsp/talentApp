@@ -34,7 +34,7 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(ImageUtility.helloCastCardImage),
-                    fit: BoxFit.cover),
+                    fit: BoxFit.fill),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 35.w),

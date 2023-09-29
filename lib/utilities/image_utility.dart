@@ -58,4 +58,6 @@ class ImageUtility {
   static const String tCIcon = 'assets/icons/t&c_icon.png';
   static const String supportIcon = 'assets/icons/support_icon.png';
   static const String policyIcon = 'assets/icons/policy_icon.png';
+  static const String verifyGreenIcon = 'assets/icons/verify_green_icon.png';
+  static const String verifyBlueIcon = 'assets/icons/verify_blue_icon.png';
 }

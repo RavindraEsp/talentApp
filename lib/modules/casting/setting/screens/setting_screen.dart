@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/intro/intro_screen.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -124,7 +126,13 @@ class _SettingScreenState extends State<SettingScreen> {
             SettingTileWidget(
               title: context.loc.settingSignOut,
               image: ImageUtility.signOutIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const IntroScreen()),
+                    (route) => false);
+              },
             ),
             Container(
                 height: 1,
