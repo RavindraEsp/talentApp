@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/style_utility.dart';
 
 class CustomOtpTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -39,6 +40,8 @@ class CustomOtpTextField extends StatelessWidget {
         enableActiveFill: true,
         controller: controller,
         keyboardType: TextInputType.number,
+        textStyle: StyleUtility.quicksandSemiBold5457BETextStyle
+            .copyWith(color: ColorUtility.color5457BE),
         boxShadows: const [
           BoxShadow(
             color: Colors.black12,

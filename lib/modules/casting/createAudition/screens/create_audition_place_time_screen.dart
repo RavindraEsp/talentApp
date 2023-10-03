@@ -38,6 +38,37 @@ class _CreateAuditionPlaceTimeScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorUtility.colorWhite,
+      bottomNavigationBar: Padding(
+        padding:
+            EdgeInsets.only(bottom: 20.h, top: 20.h, left: 20.w, right: 20.w),
+        child: Row(
+          children: [
+            Expanded(
+              child: CustomOutlineButton(
+                  buttonText: context.loc.buttonBack,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  buttonColor: ColorUtility.color5457BE),
+            ),
+            SizedBox(
+              width: 15.w,
+            ),
+            Expanded(
+              child: CustomButton(
+                //  buttonText: context.loc.buttonPublish,
+                buttonText: dateTimeList!.isEmpty
+                    ? context.loc.buttonNext
+                    : context.loc.buttonPublish,
+                buttonType: ButtonType.yellow,
+                onTap: () {
+                  showAuditionAuditionCreateSuccessDialog(context: context);
+                },
+              ),
+            )
+          ],
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: GestureDetector(
@@ -141,7 +172,7 @@ class _CreateAuditionPlaceTimeScreenState
                                     child: Text(
                                   context.loc.titleDate,
                                   style: StyleUtility
-                                      .quicksandRegular5457BETextStyle
+                                      .quicksandSemiBold5457BETextStyle
                                       .copyWith(
                                           fontSize: TextSizeUtility.textSize15),
                                 ))),
@@ -154,7 +185,7 @@ class _CreateAuditionPlaceTimeScreenState
                                     child: Text(
                                   context.loc.titleTime,
                                   style: StyleUtility
-                                      .quicksandRegular5457BETextStyle
+                                      .quicksandSemiBold5457BETextStyle
                                       .copyWith(
                                           fontSize: TextSizeUtility.textSize15),
                                 ))),
@@ -167,7 +198,7 @@ class _CreateAuditionPlaceTimeScreenState
                                     child: Text(
                                   context.loc.titleSpots,
                                   style: StyleUtility
-                                      .quicksandRegular5457BETextStyle
+                                      .quicksandSemiBold5457BETextStyle
                                       .copyWith(
                                           fontSize: TextSizeUtility.textSize15),
                                 ))),
@@ -254,7 +285,7 @@ class _CreateAuditionPlaceTimeScreenState
                                       timeController.clear();
                                       spotsController.clear();
                                     } else {
-                                      Common.showErrorSnackBar(
+                                      Common.showErrorToast(
                                           context, "Please Fill All field");
                                     }
 
@@ -277,34 +308,35 @@ class _CreateAuditionPlaceTimeScreenState
                                 )),
                           ],
                         ),
-                        SizedBox(
-                          height: 35.h,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: CustomOutlineButton(
-                                  buttonText: context.loc.buttonBack,
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  buttonColor: ColorUtility.color5457BE),
-                            ),
-                            SizedBox(
-                              width: 15.w,
-                            ),
-                            Expanded(
-                              child: CustomButton(
-                                buttonText: context.loc.buttonPublish,
-                                buttonType: ButtonType.yellow,
-                                onTap: () {
-                                  showAuditionAuditionCreateSuccessDialog(
-                                      context: context);
-                                },
-                              ),
-                            )
-                          ],
-                        ),
+
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: CustomOutlineButton(
+                        //           buttonText: context.loc.buttonBack,
+                        //           onTap: () {
+                        //             Navigator.pop(context);
+                        //           },
+                        //           buttonColor: ColorUtility.color5457BE),
+                        //     ),
+                        //     SizedBox(
+                        //       width: 15.w,
+                        //     ),
+                        //     Expanded(
+                        //       child: CustomButton(
+                        //       //  buttonText: context.loc.buttonPublish,
+                        //         buttonText: dateTimeList!.isEmpty ?
+                        //         context.loc.buttonNext:context.loc.buttonPublish,
+                        //         buttonType: ButtonType.yellow,
+                        //         onTap: () {
+                        //           showAuditionAuditionCreateSuccessDialog(
+                        //               context: context);
+                        //         },
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
+
                         SizedBox(
                           height: 35.h,
                         ),

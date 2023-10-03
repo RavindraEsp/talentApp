@@ -107,7 +107,7 @@ class AuditionFinishedWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Image.asset(
-                                      ImageUtility.userIcon,
+                                      ImageUtility.eyeOpenIcon,
                                       width: 14.w,
                                       fit: BoxFit.fill,
                                     ),

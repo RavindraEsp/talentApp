@@ -3,7 +3,7 @@ class ImageUtility {
   static const String introBgImage = 'assets/images/intro_bg.png';
   static const String introBg2Image = 'assets/images/intro_bg.png';
   static const String introCardImage = 'assets/images/intro_card.png';
-  static const String helloCastBg2Image = 'assets/images/hello_cast_bg.png';
+  static const String helloCastBgImage = 'assets/images/hello_cast_bg.png';
   static const String helloCastCardImage = 'assets/images/hello_cast_card.png';
   static const String castSignupBgImage = 'assets/images/cast_signup_bg.png';
 
@@ -60,4 +60,5 @@ class ImageUtility {
   static const String policyIcon = 'assets/icons/policy_icon.png';
   static const String verifyGreenIcon = 'assets/icons/verify_green_icon.png';
   static const String verifyBlueIcon = 'assets/icons/verify_blue_icon.png';
+  static const String passLocIcon = 'assets/icons/pass_loc_icon.png';
 }

@@ -39,6 +39,7 @@ class MobileNumberTextField extends StatelessWidget {
           FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: InputDecoration(
+
           contentPadding:
               EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
           filled: true,

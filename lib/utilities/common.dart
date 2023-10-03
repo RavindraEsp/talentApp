@@ -33,6 +33,19 @@ class Common {
         fontSize: 16.0);
   }
 
+
+  static showErrorToast(BuildContext context, String message) {
+    Fluttertoast.cancel();
+    return Fluttertoast.showToast(
+        msg: message.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
   //Show loading dialog
   static showLoadingDialog(BuildContext ctx) {
     showDialog(

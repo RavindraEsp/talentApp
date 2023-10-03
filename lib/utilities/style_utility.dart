@@ -42,10 +42,30 @@ class StyleUtility {
       //  fontSize: TextSizeUtility.textSize13,
       color: ColorUtility.color9F9E9E);
 
+  static TextStyle errorTextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w500,
+      //  fontSize: TextSizeUtility.textSize13,
+      color: ColorUtility.colorE24848);
+
+
   static TextStyle quicksandRegular15TextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400,
       // fontSize: TextSizeUtility.textSize15,
       color: ColorUtility.colorACACAF);
+
+  static TextStyle selectTabTextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w500,
+      // fontSize: TextSizeUtility.textSize15,
+      color: ColorUtility.color5457BE);
+
+  static TextStyle unSelectTabTextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w500,
+      // fontSize: TextSizeUtility.textSize15,
+      color: Colors.black);
+
+
+
+
 
   static TextStyle quicksandRegular16TextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400,
@@ -69,6 +89,11 @@ class StyleUtility {
 
   static TextStyle quicksandSemiBold5457BETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w600,
+      //   fontSize: TextSizeUtility.textSize16,
+      color: ColorUtility.color5457BE);
+
+  static TextStyle quicksandMedium5457BETextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w500,
       //   fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
   static TextStyle quicksandSemiBoldBlackTextStyle = GoogleFonts.quicksand(

@@ -59,7 +59,7 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                         children: [
                           const SettingButtonWidget(),
                           Text(
-                            "Hello Alon",
+                            "Hello, Alon",
                             style: StyleUtility.kantumruyProSMedium18TextStyle
                                 .copyWith(
                                     fontSize: TextSizeUtility.textSize18.sp),
@@ -88,7 +88,7 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 35.w),
+                    padding: EdgeInsets.symmetric(horizontal: 13.w),
                     child: Text(
                       context.loc.hereYouCanDesc,
                       style: StyleUtility.quicksandRegularBlackTextStyle
@@ -128,7 +128,8 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
               labelPadding: const EdgeInsets.all(0),
               unselectedLabelColor: Colors.black,
               labelColor: ColorUtility.color5457BE,
-              labelStyle: StyleUtility.quicksandRegular16TextStyle
+             // labelStyle: StyleUtility.quicksandRegular16TextStyle
+              labelStyle: StyleUtility.unSelectTabTextStyle
                   .copyWith(fontSize: TextSizeUtility.textSize16.sp),
               unselectedLabelStyle: StyleUtility.hintTextStyle,
 

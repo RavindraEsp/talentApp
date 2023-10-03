@@ -41,32 +41,59 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               items: [
                 CurvedNavigationBarItem(
                   labelStyle: StyleUtility.bottomBarLabelTextStyle,
-                  child: Image.asset(widget.selectIndex == 0
-                      ? ImageUtility.homeNavSelectIcon
-                      : ImageUtility.homeNavIcon),
+                  child: widget.selectIndex == 0
+                      ? Image.asset(
+                          ImageUtility.homeNavSelectIcon,
+                          width: 47,
+                        )
+                      : Image.asset(
+                          ImageUtility.homeNavIcon,
+                          width: 27,
+                        ),
                   label: widget.selectIndex == 0 ? context.loc.tabHome : "",
                 ),
 
                 CurvedNavigationBarItem(
                   labelStyle: StyleUtility.bottomBarLabelTextStyle,
-                  child: Image.asset(widget.selectIndex == 1
-                      ? ImageUtility.notificationNavSelectIcon
-                      : ImageUtility.notificationNavIcon),
-                  label: widget.selectIndex == 1 ? context.loc.tabNotification : "",
+                  child: widget.selectIndex == 1
+                      ? Image.asset(
+                          ImageUtility.notificationNavSelectIcon,
+                          width: 47,
+                        )
+                      : Image.asset(
+                          ImageUtility.notificationNavIcon,
+                          width: 23,
+                        ),
+                  label: widget.selectIndex == 1
+                      ? context.loc.tabNotification
+                      : "",
                 ),
+
                 CurvedNavigationBarItem(
                   labelStyle: StyleUtility.bottomBarLabelTextStyle,
-                  child: Image.asset(widget.selectIndex == 2
-                      ? ImageUtility.messageNavSelectIcon
-                      : ImageUtility.messageNavIcon),
+                  child: widget.selectIndex == 2
+                      ? Image.asset(
+                          ImageUtility.messageNavSelectIcon,
+                          width: 47,
+                        )
+                      : Image.asset(
+                          ImageUtility.messageNavIcon,
+                          width: 27,
+                        ),
                   label: widget.selectIndex == 2 ? context.loc.tabChat : "",
                 ),
 
                 CurvedNavigationBarItem(
                   labelStyle: StyleUtility.bottomBarLabelTextStyle,
-                  child: Image.asset(widget.selectIndex == 3
-                      ? ImageUtility.profileNavSelectIcon
-                      : ImageUtility.profileNavIcon),
+                  child: widget.selectIndex == 3
+                      ? Image.asset(
+                          ImageUtility.profileNavSelectIcon,
+                          width: 47,
+                        )
+                      : Image.asset(
+                          ImageUtility.profileNavIcon,
+                          width: 22,
+                        ),
                   label: widget.selectIndex == 3 ? context.loc.tabProfile : "",
                 ),
 

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 
-class SimpleTextField extends StatelessWidget {
-  const SimpleTextField({
+class SearchTextField extends StatelessWidget {
+  const SearchTextField({
     Key? key,
     required this.controller,
     required this.hintText,
     this.textInputType,
     this.passwordObscure,
-    this.onPrefixIconTap,
     this.maxLine = 1,
     this.inputFormatter,
     this.suffixImage,
@@ -26,7 +26,6 @@ class SimpleTextField extends StatelessWidget {
   final bool? passwordObscure;
   final int? maxLine;
   final List<TextInputFormatter>? inputFormatter;
-  final VoidCallback? onPrefixIconTap;
   final String? suffixImage;
 
   final FormFieldValidator? validator;
@@ -58,9 +57,9 @@ class SimpleTextField extends StatelessWidget {
           hintText: hintText,
           label: maxLine == 1
               ? Text(
-                  hintText,
-                  textAlign: TextAlign.start,
-                )
+            hintText,
+            textAlign: TextAlign.start,
+          )
               : null,
           labelStyle: StyleUtility.labelTextStyle
               .copyWith(fontSize: TextSizeUtility.textSize13.sp),
@@ -71,7 +70,7 @@ class SimpleTextField extends StatelessWidget {
             ),
           ),
           errorStyle: StyleUtility.errorTextStyle.copyWith(
-            fontSize: TextSizeUtility.textSize13.sp
+              fontSize: TextSizeUtility.textSize13.sp
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
@@ -103,22 +102,19 @@ class SimpleTextField extends StatelessWidget {
               color: ColorUtility.colorD6D6D8,
             ),
           ),
-          suffixIcon: suffixImage != null
-              ? SizedBox(
-                  height: 55.sp,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 20.sp),
-                    child: InkWell(
-                      onTap: onPrefixIconTap,
-                      child: Image.asset(
-                        suffixImage!,
-                       // height: 5.h,
-                        // color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                )
-              : null,
+          prefixIcon:  SizedBox(
+            height: 55.sp,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.sp),
+              child: Image.asset(
+                ImageUtility.userIcon,
+
+                height: 5.h,
+                // color: Colors.blue,
+              ),
+            ),
+          ),
+
           focusColor: Colors.white,
         ),
       ),

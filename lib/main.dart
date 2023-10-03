@@ -5,15 +5,16 @@ import 'package:talent_app/routes/app_routes.dart';
 import 'modules/casting/home/screens/cast_home_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'modules/casting/manageAudition/manageAuditionCreated/screens/manage_audition_created_screen.dart';
 import 'modules/casting/manageAudition/managefinishedAudition/manage_finished_audition_screen.dart';
 import 'modules/intro/intro_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitDown,
-  // ]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(const MyApp());
 }
@@ -56,7 +57,8 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-              home: const IntroScreen(),
+               home: const IntroScreen(),
+         //   home: const ManageAuditionCreatedScreen(),
 
             onGenerateRoute: AppRoute.generateRoute,
             // builder: (context, widget) {

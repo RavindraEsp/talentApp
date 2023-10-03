@@ -459,11 +459,37 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        Text(
-                          context.loc.titleEyeColor,
-                          style: StyleUtility.quicksandSemiBold5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              context.loc.titleEyeColor,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                for (var item in eyeColorModel!) {
+                                  item.isSelect = true;
+                                  setState(() {});
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(2.w),
+                                child: Text(
+                                  "Select All",
+                                  style: StyleUtility
+                                      .quicksandMedium5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize14.sp),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 16.h,
@@ -521,11 +547,37 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        Text(
-                          context.loc.titleHairColor,
-                          style: StyleUtility.quicksandSemiBold5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              context.loc.titleHairColor,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                for (var item in hairColorModel!) {
+                                  item.isSelect = true;
+                                  setState(() {});
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(2.w),
+                                child: Text(
+                                  "Select All",
+                                  style: StyleUtility
+                                      .quicksandMedium5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize14.sp),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 16.h,
@@ -583,11 +635,37 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        Text(
-                          context.loc.titlePansSize,
-                          style: StyleUtility.quicksandSemiBold5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              context.loc.titlePansSize,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                for (var item in painsSizeModel!) {
+                                  item.isSelect = true;
+                                  setState(() {});
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(2.w),
+                                child: Text(
+                                  "Select All",
+                                  style: StyleUtility
+                                      .quicksandMedium5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize14.sp),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 16.h,
@@ -645,11 +723,37 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        Text(
-                          context.loc.titleShirtSize,
-                          style: StyleUtility.quicksandSemiBold5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              context.loc.titleShirtSize,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                for (var item in shirtSizeModel!) {
+                                  item.isSelect = true;
+                                  setState(() {});
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(2.w),
+                                child: Text(
+                                  "Select All",
+                                  style: StyleUtility
+                                      .quicksandMedium5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize14.sp),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 16.h,
@@ -707,11 +811,37 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                           ],
                         ),
                         SizedBox(height: 20.h),
-                        Text(
-                          context.loc.titleShoeSize,
-                          style: StyleUtility.quicksandSemiBold5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              context.loc.titleShoeSize,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                for (var item in shoeSizeModel!) {
+                                  item.isSelect = true;
+                                  setState(() {});
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(2.w),
+                                child: Text(
+                                  "Select All",
+                                  style: StyleUtility
+                                      .quicksandMedium5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize14.sp),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 16.h,

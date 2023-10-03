@@ -131,7 +131,7 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                   ),
                                   SimpleTextField(
                                     controller: passwordController,
-                                    suffixImage: ImageUtility.userIcon,
+                                    suffixImage: ImageUtility.passLocIcon,
                                     hintText: context.loc.hintPassword,
                                     validator:
                                         Validators(context).validatorPassword,
