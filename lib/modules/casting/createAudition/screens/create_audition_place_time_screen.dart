@@ -309,33 +309,7 @@ class _CreateAuditionPlaceTimeScreenState
                           ],
                         ),
 
-                        // Row(
-                        //   children: [
-                        //     Expanded(
-                        //       child: CustomOutlineButton(
-                        //           buttonText: context.loc.buttonBack,
-                        //           onTap: () {
-                        //             Navigator.pop(context);
-                        //           },
-                        //           buttonColor: ColorUtility.color5457BE),
-                        //     ),
-                        //     SizedBox(
-                        //       width: 15.w,
-                        //     ),
-                        //     Expanded(
-                        //       child: CustomButton(
-                        //       //  buttonText: context.loc.buttonPublish,
-                        //         buttonText: dateTimeList!.isEmpty ?
-                        //         context.loc.buttonNext:context.loc.buttonPublish,
-                        //         buttonType: ButtonType.yellow,
-                        //         onTap: () {
-                        //           showAuditionAuditionCreateSuccessDialog(
-                        //               context: context);
-                        //         },
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
+
 
                         SizedBox(
                           height: 35.h,

@@ -9,6 +9,7 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
   final String buttonText;
   String? icon;
   double? height;
+  double? width;
   final VoidCallback? onTap;
   final ButtonType? buttonType;
 
@@ -18,6 +19,7 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
     this.onTap,
     this.icon,
     this.height,
+    this.width,
     this.buttonType,
   }) : super(key: key);
 
@@ -46,7 +48,7 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
     final borderRadius = BorderRadius.circular(30.r);
     return Container(
       height: height ?? TextSizeUtility.buttonHeight,
-      // width: MediaQuery.of(context).size.width,
+      width: width,
       decoration: BoxDecoration(
         gradient: gradient,
         borderRadius: borderRadius,

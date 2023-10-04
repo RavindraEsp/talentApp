@@ -29,7 +29,7 @@ class _SettingScreenState extends State<SettingScreen> {
         elevation: 0,
         title: Text(
           context.loc.headerSettings,
-          style: StyleUtility.kantumruyProSMedium5457BETextStyle
+          style: StyleUtility.kantumruyProMedium5457BETextStyle
               .copyWith(fontSize: TextSizeUtility.textSize20.sp),
         ),
       ),

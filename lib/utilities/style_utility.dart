@@ -128,7 +128,7 @@ class StyleUtility {
       fontWeight: FontWeight.w500,
       //  fontSize: TextSizeUtility.textSize18,
       color: Colors.white);
-  static TextStyle kantumruyProSMedium5457BETextStyle =
+  static TextStyle kantumruyProMedium5457BETextStyle =
       GoogleFonts.kantumruyPro(
           fontWeight: FontWeight.w500, color: ColorUtility.color5457BE);
 

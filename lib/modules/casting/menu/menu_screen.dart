@@ -27,7 +27,7 @@ class _MenuScreenState extends State<MenuScreen> {
         elevation: 0,
         title: Text(
           context.loc.headerMenu,
-          style: StyleUtility.kantumruyProSMedium5457BETextStyle
+          style: StyleUtility.kantumruyProMedium5457BETextStyle
               .copyWith(fontSize: TextSizeUtility.textSize20.sp),
         ),
       ),

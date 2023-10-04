@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/approved_dialog.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
+
+import 'add_more_spot_dialog.dart';
 
 class AppliedUserDetailWidget extends StatelessWidget {
   const AppliedUserDetailWidget({
@@ -102,18 +106,23 @@ class AppliedUserDetailWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    Image.asset(
-                      ImageUtility.verifyGreenIcon,
-                      width: 52.w,
-                    ),
-                    Text(
-                    context.loc.approve,
-                      style: StyleUtility.quicksandMediumWhiteTextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize12.sp),
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    approvedDialog(context: context);
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        ImageUtility.verifyGreenIcon,
+                        width: 52.w,
+                      ),
+                      Text(
+                        context.loc.approve,
+                        style: StyleUtility.quicksandMediumWhiteTextStyle
+                            .copyWith(fontSize: TextSizeUtility.textSize12.sp),
+                      ),
+                    ],
+                  ),
                 ),
                 Column(
                   children: [
@@ -134,5 +143,30 @@ class AppliedUserDetailWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<dynamic> approvedDialog({
+    required BuildContext context,
+  }) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return ApprovedDialog(
+            onYesTap: () {},
+          );
+        }).then((value) {});
+  }
+
+  Future<dynamic> addMoreSpotDialog({
+    required BuildContext context,
+  }) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AddMoreSpotDialog(
+            onYesTap: () {},
+            title: context.loc.dialogAreYouSureCancelAudition,
+          );
+        }).then((value) {});
   }
 }
