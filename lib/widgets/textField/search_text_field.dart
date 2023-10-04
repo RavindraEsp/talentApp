@@ -48,7 +48,8 @@ class SearchTextField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         inputFormatters: inputFormatter,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
+          contentPadding:
+              EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
           filled: true,
           fillColor: Colors.white,
           hintStyle: StyleUtility.hintTextStyle.copyWith(
@@ -57,9 +58,9 @@ class SearchTextField extends StatelessWidget {
           hintText: hintText,
           label: maxLine == 1
               ? Text(
-            hintText,
-            textAlign: TextAlign.start,
-          )
+                  hintText,
+                  textAlign: TextAlign.start,
+                )
               : null,
           labelStyle: StyleUtility.labelTextStyle
               .copyWith(fontSize: TextSizeUtility.textSize13.sp),
@@ -69,9 +70,8 @@ class SearchTextField extends StatelessWidget {
               color: ColorUtility.colorD6D6D8,
             ),
           ),
-          errorStyle: StyleUtility.errorTextStyle.copyWith(
-              fontSize: TextSizeUtility.textSize13.sp
-          ),
+          errorStyle: StyleUtility.errorTextStyle
+              .copyWith(fontSize: TextSizeUtility.textSize13.sp),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
             borderSide: const BorderSide(
@@ -102,19 +102,17 @@ class SearchTextField extends StatelessWidget {
               color: ColorUtility.colorD6D6D8,
             ),
           ),
-          prefixIcon:  SizedBox(
+          prefixIcon: SizedBox(
             height: 55.sp,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20.sp),
               child: Image.asset(
-                ImageUtility.userIcon,
-
+                ImageUtility.searchIcon,
                 height: 5.h,
                 // color: Colors.blue,
               ),
             ),
           ),
-
           focusColor: Colors.white,
         ),
       ),

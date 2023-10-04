@@ -60,7 +60,7 @@ class ChatButton extends StatelessWidget {
                 buttonText,
                 maxLines: 1,
                 style: StyleUtility.buttonTextStyle.copyWith(
-                  fontSize: TextSizeUtility.textSize18.sp,
+                  fontSize: TextSizeUtility.textSize17.sp,
                 ),
               ),
               icon != null
@@ -69,7 +69,7 @@ class ChatButton extends StatelessWidget {
                 padding: EdgeInsets.only(left: 8.w),
                 child: Image.asset(
                   icon ?? "",
-                  height: 29,
+                  height: 24,
                   color: Colors.white,
                   fit: BoxFit.fill,
                 ),

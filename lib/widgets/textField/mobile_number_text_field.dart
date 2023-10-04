@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +32,7 @@ class MobileNumberTextField extends StatelessWidget {
         controller: controller,
         validator: validator,
         textAlign: TextAlign.left,
+
         style: StyleUtility.inputTextStyle.copyWith(
           fontSize: TextSizeUtility.textSize15.sp,
         ),
@@ -39,6 +41,14 @@ class MobileNumberTextField extends StatelessWidget {
           FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: InputDecoration(
+        // isDense: false,
+
+          // Customize the padding around the flag icon
+
+          prefixIconConstraints: BoxConstraints(
+            minWidth: 120
+          ),
+
 
           contentPadding:
               EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),

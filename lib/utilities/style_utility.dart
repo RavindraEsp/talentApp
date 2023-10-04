@@ -47,11 +47,13 @@ class StyleUtility {
       //  fontSize: TextSizeUtility.textSize13,
       color: ColorUtility.colorE24848);
 
-
   static TextStyle quicksandRegular15TextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400,
       // fontSize: TextSizeUtility.textSize15,
       color: ColorUtility.colorACACAF);
+
+  static TextStyle quicksandRegular9F9E9ETextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w400, color: ColorUtility.color9F9E9E);
 
   static TextStyle selectTabTextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w500,
@@ -62,10 +64,6 @@ class StyleUtility {
       fontWeight: FontWeight.w500,
       // fontSize: TextSizeUtility.textSize15,
       color: Colors.black);
-
-
-
-
 
   static TextStyle quicksandRegular16TextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400,
@@ -101,23 +99,38 @@ class StyleUtility {
       //   fontSize: TextSizeUtility.textSize16,
       color: Colors.black);
 
-  static TextStyle quicksandRegular5457BETextStyle = GoogleFonts.quicksand(
-      fontWeight: FontWeight.w400,
-      color: ColorUtility.color5457BE);
+  static TextStyle quicksandBoldWhiteTextStyle =
+      GoogleFonts.quicksand(fontWeight: FontWeight.w700, color: Colors.white);
 
-  static TextStyle kantumruyProSemiBold5457BETextStyle = GoogleFonts.kantumruyPro(
+  static TextStyle quicksandSemiBoldWhiteTextStyle =
+      GoogleFonts.quicksand(fontWeight: FontWeight.w600, color: Colors.white);
+
+  static TextStyle quicksandMediumWhiteTextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w500,
+      //   fontSize: TextSizeUtility.textSize16,
+      color: Colors.white);
+
+  static TextStyle quicksandRegular5457BETextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w400, color: ColorUtility.color5457BE);
+
+  static TextStyle kantumruyProSemiBold5457BETextStyle =
+      GoogleFonts.kantumruyPro(
+          fontWeight: FontWeight.w600,
+          // fontSize: TextSizeUtility.textSize26,
+          color: ColorUtility.color5457BE);
+
+  static TextStyle kantumruyProSemiBoldE03939TextStyle =
+  GoogleFonts.kantumruyPro(
       fontWeight: FontWeight.w600,
-      // fontSize: TextSizeUtility.textSize26,
-      color: ColorUtility.color5457BE);
+      color: ColorUtility.colorE03939);
 
   static TextStyle kantumruyProSMedium18TextStyle = GoogleFonts.kantumruyPro(
       fontWeight: FontWeight.w500,
       //  fontSize: TextSizeUtility.textSize18,
       color: Colors.white);
-  static TextStyle kantumruyProSMedium5457BETextStyle = GoogleFonts.kantumruyPro(
-      fontWeight: FontWeight.w500,
-      color: ColorUtility.color5457BE);
-
+  static TextStyle kantumruyProSMedium5457BETextStyle =
+      GoogleFonts.kantumruyPro(
+          fontWeight: FontWeight.w500, color: ColorUtility.color5457BE);
 
   static TextStyle mulishRegular16TextStyle = GoogleFonts.mulish(
       fontWeight: FontWeight.w400,

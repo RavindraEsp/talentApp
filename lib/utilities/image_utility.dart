@@ -8,6 +8,7 @@ class ImageUtility {
   static const String castSignupBgImage = 'assets/images/cast_signup_bg.png';
 
   static const String dummyProfileImage = 'assets/images/dummy_profile.png';
+  static const String dummyAppliedUserImage = 'assets/images/dummy_applied_user_image.png';
 
   // Icons
   static const String talentIcon = 'assets/icons/talent_icon.png';
@@ -61,4 +62,13 @@ class ImageUtility {
   static const String verifyGreenIcon = 'assets/icons/verify_green_icon.png';
   static const String verifyBlueIcon = 'assets/icons/verify_blue_icon.png';
   static const String passLocIcon = 'assets/icons/pass_loc_icon.png';
+  static const String searchIcon = 'assets/icons/search_icon.png';
+  static const String backCircleIcon = 'assets/icons/back_circle_icon.png';
+  static const String declineCircleIcon = 'assets/icons/decline_circle_icon.png';
+  static const String nextCircleIcon = 'assets/icons/next_circle_icon.png';
+  static const String locationIcon = 'assets/icons/location_icon.png';
+  static const String clockIcon = 'assets/icons/clock_icon.png';
+  static const String calenderCheckIcon = 'assets/icons/calender_icon_check.png';
+  static const String declineIcon = 'assets/icons/decline_icon.png';
 }
+

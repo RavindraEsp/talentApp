@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -68,6 +69,10 @@ class AuditionCreatedWidget extends StatelessWidget {
                             CustomButtonTopToBottomColor(
                               buttonText: context.loc.buttonManage,
                               height: 34,
+                              onTap: () {
+                                Navigator.pushNamed(context,
+                                    RouteName.manageAuditionCreatedScreen);
+                              },
                             ),
                             SizedBox(
                               height: 17.h,
@@ -91,8 +96,8 @@ class AuditionCreatedWidget extends StatelessWidget {
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(
-                                          fontSize: TextSizeUtility
-                                              .textSize13.sp),
+                                              fontSize: TextSizeUtility
+                                                  .textSize13.sp),
                                     ),
                                   ],
                                 ),
@@ -112,8 +117,8 @@ class AuditionCreatedWidget extends StatelessWidget {
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(
-                                          fontSize: TextSizeUtility
-                                              .textSize13.sp),
+                                              fontSize: TextSizeUtility
+                                                  .textSize13.sp),
                                     ),
                                   ],
                                 ),
@@ -133,8 +138,8 @@ class AuditionCreatedWidget extends StatelessWidget {
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(
-                                          fontSize: TextSizeUtility
-                                              .textSize13.sp),
+                                              fontSize: TextSizeUtility
+                                                  .textSize13.sp),
                                     ),
                                   ],
                                 ),
