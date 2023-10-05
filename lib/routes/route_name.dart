@@ -11,4 +11,6 @@ class RouteName {
   static const String createAuditionPlaceTimeScreen = "/createAuditionPlaceTimeScreen";
   static const String manageFinishedAuditionScreen = "/manageFinishedAuditionScreen";
   static const String manageAuditionCreatedScreen = "/manageAuditionCreatedScreen";
+  static const String seeUserProfileScreen = "/seeUserProfileScreen";
+  static const String menuStaticScreen = "/menuStaticScreen";
 }

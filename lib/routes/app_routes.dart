@@ -12,8 +12,10 @@ import 'package:talent_app/modules/casting/createAudition/screens/create_auditio
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
 import 'package:talent_app/modules/casting/helloCasting/hello_casting_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/manage_audition_created_screen.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/user_profile_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/manage_finished_audition_screen.dart';
-import 'package:talent_app/modules/casting/menu/menu_screen.dart';
+import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
+import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
@@ -91,6 +93,21 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) => const ManageAuditionCreatedScreen(),
         );
+
+      case RouteName.seeUserProfileScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SeeUserProfileScreen(),
+        );
+
+      case RouteName.menuStaticScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+          builder: (context) =>  MenuStaticScreen(
+            headerText: arg["headerText"],
+          ),
+        );
+
+
       default:
         return MaterialPageRoute(builder: (context) => const IntroScreen());
     }

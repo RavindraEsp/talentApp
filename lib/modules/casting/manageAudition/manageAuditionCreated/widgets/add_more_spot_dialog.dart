@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/createAudition/models/date_time_model.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/date_time_row_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -10,15 +11,17 @@ import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dar
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 class AddMoreSpotDialog extends StatefulWidget {
-  final VoidCallback onYesTap;
+  final VoidCallback onUpdateTap;
+  final VoidCallback onBackTab;
   final String? title;
   final String? buttonText;
 
   const AddMoreSpotDialog({
     super.key,
-    required this.onYesTap,
+    required this.onUpdateTap,
     this.title,
     this.buttonText,
+    required this.onBackTab,
   });
 
   @override
@@ -54,7 +57,13 @@ class _AddMoreSpotDialogState extends State<AddMoreSpotDialog> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                    alignment: Alignment.centerLeft, child: const BackButton()),
+                    alignment: Alignment.centerLeft,
+                    child: BackButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        widget.onBackTab();
+                      },
+                    )),
                 Text(
                   "Add More Spots",
                   style: StyleUtility.kantumruyProMedium5457BETextStyle
@@ -169,7 +178,7 @@ class _AddMoreSpotDialogState extends State<AddMoreSpotDialog> {
                         height: 20.h,
                       ),
                       CustomButtonTopToBottomColor(
-                        buttonText: "Add This Candidate",
+                        buttonText: context.loc.buttonUpdate,
                         width: double.infinity,
                         onTap: () {
                           Navigator.pop(context);

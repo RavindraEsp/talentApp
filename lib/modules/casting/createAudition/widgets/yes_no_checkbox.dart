@@ -8,13 +8,13 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 class YesNoCheckBoxWidget extends StatelessWidget {
   final String title;
   final bool status;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const YesNoCheckBoxWidget(
       {super.key,
         required this.title,
         required this.status,
-        required this.onTap});
+         this.onTap});
 
   @override
   Widget build(BuildContext context) {

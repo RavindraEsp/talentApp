@@ -9,6 +9,9 @@ class ImageUtility {
 
   static const String dummyProfileImage = 'assets/images/dummy_profile.png';
   static const String dummyAppliedUserImage = 'assets/images/dummy_applied_user_image.png';
+  static const String dummyAppliedUserImage2 = 'assets/images/dummy_applied_user_image2.png';
+  static const String dummyVideoThumbnailImage = 'assets/images/dummy_video_thumbnail_image.png';
+  static const String dummyAudioImage = 'assets/images/dummy_audio_image.png';
 
   // Icons
   static const String talentIcon = 'assets/icons/talent_icon.png';
@@ -70,5 +73,13 @@ class ImageUtility {
   static const String clockIcon = 'assets/icons/clock_icon.png';
   static const String calenderCheckIcon = 'assets/icons/calender_icon_check.png';
   static const String declineIcon = 'assets/icons/decline_icon.png';
+  static const String birthdayIcon = 'assets/icons/birthday_icon.png';
+  static const String playCircleIcon = 'assets/icons/play_circle_icon.png';
+  static const String playIcon = 'assets/icons/play_icon.png';
+  static const String fbCircleIcon = 'assets/icons/fb_circle_icon.png';
+  static const String instagramCircleIcon = 'assets/icons/instagram_circle_icon.png';
+  static const String youtubeCircleIcon = 'assets/icons/youtube_circle_icon.png';
+  static const String tiktokCircleIcon = 'assets/icons/tiktok_circle_icon.png';
+  static const String popularIcon = 'assets/icons/popular_icon.png';
 }
 

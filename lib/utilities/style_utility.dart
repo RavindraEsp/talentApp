@@ -92,8 +92,16 @@ class StyleUtility {
 
   static TextStyle quicksandMedium5457BETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w500,
-      //   fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
+
+
+  static TextStyle quicksandMediumACACAFTextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w500,
+      color: ColorUtility.colorACACAF);
+
+
+
+
   static TextStyle quicksandSemiBoldBlackTextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w600,
       //   fontSize: TextSizeUtility.textSize16,
@@ -101,6 +109,10 @@ class StyleUtility {
 
   static TextStyle quicksandBoldWhiteTextStyle =
       GoogleFonts.quicksand(fontWeight: FontWeight.w700, color: Colors.white);
+
+  static TextStyle quicksandBlackWhiteTextStyle =
+  GoogleFonts.quicksand(fontWeight: FontWeight.w700,
+      color: Colors.black);
 
   static TextStyle quicksandSemiBoldWhiteTextStyle =
       GoogleFonts.quicksand(fontWeight: FontWeight.w600, color: Colors.white);
@@ -136,6 +148,10 @@ class StyleUtility {
       fontWeight: FontWeight.w400,
       // fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
+
+  static TextStyle mulishRegularBlackTextStyle = GoogleFonts.mulish(
+      fontWeight: FontWeight.w400,
+      color: Colors.black);
 
   static TextStyle mulishBold5457BETextStyle = GoogleFonts.mulish(
       fontWeight: FontWeight.w700,

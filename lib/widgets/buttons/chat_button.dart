@@ -24,15 +24,15 @@ class ChatButton extends StatelessWidget {
     Gradient gradient = LinearGradient(
         colors: buttonType == ButtonType.yellow
             ? [
-          ColorUtility.colorD09B45,
-          ColorUtility.colorD6A34C,
-          ColorUtility.colorFAD175,
-        ]
+                ColorUtility.colorD09B45,
+                ColorUtility.colorD6A34C,
+                ColorUtility.colorFAD175,
+              ]
             : [
-          ColorUtility.color4FCC48,
-          ColorUtility.color31B42C,
-          ColorUtility.color2ED628
-        ]);
+                ColorUtility.color4FCC48,
+                ColorUtility.color31B42C,
+                ColorUtility.color2ED628
+              ]);
     final borderRadius = BorderRadius.circular(30.r);
     return Container(
       height: TextSizeUtility.buttonHeight,
@@ -52,28 +52,30 @@ class ChatButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.r)),
           ),
           child: Stack(
-            // mainAxisAlignment: MainAxisAlignment.end,
-            // crossAxisAlignment: CrossAxisAlignment.center,
             alignment: Alignment.center,
             children: [
-              Text(
-                buttonText,
-                maxLines: 1,
-                style: StyleUtility.buttonTextStyle.copyWith(
-                  fontSize: TextSizeUtility.textSize17.sp,
+              Padding(
+                padding: EdgeInsets.only(left: 40.w, right: 40.w),
+                child: Text(
+                  buttonText,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: StyleUtility.buttonTextStyle.copyWith(
+                    fontSize: TextSizeUtility.textSize17.sp,
+                  ),
                 ),
               ),
               icon != null
                   ? Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 8.w),
-                child: Image.asset(
-                  icon ?? "",
-                  height: 24,
-                  color: Colors.white,
-                  fit: BoxFit.fill,
-                ),
-              )
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.only(left: 8.w),
+                      child: Image.asset(
+                        icon ?? "",
+                        height: 24,
+                        color: Colors.white,
+                        fit: BoxFit.fill,
+                      ),
+                    )
                   : const SizedBox(),
             ],
           )),

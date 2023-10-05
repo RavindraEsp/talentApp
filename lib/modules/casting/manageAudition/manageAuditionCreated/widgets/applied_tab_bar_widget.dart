@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/applied_view_pager_widget.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -12,7 +13,7 @@ import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
 import 'package:talent_app/widgets/textField/search_text_field.dart';
 
-class AppliedTabBarWidget extends StatelessWidget {
+class AppliedTabBarWidget extends StatefulWidget {
   const AppliedTabBarWidget({
     super.key,
     required this.searchController,
@@ -23,6 +24,13 @@ class AppliedTabBarWidget extends StatelessWidget {
   final TextEditingController searchController;
   final List<String> categoryList;
   final List<String> bodyList;
+
+  @override
+  State<AppliedTabBarWidget> createState() => _AppliedTabBarWidgetState();
+}
+
+class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
+  bool closeRegistration = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +44,7 @@ class AppliedTabBarWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: SearchTextField(
-                controller: searchController,
+                controller: widget.searchController,
                 hintText: context.loc.hintSearchCandidate),
           ),
           SizedBox(
@@ -44,12 +52,19 @@ class AppliedTabBarWidget extends StatelessWidget {
           ),
 
           // TODO added temp condition for view closed screen
-          1 == 1
+          //   1 == 1
+          closeRegistration == false
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                        height: 420.h, child: const AppliedViewPagerWidget()),
+                        height: 420.h,
+                        child: AppliedViewPagerWidget(
+                          onCloseRegistration: () {
+                            closeRegistration = true;
+                            setState(() {});
+                          },
+                        )),
                     SizedBox(
                       height: 26.h,
                     ),
@@ -66,7 +81,7 @@ class AppliedTabBarWidget extends StatelessWidget {
                           ),
                           Wrap(
                             children: [
-                              for (var item in categoryList!)
+                              for (var item in widget.categoryList!)
                                 Container(
                                     margin:
                                         EdgeInsets.only(right: 9.w, top: 12.h),
@@ -102,7 +117,7 @@ class AppliedTabBarWidget extends StatelessWidget {
                           ),
                           Wrap(
                             children: [
-                              for (var item in bodyList)
+                              for (var item in widget.bodyList)
                                 Container(
                                     margin:
                                         EdgeInsets.only(right: 9.w, top: 12.h),
@@ -150,7 +165,10 @@ class AppliedTabBarWidget extends StatelessWidget {
                           ),
                           CustomOutlineButton(
                             buttonText: context.loc.buttonSeeFullProfile,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteName.seeUserProfileScreen);
+                            },
                             buttonColor: ColorUtility.color5457BE,
                           ),
                           SizedBox(

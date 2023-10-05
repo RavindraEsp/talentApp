@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -40,7 +41,13 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuHome,
               image: ImageUtility.homeIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.bottomBarScreen,
+                    arguments: {"selectIndex": 0},
+                    (route) => false);
+              },
             ),
             Container(
                 height: 1,
@@ -49,7 +56,10 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuAboutUs,
               image: ImageUtility.aboutUsIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteName.menuStaticScreen,
+                    arguments: {"headerText": context.loc.menuAboutUs});
+              },
             ),
             Container(
                 height: 1,
@@ -109,7 +119,6 @@ class _MenuScreenState extends State<MenuScreen> {
                 height: 1,
                 width: MediaQuery.of(context).size.width,
                 color: ColorUtility.colorEDEDEF),
-
             SizedBox(
               height: 35.h,
             ),

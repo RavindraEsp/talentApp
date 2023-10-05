@@ -159,23 +159,28 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         CommonMethod.hideKeyBoard(context);
-                                        Common.showLoadingDialog(context);
 
                                         ///Todo temp
 
-                                        Navigator.pushNamed(
-                                            context, RouteName.bottomBarScreen,
-                                            arguments: {"selectIndex": 0});
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            RouteName.bottomBarScreen,
+                                            arguments: {"selectIndex": 0},
+                                            (route) => false);
 
+                                        // Common.showLoadingDialog(context);
                                         // castLoginProvider.login(
                                         //     onSuccess: (message) {
                                         //       Navigator.pop(context);
                                         //       Common.showSuccessToast(
                                         //           context, message);
-                                        //       Navigator.pushNamed(context,
-                                        //           RouteName.bottomBarScreen,
-                                        //           arguments: {"selectIndex": 0});
-                                        //     },
+
+                                        // Navigator.pushNamedAndRemoveUntil(
+                                        //     context,
+                                        //     RouteName.bottomBarScreen,
+                                        //     arguments: {"selectIndex": 0},
+                                        //     (route) => false);
+
                                         //     onFailure: (message) {
                                         //       Navigator.pop(context);
                                         //       Common.showErrorSnackBar(
