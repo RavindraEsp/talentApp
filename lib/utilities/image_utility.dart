@@ -81,5 +81,6 @@ class ImageUtility {
   static const String youtubeCircleIcon = 'assets/icons/youtube_circle_icon.png';
   static const String tiktokCircleIcon = 'assets/icons/tiktok_circle_icon.png';
   static const String popularIcon = 'assets/icons/popular_icon.png';
+  static const String editCircleIcon = 'assets/icons/edit_circle_icon.png';
 }
 

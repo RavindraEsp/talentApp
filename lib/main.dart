@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:talent_app/modules/casting/bottomBar/screen/bottom_bar_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'modules/casting/manageAudition/manageAuditionCreated/screens/manage_audition_created_screen.dart';
-import 'modules/casting/manageAudition/manageAuditionCreated/screens/user_profile_screen.dart';
-import 'modules/casting/menu/screens/menu_static_screen.dart';
+
+import 'modules/casting/bottomBar/screen/bottom_bar_screen.dart';
+import 'modules/casting/chat/screens/chat_screen.dart';
+import 'modules/casting/editAudition/screens/edit_audition_screen.dart';
+import 'modules/demo_screen.dart';
 import 'modules/intro/intro_screen.dart';
 
 void main() {
@@ -58,11 +59,7 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-           // home: const IntroScreen(),
-            home: const CastProfileScreen(),
-            //home: BottomBarScreen(selectIndex: 0),
-            
-            //  home: const ManageAuditionCreatedScreen(),
+             home: const IntroScreen(),
             // home: const SeeUserProfileScreen(),
 
             onGenerateRoute: AppRoute.generateRoute,

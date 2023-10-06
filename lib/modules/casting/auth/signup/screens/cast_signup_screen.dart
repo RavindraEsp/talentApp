@@ -88,6 +88,8 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                             ),
                           ),
                         ),
+
+
                         Expanded(
                           child: SingleChildScrollView(
                             child: Padding(

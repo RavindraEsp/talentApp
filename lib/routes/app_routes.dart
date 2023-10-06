@@ -10,6 +10,8 @@ import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provide
 import 'package:talent_app/modules/casting/bottomBar/screen/bottom_bar_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
+import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_place_time_screen.dart';
+import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_screen.dart';
 import 'package:talent_app/modules/casting/helloCasting/hello_casting_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/manage_audition_created_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/user_profile_screen.dart';
@@ -84,6 +86,16 @@ class AppRoute {
           builder: (context) => const CreateAuditionPlaceTimeScreen(),
         );
 
+      case RouteName.editAuditionScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditAuditionScreen(),
+        );
+
+      case RouteName.editAuditionPlaceTimeScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditAuditionPlaceTimeScreen(),
+        );
+
       case RouteName.manageFinishedAuditionScreen:
         return MaterialPageRoute(
           builder: (context) => const ManageFinishedAuditionScreen(),
@@ -102,11 +114,10 @@ class AppRoute {
       case RouteName.menuStaticScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) =>  MenuStaticScreen(
+          builder: (context) => MenuStaticScreen(
             headerText: arg["headerText"],
           ),
         );
-
 
       default:
         return MaterialPageRoute(builder: (context) => const IntroScreen());

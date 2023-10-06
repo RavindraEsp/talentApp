@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/casting/bottomBar/screen/bottom_bar_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -42,7 +43,13 @@ class _SettingScreenState extends State<SettingScreen> {
             SettingTileWidget(
               title: context.loc.settingEditProfile,
               image: ImageUtility.editProfileIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.bottomBarScreen,
+                    arguments: {"selectIndex": 3},
+                        (route) => false);
+              },
             ),
             Container(
                 height: 1,

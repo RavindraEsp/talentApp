@@ -77,7 +77,13 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuNotifications,
               image: ImageUtility.notificationSettingIconIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.bottomBarScreen,
+                    arguments: {"selectIndex": 1},
+                    (route) => false);
+              },
             ),
             Container(
                 height: 1,
@@ -86,7 +92,13 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuChat,
               image: ImageUtility.chatIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.bottomBarScreen,
+                    arguments: {"selectIndex": 2},
+                        (route) => false);
+              },
             ),
             Container(
                 height: 1,

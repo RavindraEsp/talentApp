@@ -9,6 +9,8 @@ class RouteName {
   static const String menuScreen = "/menuScreen";
   static const String createAuditionScreen = "/createAuditionScreen";
   static const String createAuditionPlaceTimeScreen = "/createAuditionPlaceTimeScreen";
+  static const String editAuditionScreen = "/editAuditionScreen";
+  static const String editAuditionPlaceTimeScreen = "/editAuditionPlaceTimeScreen";
   static const String manageFinishedAuditionScreen = "/manageFinishedAuditionScreen";
   static const String manageAuditionCreatedScreen = "/manageAuditionCreatedScreen";
   static const String seeUserProfileScreen = "/seeUserProfileScreen";

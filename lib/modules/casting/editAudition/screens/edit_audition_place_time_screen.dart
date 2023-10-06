@@ -17,18 +17,26 @@ import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
-class CreateAuditionPlaceTimeScreen extends StatefulWidget {
-  const CreateAuditionPlaceTimeScreen({super.key});
+class EditAuditionPlaceTimeScreen extends StatefulWidget {
+  const EditAuditionPlaceTimeScreen({super.key});
 
   @override
-  State<CreateAuditionPlaceTimeScreen> createState() =>
-      _CreateAuditionPlaceTimeScreenState();
+  State<EditAuditionPlaceTimeScreen> createState() =>
+      _EditAuditionPlaceTimeScreenState();
 }
 
-class _CreateAuditionPlaceTimeScreenState
-    extends State<CreateAuditionPlaceTimeScreen> {
+class _EditAuditionPlaceTimeScreenState
+    extends State<EditAuditionPlaceTimeScreen> {
   final _formKey = GlobalKey<FormState>();
-  List<DateTimeModel>? dateTimeList = [];
+  List<DateTimeModel>? dateTimeList = [
+    DateTimeModel(
+  "19/10/2023",
+  "10:00",
+  "50"),
+    DateTimeModel(
+        "20/10/2023",
+        "11:00",
+        "60")];
   TextEditingController auditionDescriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -40,7 +48,7 @@ class _CreateAuditionPlaceTimeScreenState
       backgroundColor: ColorUtility.colorWhite,
       bottomNavigationBar: Padding(
         padding:
-            EdgeInsets.only(bottom: 20.h, top: 20.h, left: 20.w, right: 20.w),
+        EdgeInsets.only(bottom: 20.h, top: 20.h, left: 20.w, right: 20.w),
         child: Row(
           children: [
             Expanded(
@@ -59,7 +67,7 @@ class _CreateAuditionPlaceTimeScreenState
                 //  buttonText: context.loc.buttonPublish,
                 buttonText: dateTimeList!.isEmpty
                     ? context.loc.buttonNext
-                    : context.loc.buttonPublish,
+                    : context.loc.buttonUpdate,
                 buttonType: ButtonType.yellow,
                 onTap: () {
                   showAuditionAuditionCreateSuccessDialog(context: context);
@@ -108,10 +116,10 @@ class _CreateAuditionPlaceTimeScreenState
                               color: Colors.white,
                             ),
                             Text(
-                              context.loc.headerCreateAnAudition,
+                              context.loc.headerEditAudition,
                               style: StyleUtility.kantumruyProSMedium18TextStyle
                                   .copyWith(
-                                      fontSize: TextSizeUtility.textSize18.sp),
+                                  fontSize: TextSizeUtility.textSize18.sp),
                             ),
                           ],
                         ),
@@ -132,7 +140,7 @@ class _CreateAuditionPlaceTimeScreenState
                           context.loc.titleAuditionLocation,
                           style: StyleUtility.quicksandSemiBold5457BETextStyle
                               .copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp),
+                              fontSize: TextSizeUtility.textSize16.sp),
                         ),
                         SizedBox(
                           height: 10.h,
@@ -158,7 +166,7 @@ class _CreateAuditionPlaceTimeScreenState
                           context.loc.createAuditionDateTimeDesc,
                           style: StyleUtility.quicksandRegularBlackTextStyle
                               .copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp),
+                              fontSize: TextSizeUtility.textSize16.sp),
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(
@@ -170,12 +178,12 @@ class _CreateAuditionPlaceTimeScreenState
                                 flex: 4,
                                 child: Center(
                                     child: Text(
-                                  context.loc.titleDate,
-                                  style: StyleUtility
-                                      .quicksandSemiBold5457BETextStyle
-                                      .copyWith(
+                                      context.loc.titleDate,
+                                      style: StyleUtility
+                                          .quicksandSemiBold5457BETextStyle
+                                          .copyWith(
                                           fontSize: TextSizeUtility.textSize15),
-                                ))),
+                                    ))),
                             SizedBox(
                               width: 7.w,
                             ),
@@ -183,12 +191,12 @@ class _CreateAuditionPlaceTimeScreenState
                                 flex: 2,
                                 child: Center(
                                     child: Text(
-                                  context.loc.titleTime,
-                                  style: StyleUtility
-                                      .quicksandSemiBold5457BETextStyle
-                                      .copyWith(
+                                      context.loc.titleTime,
+                                      style: StyleUtility
+                                          .quicksandSemiBold5457BETextStyle
+                                          .copyWith(
                                           fontSize: TextSizeUtility.textSize15),
-                                ))),
+                                    ))),
                             SizedBox(
                               width: 7.w,
                             ),
@@ -196,12 +204,12 @@ class _CreateAuditionPlaceTimeScreenState
                                 flex: 2,
                                 child: Center(
                                     child: Text(
-                                  context.loc.titleSpots,
-                                  style: StyleUtility
-                                      .quicksandSemiBold5457BETextStyle
-                                      .copyWith(
+                                      context.loc.titleSpots,
+                                      style: StyleUtility
+                                          .quicksandSemiBold5457BETextStyle
+                                          .copyWith(
                                           fontSize: TextSizeUtility.textSize15),
-                                ))),
+                                    ))),
                             SizedBox(
                               width: 7.w,
                             ),
@@ -335,7 +343,7 @@ class _CreateAuditionPlaceTimeScreenState
           return SuccessAlertDialog(
             title: context.loc.dialogGoodJob,
             description:
-                context.loc.dialogCreateAuditionSuccessDesc,
+            context.loc.dialogEditAuditionSuccessDesc,
             onCrossTap: () {},
           );
         }).then((value) {

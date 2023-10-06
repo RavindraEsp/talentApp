@@ -143,10 +143,20 @@ class AuditionCreatedWidget extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Image.asset(
-                                  ImageUtility.editIcon,
-                                  width: 25.w,
-                                  fit: BoxFit.fill,
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RouteName.editAuditionScreen);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Image.asset(
+                                      ImageUtility.editIcon,
+                                      width: 25.w,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
                                 ),
                               ],
                             )

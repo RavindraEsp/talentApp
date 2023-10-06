@@ -88,22 +88,22 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 80.h,
-          width: double.infinity,
-          alignment: Alignment.topCenter,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: ColorUtility.castHeaderGradientColor)),
-        ),
-        SafeArea(
-          child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: Container(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          Container(
+            height: 80.h,
+            width: double.infinity,
+            alignment: Alignment.topCenter,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: ColorUtility.castHeaderGradientColor)),
+          ),
+          SafeArea(
+              child: Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(ImageUtility.castSignupBgImage),
@@ -111,7 +111,7 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                   ),
                   child: Column(children: [
                     Container(
-                      margin: EdgeInsets.only(left: 24.w, top: 22.h),
+                      margin: EdgeInsets.only(left: 24.w, top: 12.h),
                       child: AppBar(
                         backgroundColor: Colors.transparent,
                         elevation: 0,
@@ -119,7 +119,7 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                         title: Text(
                           "Hello, Alen",
                           style: StyleUtility.headerTextStyle.copyWith(
-                              fontSize: TextSizeUtility.textSize22.sp),
+                              fontSize: TextSizeUtility.textSize18.sp),
                         ),
                       ),
                     ),
@@ -133,7 +133,7 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                               height: 30.h,
                             ),
                             Text(
-                              "Your profile details",
+                              context.loc.titleYourProfileDetails,
                               style: StyleUtility
                                   .quicksandSemiBold5457BETextStyle
                                   .copyWith(
@@ -263,9 +263,6 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-
-
-
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -283,49 +280,12 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        await getImageProfile();
+                                        await getImageLogo();
                                       },
-                                      child: Container(
-                                        height: 160.h,
-                                        width: 140.w,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.r),
-                                          border: Border.all(
-                                            color: ColorUtility.colorD6D6D8,
-                                          ),
-                                        ),
-                                        child: _profileImage == null
-                                            ? Container(
-                                                padding: EdgeInsets.all(53.w),
-
-                                                width: 30.w,
-                                                child: Image.asset(
-                                                  ImageUtility.addIcon,
-                                                ),
-                                              )
-                                            : Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
-                                                ),
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    child: Image.file(
-                                                      File(_profileImage!.path),
-                                                      fit: BoxFit.cover,
-                                                    )),
-                                              ),
-                                      ),
+                                      child: logoProfileWidget(_logoImage),
                                     )
                                   ],
                                 ),
-
-
-
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -343,61 +303,9 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        await getImageLogo();
+                                        await getImageProfile();
                                       },
-                                      child: SizedBox(
-                                          height: 145.w,
-                                          width: 146.w,
-                                          child: _logoImage == null
-                                              ? Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.r),
-                                                    border: Border.all(
-                                                      color: ColorUtility
-                                                          .colorD6D6D8,
-                                                    ),
-                                                  ),
-                                                  child: Container(
-                                                    padding:
-                                                        EdgeInsets.all(53.w),
-                                                    height: 5.h,
-                                                    width: 30.w,
-                                                    child: Image.asset(
-                                                      ImageUtility.addIcon,
-                                                    ),
-                                                  ),
-                                                )
-                                              : Stack(
-                                                  alignment:
-                                                      Alignment.bottomRight,
-                                                  children: [
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 12.w,
-                                                          bottom: 12.w),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.r),
-                                                        child: Image.file(
-                                                          File(
-                                                              _logoImage!.path),
-                                                          fit: BoxFit.cover,
-                                                          width:
-                                                              double.infinity,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Image.asset(
-                                                      ImageUtility
-                                                          .tiktokCircleIcon,
-                                                      width: 33.w,
-                                                      height: 33.w,
-                                                    )
-                                                  ],
-                                                )),
+                                      child: logoProfileWidget(_profileImage),
                                     )
                                   ],
                                 )
@@ -432,24 +340,59 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                           ]),
                     )),
                   ]))),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Future<dynamic> showCongratulationDialog({
-    required BuildContext context,
-    required VoidCallback onButtonTap,
-  }) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          return CongratulationAlertDialog(
-            onButtonTap: onButtonTap,
-            image: ImageUtility.congratulationIcon,
-          );
-        }).then((value) {
-      print("Then is called");
-    });
+  SizedBox logoProfileWidget(XFile? imageFile) {
+    return SizedBox(
+        height: 145.w,
+        width: 146.w,
+        child: imageFile == null
+            ? Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  border: Border.all(
+                    color: ColorUtility.colorD6D6D8,
+                  ),
+                ),
+                child: Center(
+                  child: SizedBox(
+                    height: 30.w,
+                    width: 30.w,
+                    child: Image.asset(
+                      ImageUtility.addIcon,
+                    ),
+                  ),
+                ),
+              )
+            : Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 12.w, bottom: 12.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(
+                        color: ColorUtility.colorD6D6D8,
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.r),
+                      child: Image.file(
+                        File(imageFile!.path),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ),
+                  ),
+                  Image.asset(
+                    ImageUtility.editCircleIcon,
+                    width: 33.w,
+                    height: 33.w,
+                  )
+                ],
+              ));
   }
 }
