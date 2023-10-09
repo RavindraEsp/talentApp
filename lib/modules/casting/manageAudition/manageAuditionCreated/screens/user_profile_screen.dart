@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -54,7 +55,11 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(
-                    left: 18.w, right: 18.w, top: 24.h, bottom: 24.h),
+                    left: 18.w,
+                    right: 18.w,
+                    //  top: 24.h, bottom: 24.h
+                    top: 14.h,
+                    bottom: 14.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -175,7 +180,10 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                             buttonText:
                                 "${context.loc.buttonChatWith} Michaela",
                             icon: ImageUtility.messageNavIcon,
-                            onTap: () {}),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteName.chatScreen);
+                            }),
                         SizedBox(
                           height: 23.h,
                         ),

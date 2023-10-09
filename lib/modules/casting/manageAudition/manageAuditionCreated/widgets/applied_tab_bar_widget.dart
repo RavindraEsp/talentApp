@@ -178,7 +178,10 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                               buttonText:
                                   "${context.loc.buttonChatWith} Michaela",
                               icon: ImageUtility.messageNavIcon,
-                              onTap: () {}),
+                              onTap: () {
+                                Navigator.pushNamed(context,
+                                    RouteName.chatScreen);
+                              }),
                           SizedBox(
                             height: 35.h,
                           ),

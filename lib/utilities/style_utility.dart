@@ -55,6 +55,16 @@ class StyleUtility {
   static TextStyle quicksandRegular9F9E9ETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400, color: ColorUtility.color9F9E9E);
 
+
+  static TextStyle quicksandRegular787E84TextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w400, color: ColorUtility.color787E84);
+
+
+
+
+
+
+
   static TextStyle selectTabTextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w500,
       // fontSize: TextSizeUtility.textSize15,

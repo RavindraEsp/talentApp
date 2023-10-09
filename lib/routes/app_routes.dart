@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talent_app/modules/casting/auth/forgotPassword/provider/ForgotPassVerifyOtpProvider.dart';
+import 'package:talent_app/modules/casting/auth/forgotPassword/screens/forgot_pass_verify_otp_screen.dart';
 import 'package:talent_app/modules/casting/auth/login/provider/cast_login_provider.dart';
 import 'package:talent_app/modules/casting/auth/login/screen/cast_login_screen.dart';
 import 'package:talent_app/modules/casting/auth/signup/provider/cast_verify_phone_provider.dart';
@@ -8,6 +10,7 @@ import 'package:talent_app/modules/casting/auth/signup/provider/signup_screen_pr
 import 'package:talent_app/modules/casting/auth/signup/screens/cast_verify_phone_screen.dart';
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
 import 'package:talent_app/modules/casting/bottomBar/screen/bottom_bar_screen.dart';
+import 'package:talent_app/modules/casting/chat/screens/chat_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
 import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_place_time_screen.dart';
@@ -20,6 +23,7 @@ import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
+import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 
 class AppRoute {
@@ -30,10 +34,14 @@ class AppRoute {
             builder: (context) => const HelloCastingScreen());
 
       case RouteName.castSignupScreen:
+        var arg = settings.arguments as Map;
+
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
                 create: (_) => SignUpScreenProvider(),
-                child: const CastSignupScreen()));
+                child: CastSignupScreen(
+                  userType: arg["userType"],
+                )));
 
       case RouteName.castVerifyPhoneScreen:
         var arg = settings.arguments as Map;
@@ -56,6 +64,17 @@ class AppRoute {
                   create: (_) => CastLoginProvider(),
                   child: const CastLoginScreen(),
                 ));
+
+      case RouteName.forgotPassVerifyOtpScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (_) => ForgotPassVerifyOtpProvider(),
+              child:  ForgotPassVerifyOtpScreen(
+                email: arg["email"],
+              ),
+            ));
+
 
       case RouteName.bottomBarScreen:
         var arg = settings.arguments as Map;
@@ -117,6 +136,18 @@ class AppRoute {
           builder: (context) => MenuStaticScreen(
             headerText: arg["headerText"],
           ),
+        );
+
+      case RouteName.chatScreen:
+        return MaterialPageRoute(
+          builder: (context) => const ChatScreen(),
+        );
+
+      // Talent Screens
+
+      case RouteName.helloTalentScreen:
+        return MaterialPageRoute(
+          builder: (context) => const HelloTalentScreen(),
         );
 
       default:

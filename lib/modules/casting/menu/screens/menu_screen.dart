@@ -68,7 +68,9 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuCreateAnAudition,
               image: ImageUtility.createAuditionIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteName.createAuditionScreen);
+              },
             ),
             Container(
                 height: 1,
@@ -97,7 +99,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     context,
                     RouteName.bottomBarScreen,
                     arguments: {"selectIndex": 2},
-                        (route) => false);
+                    (route) => false);
               },
             ),
             Container(
@@ -107,7 +109,12 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuTermAndConditions,
               image: ImageUtility.tCIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteName.menuStaticScreen,
+                    arguments: {
+                      "headerText": context.loc.menuTermAndConditions
+                    });
+              },
             ),
             Container(
                 height: 1,
@@ -116,7 +123,10 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuSupport,
               image: ImageUtility.supportIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteName.menuStaticScreen,
+                    arguments: {"headerText": context.loc.menuSupport});
+              },
             ),
             Container(
                 height: 1,
@@ -125,7 +135,10 @@ class _MenuScreenState extends State<MenuScreen> {
             SettingTileWidget(
               title: context.loc.menuPolicy,
               image: ImageUtility.policyIcon,
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, RouteName.menuStaticScreen,
+                    arguments: {"headerText": context.loc.menuPolicy});
+              },
             ),
             Container(
                 height: 1,

@@ -1,11 +1,16 @@
 class ImageUtility {
-  // Images
+  // Cast Images
   static const String introBgImage = 'assets/images/intro_bg.png';
   static const String introBg2Image = 'assets/images/intro_bg.png';
   static const String introCardImage = 'assets/images/intro_card.png';
   static const String helloCastBgImage = 'assets/images/hello_cast_bg.png';
   static const String helloCastCardImage = 'assets/images/hello_cast_card.png';
   static const String castSignupBgImage = 'assets/images/cast_signup_bg.png';
+  static const String talentSignupBgImage = 'assets/images/talent_signup_bg.png';
+
+  // Talents Images
+  static const String helloTalentBgImage = 'assets/images/hello_talent_bg.png';
+
 
   static const String dummyProfileImage = 'assets/images/dummy_profile.png';
   static const String dummyAppliedUserImage = 'assets/images/dummy_applied_user_image.png';
@@ -82,5 +87,8 @@ class ImageUtility {
   static const String tiktokCircleIcon = 'assets/icons/tiktok_circle_icon.png';
   static const String popularIcon = 'assets/icons/popular_icon.png';
   static const String editCircleIcon = 'assets/icons/edit_circle_icon.png';
+  static const String sendMsgIcon = 'assets/icons/send_msg_icon.png';
+  static const String cameraIcon = 'assets/icons/camera_icon.png';
+  static const String micIcon = 'assets/icons/mic_icon.png';
 }
 

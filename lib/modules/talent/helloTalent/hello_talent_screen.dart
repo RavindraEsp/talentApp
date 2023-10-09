@@ -10,14 +10,14 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
 
-class HelloCastingScreen extends StatefulWidget {
-  const HelloCastingScreen({super.key});
+class HelloTalentScreen extends StatefulWidget {
+  const HelloTalentScreen({super.key});
 
   @override
-  State<HelloCastingScreen> createState() => _HelloCastingScreenState();
+  State<HelloTalentScreen> createState() => _HelloTalentScreenState();
 }
 
-class _HelloCastingScreenState extends State<HelloCastingScreen> {
+class _HelloTalentScreenState extends State<HelloTalentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,9 +25,8 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
         children: [
           SizedBox(
             width: double.infinity,
-
-            child: Image.asset(ImageUtility.helloCastBgImage,
-                fit: BoxFit.fill),
+            child: Image.asset(ImageUtility.helloTalentBgImage,
+            fit: BoxFit.fill,),
           ),
           Container(
             // alignment: Alignment.topCenter,
@@ -64,7 +63,8 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
                               color: Colors.white,
                             ),
                             Text(
-                              context.loc.buttonIAmTalent,
+                             // context.loc.buttonIAmTalent,
+                              "I’m a Casting",
                               style: StyleUtility.kantumruyProSMedium18TextStyle
                                   .copyWith(
                                 fontSize: TextSizeUtility.textSize18.sp,
@@ -77,7 +77,8 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
                           height: 18.h,
                         ),
                         Text(
-                          context.loc.helloCast,
+                        //  context.loc.helloCast,
+                          "Hello Talent",
                           textAlign: TextAlign.center,
                           style: StyleUtility.extraLargeTextStyle.copyWith(
                               fontSize: TextSizeUtility.textSize40.sp),
@@ -86,7 +87,8 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
                           height: 8.h,
                         ),
                         Text(
-                          context.loc.helloCastDesc,
+                         // context.loc.helloCastDesc,
+                          "Come and join us and get good opportunities for work in the field of acting, singing, modeling and more… Let the work find you!",
                           textAlign: TextAlign.center,
                           style:
                               StyleUtility.quicksandRegular15TextStyle.copyWith(
@@ -98,11 +100,11 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
                         ),
                         CustomButton(
                           buttonText: context.loc.buttonNewHere,
-                          buttonType: ButtonType.yellow,
+                          buttonType: ButtonType.blue,
                           onTap: () {
                             Navigator.pushNamed(
                                 context, RouteName.castSignupScreen,
-                                arguments: {"userType": UserType.cast});
+                                arguments: {"userType": UserType.talent});
                           },
                         ),
                         SizedBox(
@@ -112,8 +114,8 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
                           buttonText: context.loc.buttonLogin,
                           buttonColor: ColorUtility.color29244C,
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteName.castLoginScreen);
+                            // Navigator.pushNamed(
+                            //     context, RouteName.castLoginScreen);
                           },
                         ),
                         SizedBox(

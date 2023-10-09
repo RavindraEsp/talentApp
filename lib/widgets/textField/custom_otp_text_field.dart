@@ -21,6 +21,7 @@ class CustomOtpTextField extends StatelessWidget {
         length: 4,
         blinkWhenObscuring: true,
         animationType: AnimationType.fade,
+
         pinTheme: PinTheme(
           activeColor: ColorUtility.colorD6D6D8,
           inactiveColor: ColorUtility.colorD6D6D8,
@@ -32,8 +33,11 @@ class CustomOtpTextField extends StatelessWidget {
           shape: PinCodeFieldShape.box,
           fieldOuterPadding: const EdgeInsets.all(6.0),
           borderRadius: BorderRadius.circular(5),
-          fieldHeight: 70.h,
-          fieldWidth: 75.w,
+         // fieldHeight: 70.h,
+        //  fieldWidth: 75.w,
+
+          // fieldHeight: 71.w,
+            fieldWidth: 56.w,
         ),
         cursorColor: Colors.black,
         animationDuration: const Duration(milliseconds: 300),

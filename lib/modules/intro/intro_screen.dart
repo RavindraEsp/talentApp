@@ -66,7 +66,18 @@ class _IntroScreenState extends State<IntroScreen> {
                         CustomButton(
                           buttonText: context.loc.buttonIAmTalent,
                           icon: ImageUtility.talentIcon,
-                          onTap: () {},
+                          onTap: () {
+
+
+
+
+                            Navigator.pushNamed(
+                                context, RouteName.helloTalentScreen);
+
+
+
+
+                          },
                         ),
                         SizedBox(
                           height: 16.h,

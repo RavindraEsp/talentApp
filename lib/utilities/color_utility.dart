@@ -22,6 +22,23 @@ class ColorUtility {
     ColorUtility.colorEFC275,
   ];
 
+  static const List<Color> talentHeaderGradientColor = [
+
+    ColorUtility.color445DB8,//3
+    ColorUtility.color65389A, //2
+    ColorUtility.color703297 //1
+
+
+  ];
+
+
+
+
+
+  // static const Color color6E3397 = Color(0xFF6E3397);
+  // static const Color color603D9E = Color(0xFF603D9E);
+  // static const Color color4858B4 = Color(0xFF4858B4);
+
 
   static const Color color703297 = Color(0xFF703297);
   static const Color color65389A = Color(0xFF65389A);
@@ -63,4 +80,6 @@ class ColorUtility {
   static const Color colorE03939 = Color(0xFFE03939);
   static const Color color76768B = Color(0xFF76768B);
   static const Color colorD0D1E0 = Color(0xFFD0D1E0);
+  static const Color colorF4F0EA = Color(0xFFF4F0EA);
+  static const Color color787E84 = Color(0xFF787E84);
 }

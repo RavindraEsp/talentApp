@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
+import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:talent_app/utilities/enums.dart';
 
+import 'modules/casting/auth/forgotPassword/screens/forgot_pass_find_account_screen.dart';
 import 'modules/casting/bottomBar/screen/bottom_bar_screen.dart';
 import 'modules/casting/chat/screens/chat_screen.dart';
 import 'modules/casting/editAudition/screens/edit_audition_screen.dart';
@@ -59,7 +63,13 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-             home: const IntroScreen(),
+            home: const IntroScreen(),
+          //  home: const ForgotPassFindAccountScreen(
+          //     userType: UserType.cast,
+          //   ),
+           // home: const HelloTalentScreen(),
+            //  home: const ChatScreen(),
+            //  home: const ChatListScreen(),
             // home: const SeeUserProfileScreen(),
 
             onGenerateRoute: AppRoute.generateRoute,

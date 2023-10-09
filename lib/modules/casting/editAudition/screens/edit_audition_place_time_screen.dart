@@ -104,7 +104,10 @@ class _EditAuditionPlaceTimeScreenState
                 child: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: 18.w, right: 18.w, top: 24.h, bottom: 24.h),
+                        left: 18.w, right: 18.w,
+                       // top: 24.h, bottom: 24.h
+                        top: 14.h, bottom: 14.h
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,

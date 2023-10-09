@@ -21,7 +21,9 @@ import 'package:talent_app/widgets/textField/mobile_number_text_field.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 class CastSignupScreen extends StatefulWidget {
-  const CastSignupScreen({super.key});
+  final UserType userType;
+
+  const CastSignupScreen({super.key, required this.userType});
 
   @override
   State<CastSignupScreen> createState() => _CastSignupScreenState();
@@ -55,17 +57,27 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
               height: 80.h,
               width: double.infinity,
               alignment: Alignment.topCenter,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.bottomLeft,
                       end: Alignment.topRight,
-                      colors: ColorUtility.castHeaderGradientColor)),
+                      //  colors: ColorUtility.castHeaderGradientColor
+
+                      colors: widget.userType == UserType.cast
+                          ? ColorUtility.castHeaderGradientColor
+                          : ColorUtility.talentHeaderGradientColor)),
             ),
             SafeArea(
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(ImageUtility.castSignupBgImage),
+                      image: AssetImage(
+                          // ImageUtility.castSignupBgImage
+                          // ImageUtility.talentSignupBgImage
+
+                          widget.userType == UserType.cast
+                              ? ImageUtility.castSignupBgImage
+                              : ImageUtility.talentSignupBgImage),
                       fit: BoxFit.fill),
                 ),
                 child: Form(
@@ -88,8 +100,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                             ),
                           ),
                         ),
-
-
                         Expanded(
                           child: SingleChildScrollView(
                             child: Padding(
@@ -107,8 +117,8 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                     style: StyleUtility
                                         .kantumruyProSemiBold5457BETextStyle
                                         .copyWith(
-                                            fontSize: TextSizeUtility
-                                                .textSize26.sp),
+                                            fontSize:
+                                                TextSizeUtility.textSize26.sp),
                                   ),
                                   SizedBox(
                                     height: 6.5.h,
@@ -209,8 +219,7 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                           "IsoCode ${value.countryISOCode}");
                                       AppLogger.logD(
                                           "Country Code ${value.countryCode}");
-                                      AppLogger.logD(
-                                          "Number ${value.number}");
+                                      AppLogger.logD("Number ${value.number}");
                                     },
                                   ),
                                   SizedBox(
@@ -228,7 +237,10 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                   ),
                                   CustomButton(
                                     buttonText: context.loc.buttonSignUp,
-                                    buttonType: ButtonType.yellow,
+                                    //   buttonType: ButtonType.yellow,
+                                    buttonType: widget.userType == UserType.cast
+                                        ? ButtonType.yellow
+                                        : ButtonType.green,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         if (phoneController.text.length < 6) {

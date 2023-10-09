@@ -4,6 +4,7 @@ class RouteName {
   static const String castSignupScreen = "/castSignupScreen";
   static const String castVerifyPhoneScreen = "/castVerifyPhoneScreen";
   static const String castLoginScreen = "/castLoginScreen";
+  static const String forgotPassVerifyOtpScreen = "/forgotPassVerifyOtpScreen";
   static const String bottomBarScreen = "/bottomBarScreen";
   static const String settingScreen = "/settingScreen";
   static const String menuScreen = "/menuScreen";
@@ -15,4 +16,9 @@ class RouteName {
   static const String manageAuditionCreatedScreen = "/manageAuditionCreatedScreen";
   static const String seeUserProfileScreen = "/seeUserProfileScreen";
   static const String menuStaticScreen = "/menuStaticScreen";
+  static const String chatScreen = "/chatScreen";
+
+
+  // Talents Screens
+  static const String helloTalentScreen = "/helloTalentScreen";
 }
