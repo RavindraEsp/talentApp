@@ -145,11 +145,6 @@ class AuditionFinishedWidget extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Image.asset(
-                                  ImageUtility.editIcon,
-                                  width: 25.w,
-                                  fit: BoxFit.fill,
-                                ),
                               ],
                             )
                           ],

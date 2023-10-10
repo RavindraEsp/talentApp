@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
@@ -23,10 +21,11 @@ class _IntroScreenState extends State<IntroScreen> {
     return Scaffold(
       body: Stack(
         children: [
-
-          Image.asset(ImageUtility.introBg2Image,
-          fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width,),
+          Image.asset(
+            ImageUtility.introBg2Image,
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width,
+          ),
           Container(
             width: double.infinity,
             child: Column(
@@ -40,7 +39,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         fit: BoxFit.fill),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 35.w, vertical: 90.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 35.w, vertical: 90.h),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       mainAxisSize: MainAxisSize.min,
@@ -48,7 +48,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         Text(
                           context.loc.letsStart,
                           textAlign: TextAlign.center,
-                          style: StyleUtility.extraLargeTextStyle.copyWith(fontSize: TextSizeUtility.textSize40.sp),
+                          style: StyleUtility.extraLargeTextStyle.copyWith(
+                              fontSize: TextSizeUtility.textSize40.sp),
                         ),
                         SizedBox(
                           height: 8.h,
@@ -56,7 +57,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         Text(
                           context.loc.introDesc,
                           textAlign: TextAlign.center,
-                          style: StyleUtility.quicksandRegular15TextStyle.copyWith(
+                          style:
+                              StyleUtility.quicksandRegular15TextStyle.copyWith(
                             fontSize: TextSizeUtility.textSize15.sp,
                           ),
                         ),
@@ -67,16 +69,8 @@ class _IntroScreenState extends State<IntroScreen> {
                           buttonText: context.loc.buttonIAmTalent,
                           icon: ImageUtility.talentIcon,
                           onTap: () {
-
-
-
-
                             Navigator.pushNamed(
                                 context, RouteName.helloTalentScreen);
-
-
-
-
                           },
                         ),
                         SizedBox(

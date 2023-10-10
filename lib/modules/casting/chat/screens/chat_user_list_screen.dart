@@ -90,79 +90,82 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                       Navigator.pushNamed(context,
                           RouteName.chatScreen);
                     },
-                    child: Column(
-                      children: [
-                        index == 0
-                            ? Container(
-                                width: double.infinity,
-                                height: 1,
-                                color: ColorUtility.colorD6D6D8)
-                            : const SizedBox(),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 20.w, right: 20.w, top: 17.h, bottom: 20.h),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                ImageUtility.dummyProfileImage,
-                                width: 55.w,
-                                height: 55.w,
-                              ),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "Michaela Cohoen ",
+                    child: Padding(
+                      padding:  EdgeInsets.only( left: 20.w, right: 20.w,),
+                      child: Column(
+                        children: [
+                          index == 0
+                              ? Container(
+                                  width: double.infinity,
+                                  height: 1,
+                                  color: ColorUtility.colorD6D6D8)
+                              : const SizedBox(),
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: 17.h, bottom: 20.h),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  ImageUtility.dummyProfileImage,
+                                  width: 55.w,
+                                  height: 55.w,
+                                ),
+                                SizedBox(
+                                  width: 12.w,
+                                ),
+                                Expanded(
+                                    child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            "Michaela Cohoen ",
+                                            style: StyleUtility
+                                                .quicksandBoldBlackTextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize18.sp),
+                                          ),
+                                        ),
+                                        Text(
+                                          "Yesterday",
                                           style: StyleUtility
-                                              .quicksandBoldBlackTextStyle
+                                              .quicksandRegular787E84TextStyle
                                               .copyWith(
                                                   fontSize: TextSizeUtility
-                                                      .textSize18.sp),
+                                                      .textSize14.sp),
                                         ),
-                                      ),
-                                      Text(
-                                        "Yesterday",
-                                        style: StyleUtility
-                                            .quicksandRegular787E84TextStyle
-                                            .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize14.sp),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 8.h,
-                                  ),
-                                  Text(
-                                    "Hi, I’m glad you applied to the audition See you there",
-                                    style: StyleUtility
-                                        .quicksandRegular787E84TextStyle
-                                        .copyWith(
-                                            fontSize:
-                                                TextSizeUtility.textSize14.sp),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ))
-                            ],
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Text(
+                                      "Hi, I’m glad you applied to the audition See you there",
+                                      style: StyleUtility
+                                          .quicksandRegular787E84TextStyle
+                                          .copyWith(
+                                              fontSize:
+                                                  TextSizeUtility.textSize14.sp),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ))
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                            width: double.infinity,
-                            height: 1,
-                            color: ColorUtility.colorD6D6D8),
-                      ],
+                          Container(
+                              width: double.infinity,
+                              height: 1,
+                              color: ColorUtility.colorD6D6D8),
+                        ],
+                      ),
                     ),
                   );
                 }),

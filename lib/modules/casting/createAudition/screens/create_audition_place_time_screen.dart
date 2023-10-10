@@ -8,6 +8,7 @@ import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
+import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/alertDialog/success_alert_dialog.dart';
@@ -249,6 +250,7 @@ class _CreateAuditionPlaceTimeScreenState
                                     controller: dateController,
                                     hintText: "DD/MM/YYYY",
                                     isEnable: false,
+                                   // suffixImage: ImageUtility.calenderIcon,
                                   ),
                                 )),
                             SizedBox(

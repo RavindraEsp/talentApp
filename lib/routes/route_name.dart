@@ -21,4 +21,6 @@ class RouteName {
 
   // Talents Screens
   static const String helloTalentScreen = "/helloTalentScreen";
+  static const String talentCreateCardScreen = "/talentCreateCardScreen";
+  static const String talentCreateCardStepTwoScreen = "/talentCreateCardStepTwoScreen";
 }

@@ -14,6 +14,8 @@ import 'modules/casting/chat/screens/chat_screen.dart';
 import 'modules/casting/editAudition/screens/edit_audition_screen.dart';
 import 'modules/demo_screen.dart';
 import 'modules/intro/intro_screen.dart';
+import 'modules/talent/createCard/screens/talent_create_card_screen.dart';
+import 'modules/talent/createCard/screens/talent_create_card_step_two_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,10 +66,18 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
             home: const IntroScreen(),
-          //  home: const ForgotPassFindAccountScreen(
-          //     userType: UserType.cast,
-          //   ),
+
            // home: const HelloTalentScreen(),
+
+
+          //  home: const TalentCreateCardScreen(),
+
+          //  home: const TalentCreateCardStepTwoScreen(),
+
+            //  home: const ForgotPassFindAccountScreen(
+            //     userType: UserType.cast,
+            //   ),
+            // home: const HelloTalentScreen(),
             //  home: const ChatScreen(),
             //  home: const ChatListScreen(),
             // home: const SeeUserProfileScreen(),

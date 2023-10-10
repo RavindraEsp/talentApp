@@ -6,7 +6,7 @@ class ImageUtility {
   static const String helloCastBgImage = 'assets/images/hello_cast_bg.png';
   static const String helloCastCardImage = 'assets/images/hello_cast_card.png';
   static const String castSignupBgImage = 'assets/images/cast_signup_bg.png';
-  static const String talentSignupBgImage = 'assets/images/talent_signup_bg.png';
+  static const String talentSignupBgImage = 'assets/images/talent_signup_bg.jpg';
 
   // Talents Images
   static const String helloTalentBgImage = 'assets/images/hello_talent_bg.png';

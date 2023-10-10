@@ -133,10 +133,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                           left: 12.w, right: 20.w),
                                       child: Column(
                                         children: [
-                                          // Container(
-                                          //   height: 1,
-                                          //   color: ColorUtility.colorE4E4E8,
-                                          // ),
+
                                           SizedBox(
                                             height: 14.h,
                                           ),
@@ -145,13 +142,32 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                               Expanded(
                                                   child: Row(
                                                 children: [
-                                                  Image.asset(
-                                                    ImageUtility
-                                                        .dummyProfileImage,
-                                                    width: 45.sp,
-                                                    height: 45.sp,
-                                                    fit: BoxFit.fill,
+
+                                                  Stack(
+                                                    alignment:Alignment.bottomLeft,
+                                                    children: [
+                                                      Padding(
+                                                        padding:  EdgeInsets.only(bottom: 5.w,left: 5.w),
+                                                        child: Image.asset(
+                                                          ImageUtility
+                                                              .dummyProfileImage,
+                                                          width: 45.w,
+                                                          height: 45.w,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+
+                                                      Image.asset(
+                                                        ImageUtility.popularIcon,
+                                                        width: 20.w,
+                                                        height: 20.w,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ],
                                                   ),
+
+
+
                                                   SizedBox(
                                                     width: 5.w,
                                                   ),

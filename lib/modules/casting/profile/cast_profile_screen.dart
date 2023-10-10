@@ -4,14 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
+import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
-import 'package:talent_app/widgets/alertDialog/congratulation_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
+import 'package:talent_app/widgets/custom_drop_down_widget.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 class CastProfileScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
   XFile? _profileImage;
 
   final ImagePicker picker = ImagePicker();
-  int? _selectedGenderValue = 1;
+
   final _createCardKey = GlobalKey<FormState>();
 
   Future getImageLogo() async {
@@ -51,25 +52,13 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
     AppLogger.logD('PickedFileProfile: ${image.toString()}');
     setState(() {
       _profileImage = XFile(image!.path);
-      // Navigator.pop(this.context);
     });
   }
 
-  List<DropdownMenuItem<int>> listItems = [
-    DropdownMenuItem(
-      value: 1,
-      child: Text(
-        "Male",
-        style: StyleUtility.hintTextStyle,
-      ),
-    ),
-    DropdownMenuItem(
-      value: 2,
-      child: Text(
-        "Female",
-        style: StyleUtility.hintTextStyle,
-      ),
-    )
+  DropDownModel? selectGender;
+  List<DropDownModel> genderList = [
+    DropDownModel("Male", "1"),
+    DropDownModel("Female", "1")
   ];
 
   @override
@@ -192,46 +181,14 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                                   width: 14.w,
                                 ),
                                 Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 8.w,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      border: Border.all(
-                                        color: ColorUtility.colorD6D6D8,
-                                      ),
-                                    ),
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                        value: _selectedGenderValue,
-                                        items: listItems,
-                                        isExpanded: true,
-                                        icon: SizedBox(
-                                          height: 10.h,
-                                          child: Image.asset(
-                                              ImageUtility.dropDownArrowIcon),
-                                        ),
-                                        underline: Container(
-                                          color: ColorUtility.colorD6D6D8,
-                                        ),
-                                        hint: Text(
-                                          context.loc.hintGender,
-                                          style: StyleUtility.hintTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize15.sp),
-                                        ),
-                                        onChanged: (int? value) {
-                                          setState(() {
-                                            _selectedGenderValue = value!;
-                                            print(value);
-                                          });
+                                    child: CustomDropDownWidget(
+                                        ovValueChange: (item) {
+                                          selectGender = item;
+                                          setState(() {});
                                         },
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                        dropDownList: genderList,
+                                        selectItem: selectGender,
+                                        hintText: context.loc.hintGender))
                               ],
                             ),
                             SizedBox(

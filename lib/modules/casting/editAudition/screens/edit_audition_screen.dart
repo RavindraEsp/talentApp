@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
+import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
+import 'package:talent_app/modules/casting/createAudition/widgets/select_unselect_widget.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -149,10 +151,11 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                 child: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: 18.w, right: 18.w,
-                      //  top: 24.h, bottom: 24.h
-                        top: 14.h, bottom: 14.h
-                    ),
+                        left: 18.w,
+                        right: 18.w,
+                        //  top: 24.h, bottom: 24.h
+                        top: 14.h,
+                        bottom: 14.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -211,53 +214,12 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in lookingForModel!)
-                              GestureDetector(
-                                onTap: () {
-                                  item.isSelect = !item.isSelect;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 9.w, bottom: 13.h),
-                                    padding: EdgeInsets.only(
-                                        left: 15.sp,
-                                        right: 20.sp,
-                                        top: 9.sp,
-                                        bottom: 9.sp),
-                                    decoration: BoxDecoration(
-                                        color: item.isSelect == false
-                                            ? ColorUtility.colorWhite
-                                            : ColorUtility.colorEFF2F4,
-                                        borderRadius:
-                                            BorderRadius.circular(30.r),
-                                        border: Border.all(
-                                            color: ColorUtility.colorD3D6D6)),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          item.isSelect == false
-                                              ? ImageUtility.plusIcon
-                                              : ImageUtility.crossSelectIcon,
-                                          width: 5.w,
-                                          height: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          item.title,
-                                          style: StyleUtility
-                                              .quicksandRegularBlackTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ],
-                                    )),
-                              )
+                              SelectUnselectWidget(
+                                  onTap: () {
+                                    item.isSelect = !item.isSelect;
+                                    setState(() {});
+                                  },
+                                  item: item),
                           ],
                         ),
                         SizedBox(
@@ -381,8 +343,18 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                 textInputType: TextInputType.number,
                               ),
                             ),
-                            SizedBox(
-                              width: 29.w,
+                            Container(
+                              height: 50,
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.w, right: 10.w),
+                                child: Container(
+                                  height: 1,
+                                  width: 10.w,
+                                  color: ColorUtility.colorD6D6D8,
+                                ),
+                              ),
                             ),
                             Expanded(
                               child: SimpleTextField(
@@ -415,8 +387,18 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                 textInputType: TextInputType.number,
                               ),
                             ),
-                            SizedBox(
-                              width: 29.w,
+                            Container(
+                              height: 50,
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.w, right: 10.w),
+                                child: Container(
+                                  height: 1,
+                                  width: 10.w,
+                                  color: ColorUtility.colorD6D6D8,
+                                ),
+                              ),
                             ),
                             Expanded(
                               child: SimpleTextField(
@@ -449,8 +431,18 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                 textInputType: TextInputType.number,
                               ),
                             ),
-                            SizedBox(
-                              width: 29.w,
+                            Container(
+                              height: 50,
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(left: 10.w, right: 10.w),
+                                child: Container(
+                                  height: 1,
+                                  width: 10.w,
+                                  color: ColorUtility.colorD6D6D8,
+                                ),
+                              ),
                             ),
                             Expanded(
                               child: SimpleTextField(
@@ -500,53 +492,12 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in eyeColorModel!)
-                              GestureDetector(
-                                onTap: () {
-                                  item.isSelect = !item.isSelect;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 9.w, bottom: 13.h),
-                                    padding: EdgeInsets.only(
-                                        left: 15.sp,
-                                        right: 20.sp,
-                                        top: 9.sp,
-                                        bottom: 9.sp),
-                                    decoration: BoxDecoration(
-                                        color: item.isSelect == false
-                                            ? ColorUtility.colorWhite
-                                            : ColorUtility.colorEFF2F4,
-                                        borderRadius:
-                                            BorderRadius.circular(30.r),
-                                        border: Border.all(
-                                            color: ColorUtility.colorD3D6D6)),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          item.isSelect == false
-                                              ? ImageUtility.plusIcon
-                                              : ImageUtility.crossSelectIcon,
-                                          width: 5.w,
-                                          height: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          item.title,
-                                          style: StyleUtility
-                                              .quicksandRegularBlackTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ],
-                                    )),
-                              )
+                              SelectUnselectWidget(
+                                  onTap: () {
+                                    item.isSelect = !item.isSelect;
+                                    setState(() {});
+                                  },
+                                  item: item),
                           ],
                         ),
                         SizedBox(height: 20.h),
@@ -588,53 +539,12 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in hairColorModel!)
-                              GestureDetector(
-                                onTap: () {
-                                  item.isSelect = !item.isSelect;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 9.w, bottom: 13.h),
-                                    padding: EdgeInsets.only(
-                                        left: 15.sp,
-                                        right: 20.sp,
-                                        top: 9.sp,
-                                        bottom: 9.sp),
-                                    decoration: BoxDecoration(
-                                        color: item.isSelect == false
-                                            ? ColorUtility.colorWhite
-                                            : ColorUtility.colorEFF2F4,
-                                        borderRadius:
-                                            BorderRadius.circular(30.r),
-                                        border: Border.all(
-                                            color: ColorUtility.colorD3D6D6)),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          item.isSelect == false
-                                              ? ImageUtility.plusIcon
-                                              : ImageUtility.crossSelectIcon,
-                                          width: 5.w,
-                                          height: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          item.title,
-                                          style: StyleUtility
-                                              .quicksandRegularBlackTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ],
-                                    )),
-                              )
+                              SelectUnselectWidget(
+                                  onTap: () {
+                                    item.isSelect = !item.isSelect;
+                                    setState(() {});
+                                  },
+                                  item: item),
                           ],
                         ),
                         SizedBox(height: 20.h),
@@ -676,53 +586,12 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in painsSizeModel!)
-                              GestureDetector(
-                                onTap: () {
-                                  item.isSelect = !item.isSelect;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 9.w, bottom: 13.h),
-                                    padding: EdgeInsets.only(
-                                        left: 15.sp,
-                                        right: 20.sp,
-                                        top: 9.sp,
-                                        bottom: 9.sp),
-                                    decoration: BoxDecoration(
-                                        color: item.isSelect == false
-                                            ? ColorUtility.colorWhite
-                                            : ColorUtility.colorEFF2F4,
-                                        borderRadius:
-                                            BorderRadius.circular(30.r),
-                                        border: Border.all(
-                                            color: ColorUtility.colorD3D6D6)),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          item.isSelect == false
-                                              ? ImageUtility.plusIcon
-                                              : ImageUtility.crossSelectIcon,
-                                          width: 5.w,
-                                          height: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          item.title,
-                                          style: StyleUtility
-                                              .quicksandRegularBlackTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ],
-                                    )),
-                              )
+                              SelectUnselectWidget(
+                                  onTap: () {
+                                    item.isSelect = !item.isSelect;
+                                    setState(() {});
+                                  },
+                                  item: item),
                           ],
                         ),
                         SizedBox(height: 20.h),
@@ -764,53 +633,12 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in shirtSizeModel!)
-                              GestureDetector(
-                                onTap: () {
-                                  item.isSelect = !item.isSelect;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 9.w, bottom: 13.h),
-                                    padding: EdgeInsets.only(
-                                        left: 15.sp,
-                                        right: 20.sp,
-                                        top: 9.sp,
-                                        bottom: 9.sp),
-                                    decoration: BoxDecoration(
-                                        color: item.isSelect == false
-                                            ? ColorUtility.colorWhite
-                                            : ColorUtility.colorEFF2F4,
-                                        borderRadius:
-                                            BorderRadius.circular(30.r),
-                                        border: Border.all(
-                                            color: ColorUtility.colorD3D6D6)),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          item.isSelect == false
-                                              ? ImageUtility.plusIcon
-                                              : ImageUtility.crossSelectIcon,
-                                          width: 5.w,
-                                          height: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          item.title,
-                                          style: StyleUtility
-                                              .quicksandRegularBlackTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ],
-                                    )),
-                              )
+                              SelectUnselectWidget(
+                                  onTap: () {
+                                    item.isSelect = !item.isSelect;
+                                    setState(() {});
+                                  },
+                                  item: item),
                           ],
                         ),
                         SizedBox(height: 20.h),
@@ -852,53 +680,12 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in shoeSizeModel!)
-                              GestureDetector(
-                                onTap: () {
-                                  item.isSelect = !item.isSelect;
-                                  setState(() {});
-                                },
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 9.w, bottom: 13.h),
-                                    padding: EdgeInsets.only(
-                                        left: 15.sp,
-                                        right: 20.sp,
-                                        top: 9.sp,
-                                        bottom: 9.sp),
-                                    decoration: BoxDecoration(
-                                        color: item.isSelect == false
-                                            ? ColorUtility.colorWhite
-                                            : ColorUtility.colorEFF2F4,
-                                        borderRadius:
-                                            BorderRadius.circular(30.r),
-                                        border: Border.all(
-                                            color: ColorUtility.colorD3D6D6)),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          item.isSelect == false
-                                              ? ImageUtility.plusIcon
-                                              : ImageUtility.crossSelectIcon,
-                                          width: 5.w,
-                                          height: 5.w,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          item.title,
-                                          style: StyleUtility
-                                              .quicksandRegularBlackTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ],
-                                    )),
-                              )
+                              SelectUnselectWidget(
+                                  onTap: () {
+                                    item.isSelect = !item.isSelect;
+                                    setState(() {});
+                                  },
+                                  item: item),
                           ],
                         ),
                         SizedBox(

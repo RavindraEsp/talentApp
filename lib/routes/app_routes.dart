@@ -23,6 +23,8 @@ import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
+import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
+import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_step_two_screen.dart';
 import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 
@@ -50,6 +52,7 @@ class AppRoute {
             builder: (context) => ChangeNotifierProvider(
                   create: (_) => CastVerifyPhoneProvider(),
                   child: CastVerifyPhoneScreen(
+                    userType: arg["userType"],
                     email: arg["email"],
                     phone: arg["phone"],
                     userName: arg["userName"],
@@ -59,22 +62,22 @@ class AppRoute {
                 ));
 
       case RouteName.castLoginScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
                   create: (_) => CastLoginProvider(),
-                  child: const CastLoginScreen(),
+                  child: CastLoginScreen(userType: arg["userType"]),
                 ));
 
       case RouteName.forgotPassVerifyOtpScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
-              create: (_) => ForgotPassVerifyOtpProvider(),
-              child:  ForgotPassVerifyOtpScreen(
-                email: arg["email"],
-              ),
-            ));
-
+                  create: (_) => ForgotPassVerifyOtpProvider(),
+                  child: ForgotPassVerifyOtpScreen(
+                    email: arg["email"],
+                  ),
+                ));
 
       case RouteName.bottomBarScreen:
         var arg = settings.arguments as Map;
@@ -148,6 +151,16 @@ class AppRoute {
       case RouteName.helloTalentScreen:
         return MaterialPageRoute(
           builder: (context) => const HelloTalentScreen(),
+        );
+
+      case RouteName.talentCreateCardScreen:
+        return MaterialPageRoute(
+          builder: (context) => const TalentCreateCardScreen(),
+        );
+
+      case RouteName.talentCreateCardStepTwoScreen:
+        return MaterialPageRoute(
+          builder: (context) => const TalentCreateCardStepTwoScreen(),
         );
 
       default:

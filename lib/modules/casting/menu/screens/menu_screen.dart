@@ -124,8 +124,7 @@ class _MenuScreenState extends State<MenuScreen> {
               title: context.loc.menuSupport,
               image: ImageUtility.supportIcon,
               onTap: () {
-                Navigator.pushNamed(context, RouteName.menuStaticScreen,
-                    arguments: {"headerText": context.loc.menuSupport});
+
               },
             ),
             Container(

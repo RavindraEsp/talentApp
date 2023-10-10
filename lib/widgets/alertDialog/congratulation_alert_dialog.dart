@@ -11,6 +11,7 @@ class CongratulationAlertDialog extends StatelessWidget {
   final String? description;
   final String? buttonText;
   final String? image;
+  final UserType? userType;
 
   const CongratulationAlertDialog({
     super.key,
@@ -19,6 +20,7 @@ class CongratulationAlertDialog extends StatelessWidget {
     this.description,
     this.buttonText,
     this.image,
+    this.userType,
   });
 
   @override
@@ -48,13 +50,9 @@ class CongratulationAlertDialog extends StatelessWidget {
                         fit: BoxFit.contain,
                       )
                     : const SizedBox(),
-
                 SizedBox(
                   height: 13.h,
-                )
-
-               ,
-
+                ),
                 Text(
                   title ?? "",
                   style: StyleUtility.mulishBold5457BETextStyle
@@ -62,15 +60,11 @@ class CongratulationAlertDialog extends StatelessWidget {
                 ),
                 image != null
                     ? SizedBox(
-                  height: 13.h,
-                )
+                        height: 13.h,
+                      )
                     : SizedBox(
-                  height: 28.h,
-                ),
-
-
-
-
+                        height: 28.h,
+                      ),
                 Text(
                   description ?? "",
                   style: StyleUtility.mulishRegular16TextStyle.copyWith(
@@ -79,23 +73,22 @@ class CongratulationAlertDialog extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-
                 image != null
                     ? SizedBox(
-                  height: 19.h,
-                )
+                        height: 19.h,
+                      )
                     : SizedBox(
-                  height: 34.h,
-                ),
-
-
-
+                        height: 34.h,
+                      ),
                 SizedBox(
                   height: 19.h,
                 ),
                 CustomButton(
                     buttonText: buttonText ?? "",
-                    buttonType: ButtonType.yellow,
+                    // buttonType: ButtonType.yellow,
+                    buttonType: userType == UserType.cast
+                        ? ButtonType.yellow
+                        : ButtonType.blue,
                     onTap: () {
                       Navigator.pop(context);
                       onButtonTap;

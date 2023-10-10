@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
-import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/main.dart';
 import 'package:talent_app/modules/casting/auth/login/provider/cast_login_provider.dart';
-import 'package:talent_app/network/model/request/auth/login_request.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
-import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -19,12 +13,12 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/social_button.dart';
-import 'package:talent_app/widgets/custom_gradient_checkbox.dart';
-import 'package:talent_app/widgets/textField/mobile_number_text_field.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 class CastLoginScreen extends StatefulWidget {
-  const CastLoginScreen({super.key});
+  final UserType userType;
+
+  const CastLoginScreen({super.key, required this.userType});
 
   @override
   State<CastLoginScreen> createState() => _CastLoginScreenState();
@@ -46,17 +40,26 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
             height: 80.h,
             width: double.infinity,
             alignment: Alignment.topCenter,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
-                    colors: ColorUtility.castHeaderGradientColor)),
+                    // colors: ColorUtility.castHeaderGradientColor
+
+                    colors: widget.userType == UserType.cast
+                        ? ColorUtility.castHeaderGradientColor
+                        : ColorUtility.talentHeaderGradientColor)),
           ),
           SafeArea(
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(ImageUtility.castSignupBgImage),
+                    image: AssetImage(
+                        // ImageUtility.castSignupBgImage
+
+                        widget.userType == UserType.cast
+                            ? ImageUtility.castSignupBgImage
+                            : ImageUtility.talentSignupBgImage),
                     fit: BoxFit.fill),
               ),
               child: Form(
@@ -155,7 +158,11 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                   ),
                                   CustomButton(
                                     buttonText: context.loc.buttonLogIn,
-                                    buttonType: ButtonType.yellow,
+                                    // buttonType: ButtonType.yellow,
+
+                                    buttonType: widget.userType == UserType.cast
+                                        ? ButtonType.yellow
+                                        : ButtonType.blue,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         CommonMethod.hideKeyBoard(context);

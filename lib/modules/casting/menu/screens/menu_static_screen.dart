@@ -37,14 +37,14 @@ class _MenuStaticScreenState extends State<MenuStaticScreen> {
           child: Column(
             children: [
               Text(
-                "Welcome to StellarCast Casting Agency, where visions come to life on screen and stage.",
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                 style: StyleUtility.quicksandBlackWhiteTextStyle
                     .copyWith(fontSize: TextSizeUtility.textSize22.sp),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20.h),
                 child: Text(
-                  "With an unwavering commitment to excellence, we specialize in discovering and connecting exceptional talent with the entertainment industry’s most exciting projects. Our extensive network and keen eye for spotting raw potential ensure that every casting choice we make is a step towards crafting unforgettable performances. Backed by years of experience and a passion for storytelling, StellarCast Casting Agency collaborates closely with directors, producers, and creatives to source the perfect cast members who breathe life into characters and narratives.",
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                   style: StyleUtility.quicksandRegularBlackTextStyle
                       .copyWith(fontSize: TextSizeUtility.textSize14.sp),
                 ),

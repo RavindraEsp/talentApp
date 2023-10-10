@@ -123,7 +123,7 @@ class _ForgotPassFindAccountScreenState
                                     //   buttonType: ButtonType.yellow,
                                     buttonType: widget.userType == UserType.cast
                                         ? ButtonType.yellow
-                                        : ButtonType.green,
+                                        : ButtonType.blue,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         Navigator.pushNamed(context,

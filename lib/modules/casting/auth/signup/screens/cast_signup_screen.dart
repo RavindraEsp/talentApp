@@ -73,7 +73,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                   image: DecorationImage(
                       image: AssetImage(
                           // ImageUtility.castSignupBgImage
-                          // ImageUtility.talentSignupBgImage
 
                           widget.userType == UserType.cast
                               ? ImageUtility.castSignupBgImage
@@ -174,10 +173,11 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                     passwordObscure: confPasswordObscure,
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Password is required.';
+                                        return context.loc.validationPass;
                                       } else if (passwordController.text !=
                                           confirmPasswordController.text) {
-                                        return 'Password did not match.';
+                                        return context
+                                            .loc.validationPassNotMatch;
                                       }
                                       return null;
                                     },
@@ -191,7 +191,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                         confPassPrefixImage =
                                             ImageUtility.eyeCloseIcon;
                                       }
-
                                       provider.updateUi();
                                     },
                                   ),
@@ -240,7 +239,7 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                     //   buttonType: ButtonType.yellow,
                                     buttonType: widget.userType == UserType.cast
                                         ? ButtonType.yellow
-                                        : ButtonType.green,
+                                        : ButtonType.blue,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         if (phoneController.text.length < 6) {
@@ -253,6 +252,7 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                           Navigator.pushNamed(context,
                                               RouteName.castVerifyPhoneScreen,
                                               arguments: {
+                                                "userType": widget.userType,
                                                 "email": emailController.text,
                                                 "phone": phoneController.text,
                                                 "userName":

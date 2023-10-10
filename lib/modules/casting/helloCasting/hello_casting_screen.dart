@@ -113,7 +113,10 @@ class _HelloCastingScreenState extends State<HelloCastingScreen> {
                           buttonColor: ColorUtility.color29244C,
                           onTap: () {
                             Navigator.pushNamed(
-                                context, RouteName.castLoginScreen);
+                                context, RouteName.castLoginScreen,
+                                arguments: {
+                                  "userType" :UserType.cast
+                                });
                           },
                         ),
                         SizedBox(
