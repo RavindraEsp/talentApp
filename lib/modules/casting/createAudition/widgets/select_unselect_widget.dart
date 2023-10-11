@@ -35,10 +35,8 @@ class SelectUnselectWidget extends StatelessWidget {
                 item.isSelect == false
                     ? ImageUtility.plusIcon
                     : ImageUtility.crossSelectIcon,
-                // width: 5.w,
-                // height: 5.w,
-                width: 5.w,
-                height: 5.w,
+                width: 6.w,
+                height: 6.w,
               ),
               SizedBox(
                 width: 5.w,

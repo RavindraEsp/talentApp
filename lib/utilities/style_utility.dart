@@ -112,6 +112,17 @@ class StyleUtility {
       //   fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
 
+
+  static TextStyle quicksandBold5457BETextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w700,
+      //   fontSize: TextSizeUtility.textSize16,
+      color: ColorUtility.color5457BE);
+
+
+
+
+
+
   static TextStyle quicksandMedium5457BETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w500,
       color: ColorUtility.color5457BE);

@@ -97,10 +97,11 @@ class _CreateAuditionPlaceTimeScreenState
                 child: SafeArea(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        left: 18.w, right: 18.w,
-                       // top: 24.h, bottom: 24.h
-                        top: 14.h, bottom: 14.h
-                    ),
+                        left: 18.w,
+                        right: 18.w,
+                        // top: 24.h, bottom: 24.h
+                        top: 14.h,
+                        bottom: 14.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,11 +248,11 @@ class _CreateAuditionPlaceTimeScreenState
                                     Common.selectDate(context, dateController);
                                   },
                                   child: SimpleTextField(
-                                    controller: dateController,
-                                    hintText: "DD/MM/YYYY",
-                                    isEnable: false,
-                                   // suffixImage: ImageUtility.calenderIcon,
-                                  ),
+                                      controller: dateController,
+                                      hintText: "DD/MM/YYYY",
+                                      isEnable: false
+                                      // suffixImage: ImageUtility.calenderIcon,
+                                      ),
                                 )),
                             SizedBox(
                               width: 7.w,
@@ -313,9 +314,6 @@ class _CreateAuditionPlaceTimeScreenState
                                 )),
                           ],
                         ),
-
-
-
                         SizedBox(
                           height: 35.h,
                         ),
@@ -339,8 +337,7 @@ class _CreateAuditionPlaceTimeScreenState
         builder: (BuildContext dialogContext) {
           return SuccessAlertDialog(
             title: context.loc.dialogGoodJob,
-            description:
-                context.loc.dialogCreateAuditionSuccessDesc,
+            description: context.loc.dialogCreateAuditionSuccessDesc,
             onCrossTap: () {},
           );
         }).then((value) {

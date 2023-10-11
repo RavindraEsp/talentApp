@@ -167,7 +167,8 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                     height: 23.h,
                   ),
                   Container(
-                      height: 420.sp, child: ProfileImageViewPagerWidget()),
+                      height: 420.sp,
+                      child: ProfileImageViewPagerWidget()),
                   SizedBox(
                     height: 23.h,
                   ),
@@ -530,30 +531,34 @@ class _ProfileImageViewPagerWidgetState
               return Container(
                 color: Colors.white,
                 padding: EdgeInsets.only(right: 20.w, left: 20.w),
-                child: Container(
-                  height: 420.sp,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(ImageUtility.dummyAppliedUserImage2),
-                        fit: BoxFit.fill),
-                  ),
-                  padding:
-                      EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        ImageUtility.popularIcon,
-                        width: 52.w,
-                      ),
-                      Text(
-                        context.loc.buttonPopular,
-                        style: StyleUtility.quicksandMediumWhiteTextStyle
-                            .copyWith(fontSize: TextSizeUtility.textSize12.sp),
-                      ),
-                    ],
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.r),
+
+                  child: Container(
+                    height: 420.sp,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(ImageUtility.dummyAppliedUserImage2),
+                          fit: BoxFit.cover),
+                    ),
+                    padding:
+                        EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.w),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          ImageUtility.popularIcon,
+                          width: 52.w,
+                        ),
+                        Text(
+                          context.loc.buttonPopular,
+                          style: StyleUtility.quicksandMediumWhiteTextStyle
+                              .copyWith(fontSize: TextSizeUtility.textSize12.sp),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );

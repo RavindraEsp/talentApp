@@ -133,21 +133,32 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                           left: 12.w, right: 20.w),
                                       child: Column(
                                         children: [
-
                                           SizedBox(
                                             height: 14.h,
                                           ),
                                           Row(
                                             children: [
                                               Expanded(
+                                                child: GestureDetector(
+                                                  behavior:
+                                                      HitTestBehavior.opaque,
+                                                  onTap: () {
+                                                    Navigator.pushNamed(
+                                                        context,
+                                                        RouteName
+                                                            .seeUserProfileScreen);
+                                                  },
                                                   child: Row(
-                                                children: [
-
+                                                    children: [
                                                   Stack(
-                                                    alignment:Alignment.bottomLeft,
+                                                    alignment:
+                                                        Alignment.bottomLeft,
                                                     children: [
                                                       Padding(
-                                                        padding:  EdgeInsets.only(bottom: 5.w,left: 5.w),
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                bottom: 5.w,
+                                                                left: 5.w),
                                                         child: Image.asset(
                                                           ImageUtility
                                                               .dummyProfileImage,
@@ -156,135 +167,124 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                           fit: BoxFit.fill,
                                                         ),
                                                       ),
-
                                                       Image.asset(
-                                                        ImageUtility.popularIcon,
+                                                        ImageUtility
+                                                            .popularIcon,
                                                         width: 20.w,
                                                         height: 20.w,
                                                         fit: BoxFit.fill,
                                                       ),
                                                     ],
                                                   ),
-
-
-
                                                   SizedBox(
                                                     width: 5.w,
                                                   ),
                                                   Expanded(
-                                                    child: GestureDetector(
-                                                      behavior: HitTestBehavior
-                                                          .opaque,
-                                                      onTap: () {
-                                                        Navigator.pushNamed(
-                                                            context,
-                                                            RouteName
-                                                                .seeUserProfileScreen);
-                                                      },
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Wrap(
-                                                            alignment:
-                                                                WrapAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "David Josef",
-                                                                style: StyleUtility
-                                                                    .quicksandSemiBoldBlackTextStyle
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            TextSizeUtility.textSize16),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top: 4,
-                                                                        left: 5
-                                                                            .w),
-                                                                child: SizedBox(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Wrap(
+                                                          alignment:
+                                                              WrapAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "David Josef",
+                                                              style: StyleUtility
+                                                                  .quicksandSemiBoldBlackTextStyle
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          TextSizeUtility.textSize16),
+                                                            ),
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      top: 4,
+                                                                      left: 5
+                                                                          .w),
+                                                              child: SizedBox(
+                                                                width: 15.w,
+                                                                child: Image
+                                                                    .asset(
+                                                                  ImageUtility
+                                                                      .eyeOpenIcon,
+                                                                  color: ColorUtility
+                                                                      .color8B8B8B,
                                                                   width: 15.w,
-                                                                  child: Image
-                                                                      .asset(
-                                                                    ImageUtility
-                                                                        .eyeOpenIcon,
-                                                                    color: ColorUtility
-                                                                        .color8B8B8B,
-                                                                    width: 15.w,
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          SizedBox(
-                                                            height: 7.h,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                "25",
-                                                                maxLines: 1,
-                                                                style: StyleUtility
-                                                                    .quicksandRegular8B8B8BTextStyle
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            TextSizeUtility.textSize12),
-                                                              ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            7.w),
-                                                                child:
-                                                                    Container(
-                                                                  width: 1,
-                                                                  color: ColorUtility
-                                                                      .color8B8B8B,
-                                                                  height: 10.sp,
                                                                 ),
                                                               ),
-                                                              Text(
-                                                                "Tel Aviv",
-                                                                maxLines: 1,
-                                                                style: StyleUtility
-                                                                    .quicksandRegular8B8B8BTextStyle
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            TextSizeUtility.textSize12),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: 7.h,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              "25",
+                                                              maxLines: 1,
+                                                              style: StyleUtility
+                                                                  .quicksandRegular8B8B8BTextStyle
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          TextSizeUtility.textSize12),
+                                                            ),
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          7.w),
+                                                              child:
+                                                                  Container(
+                                                                width: 1,
+                                                                color: ColorUtility
+                                                                    .color8B8B8B,
+                                                                height: 10.sp,
                                                               ),
-                                                              Padding(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                        horizontal:
-                                                                            7.w),
-                                                                child:
-                                                                    Container(
-                                                                  width: 1,
-                                                                  color: ColorUtility
-                                                                      .color8B8B8B,
-                                                                  height: 10.sp,
-                                                                ),
+                                                            ),
+                                                            Text(
+                                                              "Tel Aviv",
+                                                              maxLines: 1,
+                                                              style: StyleUtility
+                                                                  .quicksandRegular8B8B8BTextStyle
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          TextSizeUtility.textSize12),
+                                                            ),
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          7.w),
+                                                              child:
+                                                                  Container(
+                                                                width: 1,
+                                                                color: ColorUtility
+                                                                    .color8B8B8B,
+                                                                height: 10.sp,
                                                               ),
-                                                              Text(
-                                                                "Mail",
-                                                                maxLines: 1,
-                                                                style: StyleUtility
-                                                                    .quicksandRegular8B8B8BTextStyle
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            TextSizeUtility.textSize12),
-                                                              ),
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
+                                                            ),
+                                                            Text(
+                                                              "Mail",
+                                                              maxLines: 1,
+                                                              style: StyleUtility
+                                                                  .quicksandRegular8B8B8BTextStyle
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          TextSizeUtility.textSize12),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
                                                     ),
                                                   )
-                                                ],
-                                              )),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
                                               SizedBox(
                                                 width: 5.w,
                                               ),
@@ -311,7 +311,6 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-
                                           SizedBox(
                                             height: 9.h,
                                           ),

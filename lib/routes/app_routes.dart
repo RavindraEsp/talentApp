@@ -23,6 +23,9 @@ import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
+import 'package:talent_app/modules/talent/createCard/screens/add_your_audio_screen.dart';
+import 'package:talent_app/modules/talent/createCard/screens/add_your_photo_screen.dart';
+import 'package:talent_app/modules/talent/createCard/screens/add_your_video_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_step_two_screen.dart';
 import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
@@ -161,6 +164,21 @@ class AppRoute {
       case RouteName.talentCreateCardStepTwoScreen:
         return MaterialPageRoute(
           builder: (context) => const TalentCreateCardStepTwoScreen(),
+        );
+
+      case RouteName.addYourPhotoScreen:
+        return MaterialPageRoute(
+          builder: (context) => const AddYourPhotoScreen(),
+        );
+
+      case RouteName.addYourVideoScreen:
+        return MaterialPageRoute(
+          builder: (context) => const AddYourVideoScreen(),
+        );
+
+      case RouteName.addYourAudioScreen:
+        return MaterialPageRoute(
+          builder: (context) => const AddYourAudioScreen(),
         );
 
       default:

@@ -143,7 +143,10 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                               SizedBox(
                                 height: 35.h,
                               ),
-                              CustomOtpTextField(controller: otpController),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.h),
+                                child: CustomOtpTextField(controller: otpController),
+                              ),
                               SizedBox(
                                 height: 30.h,
                               ),

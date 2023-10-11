@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -208,7 +209,10 @@ class _TalentCreateCardStepTwoScreenState
                                 child: CustomButton(
                                   buttonText: context.loc.buttonNext,
                                   buttonType: ButtonType.blue,
-                                  onTap: () async {},
+                                  onTap: () async {
+                                    Navigator.pushNamed(
+                                        context, RouteName.addYourPhotoScreen);
+                                  },
                                 ),
                               )
                             ],
