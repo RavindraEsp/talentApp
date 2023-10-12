@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -220,7 +221,9 @@ class _AddYourAudioScreenState extends State<AddYourAudioScreen> {
                           Expanded(
                               child: CustomButton(
                             buttonText: context.loc.buttonNext,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, RouteName.addInfoScreen);
+                            },
                           ))
                         ],
                       ),

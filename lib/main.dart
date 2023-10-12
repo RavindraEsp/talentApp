@@ -3,10 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:talent_app/utilities/enums.dart';
+import 'modules/casting/auth/forgotPassword/screens/create_new_pass_screen.dart';
+import 'modules/casting/auth/forgotPassword/screens/forgot_pass_find_account_screen.dart';
+import 'modules/intro/intro_screen.dart';
 import 'modules/talent/createCard/screens/add_info_screen.dart';
 import 'modules/talent/createCard/screens/add_your_audio_screen.dart';
 import 'modules/talent/createCard/screens/add_your_photo_screen.dart';
 import 'modules/talent/createCard/screens/talent_create_card_screen.dart';
+import 'modules/talent/subscribe/screens/subscribe_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,12 +61,19 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            //  home: const IntroScreen(),
 
-           // home: const TalentCreateCardScreen(),
+            home: const IntroScreen(),
 
-          //  home: const AddYourPhotoScreen(),
-              home: const AddInfoScreen(),
+            // home: const ForgotPassFindAccountScreen(
+            //   userType: UserType.talent,
+            // ),
+
+            //  home: const SubscribeScreen(),
+
+            // home: const TalentCreateCardScreen(),
+
+            //  home: const AddYourPhotoScreen(),
+            //  home: const AddInfoScreen(),
             //  home: const AddYourAudioScreen(),
             // home: const HelloTalentScreen(),
 

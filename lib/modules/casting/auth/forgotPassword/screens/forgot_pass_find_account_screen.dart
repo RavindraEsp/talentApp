@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
-import 'package:talent_app/modules/casting/auth/signup/provider/signup_screen_provider.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common_method.dart';
@@ -60,8 +58,6 @@ class _ForgotPassFindAccountScreenState
                   image: DecorationImage(
                       image: AssetImage(
                           // ImageUtility.castSignupBgImage
-                          // ImageUtility.talentSignupBgImage
-
                           widget.userType == UserType.cast
                               ? ImageUtility.castSignupBgImage
                               : ImageUtility.talentSignupBgImage),
@@ -79,7 +75,7 @@ class _ForgotPassFindAccountScreenState
                             elevation: 0,
                             centerTitle: true,
                             title: Text(
-                              "Find your account",
+                              context.loc.headerFindYourAccount,
                               style: StyleUtility.headerTextStyle.copyWith(
                                   fontSize: TextSizeUtility.textSize22.sp),
                             ),
@@ -97,7 +93,7 @@ class _ForgotPassFindAccountScreenState
                                     height: 30.h,
                                   ),
                                   Text(
-                                    "Please enter your email address to reset Your password instruction",
+                                    context.loc.pleaseEnterYourEmailAddressTextToForgotPassText,
                                     textAlign: TextAlign.center,
                                     style: StyleUtility
                                         .quicksandRegular9F9E9ETextStyle
@@ -119,7 +115,7 @@ class _ForgotPassFindAccountScreenState
                                     height: 70.h,
                                   ),
                                   CustomButton(
-                                    buttonText: "Continue",
+                                    buttonText: context.loc.buttonContinue,
                                     //   buttonType: ButtonType.yellow,
                                     buttonType: widget.userType == UserType.cast
                                         ? ButtonType.yellow
@@ -129,7 +125,8 @@ class _ForgotPassFindAccountScreenState
                                         Navigator.pushNamed(context,
                                             RouteName.forgotPassVerifyOtpScreen,
                                             arguments: {
-                                              "email": emailController.text
+                                              "email": emailController.text,
+                                              "userType": widget.userType
                                             });
                                       }
                                     },

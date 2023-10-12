@@ -18,11 +18,13 @@ import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/textField/custom_otp_text_field.dart';
 
 class ForgotPassVerifyOtpScreen extends StatefulWidget {
+  final UserType userType;
   final String email;
 
   const ForgotPassVerifyOtpScreen({
     super.key,
     required this.email,
+    required this.userType,
   });
 
   @override
@@ -48,17 +50,24 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                 height: 80.h,
                 width: double.infinity,
                 alignment: Alignment.topCenter,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
-                        colors: ColorUtility.castHeaderGradientColor)),
+                        // colors: ColorUtility.castHeaderGradientColor,
+                        colors: widget.userType == UserType.cast
+                            ? ColorUtility.castHeaderGradientColor
+                            : ColorUtility.talentHeaderGradientColor)),
               ),
               SafeArea(
                 child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(ImageUtility.castSignupBgImage),
+                          image: AssetImage(
+                              //ImageUtility.castSignupBgImage
+                              widget.userType == UserType.cast
+                                  ? ImageUtility.castSignupBgImage
+                                  : ImageUtility.talentSignupBgImage),
                           fit: BoxFit.fill),
                     ),
                     child: Column(children: [
@@ -77,7 +86,7 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                           elevation: 0,
                           centerTitle: true,
                           title: Text(
-                            "Verify your E-mail",
+                            context.loc.headerVerifyYourEmail,
                             style: StyleUtility.headerTextStyle.copyWith(
                                 fontSize: TextSizeUtility.textSize22.sp),
                           ),
@@ -102,7 +111,7 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: "544-546-xxxx",
+                                      text: " 544-546-xxxx",
                                       style: StyleUtility
                                           .quicksandRegular16TextStyle
                                           .copyWith(
@@ -148,17 +157,18 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                               ),
                               CustomButton(
                                   buttonText: context.loc.buttonContinue,
-                                  buttonType: ButtonType.yellow,
+                                  //  buttonType: ButtonType.yellow,
+                                  buttonType: widget.userType == UserType.cast
+                                      ? ButtonType.yellow
+                                      : ButtonType.blue,
                                   onTap: () {
                                     if (otpController.text.length != 4) {
-                                      Common.showErrorSnackBar(
-                                          context, "Please enter 4 digit otp.");
-                                    } else {}
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             const CastCreateCard()));
+                                      Common.showErrorToast(
+                                          context, context.loc.validationOtp);
+                                    }else{
+
+                                    }
+
                                   })
                             ],
                           ),

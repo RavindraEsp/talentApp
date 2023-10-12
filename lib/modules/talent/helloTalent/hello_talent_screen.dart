@@ -94,8 +94,8 @@ class _HelloTalentScreenState extends State<HelloTalentScreen> {
                         buttonType: ButtonType.blue,
                         onTap: () {
                           Navigator.pushNamed(
-                              context, RouteName.castSignupScreen,
-                              arguments: {"userType": UserType.talent});
+                              context, RouteName.subscribeScreen,
+                              );
                         },
                       ),
                       SizedBox(

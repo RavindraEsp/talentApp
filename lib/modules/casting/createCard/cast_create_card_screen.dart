@@ -384,25 +384,3 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
     });
   }
 }
-
-// class CustomDropDown extends StatelessWidget {
-//   final List items;
-//   final VoidCallback onTap;
-//
-//   const CustomDropDown({
-//     Key? key,
-//     required this.items,
-//     required this.onTap,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: DropdownButton(
-//           items: [],
-//           onChanged: (val) {
-//             onTap();
-//           }),
-//     );
-//   }
-// }

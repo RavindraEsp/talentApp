@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
-import 'package:talent_app/modules/casting/createAudition/widgets/select_unselect_widget.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
 import 'package:talent_app/routes/route_name.dart';
@@ -13,6 +13,7 @@ import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
+import 'package:talent_app/widgets/alertDialog/congratulation_alert_dialog.dart';
 import 'package:talent_app/widgets/alertDialog/success_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
@@ -391,12 +392,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                               buttonText:
                                                   context.loc.buttonBack,
                                               onTap: () {
-                                                showCancelDialog(
-                                                    context: context,
-                                                    onYesTap: () {
-                                                      showAuditionCancelSuccessDialog(
-                                                          context: context);
-                                                    });
                                               },
                                               buttonColor:
                                                   ColorUtility.color5457BE)),
@@ -407,11 +402,13 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                         child: CustomButton(
                                           buttonText: context.loc.buttonNext,
                                           onTap: () {
-                                            Navigator.pushNamed(
-                                                context,
-                                                RouteName
-                                                    .createAuditionPlaceTimeScreen);
-                                          },
+
+                                            showCongratulationDialog(context:
+                                            context,
+                                            onButtonTap: (){
+
+                                            });
+                                            },
                                           buttonType: ButtonType.blue,
                                         ),
                                       )
@@ -433,33 +430,22 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
     );
   }
 
-  Future<dynamic> showCancelDialog({
+  Future<dynamic> showCongratulationDialog({
     required BuildContext context,
-    required VoidCallback onYesTap,
+    required VoidCallback onButtonTap,
   }) {
     return showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
-          return ConfirmAlertDialog(
-            onYesTap: onYesTap,
-            title: context.loc.dialogAreYouSureCancelAudition,
-          );
-        }).then((value) {});
-  }
-
-  Future<dynamic> showAuditionCancelSuccessDialog({
-    required BuildContext context,
-  }) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          return SuccessAlertDialog(
-            title: context.loc.dialogYouHaveCanceledAudition,
-            description: context.loc.dialogCancelAuditionSuccessDescription,
-            onCrossTap: () {},
+          return CongratulationAlertDialog(
+            title: context.loc.dialogWellDone,
+            description: context.loc.dialogTalentCardSetSuccessDescription,
+            buttonText: context.loc.buttonImReadyBringItOn,
+            onButtonTap: onButtonTap,
+            userType: UserType.talent,
           );
         }).then((value) {
-      Navigator.pop(context);
+      AppLogger.logD("Then is called");
     });
   }
 }

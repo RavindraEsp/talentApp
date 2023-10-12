@@ -24,6 +24,7 @@ class TextSizeUtility {
 
   static double buttonHeight = 48;
 
+  static double textSize9 = 9;
   static double textSize10 = 10;
   static double textSize12 = 12;
   static double textSize13 = 13;

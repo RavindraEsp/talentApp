@@ -23,12 +23,14 @@ import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
+import 'package:talent_app/modules/talent/createCard/screens/add_info_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_your_audio_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_your_photo_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_your_video_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_step_two_screen.dart';
 import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
+import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 
 class AppRoute {
@@ -79,6 +81,7 @@ class AppRoute {
                   create: (_) => ForgotPassVerifyOtpProvider(),
                   child: ForgotPassVerifyOtpScreen(
                     email: arg["email"],
+                    userType: arg["userType"],
                   ),
                 ));
 
@@ -156,6 +159,11 @@ class AppRoute {
           builder: (context) => const HelloTalentScreen(),
         );
 
+      case RouteName.subscribeScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SubscribeScreen(),
+        );
+
       case RouteName.talentCreateCardScreen:
         return MaterialPageRoute(
           builder: (context) => const TalentCreateCardScreen(),
@@ -179,6 +187,11 @@ class AppRoute {
       case RouteName.addYourAudioScreen:
         return MaterialPageRoute(
           builder: (context) => const AddYourAudioScreen(),
+        );
+
+      case RouteName.addInfoScreen:
+        return MaterialPageRoute(
+          builder: (context) => const AddInfoScreen(),
         );
 
       default:

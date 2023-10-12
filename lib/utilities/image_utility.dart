@@ -8,6 +8,8 @@ class ImageUtility {
   static const String castSignupBgImage = 'assets/images/cast_signup_bg.png';
   static const String talentSignupBgImage =
       'assets/images/talent_signup_bg.jpg';
+  static const String freeTrailImage = 'assets/images/free_trail_image.png';
+
 
   // Talents Images
   static const String helloTalentBgImage = 'assets/images/hello_talent_bg.png';
