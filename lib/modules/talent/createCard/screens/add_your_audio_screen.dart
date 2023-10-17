@@ -72,6 +72,8 @@ class _AddYourAudioScreenState extends State<AddYourAudioScreen> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         centerTitle: true,
+                        iconTheme: const IconThemeData(color: Colors.white),
+
                         title: Text(
                           context.loc.headerAddYourAudio,
                           style: StyleUtility.headerTextStyle.copyWith(

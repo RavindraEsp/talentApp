@@ -71,6 +71,8 @@ class _AddYourVideoScreenState extends State<AddYourVideoScreen> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         centerTitle: true,
+                        iconTheme: const IconThemeData(color: Colors.white),
+
                         title: Text(
                           context.loc.headerAddYourVideo,
                           style: StyleUtility.headerTextStyle.copyWith(
@@ -212,6 +214,7 @@ class _AddYourVideoScreenState extends State<AddYourVideoScreen> {
 
   showBottomSheetForSelectVideo() {
     showModalBottomSheet<void>(
+      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),

@@ -96,6 +96,8 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         centerTitle: true,
+                        iconTheme: const IconThemeData(color: Colors.white),
+
                         title: Text(
                           context.loc.headerAddInfo,
                           style: StyleUtility.headerTextStyle.copyWith(

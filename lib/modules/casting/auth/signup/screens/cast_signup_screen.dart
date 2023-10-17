@@ -92,6 +92,8 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                             backgroundColor: Colors.transparent,
                             elevation: 0,
                             centerTitle: true,
+                            iconTheme: const IconThemeData(color: Colors.white),
+
                             title: Text(
                               context.loc.headerSignUp,
                               style: StyleUtility.headerTextStyle.copyWith(

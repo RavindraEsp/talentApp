@@ -73,6 +73,8 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         centerTitle: true,
+                        iconTheme: const IconThemeData(color: Colors.white),
+
                         title: Text(
                           context.loc.headerLogIn,
                           style: StyleUtility.headerTextStyle.copyWith(
@@ -165,15 +167,21 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                         : ButtonType.blue,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
+
+
                                         CommonMethod.hideKeyBoard(context);
-
                                         ///Todo temp
+                                        ///
+                                        if(widget.userType == UserType.cast){
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              RouteName.bottomBarScreen,
+                                              arguments: {"selectIndex": 0},
+                                                  (route) => false);
 
-                                        Navigator.pushNamedAndRemoveUntil(
-                                            context,
-                                            RouteName.bottomBarScreen,
-                                            arguments: {"selectIndex": 0},
-                                            (route) => false);
+                                        }else{
+
+                                        }
 
                                         // Common.showLoadingDialog(context);
                                         // castLoginProvider.login(

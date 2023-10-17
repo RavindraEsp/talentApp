@@ -53,6 +53,8 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         centerTitle: true,
+                        iconTheme: const IconThemeData(color: Colors.white),
+
                         title: Text(
                           context.loc.headerSubscribe,
                           style: StyleUtility.headerTextStyle.copyWith(

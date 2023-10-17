@@ -71,6 +71,8 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         centerTitle: true,
+                        iconTheme: const IconThemeData(color: Colors.white),
+
                         title: Text(
                           context.loc.headerAddYourPhoto,
                           style: StyleUtility.headerTextStyle.copyWith(
@@ -205,6 +207,7 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
 
   showBottomSheetForSelectImage() {
     showModalBottomSheet<void>(
+      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
@@ -213,79 +216,87 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
       builder: (BuildContext context) {
         return SafeArea(
           // height: 300.sp,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                context.loc.titleUploadPhoto,
-                style: StyleUtility.kantumruyProMedium5457BETextStyle
-                    .copyWith(fontSize: TextSizeUtility.textSize22.sp),
-              ),
-              SizedBox(
-                height: 30.w,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  getImageFromCamera();
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w),
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset(
-                        ImageUtility.cameraIcon,
-                        width: 28.w,
-                        height: 28.w,
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Text(
-                        context.loc.bottomSheetTakePhoto,
-                        style: StyleUtility.quicksandRegularBlackTextStyle
-                            .copyWith(fontSize: TextSizeUtility.textSize18.sp),
-                      )
-                    ],
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r)),
+              color: Colors.white,
+
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  context.loc.titleUploadPhoto,
+                  style: StyleUtility.kantumruyProMedium5457BETextStyle
+                      .copyWith(fontSize: TextSizeUtility.textSize22.sp),
+                ),
+                SizedBox(
+                  height: 30.w,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    getImageFromCamera();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w),
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset(
+                          ImageUtility.cameraIcon,
+                          width: 28.w,
+                          height: 28.w,
+                        ),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Text(
+                          context.loc.bottomSheetTakePhoto,
+                          style: StyleUtility.quicksandRegularBlackTextStyle
+                              .copyWith(fontSize: TextSizeUtility.textSize18.sp),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  getImagesFromGallery();
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w),
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset(
-                        ImageUtility.cameraIcon,
-                        width: 28.w,
-                        height: 28.w,
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Text(
-                        context.loc.bottomChooseFromGallery,
-                        style: StyleUtility.quicksandRegularBlackTextStyle
-                            .copyWith(fontSize: TextSizeUtility.textSize18.sp),
-                      )
-                    ],
+                SizedBox(
+                  height: 15.h,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    getImagesFromGallery();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w),
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset(
+                          ImageUtility.cameraIcon,
+                          width: 28.w,
+                          height: 28.w,
+                        ),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Text(
+                          context.loc.bottomChooseFromGallery,
+                          style: StyleUtility.quicksandRegularBlackTextStyle
+                              .copyWith(fontSize: TextSizeUtility.textSize18.sp),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 35.h,
-              ),
-            ],
+                SizedBox(
+                  height: 35.h,
+                ),
+              ],
+            ),
           ),
         );
       },

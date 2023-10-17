@@ -82,6 +82,8 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                         margin: EdgeInsets.only(left: 24.w, top: 22.h),
                         child: AppBar(
                           automaticallyImplyLeading: true,
+                          iconTheme: const IconThemeData(color: Colors.white),
+
                           leading: InkWell(
                             onTap: () {
                               Navigator.pop(context);
