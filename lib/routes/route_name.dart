@@ -18,7 +18,6 @@ class RouteName {
   static const String menuStaticScreen = "/menuStaticScreen";
   static const String chatScreen = "/chatScreen";
 
-
   // Talents Screens
   static const String helloTalentScreen = "/helloTalentScreen";
   static const String subscribeScreen = "/subscribeScreen";
