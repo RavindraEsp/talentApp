@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_screen.dart';
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'modules/intro/intro_screen.dart';
@@ -52,7 +53,8 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const IntroScreen(),
+          //  home: const IntroScreen(),
+            home:  TalentBottomBarScreen(selectIndex: 0,),
             onGenerateRoute: AppRoute.generateRoute,
             // builder: (context, widget) {
             //   return MediaQuery(

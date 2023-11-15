@@ -28,6 +28,8 @@ class _BottomBarScreenState extends State {
     const ChatUserListScreen(),
     const CastProfileScreen(),
 
+
+
   ];
 
   late int selectIndex;

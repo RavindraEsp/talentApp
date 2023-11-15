@@ -74,7 +74,6 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                         elevation: 0,
                         centerTitle: true,
                         iconTheme: const IconThemeData(color: Colors.white),
-
                         title: Text(
                           context.loc.headerLogIn,
                           style: StyleUtility.headerTextStyle.copyWith(
@@ -144,15 +143,26 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                   SizedBox(
                                     height: 25.h,
                                   ),
-                                  Container(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      context.loc.forgotPassword,
-                                      style: StyleUtility
-                                          .quicksandRegular15TextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize12.sp),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context,
+                                          RouteName
+                                              .forgotPassFindAccountScreen,
+                                          arguments: {
+                                            "userType": widget.userType
+                                          });
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        context.loc.forgotPassword,
+                                        style: StyleUtility
+                                            .quicksandRegular15TextStyle
+                                            .copyWith(
+                                                fontSize: TextSizeUtility
+                                                    .textSize12.sp),
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -167,21 +177,17 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                         : ButtonType.blue,
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
-
-
                                         CommonMethod.hideKeyBoard(context);
+
                                         ///Todo temp
                                         ///
-                                        if(widget.userType == UserType.cast){
+                                        if (widget.userType == UserType.cast) {
                                           Navigator.pushNamedAndRemoveUntil(
                                               context,
                                               RouteName.bottomBarScreen,
                                               arguments: {"selectIndex": 0},
-                                                  (route) => false);
-
-                                        }else{
-
-                                        }
+                                              (route) => false);
+                                        } else {}
 
                                         // Common.showLoadingDialog(context);
                                         // castLoginProvider.login(

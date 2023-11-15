@@ -167,6 +167,10 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                                           context, context.loc.validationOtp);
                                     }else{
 
+                                      Navigator.pushNamed(context, RouteName.createNewPassScreen,
+                                      arguments: {
+                                        "userType":widget.userType
+                                      });
                                     }
 
                                   })

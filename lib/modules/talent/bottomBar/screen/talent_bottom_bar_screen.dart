@@ -23,10 +23,24 @@ class TalentBottomBarScreen extends StatefulWidget {
 //class _BottomBarScreenState extends State<BottomBarScreen> {
 class _TalentBottomBarScreenState extends State {
   final List<Widget> _children = [
-    const CastHomeScreen(),
-    const NotificationScreen(),
-    const ChatUserListScreen(),
-    const CastProfileScreen(),
+    // const CastHomeScreen(),
+    // const NotificationScreen(),
+    // const ChatUserListScreen(),
+    // const CastProfileScreen(),
+
+    Center(
+      child: Text("Home"),
+    ),
+
+    Center(
+      child: Text("Home"),
+    ),
+    Center(
+      child: Text("Home"),
+    ),
+    Center(
+      child: Text("Home"),
+    )
 
   ];
 

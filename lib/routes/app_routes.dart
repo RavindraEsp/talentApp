@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/modules/casting/auth/forgotPassword/provider/ForgotPassVerifyOtpProvider.dart';
+import 'package:talent_app/modules/casting/auth/forgotPassword/provider/create_new_pass_screen_provider.dart';
+import 'package:talent_app/modules/casting/auth/forgotPassword/provider/forgot_pass_find_account_provider.dart';
+import 'package:talent_app/modules/casting/auth/forgotPassword/screens/create_new_pass_screen.dart';
+import 'package:talent_app/modules/casting/auth/forgotPassword/screens/forgot_pass_find_account_screen.dart';
 import 'package:talent_app/modules/casting/auth/forgotPassword/screens/forgot_pass_verify_otp_screen.dart';
 import 'package:talent_app/modules/casting/auth/login/provider/cast_login_provider.dart';
 import 'package:talent_app/modules/casting/auth/login/screen/cast_login_screen.dart';
@@ -74,6 +78,18 @@ class AppRoute {
                   child: CastLoginScreen(userType: arg["userType"]),
                 ));
 
+
+      case RouteName.forgotPassFindAccountScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (_) => ForgotPassFindAccountProvider(),
+              child: ForgotPassFindAccountScreen(
+                userType: arg["userType"],
+              ),
+            ));
+
+
       case RouteName.forgotPassVerifyOtpScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
@@ -84,6 +100,18 @@ class AppRoute {
                     userType: arg["userType"],
                   ),
                 ));
+
+      case RouteName.createNewPassScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (_) => CreateNewPassScreenProvider(),
+              child: CreateNewPassScreen(
+                userType: arg["userType"],
+              ),
+            ));
+
+
 
       case RouteName.bottomBarScreen:
         var arg = settings.arguments as Map;
