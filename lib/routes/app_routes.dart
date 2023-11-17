@@ -34,7 +34,9 @@ import 'package:talent_app/modules/talent/createCard/screens/add_your_video_scre
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_step_two_screen.dart';
 import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
+import 'package:talent_app/modules/talent/menu/screens/talent_menu_screen.dart';
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
+import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 
 class AppRoute {
@@ -221,6 +223,21 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) => const AddInfoScreen(),
         );
+
+
+      case RouteName.talentSettingScreen:
+        return MaterialPageRoute(
+          builder: (context) => const TalentSettingScreen(),
+        );
+
+
+      case RouteName.talentMenuScreen:
+        return MaterialPageRoute(
+          builder: (context) => const TalentMenuScreen(),
+        );
+
+
+
 
       default:
         return MaterialPageRoute(builder: (context) => const IntroScreen());

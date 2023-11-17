@@ -8,6 +8,7 @@ import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.da
 import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
+import 'package:talent_app/modules/talent/home/screen/talent_home_screen.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 
@@ -28,9 +29,7 @@ class _TalentBottomBarScreenState extends State {
     // const ChatUserListScreen(),
     // const CastProfileScreen(),
 
-    Center(
-      child: Text("Home"),
-    ),
+    TalentHomeScreen(),
 
     Center(
       child: Text("Home"),
