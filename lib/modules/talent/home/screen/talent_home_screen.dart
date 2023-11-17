@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
-import 'package:talent_app/modules/casting/home/widgets/Audition_finished_widget.dart';
-import 'package:talent_app/modules/casting/home/widgets/audition_created_widget.dart';
 import 'package:talent_app/modules/talent/home/widgets/approved_audition_widget.dart';
+import 'package:talent_app/modules/talent/home/widgets/audition_for_you_widget.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -42,12 +41,6 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           begin: Alignment.bottomLeft,
                           end: Alignment.topRight,
                           colors:
-                          // [
-                          //   ColorUtility.color1B215C,
-                          //   ColorUtility.color263287,
-                          //   ColorUtility.color857784,
-                          //   ColorUtility.colorEFC275,
-                          // ]
                         ColorUtility.talentHeaderGradientColor
                       )),
                   child: SafeArea(
@@ -123,7 +116,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
             const Expanded(
                 child: TabBarView(
                   children: [
-                    AuditionCreatedWidget(),
+                    AuditionForYouWidget(),
                     ApprovedAuditionWidget(),
                   ],
                 ))

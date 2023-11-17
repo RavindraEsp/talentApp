@@ -29,6 +29,8 @@
   "buttonImReadyBringItOn": "I’m ready, bring it on",
   "buttonStartSevenDaysFreeTrial": "Start 7 days free trial",
   "buttonGoToLogin": "Go To Login",
+  "buttonMoreDetails": "More Details",
+  "buttonReschedule": "Reschedule",
   "validationName": "User name is required.",
   "validationPass": "Password is required.",
   "validationPassNotMatch": "Password did not match.",
@@ -214,6 +216,8 @@
   "decline": "Decline",
   "approve": "Approve",
   "thisAuditionIsClosed": "This audition is closed",
-  "closedAuditionDesc": "In order to review more candidates you need to add more audition slots."
+  "closedAuditionDesc": "In order to review more candidates you need to add more audition slots.",
+  "withdraw": "Withdraw",
+  "edit": "Edit"
 }
 

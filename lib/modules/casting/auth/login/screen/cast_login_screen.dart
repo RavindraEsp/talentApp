@@ -187,7 +187,13 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                               RouteName.bottomBarScreen,
                                               arguments: {"selectIndex": 0},
                                               (route) => false);
-                                        } else {}
+                                        } else {
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              RouteName.talentBottomBarScreen,
+                                              arguments: {"selectIndex": 0},
+                                                  (route) => false);
+                                        }
 
                                         // Common.showLoadingDialog(context);
                                         // castLoginProvider.login(

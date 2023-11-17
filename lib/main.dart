@@ -53,8 +53,8 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-          //  home: const IntroScreen(),
-            home:  TalentBottomBarScreen(selectIndex: 0,),
+            home: const IntroScreen(),
+          //  home:  TalentBottomBarScreen(selectIndex: 0,),
             onGenerateRoute: AppRoute.generateRoute,
             // builder: (context, widget) {
             //   return MediaQuery(

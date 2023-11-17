@@ -63,7 +63,7 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Image.asset(
-                                      ImageUtility.calenderIcon,
+                                      ImageUtility.calenderVerifiedIcon,
                                       width: 14.w,
                                       fit: BoxFit.fill,
                                     ),
@@ -71,7 +71,7 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                       width: 5.w,
                                     ),
                                     Text(
-                                      "23/8/2023",
+                                      "Audition Date 18/8/2023",
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(
@@ -87,15 +87,16 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Image.asset(
-                                      ImageUtility.userIcon,
+                                      ImageUtility.clockIcon,
                                       width: 14.w,
+                                      color: ColorUtility.color4FCC48,
                                       fit: BoxFit.fill,
                                     ),
                                     SizedBox(
                                       width: 5.w,
                                     ),
                                     Text(
-                                      "20 Applied",
+                                      "09:00",
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(
@@ -123,7 +124,8 @@ class ApprovedAuditionWidget extends StatelessWidget {
                               height: 20.h,
                             ),
 
-                            Text("Withdraw",style: StyleUtility.kantumruyProRegular5457BETextStyle.copyWith(
+                            Text(context.loc.withdraw,
+                              style: StyleUtility.kantumruyProRegular5457BETextStyle.copyWith(
                               decoration: TextDecoration.underline
                             ),),
 

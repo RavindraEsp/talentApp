@@ -107,4 +107,6 @@ class ImageUtility {
   static const String cameraIcon = 'assets/icons/camera_icon.png';
   static const String micIcon = 'assets/icons/mic_icon.png';
   static const String audioIcon = 'assets/icons/audio_icon.png';
+  static const String rescheduleIcon = 'assets/icons/reschedule_icon.png';
+  static const String calenderVerifiedIcon = 'assets/icons/calender_verified.png';
 }

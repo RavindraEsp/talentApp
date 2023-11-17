@@ -29,6 +29,7 @@ class RouteName {
   static const String addYourVideoScreen = "/addYourVideoScreen";
   static const String addYourAudioScreen = "/addYourAudioScreen";
   static const String addInfoScreen = "/addInfoScreen";
+  static const String talentBottomBarScreen = "/talentBottomBarScreen";
   static const String talentSettingScreen = "/talentSettingScreen";
   static const String talentMenuScreen = "/talentMenuScreen";
 }

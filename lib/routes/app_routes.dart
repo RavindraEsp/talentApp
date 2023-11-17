@@ -27,6 +27,7 @@ import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
+import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_info_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_your_audio_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_your_photo_screen.dart';
@@ -224,6 +225,19 @@ class AppRoute {
           builder: (context) => const AddInfoScreen(),
         );
 
+
+
+
+
+      case RouteName.talentBottomBarScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (_) => BottomBarProvider(),
+              child: TalentBottomBarScreen(
+                selectIndex: arg["selectIndex"],
+              ),
+            ));
 
       case RouteName.talentSettingScreen:
         return MaterialPageRoute(
