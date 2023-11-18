@@ -9,6 +9,7 @@ import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/modules/talent/widgets/talent_setting_widget.dart';
+import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class TalentHomeScreen extends StatefulWidget {
   const TalentHomeScreen({super.key});
@@ -51,7 +52,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const TalentSettingButtonWidget(),
+                          const SettingButtonWidget(),
                           Text(
                             "Hello, Michal",
                             style: StyleUtility.kantumruyProSMedium18TextStyle

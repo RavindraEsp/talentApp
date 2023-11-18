@@ -13,7 +13,7 @@ import 'package:talent_app/modules/casting/auth/signup/screens/cast_signup_scree
 import 'package:talent_app/modules/casting/auth/signup/provider/signup_screen_provider.dart';
 import 'package:talent_app/modules/casting/auth/signup/screens/cast_verify_phone_screen.dart';
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
-import 'package:talent_app/modules/casting/bottomBar/screen/bottom_bar_screen.dart';
+import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
 import 'package:talent_app/modules/casting/chat/screens/chat_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
@@ -35,7 +35,14 @@ import 'package:talent_app/modules/talent/createCard/screens/add_your_video_scre
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_step_two_screen.dart';
 import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
+import 'package:talent_app/modules/talent/menu/screens/denied_audition_screen.dart';
 import 'package:talent_app/modules/talent/menu/screens/talent_menu_screen.dart';
+import 'package:talent_app/modules/talent/profile/screens/edit_audio_screen.dart';
+import 'package:talent_app/modules/talent/profile/screens/edit_body_screen.dart';
+import 'package:talent_app/modules/talent/profile/screens/edit_genre_screen.dart';
+import 'package:talent_app/modules/talent/profile/screens/edit_photo_gallery_screen.dart';
+import 'package:talent_app/modules/talent/profile/screens/edit_tell_us_about_screen.dart';
+import 'package:talent_app/modules/talent/profile/screens/edit_video_gallery_screen.dart';
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
@@ -116,12 +123,12 @@ class AppRoute {
 
 
 
-      case RouteName.bottomBarScreen:
+      case RouteName.castBottomBarScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
                   create: (_) => BottomBarProvider(),
-                  child: BottomBarScreen(
+                  child: CastBottomBarScreen(
                     selectIndex: arg["selectIndex"],
                   ),
                 ));
@@ -179,8 +186,9 @@ class AppRoute {
         );
 
       case RouteName.chatScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const ChatScreen(),
+          builder: (context) =>  ChatScreen(userType: arg["userType"],),
         );
 
       // Talent Screens
@@ -248,6 +256,43 @@ class AppRoute {
       case RouteName.talentMenuScreen:
         return MaterialPageRoute(
           builder: (context) => const TalentMenuScreen(),
+        );
+
+      case RouteName.editTellUsAboutScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditTellUsAboutScreen(),
+        );
+
+
+
+      case RouteName.editPhotoGalleryScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditPhotoGalleryScreen(),
+        );
+
+
+      case RouteName.editVideoGalleryScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditVideoGalleryScreen(),
+        );
+      case RouteName.editAudioScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditAudioScreen(),
+        );
+      case RouteName.editGenreScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditGenreScreen(),
+        );
+
+      case RouteName.editBodyScreen:
+        return MaterialPageRoute(
+          builder: (context) => const EditBodyScreen(),
+        );
+
+
+      case RouteName.deniedAuditionScreen:
+        return MaterialPageRoute(
+          builder: (context) => const DeniedAuditionScreen(),
         );
 
 

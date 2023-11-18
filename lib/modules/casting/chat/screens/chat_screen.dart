@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -9,7 +13,8 @@ import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  final UserType userType;
+  const ChatScreen({Key? key, required this.userType}) : super(key: key);
 
   @override
   ChatScreenState createState() => ChatScreenState();
@@ -48,10 +53,14 @@ class ChatScreenState extends State<ChatScreen> {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40.r),
                     bottomRight: Radius.circular(40.r)),
-                gradient: const LinearGradient(
+                gradient:  LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
-                    colors: ColorUtility.castHeaderGradientColor)),
+                   // colors: ColorUtility.castHeaderGradientColor
+                    colors: widget.userType == UserType.cast
+                        ? ColorUtility.castHeaderGradientColor
+                        : ColorUtility.talentHeaderGradientColor
+                )),
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(
@@ -80,7 +89,11 @@ class ChatScreenState extends State<ChatScreen> {
                         ),
                       ],
                     ),
-                    const MenuButtonWidget()
+
+                    widget.userType == UserType.cast ?
+                    const MenuButtonWidget():
+
+                    const TalentMenuButtonWidget()
                   ],
                 ),
               ),

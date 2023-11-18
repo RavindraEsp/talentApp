@@ -4,6 +4,7 @@ import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -183,7 +184,10 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                             icon: ImageUtility.messageNavIcon,
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, RouteName.chatScreen);
+                                  context, RouteName.chatScreen,
+                              arguments: {
+                                    "userType":UserType.cast
+                              });
                             }),
                         SizedBox(
                           height: 23.h,

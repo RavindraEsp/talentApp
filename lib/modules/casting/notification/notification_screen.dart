@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -9,7 +11,8 @@ import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+ final UserType userType;
+  const NotificationScreen({super.key, required this.userType});
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
@@ -28,10 +31,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40.r),
                     bottomRight: Radius.circular(40.r)),
-                gradient: const LinearGradient(
+                gradient:  LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
-                    colors: ColorUtility.castHeaderGradientColor)),
+                   // colors: ColorUtility.castHeaderGradientColor
+                    colors: widget.userType == UserType.cast
+                        ? ColorUtility.castHeaderGradientColor
+                        : ColorUtility.talentHeaderGradientColor
+                )),
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(
@@ -40,6 +47,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+
+
                     const SettingButtonWidget(),
                     Row(
                       children: [
@@ -54,7 +63,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         ),
                       ],
                     ),
-                    const MenuButtonWidget()
+
+
+                    widget.userType == UserType.cast ?
+                     const MenuButtonWidget():
+
+                     const TalentMenuButtonWidget()
                   ],
                 ),
               ),

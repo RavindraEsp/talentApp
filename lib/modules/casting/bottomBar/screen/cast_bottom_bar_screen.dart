@@ -8,24 +8,25 @@ import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.da
 import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 
-class BottomBarScreen extends StatefulWidget {
+class CastBottomBarScreen extends StatefulWidget {
   int selectIndex;
 
-  BottomBarScreen({super.key, required this.selectIndex});
+  CastBottomBarScreen({super.key, required this.selectIndex});
 
   @override
-  State createState() => _BottomBarScreenState(selectIndex);
+  State createState() => _CastBottomBarScreenState(selectIndex);
 }
 
 //class _BottomBarScreenState extends State<BottomBarScreen> {
-class _BottomBarScreenState extends State {
+class _CastBottomBarScreenState extends State {
   final List<Widget> _children = [
     const CastHomeScreen(),
-    const NotificationScreen(),
-    const ChatUserListScreen(),
+    const NotificationScreen(userType: UserType.cast,),
+    const ChatUserListScreen(userType: UserType.cast),
     const CastProfileScreen(),
 
 
@@ -34,7 +35,7 @@ class _BottomBarScreenState extends State {
 
   late int selectIndex;
 
-  _BottomBarScreenState(this.selectIndex);
+  _CastBottomBarScreenState(this.selectIndex);
 
   @override
   Widget build(BuildContext context) {

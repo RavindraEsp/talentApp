@@ -7,7 +7,7 @@ class RouteName {
   static const String forgotPassVerifyOtpScreen = "/forgotPassVerifyOtpScreen";
   static const String createNewPassScreen = "/createNewPassScreen";
   static const String forgotPassFindAccountScreen = "/forgotPassFindAccountScreen";
-  static const String bottomBarScreen = "/bottomBarScreen";
+  static const String castBottomBarScreen = "/bottomBarScreen";
   static const String settingScreen = "/settingScreen";
   static const String menuScreen = "/menuScreen";
   static const String createAuditionScreen = "/createAuditionScreen";
@@ -32,4 +32,11 @@ class RouteName {
   static const String talentBottomBarScreen = "/talentBottomBarScreen";
   static const String talentSettingScreen = "/talentSettingScreen";
   static const String talentMenuScreen = "/talentMenuScreen";
+  static const String editTellUsAboutScreen = "/editTellUsAboutScreen";
+  static const String editPhotoGalleryScreen = "/editPhotoGalleryScreen";
+  static const String editVideoGalleryScreen = "/editVideoGalleryScreen";
+  static const String editAudioScreen = "/editAudioScreen";
+  static const String editGenreScreen = "/editGenreScreen";
+  static const String editBodyScreen = "/editBodyScreen";
+  static const String deniedAuditionScreen = "/deniedAuditionScreen";
 }

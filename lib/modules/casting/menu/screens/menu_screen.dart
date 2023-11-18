@@ -44,7 +44,7 @@ class _MenuScreenState extends State<MenuScreen> {
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
                     context,
-                    RouteName.bottomBarScreen,
+                    RouteName.castBottomBarScreen,
                     arguments: {"selectIndex": 0},
                     (route) => false);
               },
@@ -82,7 +82,7 @@ class _MenuScreenState extends State<MenuScreen> {
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
                     context,
-                    RouteName.bottomBarScreen,
+                    RouteName.castBottomBarScreen,
                     arguments: {"selectIndex": 1},
                     (route) => false);
               },
@@ -97,7 +97,7 @@ class _MenuScreenState extends State<MenuScreen> {
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
                     context,
-                    RouteName.bottomBarScreen,
+                    RouteName.castBottomBarScreen,
                     arguments: {"selectIndex": 2},
                     (route) => false);
               },

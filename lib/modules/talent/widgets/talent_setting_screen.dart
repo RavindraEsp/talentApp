@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
-import 'package:talent_app/modules/casting/bottomBar/screen/bottom_bar_screen.dart';
+import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';

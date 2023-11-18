@@ -184,7 +184,7 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                         if (widget.userType == UserType.cast) {
                                           Navigator.pushNamedAndRemoveUntil(
                                               context,
-                                              RouteName.bottomBarScreen,
+                                              RouteName.castBottomBarScreen,
                                               arguments: {"selectIndex": 0},
                                               (route) => false);
                                         } else {

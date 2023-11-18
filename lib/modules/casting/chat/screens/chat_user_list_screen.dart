@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -11,7 +13,8 @@ import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/search_text_field.dart';
 
 class ChatUserListScreen extends StatefulWidget {
-  const ChatUserListScreen({super.key});
+  final UserType userType;
+  const ChatUserListScreen({super.key, required this.userType});
 
   @override
   State<ChatUserListScreen> createState() => _ChatUserListScreenState();
@@ -33,10 +36,15 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40.r),
                     bottomRight: Radius.circular(40.r)),
-                gradient: const LinearGradient(
+                gradient:  LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
-                    colors: ColorUtility.castHeaderGradientColor)),
+                   // colors: ColorUtility.castHeaderGradientColor
+
+                    colors: widget.userType == UserType.cast
+                        ? ColorUtility.castHeaderGradientColor
+                        : ColorUtility.talentHeaderGradientColor
+                )),
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(
@@ -59,7 +67,10 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                         ),
                       ],
                     ),
-                    const MenuButtonWidget()
+                    widget.userType == UserType.cast ?
+                    const MenuButtonWidget():
+
+                    const TalentMenuButtonWidget()
                   ],
                 ),
               ),
@@ -88,7 +99,10 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                     behavior: HitTestBehavior.opaque,
                     onTap: (){
                       Navigator.pushNamed(context,
-                          RouteName.chatScreen);
+                          RouteName.chatScreen,
+                      arguments: {
+                        "userType":widget.userType
+                      });
                     },
                     child: Padding(
                       padding:  EdgeInsets.only( left: 20.w, right: 20.w,),

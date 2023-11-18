@@ -181,6 +181,13 @@ class StyleUtility {
   GoogleFonts.kantumruyPro(
       fontWeight: FontWeight.w400, color: ColorUtility.color5457BE);
 
+
+  static TextStyle kantumruyProRegularDD4F4FTextStyle =
+  GoogleFonts.kantumruyPro(
+      fontWeight: FontWeight.w400, color: ColorUtility.colorDD4F4F);
+
+
+
   static TextStyle mulishRegular16TextStyle = GoogleFonts.mulish(
       fontWeight: FontWeight.w400,
       // fontSize: TextSizeUtility.textSize16,

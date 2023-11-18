@@ -5,6 +5,11 @@ import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_scr
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'modules/intro/intro_screen.dart';
+import 'modules/talent/menu/screens/denied_audition_screen.dart';
+import 'modules/talent/profile/screens/edit_audio_screen.dart';
+import 'modules/talent/profile/screens/edit_photo_gallery_screen.dart';
+import 'modules/talent/profile/screens/edit_tell_us_about_screen.dart';
+import 'modules/talent/profile/screens/edit_video_gallery_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +59,8 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
             home: const IntroScreen(),
-          //  home:  TalentBottomBarScreen(selectIndex: 0,),
+           // home: const EditVideoGalleryScreen(),
+           // home:  TalentBottomBarScreen(selectIndex: 0,),
             onGenerateRoute: AppRoute.generateRoute,
             // builder: (context, widget) {
             //   return MediaQuery(

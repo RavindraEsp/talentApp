@@ -42,11 +42,11 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
               title: context.loc.menuHome,
               image: ImageUtility.homeIcon,
               onTap: () {
-                // Navigator.pushNamedAndRemoveUntil(
-                //     context,
-                //     RouteName.bottomBarScreen,
-                //     arguments: {"selectIndex": 0},
-                //     (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.talentBottomBarScreen,
+                    arguments: {"selectIndex": 0},
+                    (route) => false);
               },
             ),
             Container(
@@ -69,7 +69,8 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
               title: context.loc.menuDeniedAudition,
               image: ImageUtility.createAuditionIcon,
               onTap: () {
-              //  Navigator.pushNamed(context, RouteName.createAuditionScreen);
+
+                Navigator.pushNamed(context, RouteName.deniedAuditionScreen);
               },
             ),
             Container(
@@ -81,7 +82,6 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
                title: context.loc.menuApprovedAuditions,
               image: ImageUtility.approvedAuditionIcon,
               onTap: () {
-                //  Navigator.pushNamed(context, RouteName.createAuditionScreen);
               },
             ),
             Container(
@@ -95,11 +95,11 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
               title: context.loc.menuNotifications,
               image: ImageUtility.notificationSettingIconIcon,
               onTap: () {
-                // Navigator.pushNamedAndRemoveUntil(
-                //     context,
-                //     RouteName.bottomBarScreen,
-                //     arguments: {"selectIndex": 1},
-                //     (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.talentBottomBarScreen,
+                    arguments: {"selectIndex": 1},
+                    (route) => false);
               },
             ),
             Container(
@@ -110,11 +110,11 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
               title: context.loc.menuChat,
               image: ImageUtility.chatIcon,
               onTap: () {
-                // Navigator.pushNamedAndRemoveUntil(
-                //     context,
-                //     RouteName.bottomBarScreen,
-                //     arguments: {"selectIndex": 2},
-                //     (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.talentBottomBarScreen,
+                    arguments: {"selectIndex": 2},
+                    (route) => false);
               },
             ),
             Container(
