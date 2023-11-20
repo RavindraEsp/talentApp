@@ -5,6 +5,7 @@ import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
@@ -405,6 +406,14 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                             showCongratulationDialog(context:
                                             context,
                                             onButtonTap: (){
+
+
+
+                                              Navigator.pushNamedAndRemoveUntil(
+                                                  context,
+                                                  RouteName.talentBottomBarScreen,
+                                                  arguments: {"selectIndex": 0},
+                                                      (route) => false);
 
                                             });
                                             },

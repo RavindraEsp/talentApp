@@ -39,4 +39,5 @@ class RouteName {
   static const String editGenreScreen = "/editGenreScreen";
   static const String editBodyScreen = "/editBodyScreen";
   static const String deniedAuditionScreen = "/deniedAuditionScreen";
+  static const String auditionDetailScreen = "/auditionDetailScreen";
 }

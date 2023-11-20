@@ -91,7 +91,7 @@ class CongratulationAlertDialog extends StatelessWidget {
                         : ButtonType.blue,
                     onTap: () {
                       Navigator.pop(context);
-                      onButtonTap;
+                      onButtonTap();
                     })
               ],
             ),

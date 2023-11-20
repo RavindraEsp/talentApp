@@ -7,7 +7,6 @@ import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
-import 'package:talent_app/modules/talent/widgets/talent_setting_widget.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
@@ -23,7 +22,6 @@ import 'package:talent_app/widgets/textField/mobile_number_text_field.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 import '../../../casting/createAudition/widgets/yes_no_checkbox.dart';
-import 'edit_video_gallery_screen.dart';
 
 class TalentProfileScreen extends StatefulWidget {
   const TalentProfileScreen({super.key});

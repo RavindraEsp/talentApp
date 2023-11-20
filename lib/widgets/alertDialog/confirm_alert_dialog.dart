@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -12,12 +13,13 @@ class ConfirmAlertDialog extends StatelessWidget {
   final VoidCallback onYesTap;
   final String? title;
   final String? buttonText;
+  final UserType? userType;
 
   const ConfirmAlertDialog({
     super.key,
     required this.onYesTap,
     this.title,
-    this.buttonText,
+    this.buttonText, this.userType,
   });
 
   @override
@@ -72,7 +74,8 @@ class ConfirmAlertDialog extends StatelessWidget {
                   children: [
                     Expanded(
                         child: CustomOutlineButton(
-                            buttonText: "No",
+                          //  buttonText: "No",
+                            buttonText: context.loc.buttonNo,
                             onTap: () {
                               Navigator.pop(context);
                             },
@@ -80,10 +83,12 @@ class ConfirmAlertDialog extends StatelessWidget {
                     SizedBox(
                       width: 12.w,
                     ),
+
                     Expanded(
                       child: CustomButton(
-                          buttonText: "Yes",
-                          buttonType: ButtonType.yellow,
+                          buttonText: context.loc.buttonYes,
+                        //  buttonType: ButtonType.yellow,
+                          buttonType:  userType == UserType.talent ? ButtonType.blue: ButtonType.yellow,
                           onTap: () {
                             Navigator.pop(context);
                             onYesTap();

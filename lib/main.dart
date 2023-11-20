@@ -5,6 +5,7 @@ import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_scr
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'modules/intro/intro_screen.dart';
+import 'modules/talent/auditionDetails/screens/audition_detail_screen.dart';
 import 'modules/talent/menu/screens/denied_audition_screen.dart';
 import 'modules/talent/profile/screens/edit_audio_screen.dart';
 import 'modules/talent/profile/screens/edit_photo_gallery_screen.dart';
@@ -58,10 +59,15 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
+
             home: const IntroScreen(),
            // home: const EditVideoGalleryScreen(),
-           // home:  TalentBottomBarScreen(selectIndex: 0,),
+
+         //   home: TalentBottomBarScreen(selectIndex: 0,),
+          //  home: const AuditionDetailScreen(),
+
             onGenerateRoute: AppRoute.generateRoute,
+
             // builder: (context, widget) {
             //   return MediaQuery(
             //       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),

@@ -11,6 +11,7 @@ class ImageUtility {
   static const String freeTrailImage = 'assets/images/free_trail_image.png';
 
 
+
   // Talents Images
   static const String helloTalentBgImage = 'assets/images/hello_talent_bg.png';
 
@@ -109,4 +110,9 @@ class ImageUtility {
   static const String audioIcon = 'assets/icons/audio_icon.png';
   static const String rescheduleIcon = 'assets/icons/reschedule_icon.png';
   static const String calenderVerifiedIcon = 'assets/icons/calender_verified.png';
+  static const String selectRadioIcon = 'assets/icons/select_radio_icon.png';
+  static const String unSelectRadioIcon = 'assets/icons/unselect_radio_icon.png';
+  static const String talentTeamIcon = 'assets/icons/talent_team_icon.png';
+  static const String awaitingIcon = 'assets/icons/awaiting_icon.png';
+
 }
