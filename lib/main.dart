@@ -60,10 +60,10 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
 
-            home: const IntroScreen(),
+          //  home: const IntroScreen(),
            // home: const EditVideoGalleryScreen(),
 
-         //   home: TalentBottomBarScreen(selectIndex: 0,),
+            home: TalentBottomBarScreen(selectIndex: 0,),
           //  home: const AuditionDetailScreen(),
 
             onGenerateRoute: AppRoute.generateRoute,

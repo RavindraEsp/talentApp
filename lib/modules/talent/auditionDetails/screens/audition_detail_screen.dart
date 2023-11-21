@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -216,13 +216,13 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                   ),
                   SizedBox(
                     height: 170.sp,
-                    child: GoogleMap(
-                      initialCameraPosition: const CameraPosition(
-                          tilt: 50,
-                          target: LatLng(22.719568, 75.857727),
-                          zoom: 15),
-                      onMapCreated: (GoogleMapController controller) {},
-                    ),
+                    // child: GoogleMap(
+                    //   initialCameraPosition: const CameraPosition(
+                    //       tilt: 50,
+                    //       target: LatLng(22.719568, 75.857727),
+                    //       zoom: 15),
+                    //   onMapCreated: (GoogleMapController controller) {},
+                    // ),
                   ),
                   SizedBox(
                     height: 40.h,

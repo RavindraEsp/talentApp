@@ -40,13 +40,11 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                       gradient: const LinearGradient(
                           begin: Alignment.bottomLeft,
                           end: Alignment.topRight,
-                          colors:
-                        ColorUtility.talentHeaderGradientColor
-                      )),
+                          colors: ColorUtility.talentHeaderGradientColor)),
                   child: SafeArea(
                     child: Padding(
                       padding:
-                      EdgeInsets.only(left: 18.w, right: 18.w, top: 30.h),
+                          EdgeInsets.only(left: 18.w, right: 18.w, top: 30.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,7 +54,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                             "Hello, Michal",
                             style: StyleUtility.kantumruyProSMedium18TextStyle
                                 .copyWith(
-                                fontSize: TextSizeUtility.textSize18.sp),
+                                    fontSize: TextSizeUtility.textSize18.sp),
                           ),
                           const TalentMenuButtonWidget()
                         ],
@@ -72,7 +70,6 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                 )
               ],
             ),
-
             SizedBox(
               height: 5.h,
             ),
@@ -87,39 +84,39 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
 
               indicator: BoxDecoration(
                 gradient: const LinearGradient(
-                    colors: ColorUtility.blueGradientColor
-                ),
+                    colors: ColorUtility.blueGradientColor),
                 borderRadius: BorderRadius.all(
                   Radius.circular(5.r),
                 ),
               ),
               indicatorWeight: 1,
-              indicatorPadding: EdgeInsets.only(top: 40, left: 16.w, right: 16.w),
+              indicatorPadding:
+                  EdgeInsets.only(top: 40, left: 16.w, right: 16.w),
 
               tabs: [
                 Tab(
                   child: Center(
                       child: Text(
-                        context.loc.tabAuditionForYou,
-                        textAlign: TextAlign.center,
-                      )),
+                    context.loc.tabAuditionForYou,
+                    textAlign: TextAlign.center,
+                  )),
                 ),
                 Tab(
                   child: Center(
                       child: Text(
-                        context.loc.tabApprovedAuditions,
-                        textAlign: TextAlign.center,
-                      )),
+                    context.loc.tabApprovedAuditions,
+                    textAlign: TextAlign.center,
+                  )),
                 ),
               ],
             ),
             const Expanded(
                 child: TabBarView(
-                  children: [
-                    AuditionForYouWidget(),
-                    ApprovedAuditionWidget(),
-                  ],
-                ))
+              children: [
+                AuditionForYouWidget(),
+                ApprovedAuditionWidget(),
+              ],
+            ))
           ],
         ),
       ),
