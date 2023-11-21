@@ -7,6 +7,8 @@ import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
+import 'package:talent_app/widgets/alertDialog/success_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
 
 class AuditionFinishedWidget extends StatelessWidget {
@@ -158,4 +160,6 @@ class AuditionFinishedWidget extends StatelessWidget {
           );
         });
   }
+
+
 }

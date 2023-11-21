@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -18,28 +19,26 @@ class _DeniedAuditionScreenState extends State<DeniedAuditionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorUtility.colorWhite,
-      appBar: AppBar(
-        leading: const BackButton(
-          color: Colors.black, // <-- SEE HERE
-        ),
         backgroundColor: ColorUtility.colorWhite,
-        centerTitle: true,
-        elevation: 0,
-        title: Text(
-         // context.loc.headerMenu,
-          "Denied Audition",
-          style: StyleUtility.kantumruyProMedium5457BETextStyle
-              .copyWith(fontSize: TextSizeUtility.textSize20.sp),
+        appBar: AppBar(
+          leading: const BackButton(
+            color: Colors.black, // <-- SEE HERE
+          ),
+          backgroundColor: ColorUtility.colorWhite,
+          centerTitle: true,
+          elevation: 0,
+          title: Text(
+            // context.loc.headerMenu,
+            "Denied Audition",
+            style: StyleUtility.kantumruyProMedium5457BETextStyle
+                .copyWith(fontSize: TextSizeUtility.textSize20.sp),
+          ),
         ),
-      ),
-      body:  ListView.builder(
-          itemCount: 7,
-          padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
-          itemBuilder: (context, index) {
-            return
-
-              Padding(
+        body: ListView.builder(
+            itemCount: 7,
+            padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
+            itemBuilder: (context, index) {
+              return Padding(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 18.h),
                 child: Container(
                   width: double.infinity,
@@ -68,10 +67,12 @@ class _DeniedAuditionScreenState extends State<DeniedAuditionScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Image.asset(
                                           ImageUtility.calenderIcon,
@@ -86,22 +87,20 @@ class _DeniedAuditionScreenState extends State<DeniedAuditionScreen> {
                                           style: StyleUtility
                                               .quicksandRegular8B8B8BTextStyle
                                               .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize13.sp),
+                                                  fontSize: TextSizeUtility
+                                                      .textSize13.sp),
                                         ),
                                       ],
                                     ),
-
-
                                   ],
                                 ),
                                 SizedBox(
                                   height: 17.h,
                                 ),
-
                                 Text(
                                   "Actors are needed for a variety of roles Extras and more",
-                                  style: StyleUtility.quicksandRegularBlackTextStyle
+                                  style: StyleUtility
+                                      .quicksandRegularBlackTextStyle
                                       .copyWith(
                                     fontSize: TextSizeUtility.textSize16.sp,
                                   ),
@@ -111,55 +110,68 @@ class _DeniedAuditionScreenState extends State<DeniedAuditionScreen> {
                                 SizedBox(
                                   height: 13.h,
                                 ),
-
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      height:34,
-
+                                      height: 34,
                                       decoration: BoxDecoration(
                                         color: ColorUtility.colorDD4F4F,
-
-                                        borderRadius: BorderRadius.circular(30.r),
+                                        borderRadius:
+                                            BorderRadius.circular(30.r),
                                       ),
                                       child: ElevatedButton(
+                                          onPressed: () {
 
-                                          onPressed: (){},
+                                            Navigator.pushNamed(context,
+                                                RouteName.auditionDetailScreen,
+                                                arguments: {
+                                                  "auditionDetailType":
+                                                      AuditionDetailType.denied
+                                                });
+
+                                          },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.transparent,
                                             shadowColor: Colors.transparent,
                                             shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(30.r)),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        30.r)),
                                           ),
                                           child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 1.w),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 1.w),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
-
-
-                                                Text("Denied Audition",
+                                                Text(context.loc.buttonDeniedAudition,
                                                     maxLines: 1,
-                                                    style: StyleUtility.buttonTextStyle.copyWith(
-                                                      fontSize:TextSizeUtility.textSize16.sp,
+                                                    style: StyleUtility
+                                                        .buttonTextStyle
+                                                        .copyWith(
+                                                      fontSize: TextSizeUtility
+                                                          .textSize16.sp,
                                                     )),
                                               ],
                                             ),
                                           )),
                                     ),
                                     Text(
-                                    //  context.loc.widethdraw,
-                                      "Delete",
-                                      style: StyleUtility.kantumruyProRegularDD4F4FTextStyle.copyWith(
-                                          decoration: TextDecoration.underline
-                                      ),),
+                                      context.loc.delete,
+                                      style: StyleUtility
+                                          .kantumruyProRegularDD4F4FTextStyle
+                                          .copyWith(
+                                              decoration:
+                                                  TextDecoration.underline),
+                                    ),
                                   ],
                                 )
-
-
                               ],
                             ),
                           ),
@@ -169,9 +181,6 @@ class _DeniedAuditionScreenState extends State<DeniedAuditionScreen> {
                   ),
                 ),
               );
-
-
-          })
-    );
+            }));
   }
 }

@@ -38,6 +38,7 @@
   "buttonSendNewScheduleApproval": "Send New Schedule approval",
   "buttonWithdrawApplication": "Withdraw Application",
   "buttonAwaitingApproval": "Awaiting approval",
+  "buttonDeniedAudition": "Denied Audition",
   "validationName": "User name is required.",
   "validationPass": "Password is required.",
   "validationPassNotMatch": "Password did not match.",
@@ -236,6 +237,7 @@
   "thisAuditionIsClosed": "This audition is closed",
   "closedAuditionDesc": "In order to review more candidates you need to add more audition slots.",
   "withdraw": "Withdraw",
-  "edit": "Edit"
+  "edit": "Edit",
+  "delete": "Delete"
 }
 

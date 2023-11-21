@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -49,6 +48,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                     end: Alignment.topRight,
                     colors: ColorUtility.talentHeaderGradientColor)),
             child: SafeArea(
+              bottom: false,
               child: Padding(
                 padding: EdgeInsets.only(left: 18.w, right: 18.w, top: 20.h),
                 child: Column(
@@ -354,9 +354,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                             borderRadius: BorderRadius.circular(30.r),
                           ),
                           child: ElevatedButton(
-                              onPressed: () {
-
-                              },
+                              onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 shadowColor: Colors.transparent,
@@ -407,6 +405,56 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                         )
                       : const SizedBox(),
 
+
+                  //For Reschedule
+                  widget.auditionDetailType == AuditionDetailType.denied
+                      ?
+                  Container(
+                    margin: EdgeInsets.only(top: 15.h),
+                    height: TextSizeUtility.buttonHeight,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: ColorUtility.colorDD4F4F,
+                      borderRadius:
+                      BorderRadius.circular(30.r),
+                    ),
+                    child: ElevatedButton(
+                        onPressed: () {
+
+
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.circular(
+                                  30.r)),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 1.w),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            children: [
+                              Text(context.loc.buttonDeniedAudition,
+                                  maxLines: 1,
+                                  style: StyleUtility
+                                      .buttonTextStyle
+                                      .copyWith(
+                                    fontSize: TextSizeUtility
+                                        .textSize16.sp,
+                                  )),
+                            ],
+                          ),
+                        )),
+                  ):const SizedBox(),
+
                   SizedBox(
                     height: 15.h,
                   ),
@@ -445,7 +493,6 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
     });
   }
 
-
   Future<dynamic> showWithdrawDialog({
     required BuildContext context,
   }) {
@@ -477,10 +524,6 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
       Navigator.pop(context);
     });
   }
-
-
-
-
 }
 
 class DateModel {

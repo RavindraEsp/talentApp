@@ -33,7 +33,6 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
               children: [
                 Container(
                   margin: EdgeInsets.only(bottom: 50.sp),
-                  height: 160.h,
                   width: double.infinity,
                   alignment: Alignment.topCenter,
                   decoration: BoxDecoration(
@@ -50,22 +49,26 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                             ColorUtility.colorEFC275,
                           ])),
                   child: SafeArea(
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: 18.w, right: 18.w, top: 30.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SettingButtonWidget(),
-                          Text(
-                            "Hello, Alon",
-                            style: StyleUtility.kantumruyProSMedium18TextStyle
-                                .copyWith(
-                                    fontSize: TextSizeUtility.textSize18.sp),
-                          ),
-                          const MenuButtonWidget()
-                        ],
+                    child: Container(
+                      height: 124.h,
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding:
+                        EdgeInsets.only(left: 18.w, right: 18.w,top: 24.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SettingButtonWidget(),
+                            Text(
+                              "Hello, Michal",
+                              style: StyleUtility.kantumruyProSMedium18TextStyle
+                                  .copyWith(
+                                  fontSize: TextSizeUtility.textSize18.sp),
+                            ),
+                            const MenuButtonWidget()
+                          ],
+                        ),
                       ),
                     ),
                   ),

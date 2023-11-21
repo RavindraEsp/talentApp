@@ -62,6 +62,7 @@ class ChatScreenState extends State<ChatScreen> {
                         : ColorUtility.talentHeaderGradientColor
                 )),
             child: SafeArea(
+              bottom: false,
               child: Padding(
                 padding: EdgeInsets.only(
                     left: 18.w,

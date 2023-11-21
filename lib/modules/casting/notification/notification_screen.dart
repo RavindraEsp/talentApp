@@ -11,7 +11,8 @@ import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class NotificationScreen extends StatefulWidget {
- final UserType userType;
+  final UserType userType;
+
   const NotificationScreen({super.key, required this.userType});
 
   @override
@@ -31,14 +32,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40.r),
                     bottomRight: Radius.circular(40.r)),
-                gradient:  LinearGradient(
+                gradient: LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
-                   // colors: ColorUtility.castHeaderGradientColor
+                    // colors: ColorUtility.castHeaderGradientColor
                     colors: widget.userType == UserType.cast
                         ? ColorUtility.castHeaderGradientColor
-                        : ColorUtility.talentHeaderGradientColor
-                )),
+                        : ColorUtility.talentHeaderGradientColor)),
             child: SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(
@@ -47,8 +47,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
-
                     const SettingButtonWidget(),
                     Row(
                       children: [
@@ -63,12 +61,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         ),
                       ],
                     ),
-
-
-                    widget.userType == UserType.cast ?
-                     const MenuButtonWidget():
-
-                     const TalentMenuButtonWidget()
+                    widget.userType == UserType.cast
+                        ? const MenuButtonWidget()
+                        : const TalentMenuButtonWidget()
                   ],
                 ),
               ),

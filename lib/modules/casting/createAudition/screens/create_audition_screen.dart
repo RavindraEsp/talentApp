@@ -148,6 +148,7 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                           ColorUtility.colorEFC275,
                         ])),
                 child: SafeArea(
+                  bottom: false,
                   child: Padding(
                     padding: EdgeInsets.only(
                         left: 18.w,
