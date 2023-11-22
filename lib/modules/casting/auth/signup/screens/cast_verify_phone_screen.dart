@@ -192,34 +192,35 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                       } else {
                                         /// TODO temp
 
-                                        showCongratulationDialog(
-                                            context: context,
-                                            onButtonTap: () {});
+                                        // showCongratulationDialog(
+                                        //     context: context,
+                                        //     onButtonTap: () {});
 
-                                        // CommonDialog.showLoadingDialog(context);
-                                        // provider.signUp(
-                                        //     onSuccess: (message) {
-                                        //       Navigator.pop(context);
-                                        //
-                                        //       showCongratulationDialog(context: context,onButtonTap: (){
-                                        //
-                                        //       });
-                                        //        },
-                                        //     onFailure: (message) {
-                                        //       Navigator.pop(context);
-                                        //       Common.showErrorSnackBar(
-                                        //           context, message);
-                                        //     },
-                                        //     request: SignupRequest(
-                                        //         email: widget.email,
-                                        //         mobileNumber: widget.phone,
-                                        //         userName: widget.userName,
-                                        //         password: widget.password,
-                                        //         confirmPassword: widget.confirmPassword,
-                                        //         oTP: otpController.text,
-                                        //         talentType: 1 // for caster
-                                        //
-                                        //         ));
+                                        CommonDialog.showLoadingDialog(context);
+                                        provider.signUp(
+                                            onSuccess: (message) {
+                                              Navigator.pop(context);
+
+                                              showCongratulationDialog(context: context,onButtonTap: (){
+
+                                              });
+                                               },
+                                            onFailure: (message) {
+                                              Navigator.pop(context);
+                                              Common.showErrorSnackBar(
+                                                  context, message);
+                                            },
+                                            request: SignupRequest(
+                                                email: widget.email,
+                                                mobileNumber: widget.phone,
+                                                userName: widget.userName,
+                                                password: widget.password,
+                                                confirmPassword: widget.confirmPassword,
+                                                oTP: otpController.text,
+                                              //  userType: 1 // for caster
+                                                userType: widget.userType == UserType.talent  ? 1 :2// for caster
+
+                                                ));
                                       }
                                       // Navigator.push(
                                       //     context,

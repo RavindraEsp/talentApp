@@ -5,7 +5,7 @@ class SignupRequest {
   String? password;
   String? confirmPassword;
   String? oTP;
-  int? talentType;
+  int? userType;
 
   SignupRequest(
       {this.userName,
@@ -14,7 +14,7 @@ class SignupRequest {
         this.password,
         this.confirmPassword,
         this.oTP,
-        this.talentType});
+        this.userType});
 
   SignupRequest.fromJson(Map<String, dynamic> json) {
     userName = json['userName'];
@@ -23,7 +23,7 @@ class SignupRequest {
     password = json['password'];
     confirmPassword = json['confirmPassword'];
     oTP = json['OTP'];
-    talentType = json['talentType'];
+    userType = json['userType'];
   }
 
   Map<String, dynamic> toJson() {
@@ -34,7 +34,7 @@ class SignupRequest {
     data['password'] = this.password;
     data['confirmPassword'] = this.confirmPassword;
     data['OTP'] = this.oTP;
-    data['talentType'] = this.talentType;
+    data['userType'] = this.userType;
     return data;
   }
 }

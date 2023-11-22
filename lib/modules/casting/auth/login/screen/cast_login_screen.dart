@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/auth/login/provider/cast_login_provider.dart';
+import 'package:talent_app/network/model/request/auth/login_request.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -180,42 +182,62 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                         CommonMethod.hideKeyBoard(context);
 
                                         ///Todo temp
-                                        ///
-                                        if (widget.userType == UserType.cast) {
-                                          Navigator.pushNamedAndRemoveUntil(
-                                              context,
-                                              RouteName.castBottomBarScreen,
-                                              arguments: {"selectIndex": 0},
-                                              (route) => false);
-                                        } else {
-                                          Navigator.pushNamedAndRemoveUntil(
-                                              context,
-                                              RouteName.talentBottomBarScreen,
-                                              arguments: {"selectIndex": 0},
-                                                  (route) => false);
-                                        }
 
-                                        // Common.showLoadingDialog(context);
-                                        // castLoginProvider.login(
-                                        //     onSuccess: (message) {
-                                        //       Navigator.pop(context);
-                                        //       Common.showSuccessToast(
-                                        //           context, message);
+                                        // if (widget.userType == UserType.cast) {
+                                        //   Navigator.pushNamedAndRemoveUntil(
+                                        //       context,
+                                        //       RouteName.castBottomBarScreen,
+                                        //       arguments: {"selectIndex": 0},
+                                        //       (route) => false);
+                                        // } else {
+                                        //   Navigator.pushNamedAndRemoveUntil(
+                                        //       context,
+                                        //       RouteName.talentBottomBarScreen,
+                                        //       arguments: {"selectIndex": 0},
+                                        //           (route) => false);
+                                        // }
 
-                                        // Navigator.pushNamedAndRemoveUntil(
-                                        //     context,
-                                        //     RouteName.bottomBarScreen,
-                                        //     arguments: {"selectIndex": 0},
-                                        //     (route) => false);
 
-                                        //     onFailure: (message) {
-                                        //       Navigator.pop(context);
-                                        //       Common.showErrorSnackBar(
-                                        //           context, message);
-                                        //     },
-                                        //     request: LoginRequest(
-                                        //         userName: nameController.text,
-                                        //         password: passwordController.text));
+                                        ///with api
+
+                                        Common.showLoadingDialog(context);
+                                        castLoginProvider.login(
+                                            onSuccess: (message) {
+                                              Navigator.pop(context);
+                                              Common.showSuccessToast(
+                                                  context, message);
+
+                                              // Navigator.pushNamedAndRemoveUntil(
+                                              //     context,
+                                              //     RouteName.bottomBarScreen,
+                                              //     arguments: {"selectIndex": 0},
+                                              //         (route) => false);
+
+                                              if (widget.userType == UserType.cast) {
+                                                Navigator.pushNamedAndRemoveUntil(
+                                                    context,
+                                                    RouteName.castBottomBarScreen,
+                                                    arguments: {"selectIndex": 0},
+                                                    (route) => false);
+                                              } else {
+                                                Navigator.pushNamedAndRemoveUntil(
+                                                    context,
+                                                    RouteName.talentBottomBarScreen,
+                                                    arguments: {"selectIndex": 0},
+                                                        (route) => false);
+                                              }
+
+
+                                            },
+                                            onFailure: (message) {
+                                              Navigator.pop(context);
+                                              Common.showErrorSnackBar(
+                                                  context, message);
+                                            },
+                                            request: LoginRequest(
+                                                userName: nameController.text,
+                                                password: passwordController.text,
+                                                fCMToken: "jhgdjf"));
                                       }
                                     },
                                   ),

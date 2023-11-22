@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/auth/signup/provider/signup_screen_provider.dart';
+import 'package:talent_app/network/model/request/auth/signup/SignUpSendOtpRequest.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
@@ -251,51 +252,55 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                           CommonMethod.hideKeyBoard(context);
 
                                           ///Todo temp
-                                          Navigator.pushNamed(context,
-                                              RouteName.castVerifyPhoneScreen,
-                                              arguments: {
-                                                "userType": widget.userType,
-                                                "email": emailController.text,
-                                                "phone": phoneController.text,
-                                                "userName":
-                                                    userNameController.text,
-                                                "password":
-                                                    passwordController.text,
-                                                "confirmPassword":
-                                                    confirmPasswordController
-                                                        .text,
-                                              });
+                                          // Navigator.pushNamed(context,
+                                          //     RouteName.castVerifyPhoneScreen,
+                                          //     arguments: {
+                                          //       "userType": widget.userType,
+                                          //       "email": emailController.text,
+                                          //       "phone": phoneController.text,
+                                          //       "userName":
+                                          //           userNameController.text,
+                                          //       "password":
+                                          //           passwordController.text,
+                                          //       "confirmPassword":
+                                          //           confirmPasswordController
+                                          //               .text,
+                                          //     });
 
-                                          // Common.showLoadingDialog(context);
-                                          // provider.signUpGetOtp(
-                                          //     onSuccess: (message) {
-                                          //       Navigator.pop(context);
-                                          //       Common.showSuccessToast(
-                                          //           context, message);
-                                          //
-                                          //       Navigator.pushNamed(context,
-                                          //           RouteName.castVerifyPhoneScreen,
-                                          //           arguments: {
-                                          //             "email": emailController.text,
-                                          //             "phone": phoneController.text,
-                                          //             "userName":
-                                          //                 userNameController.text,
-                                          //             "password":
-                                          //                 passwordController.text,
-                                          //             "confirmPassword":
-                                          //                 confirmPasswordController
-                                          //                     .text,
-                                          //           });
-                                          //     },
-                                          //     onFailure: (message) {
-                                          //       Navigator.pop(context);
-                                          //       Common.showErrorSnackBar(
-                                          //           context, message);
-                                          //     },
-                                          //     request: SignupSendOtpRequest(
-                                          //         email: emailController.text,
-                                          //         mobileNumber:
-                                          //             phoneController.text));
+                                          Common.showLoadingDialog(context);
+                                          provider.signUpGetOtp(
+                                              onSuccess: (message) {
+                                                Navigator.pop(context);
+                                                Common.showSuccessToast(
+                                                    context, message);
+
+                                                ///Todo temp
+                                                Navigator.pushNamed(context,
+                                                    RouteName.castVerifyPhoneScreen,
+                                                    arguments: {
+                                                      "userType": widget.userType,
+                                                      "email": emailController.text,
+                                                      "phone": phoneController.text,
+                                                      "userName":
+                                                      userNameController.text,
+                                                      "password":
+                                                      passwordController.text,
+                                                      "confirmPassword":
+                                                      confirmPasswordController
+                                                          .text,
+                                                    });
+
+
+                                              },
+                                              onFailure: (message) {
+                                                Navigator.pop(context);
+                                                Common.showErrorSnackBar(
+                                                    context, message);
+                                              },
+                                              request: SignupSendOtpRequest(
+                                                  email: emailController.text,
+                                                  mobileNumber:
+                                                      phoneController.text));
                                         }
                                       }
                                     },
