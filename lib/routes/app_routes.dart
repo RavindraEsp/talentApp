@@ -17,6 +17,8 @@ import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_scre
 import 'package:talent_app/modules/casting/chat/screens/chat_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
+import 'package:talent_app/modules/casting/createCard/cast_create_card_screen.dart';
+import 'package:talent_app/modules/casting/createCard/provider/cast_create_card_provider.dart';
 import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_screen.dart';
 import 'package:talent_app/modules/casting/helloCasting/hello_casting_screen.dart';
@@ -90,6 +92,17 @@ class AppRoute {
                 ));
 
 
+      case RouteName.castCreateCardScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (_) => CastCreateCardProvider(),
+              child: const CastCreateCardScreen(),
+            ));
+
+
+
+
       case RouteName.forgotPassFindAccountScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
@@ -119,6 +132,8 @@ class AppRoute {
               create: (_) => CreateNewPassScreenProvider(),
               child: CreateNewPassScreen(
                 userType: arg["userType"],
+                email: arg["email"],
+                otp: arg["otp"],
               ),
             ));
 

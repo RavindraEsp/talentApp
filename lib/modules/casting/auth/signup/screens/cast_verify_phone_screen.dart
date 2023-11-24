@@ -217,7 +217,6 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                                 password: widget.password,
                                                 confirmPassword: widget.confirmPassword,
                                                 oTP: otpController.text,
-                                              //  userType: 1 // for caster
                                                 userType: widget.userType == UserType.talent  ? 1 :2// for caster
 
                                                 ));
@@ -265,9 +264,17 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
               "userType" :UserType.cast
             });
       } else {
+        // Navigator.pop(context);
+        // Navigator.pop(context);
+        // Navigator.pushNamed(context, RouteName.talentCreateCardScreen);
+
         Navigator.pop(context);
         Navigator.pop(context);
-        Navigator.pushNamed(context, RouteName.talentCreateCardScreen);
+        Navigator.pushNamed(context,
+            RouteName.castLoginScreen,
+            arguments: {
+              "userType" :UserType.talent
+            });
       }
     });
   }

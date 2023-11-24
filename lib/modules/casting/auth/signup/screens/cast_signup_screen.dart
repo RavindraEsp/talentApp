@@ -300,7 +300,12 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                               request: SignupSendOtpRequest(
                                                   email: emailController.text,
                                                   mobileNumber:
-                                                      phoneController.text));
+                                                      phoneController.text,
+
+                                                userType: widget.userType == UserType.talent  ? 1 :2,// for caster
+
+
+                                              ));
                                         }
                                       }
                                     },

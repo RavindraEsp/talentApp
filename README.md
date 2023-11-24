@@ -17,5 +17,11 @@ samples, guidance on mobile development, and a full API reference.
 
 flutter gen-l10n
 
-usertype 1 for caster 
-usertype 2 for talent
+
+
+type 1 = talent
+
+type 2 = caster
+
+
+

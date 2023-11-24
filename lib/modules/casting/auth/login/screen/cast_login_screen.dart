@@ -202,23 +202,37 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
 
                                         Common.showLoadingDialog(context);
                                         castLoginProvider.login(
-                                            onSuccess: (message) {
+                                            onSuccess: (response) {
                                               Navigator.pop(context);
                                               Common.showSuccessToast(
-                                                  context, message);
+                                                  context, response.msg ?? "");
 
-                                              // Navigator.pushNamedAndRemoveUntil(
-                                              //     context,
-                                              //     RouteName.bottomBarScreen,
-                                              //     arguments: {"selectIndex": 0},
-                                              //         (route) => false);
+
 
                                               if (widget.userType == UserType.cast) {
-                                                Navigator.pushNamedAndRemoveUntil(
-                                                    context,
-                                                    RouteName.castBottomBarScreen,
-                                                    arguments: {"selectIndex": 0},
-                                                    (route) => false);
+
+
+                                                if(response.data?.isCardcreated == true){
+
+                                                  Navigator.pushNamedAndRemoveUntil(
+                                                      context,
+                                                      RouteName.castBottomBarScreen,
+                                                      arguments: {"selectIndex": 0},
+                                                          (route) => false);
+                                                }else{
+
+                                                  Navigator.pushNamedAndRemoveUntil(
+                                                      context,
+                                                      RouteName.castCreateCardScreen,
+                                                          arguments: {
+                                                        "userId":0,
+                                                          },
+                                                          (route) => false);
+                                                }
+
+
+
+
                                               } else {
                                                 Navigator.pushNamedAndRemoveUntil(
                                                     context,
@@ -237,7 +251,8 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                             request: LoginRequest(
                                                 userName: nameController.text,
                                                 password: passwordController.text,
-                                                fCMToken: "jhgdjf"));
+                                                userType: widget.userType == UserType.talent  ? 1 :2,// for caster
+                                                fCMToken: "fcm token001"));
                                       }
                                     },
                                   ),

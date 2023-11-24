@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:talent_app/network/client/dio_http_service.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/network/model/request/auth/login_request.dart';
@@ -28,4 +29,39 @@ class AuthRepository {
         .post(Endpoints.baseUrl + Endpoints.auth.login, data: request.toJson())
         .then((value) => LoginResponse.fromJson(value));
   }
+
+  Future<SignupSendOtpResponse> forgotPassGetOtp(Map request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.auth.forgotPasswordGetOtp,
+        data: request)
+        .then((value) => SignupSendOtpResponse.fromJson(value));
+  }
+
+  Future<BasicResponse> forgotPassSetNewPass(Map request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.auth.forgotPassSetNewPass,
+        data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
+  Future<BasicResponse> forgotPassMobileotpVerify(Map request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.auth.forgotPassMobileotpVerify,
+        data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
+  // Future<BasicResponse> updateCasterProfile(Map request) {
+  //   return dioHttpService
+  //       .post(Endpoints.baseUrl + Endpoints.auth.updateCasterProfile,
+  //       data:FormData.fromMap(request)
+  //   )
+  //       .then((value) => BasicResponse.fromJson(value));
+  // }
+
+  //return await postRequest(path, perms: FormData.fromMap(data));
+
+
+
+
 }

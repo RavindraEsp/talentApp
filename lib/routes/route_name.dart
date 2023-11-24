@@ -4,6 +4,7 @@ class RouteName {
   static const String castSignupScreen = "/castSignupScreen";
   static const String castVerifyPhoneScreen = "/castVerifyPhoneScreen";
   static const String castLoginScreen = "/castLoginScreen";
+  static const String castCreateCardScreen = "/castCreateCardScreen";
   static const String forgotPassVerifyOtpScreen = "/forgotPassVerifyOtpScreen";
   static const String createNewPassScreen = "/createNewPassScreen";
   static const String forgotPassFindAccountScreen = "/forgotPassFindAccountScreen";
