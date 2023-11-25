@@ -5,6 +5,7 @@ import 'package:talent_app/network/client/http_service.dart';
 import 'package:talent_app/network/exception/app_exception.dart';
 import 'package:talent_app/network/interceptors/loggy_dio_interceptor.dart';
 import 'package:talent_app/network/interceptors/retry_on_connection_change_interceptor.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 
 class DioHttpService implements HttpService {
 
@@ -23,15 +24,34 @@ class DioHttpService implements HttpService {
   DioHttpService() {
     Dio(baseOptions);
 
+
+    Dio( BaseOptions(
+      headers: {
+        "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
+
+      },
+      responseType: ResponseType.json,
+      validateStatus: (int? status) {
+        return true;
+      },
+    ),);
+
     dio.interceptors.add(LoggyDioInterceptor());
-   // dio.interceptors.add(BearerTokenInterceptor(tokenBox));
+  //  dio.interceptors.add(BearerTokenInterceptor(tokenBox));
     dio.interceptors.add(RetryOnConnectionChangeInterceptor(dio: dio));
+
+
+
   }
 
   @override
   Map<String, String> headers = {
-    'accept': 'application/json',
-    'content-type': 'application/json'
+    // 'accept': 'application/json',
+    // 'content-type': 'application/json'
+
+
+     // "authorization": Preference().getAccessToken()
+      "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
   };
 
   @override
@@ -40,7 +60,17 @@ class DioHttpService implements HttpService {
     Map<String, dynamic>? queryParameters,
     bool forceRefresh = false,
   }) async {
-    return callApi(dio.get(path, queryParameters: queryParameters));
+    return callApi(dio.get(path, queryParameters: queryParameters,
+      options: Options(
+        headers: {
+          // "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
+          "authorization": Preference().getAccessToken() },
+        responseType: ResponseType.json,
+        validateStatus: (int? status) {
+          return true;
+        },
+      ),
+    ));
   }
 
   @override
@@ -54,6 +84,15 @@ class DioHttpService implements HttpService {
         path,
         data: data,
         queryParameters: queryParameters,
+        options: Options(
+          headers: {
+           // "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
+            "authorization": Preference().getAccessToken() },
+          responseType: ResponseType.json,
+          validateStatus: (int? status) {
+            return true;
+          },
+        ),
       ),
     );
   }

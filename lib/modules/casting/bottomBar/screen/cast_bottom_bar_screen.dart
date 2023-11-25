@@ -7,6 +7,7 @@ import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provide
 import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.dart';
 import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
+import 'package:talent_app/modules/casting/profile/cast_profile_provider.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -25,12 +26,14 @@ class CastBottomBarScreen extends StatefulWidget {
 class _CastBottomBarScreenState extends State {
   final List<Widget> _children = [
     const CastHomeScreen(),
-    const NotificationScreen(userType: UserType.cast,),
+    const NotificationScreen(
+      userType: UserType.cast,
+    ),
     const ChatUserListScreen(userType: UserType.cast),
-    const CastProfileScreen(),
-
-
-
+    ChangeNotifierProvider(
+      create: (context) => CastProfileProvider(),
+      child: const CastProfileScreen(),
+    )
   ];
 
   late int selectIndex;
@@ -44,7 +47,6 @@ class _CastBottomBarScreenState extends State {
       child: Consumer<BottomBarProvider>(builder: (context, provider, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-
           bottomNavigationBar: CurvedNavigationBar(
             index: selectIndex,
             animationDuration: const Duration(milliseconds: 100),

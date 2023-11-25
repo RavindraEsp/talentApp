@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
 import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_screen.dart';
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
+import 'modules/casting/profile/cast_profile_provider.dart';
+import 'modules/casting/profile/cast_profile_screen.dart';
 import 'modules/intro/intro_screen.dart';
 import 'modules/talent/auditionDetails/screens/audition_detail_screen.dart';
 import 'modules/talent/menu/screens/denied_audition_screen.dart';
@@ -29,6 +34,8 @@ class MyApp extends StatefulWidget {
     state?.setLocale(newLocale);
   }
 
+
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -36,12 +43,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
 
+  @override
+  void initState() {
+    super.initState();
+    prefcall();
+  }
+
   Locale _appLocale = const Locale('en'); // Default to English
 
   void setLocale(Locale newLocale) {
     setState(() {
       _appLocale = newLocale;
     });
+  }
+
+  prefcall() async {
+    await Preference().instance();
+
   }
 
   @override
@@ -60,7 +78,8 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
 
-            home: const IntroScreen(),
+           // home: const IntroScreen(),
+            home:CastBottomBarScreen(selectIndex: 0),
 
 
            // home: const EditVideoGalleryScreen(),

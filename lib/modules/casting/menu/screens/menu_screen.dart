@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -58,7 +59,10 @@ class _MenuScreenState extends State<MenuScreen> {
               image: ImageUtility.aboutUsIcon,
               onTap: () {
                 Navigator.pushNamed(context, RouteName.menuStaticScreen,
-                    arguments: {"headerText": context.loc.menuAboutUs});
+                    arguments: {
+                  "headerText": context.loc.menuAboutUs,
+                  "pageName": PageName.aboutUs,
+                    });
               },
             ),
             Container(
@@ -112,7 +116,9 @@ class _MenuScreenState extends State<MenuScreen> {
               onTap: () {
                 Navigator.pushNamed(context, RouteName.menuStaticScreen,
                     arguments: {
-                      "headerText": context.loc.menuTermAndConditions
+                      "headerText": context.loc.menuTermAndConditions,
+                      "pageName": PageName.termCondition,
+
                     });
               },
             ),
@@ -136,7 +142,9 @@ class _MenuScreenState extends State<MenuScreen> {
               image: ImageUtility.policyIcon,
               onTap: () {
                 Navigator.pushNamed(context, RouteName.menuStaticScreen,
-                    arguments: {"headerText": context.loc.menuPolicy});
+                    arguments: {"headerText": context.loc.menuPolicy,
+                      "pageName": PageName.policy,
+                    });
               },
             ),
             Container(

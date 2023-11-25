@@ -1,12 +1,13 @@
-class LoginResponse {
+class CasterProfileResponseModel {
   bool? success;
   int? statusCode;
   String? msg;
   Data? data;
 
-  LoginResponse({this.success, this.statusCode, this.msg, this.data});
+  CasterProfileResponseModel(
+      {this.success, this.statusCode, this.msg, this.data});
 
-  LoginResponse.fromJson(Map<String, dynamic> json) {
+  CasterProfileResponseModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     statusCode = json['statusCode'];
     msg = json['msg'];
@@ -27,54 +28,61 @@ class LoginResponse {
 
 class Data {
   int? id;
+  String? firstName;
+  String? lastName;
+  String? logo;
+  int? gender;
+  String? address;
+  String? companyName;
   String? userName;
-  int? talentType;
+  String? forgotOtp;
   String? mobileNumber;
   String? email;
-  String? password;
-  int? gender;
   String? profilePic;
-  String? jwtToken;
-  bool? isCardcreated;
 
   Data(
       {this.id,
+        this.firstName,
+        this.lastName,
+        this.logo,
+        this.gender,
+        this.address,
+        this.companyName,
         this.userName,
-        this.talentType,
+        this.forgotOtp,
         this.mobileNumber,
         this.email,
-        this.password,
-        this.gender,
-        this.profilePic,
-        this.jwtToken,
-        this.isCardcreated
-      });
+        this.profilePic});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    logo = json['logo'];
+    gender = json['gender'];
+    address = json['address'];
+    companyName = json['companyName'];
     userName = json['userName'];
-    talentType = json['talentType'];
+    forgotOtp = json['forgotOtp'];
     mobileNumber = json['mobileNumber'];
     email = json['email'];
-    password = json['password'];
-    gender = json['gender'];
     profilePic = json['profilePic'];
-    jwtToken = json['jwtToken'];
-    isCardcreated = json['isCardcreated'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['firstName'] = this.firstName;
+    data['lastName'] = this.lastName;
+    data['logo'] = this.logo;
+    data['gender'] = this.gender;
+    data['address'] = this.address;
+    data['companyName'] = this.companyName;
     data['userName'] = this.userName;
-    data['talentType'] = this.talentType;
+    data['forgotOtp'] = this.forgotOtp;
     data['mobileNumber'] = this.mobileNumber;
     data['email'] = this.email;
-    data['password'] = this.password;
-    data['gender'] = this.gender;
     data['profilePic'] = this.profilePic;
-    data['jwtToken'] = this.jwtToken;
-    data['isCardcreated'] = this.isCardcreated;
     return data;
   }
 }

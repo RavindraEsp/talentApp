@@ -7,6 +7,8 @@ import 'package:talent_app/network/model/request/auth/signup/SignUpSendOtpReques
 import 'package:talent_app/network/model/response/auth/login/login_response.dart';
 import 'package:talent_app/network/model/response/auth/signup/SignUpSendOtpResponse.dart';
 import 'package:talent_app/network/model/response/basic_response.dart';
+import 'package:talent_app/network/model/response/profile/caster_profile_response_model.dart';
+import 'package:talent_app/network/model/response/profile/caster_profile_update_response.dart';
 
 class AuthRepository {
   DioHttpService dioHttpService = DioHttpService();
@@ -51,13 +53,20 @@ class AuthRepository {
         .then((value) => BasicResponse.fromJson(value));
   }
 
-  // Future<BasicResponse> updateCasterProfile(Map request) {
-  //   return dioHttpService
-  //       .post(Endpoints.baseUrl + Endpoints.auth.updateCasterProfile,
-  //       data:FormData.fromMap(request)
-  //   )
-  //       .then((value) => BasicResponse.fromJson(value));
-  // }
+  Future<CasterProfileResponseModel> getCasterProfile() {
+    return dioHttpService
+        .get(Endpoints.baseUrl + Endpoints.auth.getCasterProfile)
+        .then((value) => CasterProfileResponseModel.fromJson(value));
+  }
+
+
+  Future<CasterProfileUpdateResponse> updateCasterProfile(Map<String, dynamic>  request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.auth.updateCasterProfile,
+        data:FormData.fromMap(request)
+    )
+        .then((value) => CasterProfileUpdateResponse.fromJson(value));
+  }
 
   //return await postRequest(path, perms: FormData.fromMap(data));
 

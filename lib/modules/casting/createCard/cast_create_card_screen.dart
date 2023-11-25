@@ -1,15 +1,13 @@
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createCard/provider/cast_create_card_provider.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -27,7 +25,6 @@ class CastCreateCardScreen extends StatefulWidget {
 }
 
 class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
-
   final _createCardKey = GlobalKey<FormState>();
 
   @override
@@ -94,7 +91,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                             children: [
                               Expanded(
                                 child: SimpleTextField(
-                                  controller: castCreateCardProvider.firstNameController,
+                                  controller: castCreateCardProvider
+                                      .firstNameController,
                                   validator:
                                       Validators(context).validatorFirstName,
                                   hintText: context.loc.hintFirstName,
@@ -108,7 +106,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                               ),
                               Expanded(
                                 child: SimpleTextField(
-                                  controller: castCreateCardProvider.lastNameController,
+                                  controller:
+                                      castCreateCardProvider.lastNameController,
                                   hintText: context.loc.hintLastName,
                                   validator:
                                       Validators(context).validatorLastName,
@@ -127,7 +126,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                             children: [
                               Expanded(
                                 child: SimpleTextField(
-                                  controller: castCreateCardProvider.idController,
+                                  controller:
+                                      castCreateCardProvider.idController,
                                   hintText: context.loc.hintID,
                                   validator: Validators(context).validatorId,
                                   onPrefixIconTap: () {
@@ -151,7 +151,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      value: castCreateCardProvider.selectedValue,
+                                      value:
+                                          castCreateCardProvider.selectedValue,
                                       items: castCreateCardProvider.listItems,
                                       isExpanded: true,
                                       icon: SizedBox(
@@ -171,7 +172,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                       ),
                                       onChanged: (int? value) {
                                         setState(() {
-                                          castCreateCardProvider.selectedValue = value!;
+                                          castCreateCardProvider.selectedValue =
+                                              value!;
                                           print(value);
                                         });
                                       },
@@ -185,7 +187,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                             height: 25.h,
                           ),
                           SimpleTextField(
-                            controller: castCreateCardProvider.addressController,
+                            controller:
+                                castCreateCardProvider.addressController,
                             hintText: context.loc.hintAddress,
                             validator: Validators(context).validatorAddress,
                             onPrefixIconTap: () {
@@ -196,7 +199,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                             height: 25.h,
                           ),
                           SimpleTextField(
-                            controller: castCreateCardProvider.companyNameController,
+                            controller:
+                                castCreateCardProvider.companyNameController,
                             hintText: context.loc.hintCompanyName,
                             validator: Validators(context).validatorCompanyName,
                             onPrefixIconTap: () {
@@ -226,7 +230,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      await castCreateCardProvider.getImageProfile();
+                                      await castCreateCardProvider
+                                          .getImageProfile();
                                     },
                                     child: Container(
                                       height: 160.h,
@@ -238,7 +243,9 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                           color: ColorUtility.colorD6D6D8,
                                         ),
                                       ),
-                                      child: castCreateCardProvider.profileImage == null
+                                      child: castCreateCardProvider
+                                                  .profileImage ==
+                                              null
                                           ? Container(
                                               padding: EdgeInsets.all(53.w),
                                               height: 5.h,
@@ -257,7 +264,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                                       BorderRadius.circular(
                                                           10.r),
                                                   child: Image.file(
-                                                    File(castCreateCardProvider.profileImage!.path),
+                                                    File(castCreateCardProvider
+                                                        .profileImage!.path),
                                                     fit: BoxFit.cover,
                                                   )),
                                             ),
@@ -282,7 +290,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                   ),
                                   InkWell(
                                     onTap: () async {
-                                      await castCreateCardProvider.getImageLogo();
+                                      await castCreateCardProvider
+                                          .getImageLogo();
                                     },
                                     child: Container(
                                         height: 160.h,
@@ -294,7 +303,9 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                             color: ColorUtility.colorD6D6D8,
                                           ),
                                         ),
-                                        child: castCreateCardProvider.logoImage == null
+                                        child: castCreateCardProvider
+                                                    .logoImage ==
+                                                null
                                             ? Container(
                                                 padding: EdgeInsets.all(53.w),
                                                 height: 5.h,
@@ -314,7 +325,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                                       BorderRadius.circular(
                                                           10.r),
                                                   child: Image.file(
-                                                    File(castCreateCardProvider.logoImage!.path),
+                                                    File(castCreateCardProvider
+                                                        .logoImage!.path),
                                                     fit: BoxFit.cover,
                                                   ),
                                                 ),
@@ -331,27 +343,33 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                             buttonText: context.loc.buttonNext,
                             buttonType: ButtonType.yellow,
                             onTap: () async {
-                              showCongratulationDialog(
-                                  context: context, onButtonTap: () {});
 
                               if (_createCardKey.currentState!.validate()) {
                                 AppLogger.logD("Valid data");
-                                if (castCreateCardProvider.logoImage == null &&
-                                    castCreateCardProvider.profileImage == null &&
-                                    castCreateCardProvider.selectedValue == null) {
-                                  await Common.showErrorToast(context,"Please Fill All Fields");
+                                if (castCreateCardProvider.logoImage == null ||
+                                    castCreateCardProvider.profileImage ==
+                                        null ||
+                                    castCreateCardProvider.selectedValue ==
+                                        null) {
+                                  await Common.showErrorToast(
+                                      context, "Please Fill All Fields");
+                                }else{
+                                  Common.showLoadingDialog(context);
+                                  castCreateCardProvider.createCard(
+                                    onSuccess: (msg) {
+                                      Navigator.pop(context);
+
+                                      showCongratulationDialog(
+                                          context: context, onButtonTap: () {});
+
+
+                                    },
+                                    onFailure: (message) {
+                                      Navigator.pop(context);
+                                      Common.showErrorSnackBar(context, message);
+                                    },
+                                  );
                                 }
-                              } else {
-
-
-
-
-
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const CastBottomNavigationBar()));
                               }
                             },
                           ),
@@ -376,10 +394,19 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
         builder: (BuildContext dialogContext) {
           return CongratulationAlertDialog(
             onButtonTap: onButtonTap,
-            image: ImageUtility.congratulationIcon,
+            userType: UserType.cast,
+            buttonText: context.loc.buttonLetsGetStarted,
+            title: context.loc.dialogWellDone,
+            description: context.loc.dialogCasterCardSetSuccessDescription,
           );
         }).then((value) {
+
       AppLogger.logD("Then is called");
+      Navigator.pushNamedAndRemoveUntil(
+          context,
+          RouteName.castBottomBarScreen,
+          arguments: {"selectIndex": 0},
+          (route) => false);
     });
   }
 }

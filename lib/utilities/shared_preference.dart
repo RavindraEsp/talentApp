@@ -17,8 +17,8 @@ class Preference {
 
   static const String _userName = "userName";
   static const String _accessToken = "accessToken";
-  static const String _userImage = "userImage";
-  static const String _userLogin = "_userLogin";
+  static const String _profileImage = "profileImage";
+  static const String _userLogin = "userLogin";
 
   static setUserName(String value) async {
     _pref?.setString(_userName, value);
@@ -44,12 +44,12 @@ class Preference {
     return _pref?.getString(_accessToken) ?? "";
   }
 
-  static setUserImage(String value) async {
-    _pref?.setString(_userImage, value);
+  static setProfileImage(String value) async {
+    _pref?.setString(_profileImage, value);
   }
 
-  String getUserImage() {
-    return _pref?.getString(_userImage) ?? "";
+  String getProfileImage() {
+    return _pref?.getString(_profileImage) ?? "";
   }
 
 

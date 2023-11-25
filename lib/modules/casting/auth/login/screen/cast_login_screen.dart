@@ -212,6 +212,17 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                               if (widget.userType == UserType.cast) {
 
 
+
+                                                // Navigator.pushNamedAndRemoveUntil(
+                                                //     context,
+                                                //     RouteName.castCreateCardScreen,
+                                                //     arguments: {
+                                                //       "userId":0,
+                                                //     },
+                                                //         (route) => false);
+
+
+                                                ///valid
                                                 if(response.data?.isCardcreated == true){
 
                                                   Navigator.pushNamedAndRemoveUntil(
@@ -224,9 +235,6 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                                   Navigator.pushNamedAndRemoveUntil(
                                                       context,
                                                       RouteName.castCreateCardScreen,
-                                                          arguments: {
-                                                        "userId":0,
-                                                          },
                                                           (route) => false);
                                                 }
 

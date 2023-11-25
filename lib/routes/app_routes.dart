@@ -25,6 +25,7 @@ import 'package:talent_app/modules/casting/helloCasting/hello_casting_screen.dar
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/manage_audition_created_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/user_profile_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/manage_finished_audition_screen.dart';
+import 'package:talent_app/modules/casting/menu/providers/web_content_provider.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
@@ -91,28 +92,23 @@ class AppRoute {
                   child: CastLoginScreen(userType: arg["userType"]),
                 ));
 
-
       case RouteName.castCreateCardScreen:
-        var arg = settings.arguments as Map;
+        //   var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
-              create: (_) => CastCreateCardProvider(),
-              child: const CastCreateCardScreen(),
-            ));
-
-
-
+                  create: (_) => CastCreateCardProvider(),
+                  child: const CastCreateCardScreen(),
+                ));
 
       case RouteName.forgotPassFindAccountScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
-              create: (_) => ForgotPassFindAccountProvider(),
-              child: ForgotPassFindAccountScreen(
-                userType: arg["userType"],
-              ),
-            ));
-
+                  create: (_) => ForgotPassFindAccountProvider(),
+                  child: ForgotPassFindAccountScreen(
+                    userType: arg["userType"],
+                  ),
+                ));
 
       case RouteName.forgotPassVerifyOtpScreen:
         var arg = settings.arguments as Map;
@@ -129,15 +125,13 @@ class AppRoute {
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
-              create: (_) => CreateNewPassScreenProvider(),
-              child: CreateNewPassScreen(
-                userType: arg["userType"],
-                email: arg["email"],
-                otp: arg["otp"],
-              ),
-            ));
-
-
+                  create: (_) => CreateNewPassScreenProvider(),
+                  child: CreateNewPassScreen(
+                    userType: arg["userType"],
+                    email: arg["email"],
+                    otp: arg["otp"],
+                  ),
+                ));
 
       case RouteName.castBottomBarScreen:
         var arg = settings.arguments as Map;
@@ -196,15 +190,24 @@ class AppRoute {
       case RouteName.menuStaticScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => MenuStaticScreen(
-            headerText: arg["headerText"],
-          ),
-        );
+            builder: (context) =>
+                //     MenuStaticScreen(
+                //   headerText: arg["headerText"],
+                // ),
+                ChangeNotifierProvider(
+                  create: (context) => WebContentProvider(),
+                  child: MenuStaticScreen(
+                    headerText: arg["headerText"],
+                    pageName: arg["pageName"],
+                  ),
+                ));
 
       case RouteName.chatScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) =>  ChatScreen(userType: arg["userType"],),
+          builder: (context) => ChatScreen(
+            userType: arg["userType"],
+          ),
         );
 
       // Talent Screens
@@ -249,25 +252,20 @@ class AppRoute {
           builder: (context) => const AddInfoScreen(),
         );
 
-
-
-
-
       case RouteName.talentBottomBarScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
-              create: (_) => BottomBarProvider(),
-              child: TalentBottomBarScreen(
-                selectIndex: arg["selectIndex"],
-              ),
-            ));
+                  create: (_) => BottomBarProvider(),
+                  child: TalentBottomBarScreen(
+                    selectIndex: arg["selectIndex"],
+                  ),
+                ));
 
       case RouteName.talentSettingScreen:
         return MaterialPageRoute(
           builder: (context) => const TalentSettingScreen(),
         );
-
 
       case RouteName.talentMenuScreen:
         return MaterialPageRoute(
@@ -279,13 +277,10 @@ class AppRoute {
           builder: (context) => const EditTellUsAboutScreen(),
         );
 
-
-
       case RouteName.editPhotoGalleryScreen:
         return MaterialPageRoute(
           builder: (context) => const EditPhotoGalleryScreen(),
         );
-
 
       case RouteName.editVideoGalleryScreen:
         return MaterialPageRoute(
@@ -305,7 +300,6 @@ class AppRoute {
           builder: (context) => const EditBodyScreen(),
         );
 
-
       case RouteName.deniedAuditionScreen:
         return MaterialPageRoute(
           builder: (context) => const DeniedAuditionScreen(),
@@ -314,13 +308,10 @@ class AppRoute {
       case RouteName.auditionDetailScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) =>  AuditionDetailScreen(
+          builder: (context) => AuditionDetailScreen(
             auditionDetailType: arg["auditionDetailType"],
           ),
         );
-
-
-
 
       default:
         return MaterialPageRoute(builder: (context) => const IntroScreen());

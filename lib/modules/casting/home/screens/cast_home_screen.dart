@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/home/widgets/Audition_finished_widget.dart';
 import 'package:talent_app/modules/casting/home/widgets/audition_created_widget.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/create_audition_button.dart';
@@ -61,7 +64,8 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                           children: [
                             const SettingButtonWidget(),
                             Text(
-                              "Hello, Michal",
+                            //  "Hello, Michal",
+                              "${context.loc.helloUserName}, ${Preference().getUserName()}",
                               style: StyleUtility.kantumruyProSMedium18TextStyle
                                   .copyWith(
                                   fontSize: TextSizeUtility.textSize18.sp),
@@ -73,12 +77,28 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                     ),
                   ),
                 ),
-                Image.asset(
-                  ImageUtility.dummyProfileImage,
-                  width: 100.sp,
-                  height: 100.sp,
-                  fit: BoxFit.fill,
+                // Image.asset(
+                //   ImageUtility.dummyProfileImage,
+                //   width: 100.sp,
+                //   height: 100.sp,
+                //   fit: BoxFit.fill,
+                // )`
+
+                ClipOval(
+                  child: CachedNetworkImage(
+                      width: 100.sp,
+                      height:100.sp,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                      Container(
+                        color: Colors.grey,
+                          child: Center(child:  Icon(Icons.error,size: 25.sp,))),
+                     // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                      imageUrl: "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
                 )
+
               ],
             ),
             Container(
