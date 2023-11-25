@@ -165,6 +165,8 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                                           hintText: context.loc.hintGender))
                                 ],
                               ),
+
+
                               SizedBox(
                                 height: 25.h,
                               ),
