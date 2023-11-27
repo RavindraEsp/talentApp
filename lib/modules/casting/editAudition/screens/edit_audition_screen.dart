@@ -214,7 +214,7 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in lookingForModel!)
-                              SelectUnselectWidget(
+                              SelectUnselectWidgetEdit(
                                   onTap: () {
                                     item.isSelect = !item.isSelect;
                                     setState(() {});
@@ -492,7 +492,7 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in eyeColorModel!)
-                              SelectUnselectWidget(
+                              SelectUnselectWidgetEdit(
                                   onTap: () {
                                     item.isSelect = !item.isSelect;
                                     setState(() {});
@@ -539,7 +539,7 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in hairColorModel!)
-                              SelectUnselectWidget(
+                              SelectUnselectWidgetEdit(
                                   onTap: () {
                                     item.isSelect = !item.isSelect;
                                     setState(() {});
@@ -586,7 +586,7 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in painsSizeModel!)
-                              SelectUnselectWidget(
+                              SelectUnselectWidgetEdit(
                                   onTap: () {
                                     item.isSelect = !item.isSelect;
                                     setState(() {});
@@ -633,7 +633,7 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in shirtSizeModel!)
-                              SelectUnselectWidget(
+                              SelectUnselectWidgetEdit(
                                   onTap: () {
                                     item.isSelect = !item.isSelect;
                                     setState(() {});
@@ -680,7 +680,7 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                         Wrap(
                           children: [
                             for (var item in shoeSizeModel!)
-                              SelectUnselectWidget(
+                              SelectUnselectWidgetEdit(
                                   onTap: () {
                                     item.isSelect = !item.isSelect;
                                     setState(() {});

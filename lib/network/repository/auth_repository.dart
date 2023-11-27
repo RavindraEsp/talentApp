@@ -15,54 +15,54 @@ class AuthRepository {
 
   Future<SignupSendOtpResponse> signUpGetOtp(SignupSendOtpRequest request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.auth.signUpSendOtp,
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.signUpSendOtp,
             data: request.toJson())
         .then((value) => SignupSendOtpResponse.fromJson(value));
   }
 
   Future<BasicResponse> signUp(SignupRequest request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.auth.signUp, data: request.toJson())
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.signUp, data: request.toJson())
         .then((value) => BasicResponse.fromJson(value));
   }
 
   Future<LoginResponse> login(LoginRequest request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.auth.login, data: request.toJson())
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.login, data: request.toJson())
         .then((value) => LoginResponse.fromJson(value));
   }
 
   Future<SignupSendOtpResponse> forgotPassGetOtp(Map request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.auth.forgotPasswordGetOtp,
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.forgotPasswordGetOtp,
         data: request)
         .then((value) => SignupSendOtpResponse.fromJson(value));
   }
 
   Future<BasicResponse> forgotPassSetNewPass(Map request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.auth.forgotPassSetNewPass,
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.forgotPassSetNewPass,
         data: request)
         .then((value) => BasicResponse.fromJson(value));
   }
 
   Future<BasicResponse> forgotPassMobileotpVerify(Map request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.auth.forgotPassMobileotpVerify,
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.forgotPassMobileotpVerify,
         data: request)
         .then((value) => BasicResponse.fromJson(value));
   }
 
   Future<CasterProfileResponseModel> getCasterProfile() {
     return dioHttpService
-        .get(Endpoints.baseUrl + Endpoints.auth.getCasterProfile)
+        .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getCasterProfile)
         .then((value) => CasterProfileResponseModel.fromJson(value));
   }
 
 
   Future<CasterProfileUpdateResponse> updateCasterProfile(Map<String, dynamic>  request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.auth.updateCasterProfile,
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.updateCasterProfile,
         data:FormData.fromMap(request)
     )
         .then((value) => CasterProfileUpdateResponse.fromJson(value));

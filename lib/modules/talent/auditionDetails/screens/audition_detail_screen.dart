@@ -119,9 +119,12 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${context.loc.titleCaster} ",
+                                      "${context.loc.titleCaster} : ",
                                       style: StyleUtility
-                                          .quicksandSemiBold5457BETextStyle,
+                                          .quicksandSemiBold5457BETextStyle.copyWith(
+                                          fontSize: TextSizeUtility
+                                              .textSize14.sp
+                                      ),
                                     ),
                                     Expanded(
                                         child: Text(
@@ -141,9 +144,12 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${context.loc.titleCompany} ",
+                                      "${context.loc.titleCompany} : ",
                                       style: StyleUtility
-                                          .quicksandSemiBold5457BETextStyle,
+                                          .quicksandSemiBold5457BETextStyle.copyWith(
+                                          fontSize: TextSizeUtility
+                                              .textSize14.sp
+                                      ),
                                     ),
                                     Expanded(
                                         child: Text(
@@ -336,8 +342,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                             buttonText:
                                 context.loc.buttonSendNewScheduleApproval,
                             onTap: () {
-                              //  showApplyAuditionSuccessDialog(context: context);
-                            },
+                              showNewScheduleSuccessDialog(context: context);                            },
                           ),
                         )
                       : const SizedBox(),
@@ -524,6 +529,26 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
       Navigator.pop(context);
     });
   }
+
+  Future<dynamic> showNewScheduleSuccessDialog({
+    required BuildContext context,
+  }) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return SuccessAlertDialog(
+            title: context.loc.dialogNewScheduleSuccessTitle,
+            description: context.loc.dialogNewScheduleSuccessDescription,
+
+            onCrossTap: () {},
+          );
+        }).then((value) {
+      Navigator.pop(context);
+    });
+  }
+
+
+
 }
 
 class DateModel {

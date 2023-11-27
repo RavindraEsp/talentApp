@@ -36,7 +36,9 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
   void initState() {
     super.initState();
     Provider.of<CastProfileProvider>(context, listen: false)
-        .getProfileData(onSuccess: (msg) {}, onFailure: (msg) {});
+        .getProfileData(onSuccess: (msg) {}, onFailure: (msg) {
+          Common.showErrorToast(context, msg);
+    });
   }
 
 
@@ -306,22 +308,36 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
         child: imageFile == null
             ?
         networkImageUrl != "" ?
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10.r),
-          child:
+        Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 12.w, bottom: 12.w),
 
-          CachedNetworkImage(
-              width: double.infinity,
-              height:double.infinity,
-              fit: BoxFit.cover,
-              placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) =>
-                  Container(
-                      color: Colors.grey,
-                      child: Center(child:  Icon(Icons.error,size: 25.sp,))),
-              // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-              imageUrl: "${Endpoints.imageBaseUrl}$networkImageUrl"),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.r),
+                child:
+
+                CachedNetworkImage(
+                    width: double.infinity,
+                    height:double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        Container(
+                            color: Colors.grey,
+                            child: Center(child:  Icon(Icons.error,size: 25.sp,))),
+                    // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                    imageUrl: "${Endpoints.imageBaseUrl}$networkImageUrl"),
+              ),
+            ),
+            Image.asset(
+              ImageUtility.editCircleIcon,
+              width: 33.w,
+              height: 33.w,
+            )
+          ],
         ):
         Container(
                 decoration: BoxDecoration(

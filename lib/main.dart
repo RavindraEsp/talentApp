@@ -3,10 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
+import 'package:talent_app/modules/casting/createCard/cast_create_card_screen.dart';
 import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_screen.dart';
+import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
+import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
+import 'modules/casting/createCard/provider/cast_create_card_provider.dart';
 import 'modules/casting/profile/cast_profile_provider.dart';
 import 'modules/casting/profile/cast_profile_screen.dart';
 import 'modules/intro/intro_screen.dart';
@@ -78,8 +82,13 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
 
-           // home: const IntroScreen(),
-            home:CastBottomBarScreen(selectIndex: 0),
+            home: const IntroScreen(),
+
+          //  home:CastBottomBarScreen(selectIndex: 0),
+          //  home:TalentBottomBarScreen(selectIndex: 0),
+           // home:SubscribeScreen(),
+           // home:const TalentCreateCardScreen(),
+
 
 
            // home: const EditVideoGalleryScreen(),

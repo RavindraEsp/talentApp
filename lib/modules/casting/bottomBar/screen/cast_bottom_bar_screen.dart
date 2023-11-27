@@ -6,6 +6,7 @@ import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
 import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.dart';
 import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
+import 'package:talent_app/modules/casting/notification/notification_provider.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_provider.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
@@ -26,14 +27,21 @@ class CastBottomBarScreen extends StatefulWidget {
 class _CastBottomBarScreenState extends State {
   final List<Widget> _children = [
     const CastHomeScreen(),
-    const NotificationScreen(
-      userType: UserType.cast,
+
+
+    ChangeNotifierProvider(
+      create: (context) => NotificationProvider(),
+      child: const NotificationScreen(
+        userType: UserType.cast,
+      ),
     ),
+
+
     const ChatUserListScreen(userType: UserType.cast),
     ChangeNotifierProvider(
       create: (context) => CastProfileProvider(),
       child: const CastProfileScreen(),
-    )
+    ),
   ];
 
   late int selectIndex;

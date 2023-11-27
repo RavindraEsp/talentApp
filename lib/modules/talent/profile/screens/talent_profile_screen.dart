@@ -73,11 +73,11 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
   }
 
   setAutoFillValue() {
-    firstNameController.text = "Nir";
-    lastNameController.text = "David";
+    firstNameController.text = "Michaela";
+    lastNameController.text = "Cohoen";
     idController.text = "0548977559";
-    addressController.text = "Neve Tzedek,12 ,Tel Aviv";
-    emailController.text = "dummy@gmail.com";
+    addressController.text = "Hahagana, 75, Rehovot, Israel";
+    emailController.text = "Michaela@gmail.com";
     phoneController.text = "674294624";
 
 
@@ -127,8 +127,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                   left: 18.w,
                   right: 18.w,
                   //  top: 24.h, bottom: 24.h
-                  top: 14.h,
-                  bottom: 14.h),
+                  top: 24.h,
+                  bottom: 24.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,9 +136,9 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                   const SettingButtonWidget(),
                   Row(
                     children: [
-                      const BackButton(
-                        color: Colors.white,
-                      ),
+                      // const BackButton(
+                      //   color: Colors.white,
+                      // ),
                       Text(
                         context.loc.headerEditAudition,
                         style: StyleUtility.kantumruyProSMedium18TextStyle
@@ -261,9 +261,17 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                   height: 25.h,
                 ),
 
+                Text(context.loc.titleBirthday,
+                  style: StyleUtility.quicksandSemiBold5457BETextStyle.copyWith(
+                      fontSize: TextSizeUtility.textSize16.sp
+                  ),),
+                SizedBox(
+                  height: 10.h,
+                ),
+
                 GestureDetector(
                   onTap: () {
-                    Common.selectDate(
+                    Common.selectDateOfBirth(
                         context, birthdayController);
                   },
                   child: SimpleTextField(
@@ -277,6 +285,13 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
 
                 SizedBox(
                   height: 25.h,
+                ),
+                Text(context.loc.titleFullAddress,
+                  style: StyleUtility.quicksandSemiBold5457BETextStyle.copyWith(
+                      fontSize: TextSizeUtility.textSize16.sp
+                  ),),
+                SizedBox(
+                  height: 10.h,
                 ),
                 SimpleTextField(
                   controller: addressController,
@@ -294,7 +309,10 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(context.loc.titleTellUsAboutYou,style: StyleUtility.quicksandBold5457BETextStyle,),
+                    Text(context.loc.titleTellUsAboutYou,
+                      style: StyleUtility.quicksandBold5457BETextStyle.copyWith(
+                          fontSize: TextSizeUtility.textSize16.sp
+                      ),),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {

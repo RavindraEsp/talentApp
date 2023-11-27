@@ -6,6 +6,7 @@ import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
 import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.dart';
 import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
+import 'package:talent_app/modules/casting/notification/notification_provider.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
 import 'package:talent_app/modules/talent/home/screen/talent_home_screen.dart';
@@ -36,7 +37,14 @@ class _TalentBottomBarScreenState extends State {
     // Center(
     //   child: Text("Home"),
     // ),
-    const NotificationScreen(userType: UserType.talent),
+  //  const NotificationScreen(userType: UserType.talent),
+
+    ChangeNotifierProvider(
+      create: (context) => NotificationProvider(),
+      child: const NotificationScreen(
+        userType: UserType.talent,
+      ),
+    ),
 
 
     const ChatUserListScreen(userType: UserType.talent),

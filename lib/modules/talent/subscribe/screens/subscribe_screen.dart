@@ -71,13 +71,15 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: 25.h),
-                              Text(
-                                context.loc.welcome,
-                                style: StyleUtility
-                                    .kantumruyProSemiBold5457BETextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize26.sp),
+                              Center(
+                                child: Text(
+                                  context.loc.welcome,
+                                  style: StyleUtility
+                                      .kantumruyProSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize26.sp),
+                                ),
                               ),
                               SizedBox(
                                 height: 13.5.h,

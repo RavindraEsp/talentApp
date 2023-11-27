@@ -126,4 +126,30 @@ class Common {
       dateController.text = formattedDate;
     }
   }
+
+  static selectDateOfBirth(
+      BuildContext context, TextEditingController dateController) async {
+    final DateTime? selected = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1950),
+        lastDate: DateTime(2090),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.light().copyWith(
+                primary: ColorUtility.color263287,
+                // Set the primary color
+                onPrimary: Colors.white, // Set the text color
+              ),
+              dialogBackgroundColor: Colors.white, // Set the background color
+            ),
+            child: child!,
+          );
+        });
+    if (selected != null) {
+      String formattedDate = DateFormat(dateFormatForAddDate).format(selected);
+      dateController.text = formattedDate;
+    }
+  }
 }

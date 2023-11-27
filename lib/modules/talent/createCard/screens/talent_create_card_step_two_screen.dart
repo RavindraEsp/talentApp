@@ -100,6 +100,8 @@ class _TalentCreateCardStepTwoScreenState
                         ),
                       ),
                     ),
+
+
                     Expanded(
                         child: ListView(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -195,34 +197,46 @@ class _TalentCreateCardStepTwoScreenState
                           SizedBox(
                             height: 40.h,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                  child: CustomOutlineButton(
-                                      buttonText: context.loc.buttonBack,
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      buttonColor: ColorUtility.color5457BE)),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Expanded(
-                                child: CustomButton(
-                                  buttonText: context.loc.buttonNext,
-                                  buttonType: ButtonType.blue,
-                                  onTap: () async {
-                                    Navigator.pushNamed(
-                                        context, RouteName.addYourPhotoScreen);
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 35.h,
-                          ),
+
                         ])),
+
+                    Container(
+                      padding: EdgeInsets.only(left: 20.w,right: 20.w, top: 20.h,),
+
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: CustomOutlineButton(
+                                  buttonText: context.loc.buttonBack,
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  buttonColor: ColorUtility.color5457BE)),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Expanded(
+                            child: CustomButton(
+                              buttonText: context.loc.buttonNext,
+                              buttonType: ButtonType.blue,
+                              onTap: () async {
+                                Navigator.pushNamed(
+                                    context, RouteName.addYourPhotoScreen);
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 35.h,
+                    ),
+
+
+
+
+
+
                   ]))),
         ],
       ),

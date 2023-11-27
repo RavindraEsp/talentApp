@@ -213,6 +213,8 @@
   "titleCaster": "Caster",
   "titleCompany": "Company",
   "titleChooseTimeAndDateForTheAudition": "Choose Time and Date for the audition",
+  "titleFullAddress": "Full Address",
+  "titleBirthday": "Birthday",
   "bottomSheetTakePhoto": "Take a Photo",
   "bottomChooseFromGallery": "Choose from gallery",
   "bottomTakeVideo": "Take a Video",
@@ -231,16 +233,19 @@
  "dialogCongratulationsYouSuccessfullyChangedYourPassword": "Congratulations! You successfully Changed your password",
  "dialogApplyAuditionSuccessTitle": "You Have Successfully Applied to the audition",
  "dialogApplyAuditionSuccessDescription": "You have successfully registered for the audition. Your application is being reviewed.",
- "dialogAreYouSureYouWantToWithdrawYourApplication": "Are you sure you want to Withdraw your application.",
+ "dialogAreYouSureYouWantToWithdrawYourApplication": "Are you sure you want to Withdraw your application?",
  "dialogWithdrawSuccessTitle": "You Have Successfully Withdraw application",
  "dialogWithdrawSuccessDescription": "You have successfully unsubscribed the audition and Your application will be redrawn.",
-  "createAuditionDateTimeDesc": "Create audition dates and times for the candidate to choose from",
+  "dialogNewScheduleSuccessTitle": "You Have Successfully Send New Schedule approval",
+  "dialogNewScheduleSuccessDescription": "Now all you need to do is wait For the casting approval.",
+   "createAuditionDateTimeDesc": "Create audition dates and times for the candidate to choose from",
   "decline": "Decline",
   "approve": "Approve",
   "thisAuditionIsClosed": "This audition is closed",
   "closedAuditionDesc": "In order to review more candidates you need to add more audition slots.",
   "withdraw": "Withdraw",
   "edit": "Edit",
-  "delete": "Delete"
+  "delete": "Delete",
+  "noAnyNotification": "No Any Notification"
 }
 

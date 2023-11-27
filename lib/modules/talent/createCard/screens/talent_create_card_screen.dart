@@ -167,6 +167,14 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
                               SizedBox(
                                 height: 25.h,
                               ),
+
+                              Text(context.loc.titleFullAddress,
+                              style: StyleUtility.quicksandSemiBold5457BETextStyle.copyWith(
+                                fontSize: TextSizeUtility.textSize16.sp
+                              ),),
+                              SizedBox(
+                                height: 10.h,
+                              ),
                               SimpleTextField(
                                 controller: addressController,
                                 hintText: context.loc.hintAddress,
@@ -178,9 +186,18 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
                               SizedBox(
                                 height: 25.h,
                               ),
+
+                              Text(context.loc.titleBirthday,
+                                style: StyleUtility.quicksandSemiBold5457BETextStyle.copyWith(
+                                    fontSize: TextSizeUtility.textSize16.sp
+                                ),),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+
                               GestureDetector(
                                 onTap: () {
-                                  Common.selectDate(
+                                  Common.selectDateOfBirth(
                                       context, birthdayController);
                                 },
                                 child: SimpleTextField(

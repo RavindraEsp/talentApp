@@ -15,6 +15,7 @@ import 'package:talent_app/modules/casting/auth/signup/screens/cast_verify_phone
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
 import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
 import 'package:talent_app/modules/casting/chat/screens/chat_screen.dart';
+import 'package:talent_app/modules/casting/createAudition/providers/create_audition_provider.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
 import 'package:talent_app/modules/casting/createCard/cast_create_card_screen.dart';
@@ -155,7 +156,9 @@ class AppRoute {
 
       case RouteName.createAuditionScreen:
         return MaterialPageRoute(
-          builder: (context) => const CreateAuditionScreen(),
+        //  builder: (context) => const CreateAuditionScreen(),
+          builder: (context) => ChangeNotifierProvider(create: (context) =>CreateAuditionProvider(),
+          child: const CreateAuditionScreen(),),
         );
       case RouteName.createAuditionPlaceTimeScreen:
         return MaterialPageRoute(

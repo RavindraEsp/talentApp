@@ -44,11 +44,14 @@ class _SettingScreenState extends State<SettingScreen> {
               title: context.loc.settingEditProfile,
               image: ImageUtility.editProfileIcon,
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    RouteName.castBottomBarScreen,
-                    arguments: {"selectIndex": 3},
-                        (route) => false);
+
+                // Navigator.pushNamedAndRemoveUntil(
+                //     context,
+                //     RouteName.castBottomBarScreen,
+                //     arguments: {"selectIndex": 3},
+                //         (route) => false);
+
+
               },
             ),
             Container(

@@ -4,10 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
 import 'package:talent_app/network/model/response/profile/caster_profile_response_model.dart';
-import 'package:talent_app/network/model/response/profile/caster_profile_update_response.dart';
 import 'package:talent_app/network/repository/auth_repository.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
-import 'package:talent_app/utilities/style_utility.dart';
 
 class CastProfileProvider extends ChangeNotifier {
   final AuthRepository authRepository = AuthRepository();

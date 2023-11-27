@@ -38,8 +38,10 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
   TextEditingController phoneController = TextEditingController();
   bool passwordObscure = true;
   bool confPasswordObscure = true;
-  String passPrefixImage = ImageUtility.eyeOpenIcon;
-  String confPassPrefixImage = ImageUtility.eyeOpenIcon;
+ // String passPrefixImage = ImageUtility.eyeOpenIcon;
+  String passPrefixImage = ImageUtility.eyeCloseIcon;
+ // String confPassPrefixImage = ImageUtility.eyeOpenIcon;
+  String confPassPrefixImage = ImageUtility.eyeCloseIcon;
   bool isChecked = false;
   final _formKey = GlobalKey<FormState>();
 
@@ -158,10 +160,10 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                       passwordObscure = !passwordObscure;
                                       if (passwordObscure == true) {
                                         passPrefixImage =
-                                            ImageUtility.eyeOpenIcon;
+                                            ImageUtility.eyeCloseIcon;
                                       } else {
                                         passPrefixImage =
-                                            ImageUtility.eyeCloseIcon;
+                                            ImageUtility.eyeOpenIcon;
                                       }
                                       provider.updateUi();
                                     },
@@ -189,10 +191,10 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                           !confPasswordObscure;
                                       if (confPasswordObscure == true) {
                                         confPassPrefixImage =
-                                            ImageUtility.eyeOpenIcon;
+                                            ImageUtility.eyeCloseIcon;
                                       } else {
                                         confPassPrefixImage =
-                                            ImageUtility.eyeCloseIcon;
+                                            ImageUtility.eyeOpenIcon;
                                       }
                                       provider.updateUi();
                                     },
