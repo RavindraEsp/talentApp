@@ -21,4 +21,6 @@ class ApiEndPoints {
   String get getWebContent => "get/getWebContent";
   String get getNotification => "get/getNotification";
   String get getTalentData => "get/gettalentData";
+  String get createAudition => "auth/createAudition";
+  String get getCreatedFinishedAuditionList => "get/getCreatedFinishedAuditionList";
 }

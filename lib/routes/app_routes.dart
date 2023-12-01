@@ -15,6 +15,7 @@ import 'package:talent_app/modules/casting/auth/signup/screens/cast_verify_phone
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
 import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
 import 'package:talent_app/modules/casting/chat/screens/chat_screen.dart';
+import 'package:talent_app/modules/casting/createAudition/providers/create_audition_place_time_provider.dart';
 import 'package:talent_app/modules/casting/createAudition/providers/create_audition_provider.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
@@ -161,8 +162,30 @@ class AppRoute {
           child: const CreateAuditionScreen(),),
         );
       case RouteName.createAuditionPlaceTimeScreen:
+        var arg = settings.arguments as Map;
+
         return MaterialPageRoute(
-          builder: (context) => const CreateAuditionPlaceTimeScreen(),
+          builder: (context) =>  ChangeNotifierProvider(create: (context) =>
+              CreateAuditionPlaceTimeProvider(),child:  CreateAuditionPlaceTimeScreen(
+
+
+            description: arg["description"],
+            workExperience: arg["workExperience"],
+            professionalTraining: arg["professionalTraining"],
+            candidateRepresentation: arg["candidateRepresentation"],
+            ageRangeMin: arg["ageRangeMin"],
+            ageRangeMax: arg["ageRangeMax"],
+            weightRangeMin: arg["weightRangeMin"],
+            weightRangeMax: arg["weightRangeMax"],
+            heightRangeMin: arg["heightRangeMin"],
+            heightRangeMax: arg["heightRangeMax"],
+            careerTag: arg["careerTag"],
+            auditionTalentAllData: arg["auditionTalentAllData"],
+
+
+
+
+          ),),
         );
 
       case RouteName.editAuditionScreen:

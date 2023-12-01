@@ -71,4 +71,54 @@ class Validators {
     }
     return null;
   }
+
+  String? validatorMinAge(value) {
+    if (value.isEmpty) {
+      return "Min age is required.";
+    }
+    return null;
+  }
+
+  String? validatorMaxAge(value) {
+    if (value.isEmpty) {
+      return "Max age is required.";
+    }
+    return null;
+  }
+
+  String? validatorMinWeight(value) {
+    if (value.isEmpty) {
+      return "Min weight is required";
+    }
+    return null;
+  }
+
+  String? validatorMaxWeight(value) {
+    if (value.isEmpty) {
+      return "Max weight is required.";
+    }
+    return null;
+  }
+
+  String? validatorMinHeight(value) {
+    if (value.isEmpty) {
+      return "Min height is required.";
+    }
+    return null;
+  }
+
+  String? validatorMaxHeight(value) {
+    if (value.isEmpty) {
+      return "Max height is required.";
+    }
+    return null;
+  }
+
+  String? validatorDescription(value) {
+    if (value.isEmpty) {
+      return "Description is required.";
+    }
+    return null;
+  }
+
 }

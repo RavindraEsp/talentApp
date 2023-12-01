@@ -226,16 +226,16 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                       AppLogger.logD("Number ${value.number}");
                                     },
                                   ),
-                                  SizedBox(
-                                    height: 29.h,
-                                  ),
-                                  CustomGradientCheckbox(
-                                      isChecked: isChecked,
-                                      title: context.loc.rememberMe,
-                                      onChanged: (value) {
-                                        isChecked = value;
-                                        provider.updateUi();
-                                      }),
+                                  // SizedBox(
+                                  //   height: 29.h,
+                                  // ),
+                                  // CustomGradientCheckbox(
+                                  //     isChecked: isChecked,
+                                  //     title: context.loc.rememberMe,
+                                  //     onChanged: (value) {
+                                  //       isChecked = value;
+                                  //       provider.updateUi();
+                                  //     }),
                                   SizedBox(
                                     height: 29.h,
                                   ),

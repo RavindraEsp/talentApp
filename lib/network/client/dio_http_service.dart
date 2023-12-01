@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/network/client/http_service.dart';
 import 'package:talent_app/network/exception/app_exception.dart';
+import 'package:talent_app/network/interceptors/bearer_token_interceptor.dart';
 import 'package:talent_app/network/interceptors/loggy_dio_interceptor.dart';
 import 'package:talent_app/network/interceptors/retry_on_connection_change_interceptor.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
@@ -15,29 +16,20 @@ class DioHttpService implements HttpService {
   final Dio dio = Dio();
 
   /// The Dio base options
-  BaseOptions get baseOptions => BaseOptions(
-        //  baseUrl: "http://themindcrm.com/payaki-web/jwt-api/",
-        headers: headers,
-      );
+  // BaseOptions get baseOptions => BaseOptions(
+  //       //  baseUrl: "http://themindcrm.com/payaki-web/jwt-api/",
+  //       headers: headers,
+  //     );
 
   /// Creates new instance of [DioHttpService]
   DioHttpService() {
-    Dio(baseOptions);
+  //  Dio(baseOptions);
 
 
-    Dio( BaseOptions(
-      headers: {
-        "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
 
-      },
-      responseType: ResponseType.json,
-      validateStatus: (int? status) {
-        return true;
-      },
-    ),);
 
     dio.interceptors.add(LoggyDioInterceptor());
-  //  dio.interceptors.add(BearerTokenInterceptor(tokenBox));
+    dio.interceptors.add(BearerTokenInterceptor(Preference().getAccessToken()));
     dio.interceptors.add(RetryOnConnectionChangeInterceptor(dio: dio));
 
 
@@ -51,7 +43,7 @@ class DioHttpService implements HttpService {
 
 
      // "authorization": Preference().getAccessToken()
-      "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
+     // "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
   };
 
   @override
@@ -61,15 +53,15 @@ class DioHttpService implements HttpService {
     bool forceRefresh = false,
   }) async {
     return callApi(dio.get(path, queryParameters: queryParameters,
-      options: Options(
-        headers: {
-          // "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
-          "authorization": Preference().getAccessToken() },
-        responseType: ResponseType.json,
-        validateStatus: (int? status) {
-          return true;
-        },
-      ),
+      // options: Options(
+      //   headers: {
+      //     // "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
+      //     "authorization": Preference().getAccessToken() },
+      //   responseType: ResponseType.json,
+      //   validateStatus: (int? status) {
+      //     return true;
+      //   },
+      // ),
     ));
   }
 
@@ -84,15 +76,15 @@ class DioHttpService implements HttpService {
         path,
         data: data,
         queryParameters: queryParameters,
-        options: Options(
-          headers: {
-           // "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
-            "authorization": Preference().getAccessToken() },
-          responseType: ResponseType.json,
-          validateStatus: (int? status) {
-            return true;
-          },
-        ),
+        // options: Options(
+        //   headers: {
+        //    // "authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImNhc3QyIiwiZW1haWwiOiJjYXN0MkBnbWFpbC5jb20iLCJpZCI6MjIsImlhdCI6MTcwMDg4OTczMSwiZXhwIjoxNzAwOTc2MTMxfQ.T7Egs1fSrAZ0Eoj24ECobbB_r2b6dnhxx-I0_KxuT3s"
+        //     "authorization": Preference().getAccessToken() },
+        //   responseType: ResponseType.json,
+        //   validateStatus: (int? status) {
+        //     return true;
+        //   },
+        // ),
       ),
     );
   }

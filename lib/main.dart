@@ -13,6 +13,7 @@ import 'package:talent_app/utilities/shared_preference.dart';
 import 'modules/casting/createCard/provider/cast_create_card_provider.dart';
 import 'modules/casting/profile/cast_profile_provider.dart';
 import 'modules/casting/profile/cast_profile_screen.dart';
+import 'modules/demo_screen.dart';
 import 'modules/intro/intro_screen.dart';
 import 'modules/talent/auditionDetails/screens/audition_detail_screen.dart';
 import 'modules/talent/menu/screens/denied_audition_screen.dart';
@@ -81,7 +82,6 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-
             home: const IntroScreen(),
 
           //  home:CastBottomBarScreen(selectIndex: 0),

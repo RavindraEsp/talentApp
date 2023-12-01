@@ -246,6 +246,8 @@
   "withdraw": "Withdraw",
   "edit": "Edit",
   "delete": "Delete",
-  "noAnyNotification": "No Any Notification"
+  "noAnyNotification": "No Any Notification",
+  "dateTimeAddValidation": "Please Fill All field.",
+  "applied": "Applied"
 }
 

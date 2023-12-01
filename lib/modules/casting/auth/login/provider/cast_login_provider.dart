@@ -29,4 +29,8 @@ class CastLoginProvider extends ChangeNotifier {
       onFailure.call("Server Error");
     });
   }
+
+  updateUi(){
+    notifyListeners();
+  }
 }

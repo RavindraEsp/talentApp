@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
 import 'package:talent_app/modules/casting/createAudition/providers/create_audition_provider.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/select_unselect_widget.dart';
@@ -13,6 +14,7 @@ import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/utilities/validation.dart';
 import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
 import 'package:talent_app/widgets/alertDialog/success_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
@@ -34,24 +36,6 @@ class CreateAuditionScreen extends StatefulWidget {
 class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
   final _formKey = GlobalKey<FormState>();
 
- // List<AuditionPropertyModel>? lookingForModel;
- // List<AuditionPropertyModel>? eyeColorModel;
- // List<AuditionPropertyModel>? hairColorModel;
- // List<AuditionPropertyModel>? painsSizeModel;
-  //List<AuditionPropertyModel>? shirtSizeModel;
-  //List<AuditionPropertyModel>? shoeSizeModel;
-
-  // bool? isExperienceNeeded;
-  // bool? isTrainingNeeded;
-  // bool? isRepresented;
-  //
-  // TextEditingController auditionDescriptionController = TextEditingController();
-  // TextEditingController minAgeController = TextEditingController();
-  // TextEditingController maxAgeController = TextEditingController();
-  // TextEditingController minWeightController = TextEditingController();
-  // TextEditingController maxWeightController = TextEditingController();
-  // TextEditingController minHeightController = TextEditingController();
-  // TextEditingController maxHeightController = TextEditingController();
 
   @override
   void initState() {
@@ -63,71 +47,7 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
           Common.showErrorToast(context, msg);
         });
 
-    // lookingForModel = [
-    //   AuditionPropertyModel("Model", false),
-    //   AuditionPropertyModel("Actor", false),
-    //   AuditionPropertyModel("Network Star", false),
-    //   AuditionPropertyModel("Singer", false),
-    //   AuditionPropertyModel("Kid Star", false),
-    //   AuditionPropertyModel("Kid Star", false),
-    //   AuditionPropertyModel("Other Artist", false),
-    //   AuditionPropertyModel("Dancer", false)
-    // ];
 
-    // eyeColorModel = [
-    //   AuditionPropertyModel("Brown", false),
-    //   AuditionPropertyModel("Blue", false),
-    //   AuditionPropertyModel("Green", false),
-    //   AuditionPropertyModel("Green-Grey", false),
-    //   AuditionPropertyModel("Pale gold", false),
-    //   AuditionPropertyModel("Black", false)
-    // ];
-
-    // hairColorModel = [
-    //   AuditionPropertyModel("Brown", false),
-    //   AuditionPropertyModel("Black", false),
-    //   AuditionPropertyModel("Auburn", false),
-    //   AuditionPropertyModel("Blond", false),
-    //   AuditionPropertyModel("Gray", false),
-    //   AuditionPropertyModel("Red", false),
-    //   AuditionPropertyModel("White", false)
-    // ];
-
-    // painsSizeModel = [
-    //   AuditionPropertyModel("XS", false),
-    //   AuditionPropertyModel("S", false),
-    //   AuditionPropertyModel("M", false),
-    //   AuditionPropertyModel("L", false),
-    //   AuditionPropertyModel("XL", false),
-    //   AuditionPropertyModel("S/M", false),
-    //   AuditionPropertyModel("M/L", false),
-    //   AuditionPropertyModel("XXL", false),
-    //   AuditionPropertyModel("XXXL", false)
-    // ];
-
-    // shirtSizeModel = [
-    //   AuditionPropertyModel("XS", false),
-    //   AuditionPropertyModel("S", false),
-    //   AuditionPropertyModel("M", false),
-    //   AuditionPropertyModel("L", false),
-    //   AuditionPropertyModel("XL", false),
-    //   AuditionPropertyModel("S/M", false),
-    //   AuditionPropertyModel("M/L", false),
-    //   AuditionPropertyModel("XXL", false),
-    //   AuditionPropertyModel("XXXL", false)
-    // ];
-
-    // shoeSizeModel = [
-    //   AuditionPropertyModel("36", false),
-    //   AuditionPropertyModel("37", false),
-    //   AuditionPropertyModel("38", false),
-    //   AuditionPropertyModel("39", false),
-    //   AuditionPropertyModel("40", false),
-    //   AuditionPropertyModel("41", false),
-    //   AuditionPropertyModel("42", false),
-    //   AuditionPropertyModel("43", false),
-    //   AuditionPropertyModel("44", false)
-    // ];
   }
 
   @override
@@ -216,6 +136,8 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                               controller: createAuditionProvider.auditionDescriptionController,
                               hintText: context.loc.hintAuditionDescription,
                               maxLine: 4,
+                              validator:
+                              Validators(context).validatorDescription,
                             ),
                             SizedBox(height: 35.h),
                             Text(
@@ -357,6 +279,8 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     controller: createAuditionProvider.minAgeController,
                                     hintText: context.loc.hintMin,
                                     textInputType: TextInputType.number,
+                                    validator:
+                                    Validators(context).validatorMinAge,
                                   ),
                                 ),
                                 Container(
@@ -377,6 +301,8 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     controller: createAuditionProvider.maxAgeController,
                                     hintText: context.loc.hintMax,
                                     textInputType: TextInputType.number,
+                                    validator:
+                                    Validators(context).validatorMaxAge,
                                   ),
                                 ),
                               ],
@@ -401,6 +327,8 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     controller: createAuditionProvider.minWeightController,
                                     hintText: context.loc.hintMin,
                                     textInputType: TextInputType.number,
+                                    validator:
+                                    Validators(context).validatorMinWeight,
                                   ),
                                 ),
                                 Container(
@@ -421,6 +349,8 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     controller: createAuditionProvider.maxWeightController,
                                     hintText: context.loc.hintMax,
                                     textInputType: TextInputType.number,
+                                    validator:
+                                    Validators(context).validatorMaxWeight,
                                   ),
                                 ),
                               ],
@@ -445,6 +375,8 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     controller: createAuditionProvider.minHeightController,
                                     hintText: context.loc.hintMin,
                                     textInputType: TextInputType.number,
+                                    validator:
+                                    Validators(context).validatorMinHeight,
                                   ),
                                 ),
                                 Container(
@@ -465,6 +397,8 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     controller: createAuditionProvider.maxHeightController,
                                     hintText: context.loc.hintMax,
                                     textInputType: TextInputType.number,
+                                    validator:
+                                    Validators(context).validatorMaxHeight,
                                   ),
                                 ),
                               ],
@@ -771,8 +705,34 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                   child: CustomButton(
                                     buttonText: context.loc.buttonNext,
                                     onTap: () {
-                                      Navigator.pushNamed(context,
-                                          RouteName.createAuditionPlaceTimeScreen);
+
+                                      if(_formKey.currentState!.validate()){
+
+
+
+                                      if(createAuditionProvider.getAllValue() == true){
+                                        Navigator.pushNamed(context,
+                                            RouteName.createAuditionPlaceTimeScreen,
+                                            arguments: {
+                                              "description": createAuditionProvider.auditionDescriptionController.text,
+                                              "workExperience": createAuditionProvider.isExperienceNeeded == true ? "1" : "0" ,
+                                              "professionalTraining": createAuditionProvider.isTrainingNeeded == true ? "1" : "0" ,
+                                              "candidateRepresentation": createAuditionProvider.isRepresented == true ? "1" : "0" ,
+                                              "ageRangeMin": createAuditionProvider.minAgeController.text,
+                                              "ageRangeMax": createAuditionProvider.maxAgeController.text,
+                                              "weightRangeMin": createAuditionProvider.minWeightController.text,
+                                              "weightRangeMax": createAuditionProvider.maxWeightController.text,
+                                              "heightRangeMin": createAuditionProvider.minHeightController.text,
+                                              "heightRangeMax":createAuditionProvider.maxHeightController.text,
+                                              "careerTag":createAuditionProvider.selectedLookingForIds,
+                                              "auditionTalentAllData":createAuditionProvider.auditionTalentAllData,
+
+                                            });
+                                      }
+                                      }
+
+
+
                                     },
                                     buttonType: ButtonType.yellow,
                                   ),

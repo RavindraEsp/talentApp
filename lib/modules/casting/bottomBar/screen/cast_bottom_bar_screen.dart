@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
 import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.dart';
+import 'package:talent_app/modules/casting/home/providers/cast_home_screen_provider.dart';
 import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
 import 'package:talent_app/modules/casting/notification/notification_provider.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
@@ -26,7 +27,14 @@ class CastBottomBarScreen extends StatefulWidget {
 //class _BottomBarScreenState extends State<BottomBarScreen> {
 class _CastBottomBarScreenState extends State {
   final List<Widget> _children = [
-    const CastHomeScreen(),
+
+
+
+    ChangeNotifierProvider(
+      create: (context) => CastHomeScreenProvider(),
+      child: const CastHomeScreen(
+      ),
+    ),
 
 
     ChangeNotifierProvider(

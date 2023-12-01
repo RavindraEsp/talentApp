@@ -15,6 +15,7 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/social_button.dart';
+import 'package:talent_app/widgets/custom_gradient_checkbox.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 class CastLoginScreen extends StatefulWidget {
@@ -31,6 +32,8 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
   TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -168,8 +171,22 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                     ),
                                   ),
                                   SizedBox(
+                                    height: 15.h,
+                                  ),
+
+
+                                  CustomGradientCheckbox(
+                                      isChecked: isChecked,
+                                      title: context.loc.rememberMe,
+                                      onChanged: (value) {
+                                        isChecked = value;
+                                        castLoginProvider.updateUi();
+                                      }),
+                                  SizedBox(
                                     height: 29.h,
                                   ),
+
+
                                   CustomButton(
                                     buttonText: context.loc.buttonLogIn,
                                     // buttonType: ButtonType.yellow,
@@ -180,87 +197,66 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         CommonMethod.hideKeyBoard(context);
+                                        if(isChecked == true){
 
-                                        ///Todo temp
-
-                                        // if (widget.userType == UserType.cast) {
-                                        //   Navigator.pushNamedAndRemoveUntil(
-                                        //       context,
-                                        //       RouteName.castBottomBarScreen,
-                                        //       arguments: {"selectIndex": 0},
-                                        //       (route) => false);
-                                        // } else {
-                                        //   Navigator.pushNamedAndRemoveUntil(
-                                        //       context,
-                                        //       RouteName.talentBottomBarScreen,
-                                        //       arguments: {"selectIndex": 0},
-                                        //           (route) => false);
-                                        // }
-
-
-                                        ///with api
-
-                                        Common.showLoadingDialog(context);
-                                        castLoginProvider.login(
-                                            onSuccess: (response) {
-                                              Navigator.pop(context);
-                                              Common.showSuccessToast(
-                                                  context, response.msg ?? "");
+                                          ///with api
+                                          Common.showLoadingDialog(context);
+                                          castLoginProvider.login(
+                                              onSuccess: (response) {
+                                                Navigator.pop(context);
+                                                Common.showSuccessToast(
+                                                    context, response.msg ?? "");
 
 
 
-                                              if (widget.userType == UserType.cast) {
+                                                if (widget.userType == UserType.cast) {
+
+
+                                                  ///valid
+                                                  if(response.data?.isCardcreated == true){
+
+                                                    Navigator.pushNamedAndRemoveUntil(
+                                                        context,
+                                                        RouteName.castBottomBarScreen,
+                                                        arguments: {"selectIndex": 0},
+                                                            (route) => false);
+                                                  }else{
+
+                                                    Navigator.pushNamedAndRemoveUntil(
+                                                        context,
+                                                        RouteName.castCreateCardScreen,
+                                                            (route) => false);
+                                                  }
 
 
 
-                                                // Navigator.pushNamedAndRemoveUntil(
-                                                //     context,
-                                                //     RouteName.castCreateCardScreen,
-                                                //     arguments: {
-                                                //       "userId":0,
-                                                //     },
-                                                //         (route) => false);
 
-
-                                                ///valid
-                                                if(response.data?.isCardcreated == true){
-
+                                                } else {
                                                   Navigator.pushNamedAndRemoveUntil(
                                                       context,
-                                                      RouteName.castBottomBarScreen,
+                                                      RouteName.talentBottomBarScreen,
                                                       arguments: {"selectIndex": 0},
-                                                          (route) => false);
-                                                }else{
-
-                                                  Navigator.pushNamedAndRemoveUntil(
-                                                      context,
-                                                      RouteName.castCreateCardScreen,
                                                           (route) => false);
                                                 }
 
 
+                                              },
+                                              onFailure: (message) {
+                                                Navigator.pop(context);
+                                                Common.showErrorSnackBar(
+                                                    context, message);
+                                              },
+                                              request: LoginRequest(
+                                                  userName: nameController.text,
+                                                  password: passwordController.text,
+                                                  userType: widget.userType == UserType.talent  ? 1 :2,// for caster
+                                                  fCMToken: "fcm token001"));
+                                        }else{
+                                          Common.showErrorSnackBar(context, "Please check remember me.");
+                                        }
 
 
-                                              } else {
-                                                Navigator.pushNamedAndRemoveUntil(
-                                                    context,
-                                                    RouteName.talentBottomBarScreen,
-                                                    arguments: {"selectIndex": 0},
-                                                        (route) => false);
-                                              }
 
-
-                                            },
-                                            onFailure: (message) {
-                                              Navigator.pop(context);
-                                              Common.showErrorSnackBar(
-                                                  context, message);
-                                            },
-                                            request: LoginRequest(
-                                                userName: nameController.text,
-                                                password: passwordController.text,
-                                                userType: widget.userType == UserType.talent  ? 1 :2,// for caster
-                                                fCMToken: "fcm token001"));
                                       }
                                     },
                                   ),

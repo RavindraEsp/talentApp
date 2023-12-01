@@ -16,6 +16,7 @@ class SignUpScreenProvider extends ChangeNotifier {
         onSuccess.call("${value.msg} ${value.data}" ?? "");
       } else {
         onFailure.call(value.msg ?? "");
+
       }
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");

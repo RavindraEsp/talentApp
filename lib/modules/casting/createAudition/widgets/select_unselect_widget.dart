@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
-import 'package:talent_app/network/model/response/audition/talent_data_response_model.dart';
+import 'package:talent_app/network/model/response/casterAudition/talent_data_response_model.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';

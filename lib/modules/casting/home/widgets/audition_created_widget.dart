@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/network/model/response/casterAudition/CasterHomeResponseModel.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
 
 class AuditionCreatedWidget extends StatelessWidget {
-  const AuditionCreatedWidget({
-    super.key,
+ final List<CreateAudition>? createAudition;
+  const AuditionCreatedWidget( {
+    super.key, this.createAudition,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 2,
+        itemCount: createAudition?.length ?? 0,
         padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
         itemBuilder: (context, index) {
           return Padding(
@@ -55,7 +58,8 @@ class AuditionCreatedWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Actors are needed for a variety of roles Extras and more",
+                             // "Actors are needed for a variety of roles Extras and more",
+                              createAudition?[index].description ?? "",
                               style: StyleUtility.quicksandRegularBlackTextStyle
                                   .copyWith(
                                 fontSize: TextSizeUtility.textSize16.sp,
@@ -92,7 +96,9 @@ class AuditionCreatedWidget extends StatelessWidget {
                                       width: 5.w,
                                     ),
                                     Text(
-                                      "23/8/2023",
+                                     // "23/8/2023",
+                                        createAudition?[index].date != null ?
+                                      CommonMethod.getDate(createAudition![index].date!):"",
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(
@@ -113,7 +119,8 @@ class AuditionCreatedWidget extends StatelessWidget {
                                       width: 5.w,
                                     ),
                                     Text(
-                                      "230",
+                                    //  "230",
+                                        "${createAudition?[index].totalView ?? ""}",
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(
@@ -134,7 +141,7 @@ class AuditionCreatedWidget extends StatelessWidget {
                                       width: 5.w,
                                     ),
                                     Text(
-                                      "20 Applied",
+                                      "${createAudition?[index].totalApply ?? ""} ${context.loc.applied}",
                                       style: StyleUtility
                                           .quicksandRegular8B8B8BTextStyle
                                           .copyWith(

@@ -9,7 +9,8 @@ class BearerTokenInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.headers.addAll({"Authorization": "Bearer ${tokenBox}"});
+   // options.headers.addAll({"Authorization": "Bearer ${tokenBox}"});
+    options.headers.addAll({"Authorization": "${tokenBox}"});
     AppLogger.logD(
         'REQUEST[\nMethod: => ${options.method}]\nPATH: => ${options.path}\nHeaders: => ${options.headers}');
     return super.onRequest(options, handler);
