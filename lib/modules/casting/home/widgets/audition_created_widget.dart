@@ -9,6 +9,7 @@ import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
+import 'package:talent_app/widgets/no_data_widget.dart';
 
 class AuditionCreatedWidget extends StatelessWidget {
  final List<CreateAudition>? createAudition;
@@ -18,7 +19,10 @@ class AuditionCreatedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return
+      (createAudition?.length ?? 0) == 0
+          ? const NoDataWidget() :
+      ListView.builder(
         itemCount: createAudition?.length ?? 0,
         padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
         itemBuilder: (context, index) {

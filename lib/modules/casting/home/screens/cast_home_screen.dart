@@ -201,8 +201,13 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                 children: [
                   castHomeScreenProvider.isLoading == true
                       ? const CustomCircularLoaderWidget()
-                      : AuditionCreatedWidget(createAudition: castHomeScreenProvider.castHomeResponseModel?.data?.createAudition,),
-                  AuditionFinishedWidget(),
+                      : AuditionCreatedWidget(
+                          createAudition: castHomeScreenProvider
+                              .castHomeResponseModel?.data?.createAudition,
+                        ),
+                  AuditionFinishedWidget(
+                      finishedAudition: castHomeScreenProvider
+                          .castHomeResponseModel?.data?.finishedAudition),
                 ],
               );
             }))
