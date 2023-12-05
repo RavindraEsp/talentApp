@@ -199,7 +199,7 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                 builder: (context, castHomeScreenProvider, child) {
               return TabBarView(
                 children: [
-                  castHomeScreenProvider.isLoading == true
+                  castHomeScreenProvider.isLoading == truegit
                       ? const CustomCircularLoaderWidget()
                       : AuditionCreatedWidget(
                           createAudition: castHomeScreenProvider
