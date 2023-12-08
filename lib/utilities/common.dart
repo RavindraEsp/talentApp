@@ -33,7 +33,6 @@ class Common {
         fontSize: 16.0);
   }
 
-
   static showErrorToast(BuildContext context, String message) {
     Fluttertoast.cancel();
     return Fluttertoast.showToast(
@@ -124,6 +123,29 @@ class Common {
     if (selected != null) {
       String formattedDate = DateFormat(dateFormatForAddDate).format(selected);
       dateController.text = formattedDate;
+    }
+  }
+
+  static selectTime(
+      BuildContext context, TextEditingController timeController) async {
+    final TimeOfDay? selected = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(hour: 7, minute: 15),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: const ColorScheme.light().copyWith(
+                primary: ColorUtility.color263287,
+                // Set the primary color
+                onPrimary: Colors.white, // Set the text color
+              ),
+              dialogBackgroundColor: Colors.white, // Set the background color
+            ),
+            child: child!,
+          );
+        });
+    if (selected != null) {
+      timeController.text = "${selected.hour}:${selected.minute}";
     }
   }
 

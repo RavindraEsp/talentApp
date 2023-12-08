@@ -5,9 +5,7 @@ class Endpoints {
   static ApiEndPoints apiEndPoints = ApiEndPoints();
 
   static const imageBaseUrl = "https://espsofttech.in:7272/api/auth/uploads/";
-
 }
-
 
 class ApiEndPoints {
   String get signUpSendOtp => "auth/emailVerification";
@@ -22,5 +20,11 @@ class ApiEndPoints {
   String get getNotification => "get/getNotification";
   String get getTalentData => "get/gettalentData";
   String get createAudition => "auth/createAudition";
-  String get getCreatedFinishedAuditionList => "get/getCreatedFinishedAuditionList";
+  String get updateAudition => "/auth/updateAudition";
+  String get getCreatedFinishedAuditionList =>
+      "get/getCreatedFinishedAuditionList";
+  String get getfinishedAuditionmanage => "get/getfinishedAuditionmanage";
+  String get getcreatedAuditionmanage => "get/getcreatedAuditionmanage";
+
+  String get getAuditionDetailById => "auth/getAuditionDetailById";
 }

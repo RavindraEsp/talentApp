@@ -10,6 +10,7 @@ import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
@@ -30,10 +31,23 @@ class CastLoginScreen extends StatefulWidget {
 class _CastLoginScreenState extends State<CastLoginScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  // TextEditingController nameController =
+  //     TextEditingController(text: 'Hemant123');
+  // TextEditingController passwordController =
+  //     TextEditingController(text: 'Espsoft123#');
 
   final _formKey = GlobalKey<FormState>();
 
   bool isChecked = false;
+  bool isObscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = Preference.getRememberMe();
+    nameController.text = Preference().getUserNameRemember();
+    passwordController.text = Preference().getpasswordRememberMe();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +154,14 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                   ),
                                   SimpleTextField(
                                     controller: passwordController,
-                                    suffixImage: ImageUtility.passLocIcon,
+                                    // suffixImage: ImageUtility.passLocIcon,
+                                    suffixImage: 'password',
+                                    passwordObscure: isObscurePassword,
+                                    ontapObscure: () {
+                                      setState(() {
+                                        isObscurePassword = !isObscurePassword;
+                                      });
+                                    },
                                     hintText: context.loc.hintPassword,
                                     validator:
                                         Validators(context).validatorPassword,
@@ -150,10 +171,8 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                          context,
-                                          RouteName
-                                              .forgotPassFindAccountScreen,
+                                      Navigator.pushNamed(context,
+                                          RouteName.forgotPassFindAccountScreen,
                                           arguments: {
                                             "userType": widget.userType
                                           });
@@ -173,8 +192,6 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                   SizedBox(
                                     height: 15.h,
                                   ),
-
-
                                   CustomGradientCheckbox(
                                       isChecked: isChecked,
                                       title: context.loc.rememberMe,
@@ -185,8 +202,6 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                   SizedBox(
                                     height: 29.h,
                                   ),
-
-
                                   CustomButton(
                                     buttonText: context.loc.buttonLogIn,
                                     // buttonType: ButtonType.yellow,
@@ -197,66 +212,82 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                     onTap: () {
                                       if (_formKey.currentState!.validate()) {
                                         CommonMethod.hideKeyBoard(context);
-                                        if(isChecked == true){
 
-                                          ///with api
-                                          Common.showLoadingDialog(context);
-                                          castLoginProvider.login(
-                                              onSuccess: (response) {
-                                                Navigator.pop(context);
-                                                Common.showSuccessToast(
-                                                    context, response.msg ?? "");
+                                        if (isChecked == true) {
+                                          Preference.setUserNameRemeber(
+                                              nameController.text);
+                                          Preference.setpasswordRememberMe(
+                                              passwordController.text);
+                                          Preference.setRememberMe(true);
+                                        } else {
+                                          Preference.removeShared(
+                                              Preference.userNameRememberMe);
+                                          Preference.removeShared(
+                                              Preference.passwordRememberMe);
+                                          Preference.removeShared(
+                                              Preference.rememberMe);
+                                        }
+                                        // if (isChecked == true) {
+                                        ///with api
+                                        Common.showLoadingDialog(context);
+                                        castLoginProvider.login(
+                                            onSuccess: (response) {
+                                              Navigator.pop(context);
+                                              Common.showSuccessToast(
+                                                  context, response.msg ?? "");
 
-
-
-                                                if (widget.userType == UserType.cast) {
-
-
-                                                  ///valid
-                                                  if(response.data?.isCardcreated == true){
-
-                                                    Navigator.pushNamedAndRemoveUntil(
-                                                        context,
-                                                        RouteName.castBottomBarScreen,
-                                                        arguments: {"selectIndex": 0},
-                                                            (route) => false);
-                                                  }else{
-
-                                                    Navigator.pushNamedAndRemoveUntil(
-                                                        context,
-                                                        RouteName.castCreateCardScreen,
-                                                            (route) => false);
-                                                  }
-
-
-
-
+                                              if (widget.userType ==
+                                                  UserType.cast) {
+                                                ///valid
+                                                if (response
+                                                        .data?.isCardcreated ==
+                                                    true) {
+                                                  Navigator
+                                                      .pushNamedAndRemoveUntil(
+                                                          context,
+                                                          RouteName
+                                                              .castBottomBarScreen,
+                                                          arguments: {
+                                                            "selectIndex": 0
+                                                          },
+                                                          (route) => false);
                                                 } else {
                                                   Navigator.pushNamedAndRemoveUntil(
                                                       context,
-                                                      RouteName.talentBottomBarScreen,
-                                                      arguments: {"selectIndex": 0},
-                                                          (route) => false);
+                                                      RouteName
+                                                          .castCreateCardScreen,
+                                                      (route) => false);
                                                 }
-
-
-                                              },
-                                              onFailure: (message) {
-                                                Navigator.pop(context);
-                                                Common.showErrorSnackBar(
-                                                    context, message);
-                                              },
-                                              request: LoginRequest(
-                                                  userName: nameController.text,
-                                                  password: passwordController.text,
-                                                  userType: widget.userType == UserType.talent  ? 1 :2,// for caster
-                                                  fCMToken: "fcm token001"));
-                                        }else{
-                                          Common.showErrorSnackBar(context, "Please check remember me.");
-                                        }
-
-
-
+                                              } else {
+                                                Navigator.pushNamedAndRemoveUntil(
+                                                    context,
+                                                    RouteName
+                                                        .talentBottomBarScreen,
+                                                    arguments: {
+                                                      "selectIndex": 0
+                                                    },
+                                                    (route) => false);
+                                              }
+                                            },
+                                            onFailure: (message) {
+                                              Navigator.pop(context);
+                                              Common.showErrorSnackBar(
+                                                  context, message);
+                                            },
+                                            request: LoginRequest(
+                                                userName: nameController.text,
+                                                password:
+                                                    passwordController.text,
+                                                userType: widget.userType ==
+                                                        UserType.talent
+                                                    ? 1
+                                                    : 2, // for caster
+                                                // fCMToken: "fcm token001"
+                                                fCMToken: "sdsdsdsdsdsds"));
+                                        // } else {
+                                        //   Common.showErrorSnackBar(context,
+                                        //       "Please check remember me.");
+                                        // }
                                       }
                                     },
                                   ),

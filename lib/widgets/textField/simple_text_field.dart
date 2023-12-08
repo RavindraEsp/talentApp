@@ -11,8 +11,9 @@ class SimpleTextField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     this.textInputType,
-    this.passwordObscure,
+    this.passwordObscure = false,
     this.onPrefixIconTap,
+    this.ontapObscure,
     this.maxLine = 1,
     this.inputFormatter,
     this.suffixImage,
@@ -27,6 +28,7 @@ class SimpleTextField extends StatelessWidget {
   final int? maxLine;
   final List<TextInputFormatter>? inputFormatter;
   final VoidCallback? onPrefixIconTap;
+  final VoidCallback? ontapObscure;
   final String? suffixImage;
 
   final FormFieldValidator? validator;
@@ -49,7 +51,8 @@ class SimpleTextField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         inputFormatters: inputFormatter,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
+          contentPadding:
+              EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
           filled: true,
           fillColor: Colors.white,
           hintStyle: StyleUtility.hintTextStyle.copyWith(
@@ -70,9 +73,8 @@ class SimpleTextField extends StatelessWidget {
               color: ColorUtility.colorD6D6D8,
             ),
           ),
-          errorStyle: StyleUtility.errorTextStyle.copyWith(
-            fontSize: TextSizeUtility.textSize13.sp
-          ),
+          errorStyle: StyleUtility.errorTextStyle
+              .copyWith(fontSize: TextSizeUtility.textSize13.sp),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
             borderSide: const BorderSide(
@@ -103,22 +105,38 @@ class SimpleTextField extends StatelessWidget {
               color: ColorUtility.colorD6D6D8,
             ),
           ),
-          suffixIcon: suffixImage != null
-              ? SizedBox(
-                  height: 55.sp,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 20.sp),
-                    child: InkWell(
-                      onTap: onPrefixIconTap,
-                      child: Image.asset(
-                        suffixImage!,
-                       // height: 5.h,
-                        // color: Colors.blue,
+          suffixIcon: suffixImage != null && suffixImage == 'password'
+              ? passwordObscure == false
+                  ? InkWell(
+                      onTap: ontapObscure,
+                      child: const Icon(
+                        Icons.visibility,
+                        color: ColorUtility.color5457BE,
                       ),
-                    ),
-                  ),
-                )
-              : null,
+                    )
+                  : InkWell(
+                      onTap: ontapObscure,
+                      child: const Icon(
+                        Icons.visibility_off,
+                        color: ColorUtility.color5457BE,
+                      ),
+                    )
+              : suffixImage != null
+                  ? SizedBox(
+                      height: 55.sp,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 20.sp),
+                        child: InkWell(
+                          onTap: onPrefixIconTap,
+                          child: Image.asset(
+                            suffixImage!,
+                            // height: 5.h,
+                            // color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    )
+                  : null,
           focusColor: Colors.white,
         ),
       ),

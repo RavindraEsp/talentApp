@@ -35,12 +35,12 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<CastProfileProvider>(context, listen: false)
-        .getProfileData(onSuccess: (msg) {}, onFailure: (msg) {
+    Provider.of<CastProfileProvider>(context, listen: false).getProfileData(
+        onSuccess: (msg) {},
+        onFailure: (msg) {
           Common.showErrorToast(context, msg);
-    });
+        });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,218 +82,233 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                         ),
                       ),
                       Expanded(
-                          child:  castProfileProvider.isLoading == true ?
-                          const CustomCircularLoaderWidget():
-
-
-
-                          Form(
-                        key: _createCardKey,
-                        child: ListView(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            children: [
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              Text(
-                                context.loc.titleYourProfileDetails,
-                                style: StyleUtility
-                                    .quicksandSemiBold5457BETextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize16.sp),
-                              ),
-                              SizedBox(
-                                height: 25.h,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: SimpleTextField(
-                                      controller: castProfileProvider
-                                          .firstNameController,
-                                      validator: Validators(context)
-                                          .validatorFirstName,
-                                      hintText: context.loc.hintFirstName,
-
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 14.w,
-                                  ),
-                                  Expanded(
-                                    child: SimpleTextField(
-                                      controller: castProfileProvider
-                                          .lastNameController,
-                                      hintText: context.loc.hintLastName,
-                                      validator:
-                                          Validators(context).validatorLastName,
-
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 25.h,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: SimpleTextField(
-                                      controller:
-                                          castProfileProvider.idController,
-                                      hintText: context.loc.hintID,
-                                      validator:
-                                          Validators(context).validatorId,
-
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 14.w,
-                                  ),
-                                  Expanded(
-                                      child: CustomDropDownWidget(
-                                          ovValueChange: (item) {
-                                            castProfileProvider.selectGender =
-                                                item;
-                                            castProfileProvider.updateUi();
-                                          },
-                                          dropDownList:
-                                              castProfileProvider.genderList,
-                                          selectItem:
-                                              castProfileProvider.selectGender,
-                                          hintText: context.loc.hintGender))
-                                ],
-                              ),
-
-
-                              SizedBox(
-                                height: 25.h,
-                              ),
-                              SimpleTextField(
-                                controller:
-                                    castProfileProvider.addressController,
-                                hintText: context.loc.hintAddress,
-                                validator: Validators(context).validatorAddress,
-
-                              ),
-                              SizedBox(
-                                height: 25.h,
-                              ),
-                              SimpleTextField(
-                                controller:
-                                    castProfileProvider.companyNameController,
-                                hintText: context.loc.hintCompanyName,
-                                validator:
-                                    Validators(context).validatorCompanyName,
-
-                              ),
-                              SizedBox(
-                                height: 35.h,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        context.loc.addLogo,
-                                        style: StyleUtility
-                                            .quicksandSemiBold5457BETextStyle
-                                            .copyWith(
-                                                color: ColorUtility.color445DB8,
-                                                fontSize:
-                                                    TextSizeUtility.textSize16),
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          await castProfileProvider
-                                              .getImageLogo();
-                                        },
-                                        child: imageWidget(
-                                            castProfileProvider.logoImage,castProfileProvider.networkLogoImage ?? ""),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        context.loc.addProfileImage,
-                                        style: StyleUtility
-                                            .quicksandSemiBold5457BETextStyle
-                                            .copyWith(
-                                                color: ColorUtility.color445DB8,
-                                                fontSize:
-                                                    TextSizeUtility.textSize16),
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      InkWell(
-                                        onTap: () async {
-                                          await castProfileProvider
-                                              .getImageProfile();
-                                        },
-                                        child: imageWidget(
-                                            castProfileProvider.profileImage,
-                                            castProfileProvider.networkProfileImage ?? ""
+                          child: castProfileProvider.isLoading == true
+                              ? const CustomCircularLoaderWidget()
+                              : Form(
+                                  key: _createCardKey,
+                                  child: ListView(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20.w),
+                                      children: [
+                                        SizedBox(
+                                          height: 30.h,
                                         ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 40.h,
-                              ),
-                              CustomButton(
-                                buttonText: context.loc.buttonUpdate,
-                                buttonType: ButtonType.yellow,
-                                onTap: () async {
-                                  if (_createCardKey.currentState!.validate()) {
-                                    AppLogger.logD("Valid data");
-                                    // if (_logoimage == null &&
-                                    //     _profileImage == null &&
-                                    //     _selectedValue == null) {
-                                    //   await showToast("Please Fill All Fields");
-                                    // }
-                                  } else {
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             const CastBottomNavigationBar()));
-                                  }
+                                        Text(
+                                          context.loc.titleYourProfileDetails,
+                                          style: StyleUtility
+                                              .quicksandSemiBold5457BETextStyle
+                                              .copyWith(
+                                                  fontSize: TextSizeUtility
+                                                      .textSize16.sp),
+                                        ),
+                                        SizedBox(
+                                          height: 25.h,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: SimpleTextField(
+                                                controller: castProfileProvider
+                                                    .firstNameController,
+                                                validator: Validators(context)
+                                                    .validatorFirstName,
+                                                hintText:
+                                                    context.loc.hintFirstName,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 14.w,
+                                            ),
+                                            Expanded(
+                                              child: SimpleTextField(
+                                                controller: castProfileProvider
+                                                    .lastNameController,
+                                                hintText:
+                                                    context.loc.hintLastName,
+                                                validator: Validators(context)
+                                                    .validatorLastName,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 25.h,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: SimpleTextField(
+                                                controller: castProfileProvider
+                                                    .idController,
+                                                hintText: context.loc.hintID,
+                                                validator: Validators(context)
+                                                    .validatorId,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 14.w,
+                                            ),
+                                            Expanded(
+                                                child: CustomDropDownWidget(
+                                                    ovValueChange: (item) {
+                                                      castProfileProvider
+                                                          .selectGender = item;
+                                                      castProfileProvider
+                                                          .updateUi();
+                                                    },
+                                                    dropDownList:
+                                                        castProfileProvider
+                                                            .genderList,
+                                                    selectItem:
+                                                        castProfileProvider
+                                                            .selectGender,
+                                                    hintText:
+                                                        context.loc.hintGender))
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 25.h,
+                                        ),
+                                        SimpleTextField(
+                                          controller: castProfileProvider
+                                              .addressController,
+                                          hintText: context.loc.hintAddress,
+                                          validator: Validators(context)
+                                              .validatorAddress,
+                                        ),
+                                        SizedBox(
+                                          height: 25.h,
+                                        ),
+                                        SimpleTextField(
+                                          controller: castProfileProvider
+                                              .companyNameController,
+                                          hintText: context.loc.hintCompanyName,
+                                          validator: Validators(context)
+                                              .validatorCompanyName,
+                                        ),
+                                        SizedBox(
+                                          height: 35.h,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  context.loc.addLogo,
+                                                  style: StyleUtility
+                                                      .quicksandSemiBold5457BETextStyle
+                                                      .copyWith(
+                                                          color: ColorUtility
+                                                              .color445DB8,
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize16),
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await castProfileProvider
+                                                        .getImageLogo();
+                                                  },
+                                                  child: imageWidget(
+                                                      castProfileProvider
+                                                          .logoImage,
+                                                      castProfileProvider
+                                                              .networkLogoImage ??
+                                                          ""),
+                                                )
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  context.loc.addProfileImage,
+                                                  style: StyleUtility
+                                                      .quicksandSemiBold5457BETextStyle
+                                                      .copyWith(
+                                                          color: ColorUtility
+                                                              .color445DB8,
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize16),
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await castProfileProvider
+                                                        .getImageProfile();
+                                                  },
+                                                  child: imageWidget(
+                                                      castProfileProvider
+                                                          .profileImage,
+                                                      castProfileProvider
+                                                              .networkProfileImage ??
+                                                          ""),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 40.h,
+                                        ),
+                                        CustomButton(
+                                          buttonText: context.loc.buttonUpdate,
+                                          buttonType: ButtonType.yellow,
+                                          onTap: () async {
+                                            if (_createCardKey.currentState!
+                                                .validate()) {
+                                              AppLogger.logD("Valid data");
+                                              // if (_logoimage == null &&
+                                              //     _profileImage == null &&
+                                              //     _selectedValue == null) {
+                                              //   await showToast("Please Fill All Fields");
+                                              // }
+                                            } else {
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (context) =>
+                                              //             const CastBottomNavigationBar()));
+                                            }
 
-                                  if (_createCardKey.currentState!.validate()) {
-                                    Common.showLoadingDialog(context);
-                                    castProfileProvider.updateProfile(
-                                      onSuccess: (msg) {
-                                        Navigator.pop(context);
-                                        Common.showSuccessToast(context, msg);
-                                      },
-                                      onFailure: (message) {
-                                        Navigator.pop(context);
-                                        Common.showErrorSnackBar(
-                                            context, message);
-                                      },
-                                    );
-                                  }
-                                },
-                              ),
-                              SizedBox(
-                                height: 35.h,
-                              ),
-                            ]),
-                      )),
+                                            if (_createCardKey.currentState!
+                                                .validate()) {
+                                              Common.showLoadingDialog(context);
+                                              castProfileProvider.updateProfile(
+                                                onSuccess: (msg) {
+                                                  Navigator.pop(context);
+                                                  Common.showSuccessToast(
+                                                      context, msg);
+                                                },
+                                                onFailure: (message) {
+                                                  Navigator.pop(context);
+                                                  Common.showErrorSnackBar(
+                                                      context, message);
+                                                },
+                                              );
+                                            }
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 35.h,
+                                        ),
+                                      ]),
+                                )),
                     ]);
                   }))),
         ],
@@ -301,61 +316,61 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
     );
   }
 
-  SizedBox imageWidget(XFile? imageFile,String networkImageUrl) {
+  SizedBox imageWidget(XFile? imageFile, String networkImageUrl) {
     return SizedBox(
         height: 145.w,
         width: 146.w,
         child: imageFile == null
-            ?
-        networkImageUrl != "" ?
-        Stack(
-          alignment: Alignment.bottomRight,
-          children: [
-            Container(
-              margin: EdgeInsets.only(right: 12.w, bottom: 12.w),
-
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.r),
-                child:
-
-                CachedNetworkImage(
-                    width: double.infinity,
-                    height:double.infinity,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        Container(
-                            color: Colors.grey,
-                            child: Center(child:  Icon(Icons.error,size: 25.sp,))),
-                    // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                    imageUrl: "${Endpoints.imageBaseUrl}$networkImageUrl"),
-              ),
-            ),
-            Image.asset(
-              ImageUtility.editCircleIcon,
-              width: 33.w,
-              height: 33.w,
-            )
-          ],
-        ):
-        Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(
-                    color: ColorUtility.colorD6D6D8,
-                  ),
-                ),
-                child: Center(
-                  child: SizedBox(
-                    height: 30.w,
-                    width: 30.w,
-                    child: Image.asset(
-                      ImageUtility.addIcon,
+            ? networkImageUrl != ""
+                ? Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 12.w, bottom: 12.w),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.r),
+                          child: CachedNetworkImage(
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => Container(
+                                  color: Colors.grey,
+                                  child: Center(
+                                      child: Icon(
+                                    Icons.error,
+                                    size: 25.sp,
+                                  ))),
+                              // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                              imageUrl:
+                                  "${Endpoints.imageBaseUrl}$networkImageUrl"),
+                        ),
+                      ),
+                      Image.asset(
+                        ImageUtility.editCircleIcon,
+                        width: 33.w,
+                        height: 33.w,
+                      )
+                    ],
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(
+                        color: ColorUtility.colorD6D6D8,
+                      ),
                     ),
-                  ),
-                ),
-              )
+                    child: Center(
+                      child: SizedBox(
+                        height: 30.w,
+                        width: 30.w,
+                        child: Image.asset(
+                          ImageUtility.addIcon,
+                        ),
+                      ),
+                    ),
+                  )
             : Stack(
                 alignment: Alignment.bottomRight,
                 children: [
@@ -369,9 +384,7 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.r),
-                      child:
-
-                      Image.file(
+                      child: Image.file(
                         File(imageFile.path),
                         fit: BoxFit.cover,
                         width: double.infinity,

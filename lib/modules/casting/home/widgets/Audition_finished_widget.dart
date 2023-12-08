@@ -86,7 +86,11 @@ class AuditionFinishedWidget extends StatelessWidget {
                                   buttonType: ButtonType.green,
                                   onTap: () {
                                     Navigator.pushNamed(context,
-                                        RouteName.manageFinishedAuditionScreen);
+                                        RouteName.manageFinishedAuditionScreen,
+                                        arguments: {
+                                          "auditionId": finishedAudition?[index]
+                                              .auditionId
+                                        });
                                   },
                                 ),
                                 SizedBox(

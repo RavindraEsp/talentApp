@@ -23,14 +23,13 @@ class CastLoginProvider extends ChangeNotifier {
       } else {
         onFailure.call(value.msg ?? "");
       }
-    })
-        .onError((error, stackTrace) {
+    }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
       onFailure.call("Server Error");
     });
   }
 
-  updateUi(){
+  updateUi() {
     notifyListeners();
   }
 }

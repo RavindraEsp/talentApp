@@ -21,12 +21,16 @@ import 'package:talent_app/modules/casting/createAudition/screens/create_auditio
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
 import 'package:talent_app/modules/casting/createCard/cast_create_card_screen.dart';
 import 'package:talent_app/modules/casting/createCard/provider/cast_create_card_provider.dart';
+import 'package:talent_app/modules/casting/editAudition/provider/edit_audition_place_time_provider.dart';
+import 'package:talent_app/modules/casting/editAudition/provider/edit_audition_screen_provider.dart';
 import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_place_time_screen.dart';
 import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_screen.dart';
 import 'package:talent_app/modules/casting/helloCasting/hello_casting_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/manage_audition_created_screen.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/providers/manage_audition_created_screen_provider.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/user_profile_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/manage_finished_audition_screen.dart';
+import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/providers/manage_finished_audition_screen_provider.dart';
 import 'package:talent_app/modules/casting/menu/providers/web_content_provider.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
@@ -157,56 +161,74 @@ class AppRoute {
 
       case RouteName.createAuditionScreen:
         return MaterialPageRoute(
-        //  builder: (context) => const CreateAuditionScreen(),
-          builder: (context) => ChangeNotifierProvider(create: (context) =>CreateAuditionProvider(),
-          child: const CreateAuditionScreen(),),
+          //  builder: (context) => const CreateAuditionScreen(),
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => CreateAuditionProvider(),
+            child: const CreateAuditionScreen(),
+          ),
         );
       case RouteName.createAuditionPlaceTimeScreen:
         var arg = settings.arguments as Map;
 
         return MaterialPageRoute(
-          builder: (context) =>  ChangeNotifierProvider(create: (context) =>
-              CreateAuditionPlaceTimeProvider(),child:  CreateAuditionPlaceTimeScreen(
-
-
-            description: arg["description"],
-            workExperience: arg["workExperience"],
-            professionalTraining: arg["professionalTraining"],
-            candidateRepresentation: arg["candidateRepresentation"],
-            ageRangeMin: arg["ageRangeMin"],
-            ageRangeMax: arg["ageRangeMax"],
-            weightRangeMin: arg["weightRangeMin"],
-            weightRangeMax: arg["weightRangeMax"],
-            heightRangeMin: arg["heightRangeMin"],
-            heightRangeMax: arg["heightRangeMax"],
-            careerTag: arg["careerTag"],
-            auditionTalentAllData: arg["auditionTalentAllData"],
-
-
-
-
-          ),),
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => CreateAuditionPlaceTimeProvider(),
+            child: CreateAuditionPlaceTimeScreen(
+              description: arg["description"],
+              workExperience: arg["workExperience"],
+              professionalTraining: arg["professionalTraining"],
+              candidateRepresentation: arg["candidateRepresentation"],
+              ageRangeMin: arg["ageRangeMin"],
+              ageRangeMax: arg["ageRangeMax"],
+              weightRangeMin: arg["weightRangeMin"],
+              weightRangeMax: arg["weightRangeMax"],
+              heightRangeMin: arg["heightRangeMin"],
+              heightRangeMax: arg["heightRangeMax"],
+              careerTag: arg["careerTag"],
+              auditionTalentAllData: arg["auditionTalentAllData"],
+            ),
+          ),
         );
 
       case RouteName.editAuditionScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditAuditionScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                create: (context) => EditAuditionScreenProvider(),
+                child: EditAuditionScreen(
+                  auditionId: arg["auditionId"],
+                )));
 
       case RouteName.editAuditionPlaceTimeScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditAuditionPlaceTimeScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => EditAuditionPlaceTimeScreenProvider(),
+                  child: EditAuditionPlaceTimeScreen(
+                    editAuditionScreen1DataModel:
+                        arg["editAuditionScreen1DataModel"],
+                  ),
+                ));
 
       case RouteName.manageFinishedAuditionScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const ManageFinishedAuditionScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => ManageFinishedAuditionScreenProvider(),
+                  child: ManageFinishedAuditionScreen(
+                    auditionId: arg["auditionId"],
+                  ),
+                ));
 
       case RouteName.manageAuditionCreatedScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const ManageAuditionCreatedScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => ManageAuditionCreatedScreenProvider(),
+                  child: ManageAuditionCreatedScreen(
+                    auditionId: arg["auditionId"],
+                  ),
+                ));
 
       case RouteName.seeUserProfileScreen:
         return MaterialPageRoute(

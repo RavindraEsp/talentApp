@@ -1,18 +1,28 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/model/manage_audition_created_screen_model.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/providers/manage_audition_created_screen_provider.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/add_more_spot_dialog.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'approved_dialog.dart';
 
 class AppliedViewPagerWidget extends StatefulWidget {
   final VoidCallback onCloseRegistration;
 
-  const AppliedViewPagerWidget({Key? key, required this.onCloseRegistration})
-      : super(key: key);
+  final AppliedUsers appliedUsers;
+
+  const AppliedViewPagerWidget(
+      {super.key,
+      required this.onCloseRegistration,
+      required this.appliedUsers});
 
   @override
   State<AppliedViewPagerWidget> createState() => _AppliedViewPagerWidgetState();
@@ -25,199 +35,267 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
   // the index of the current page
   int _activePage = 0;
 
-  int pageLength = 3;
+  // int pageLength = 3;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          PageView.builder(
-            controller: _pageController,
-            onPageChanged: (int page) {
-              setState(() {
-                _activePage = page;
-              });
-            },
-            itemCount: pageLength,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                color: Colors.white,
-                padding: EdgeInsets.only(right: 20.w, left: 20.w),
-                child: Container(
-                  height: 420.sp,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(ImageUtility.dummyAppliedUserImage),
-                        fit: BoxFit.fill),
-                  ),
-                  padding:
-                      EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.w),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            ImageUtility.userIcon,
-                            color: Colors.white,
-                            width: 18.w,
-                          ),
-                          Expanded(
-                            child: Padding(
-                                padding: EdgeInsets.only(left: 4.w),
-                                child: Text(
-                                  "Michaela Cohoen 25",
-                                  style: StyleUtility
-                                      .quicksandBoldWhiteTextStyle
-                                      .copyWith(
-                                          fontSize:
-                                              TextSizeUtility.textSize18.sp),
-                                )),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            ImageUtility.locationIcon,
-                            color: Colors.white,
-                            width: 20.w,
-                          ),
-                          Expanded(
-                            child: Padding(
-                                padding: EdgeInsets.only(left: 4.w),
-                                child: Text(
-                                  "Rehovot",
-                                  style: StyleUtility
-                                      .quicksandMediumWhiteTextStyle
-                                      .copyWith(
-                                          fontSize:
-                                              TextSizeUtility.textSize16.sp),
-                                )),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              Image.asset(
-                                ImageUtility.backCircleIcon,
-                                width: 52.w,
-                              ),
-                              Text(
-                                context.loc.buttonBack,
-                                style: StyleUtility
-                                    .quicksandMediumWhiteTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize12.sp),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Image.asset(
-                                ImageUtility.declineCircleIcon,
-                                width: 52.w,
-                              ),
-                              Text(
-                                context.loc.decline,
-                                style: StyleUtility
-                                    .quicksandMediumWhiteTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize12.sp),
-                              ),
-                            ],
-                          ),
-                          GestureDetector(
+      body: Consumer<ManageAuditionCreatedScreenProvider>(
+          builder: (context, provider, child) {
+        return provider.isLoading == true
+            ? const CustomCircularLoaderWidget()
+            : Stack(
+                children: [
+                  PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (int page) {
+                      setState(() {
+                        _activePage = page;
+                      });
+                    },
+                    itemCount: widget.appliedUsers.profileFiles?.length,
+                    itemBuilder: (BuildContext context, int index1) {
+                      return Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.only(right: 20.w, left: 20.w),
+                        child: SizedBox(
+                          height: 420.sp,
+                          width: double.infinity,
+                          child: InkWell(
                             onTap: () {
-                              approvedDialog(context: context);
-                              // addMoreSpotDialog(context: context);
+                              print(
+                                  '${Endpoints.imageBaseUrl}${widget.appliedUsers.profileFiles?[index1].filename}');
                             },
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  ImageUtility.verifyGreenIcon,
-                                  width: 52.w,
-                                ),
-                                Text(
-                                  context.loc.approve,
-                                  style: StyleUtility
-                                      .quicksandMediumWhiteTextStyle
-                                      .copyWith(
-                                          fontSize:
-                                              TextSizeUtility.textSize12.sp),
-                                ),
-                              ],
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.sp),
+                              child: Stack(
+                                children: [
+                                  SizedBox(
+                                    height: 420.sp,
+                                    width: double.infinity,
+                                    child: CachedNetworkImage(
+                                        width: 100.sp,
+                                        height: 100.sp,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            Container(
+                                                color: Colors.grey,
+                                                child: Center(
+                                                    child: Icon(
+                                                  Icons.error,
+                                                  size: 25.sp,
+                                                ))),
+                                        // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                                        imageUrl:
+                                            "${Endpoints.imageBaseUrl}${widget.appliedUsers.profileFiles?[index1].filename}"),
+                                  ),
+                                  Container(
+                                    height: 420.sp,
+                                    width: double.infinity,
+                                    padding: EdgeInsets.only(
+                                        left: 10.w, right: 10.w, bottom: 10.w),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              ImageUtility.userIcon,
+                                              color: Colors.white,
+                                              width: 18.w,
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 4.w),
+                                                  child: Text(
+                                                    "${widget.appliedUsers.username ?? ""} ${widget.appliedUsers.age ?? ""}",
+                                                    style: StyleUtility
+                                                        .quicksandBoldWhiteTextStyle
+                                                        .copyWith(
+                                                            fontSize:
+                                                                TextSizeUtility
+                                                                    .textSize18
+                                                                    .sp),
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 2.h,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Image.asset(
+                                              ImageUtility.locationIcon,
+                                              color: Colors.white,
+                                              width: 20.w,
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 4.w),
+                                                  child: Text(
+                                                    widget.appliedUsers
+                                                            .address ??
+                                                        "",
+                                                    style: StyleUtility
+                                                        .quicksandMediumWhiteTextStyle
+                                                        .copyWith(
+                                                            fontSize:
+                                                                TextSizeUtility
+                                                                    .textSize16
+                                                                    .sp),
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 16.h,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtility.backCircleIcon,
+                                                  width: 52.w,
+                                                ),
+                                                Text(
+                                                  context.loc.buttonBack,
+                                                  style: StyleUtility
+                                                      .quicksandMediumWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize12
+                                                                  .sp),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtility
+                                                      .declineCircleIcon,
+                                                  width: 52.w,
+                                                ),
+                                                Text(
+                                                  context.loc.decline,
+                                                  style: StyleUtility
+                                                      .quicksandMediumWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize12
+                                                                  .sp),
+                                                ),
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                approvedDialog(
+                                                    context: context);
+                                                // addMoreSpotDialog(context: context);
+                                              },
+                                              child: Column(
+                                                children: [
+                                                  Image.asset(
+                                                    ImageUtility
+                                                        .verifyGreenIcon,
+                                                    width: 52.w,
+                                                  ),
+                                                  Text(
+                                                    context.loc.approve,
+                                                    style: StyleUtility
+                                                        .quicksandMediumWhiteTextStyle
+                                                        .copyWith(
+                                                            fontSize:
+                                                                TextSizeUtility
+                                                                    .textSize12
+                                                                    .sp),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Column(
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtility.nextCircleIcon,
+                                                  width: 52.w,
+                                                ),
+                                                Text(
+                                                  context.loc.buttonNext,
+                                                  style: StyleUtility
+                                                      .quicksandMediumWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize12
+                                                                  .sp),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          Column(
-                            children: [
-                              Image.asset(
-                                ImageUtility.nextCircleIcon,
-                                width: 52.w,
-                              ),
-                              Text(
-                                context.loc.buttonNext,
-                                style: StyleUtility
-                                    .quicksandMediumWhiteTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize12.sp),
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 9.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List<Widget>.generate(
-                  pageLength,
-                  (index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: InkWell(
-                          onTap: () {
-                            _pageController.animateToPage(index,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeIn);
-                          },
-                          child: Container(
-                            height: 4.h,
-                            width: 68.w,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.r),
-                                color: _activePage == index
-                                    ? ColorUtility.color3D2D82
-                                    : ColorUtility.colorWhite),
-                          ),
                         ),
-                      )),
-            ),
-          ),
-        ],
-      ),
+                      );
+                    },
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 9.h),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.sp)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List<Widget>.generate(
+                          widget.appliedUsers.profileFiles?.length ?? 0,
+                          (index) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: InkWell(
+                                  onTap: () {
+                                    _pageController.animateToPage(index,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeIn);
+                                  },
+                                  child: Container(
+                                    height: 4.h,
+                                    width: 68.w,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        color: _activePage == index
+                                            ? ColorUtility.color3D2D82
+                                            : ColorUtility.colorWhite),
+                                  ),
+                                ),
+                              )),
+                    ),
+                  ),
+                ],
+              );
+      }),
     );
   }
 

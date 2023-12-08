@@ -12,174 +12,192 @@ import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dar
 import 'package:talent_app/widgets/no_data_widget.dart';
 
 class AuditionCreatedWidget extends StatelessWidget {
- final List<CreateAudition>? createAudition;
-  const AuditionCreatedWidget( {
-    super.key, this.createAudition,
+  final List<CreateAudition>? createAudition;
+  const AuditionCreatedWidget({
+    super.key,
+    this.createAudition,
   });
 
   @override
   Widget build(BuildContext context) {
-    return
-      (createAudition?.length ?? 0) == 0
-          ? const NoDataWidget() :
-      ListView.builder(
-        itemCount: createAudition?.length ?? 0,
-        padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 18.h),
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.r)),
-              child: IntrinsicHeight(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 15,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              ColorUtility.color703297,
-                              ColorUtility.color65389A,
-                              ColorUtility.color445DB8
-                            ]),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10.r),
-                          bottomLeft: Radius.circular(10.r),
+    return (createAudition?.length ?? 0) == 0
+        ? const NoDataWidget()
+        : ListView.builder(
+            itemCount: createAudition?.length ?? 0,
+            padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 18.h),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: IntrinsicHeight(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 15,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  ColorUtility.color703297,
+                                  ColorUtility.color65389A,
+                                  ColorUtility.color445DB8
+                                ]),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10.r),
+                              bottomLeft: Radius.circular(10.r),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(10.w),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                             // "Actors are needed for a variety of roles Extras and more",
-                              createAudition?[index].description ?? "",
-                              style: StyleUtility.quicksandRegularBlackTextStyle
-                                  .copyWith(
-                                fontSize: TextSizeUtility.textSize16.sp,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 13.h,
-                            ),
-                            CustomButtonTopToBottomColor(
-                              buttonText: context.loc.buttonManage,
-                              height: 34,
-                              onTap: () {
-                                Navigator.pushNamed(context,
-                                    RouteName.manageAuditionCreatedScreen);
-                              },
-                            ),
-                            SizedBox(
-                              height: 17.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(10.w),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageUtility.calenderIcon,
-                                      width: 14.w,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                     // "23/8/2023",
-                                        createAudition?[index].date != null ?
-                                      CommonMethod.getDate(createAudition![index].date!):"",
-                                      style: StyleUtility
-                                          .quicksandRegular8B8B8BTextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize13.sp),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageUtility.eyeOpenIcon,
-                                      width: 14.w,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                    //  "230",
-                                        "${createAudition?[index].totalView ?? ""}",
-                                      style: StyleUtility
-                                          .quicksandRegular8B8B8BTextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize13.sp),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageUtility.userIcon,
-                                      width: 14.w,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      "${createAudition?[index].totalApply ?? ""} ${context.loc.applied}",
-                                      style: StyleUtility
-                                          .quicksandRegular8B8B8BTextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize13.sp),
-                                    ),
-                                  ],
-                                ),
-                                GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, RouteName.editAuditionScreen);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Image.asset(
-                                      ImageUtility.editIcon,
-                                      width: 25.w,
-                                      fit: BoxFit.fill,
-                                    ),
+                                Text(
+                                  // "Actors are needed for a variety of roles Extras and more",
+                                  createAudition?[index].description ?? "",
+                                  style: StyleUtility
+                                      .quicksandRegularBlackTextStyle
+                                      .copyWith(
+                                    fontSize: TextSizeUtility.textSize16.sp,
                                   ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
+                                SizedBox(
+                                  height: 13.h,
+                                ),
+                                CustomButtonTopToBottomColor(
+                                  buttonText: context.loc.buttonManage,
+                                  height: 34,
+                                  onTap: () {
+                                    print(
+                                        'createAudition?[index].auditionId--->${createAudition?[index].auditionId}');
+                                    Navigator.pushNamed(context,
+                                        RouteName.manageAuditionCreatedScreen,
+                                        arguments: {
+                                          "auditionId":
+                                              createAudition?[index].auditionId
+                                        });
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 17.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          ImageUtility.calenderIcon,
+                                          width: 14.w,
+                                          fit: BoxFit.fill,
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          // "23/8/2023",
+                                          createAudition?[index].date != null
+                                              ? CommonMethod.getDate(
+                                                  createAudition![index].date!)
+                                              : "",
+                                          style: StyleUtility
+                                              .quicksandRegular8B8B8BTextStyle
+                                              .copyWith(
+                                                  fontSize: TextSizeUtility
+                                                      .textSize13.sp),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          ImageUtility.eyeOpenIcon,
+                                          width: 14.w,
+                                          fit: BoxFit.fill,
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          //  "230",
+                                          "${createAudition?[index].totalView ?? ""}",
+                                          style: StyleUtility
+                                              .quicksandRegular8B8B8BTextStyle
+                                              .copyWith(
+                                                  fontSize: TextSizeUtility
+                                                      .textSize13.sp),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          ImageUtility.userIcon,
+                                          width: 14.w,
+                                          fit: BoxFit.fill,
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          "${createAudition?[index].totalApply ?? ""} ${context.loc.applied}",
+                                          style: StyleUtility
+                                              .quicksandRegular8B8B8BTextStyle
+                                              .copyWith(
+                                                  fontSize: TextSizeUtility
+                                                      .textSize13.sp),
+                                        ),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () {
+                                        Navigator.pushNamed(context,
+                                            RouteName.editAuditionScreen,
+                                            arguments: {
+                                              "auditionId":
+                                                  createAudition?[index]
+                                                      .auditionId
+                                            });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(2.0),
+                                        child: Image.asset(
+                                          ImageUtility.editIcon,
+                                          width: 25.w,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
                               ],
-                            )
-                          ],
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        });
+              );
+            });
   }
 }

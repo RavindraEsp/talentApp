@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/date_time_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
+
 class CreateAuditionPlaceTimeProvider extends ChangeNotifier {
   final AuditionRepository auditionRepository = AuditionRepository();
 

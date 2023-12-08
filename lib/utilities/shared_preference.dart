@@ -15,17 +15,55 @@ class Preference {
     return _pref;
   }
 
-  static const String _userName = "userName";
+  static const String userName = "userName";
   static const String _accessToken = "accessToken";
   static const String _profileImage = "profileImage";
   static const String _userLogin = "userLogin";
 
+  // remember me
+  static const String rememberMe = "rememberMe";
+  static const String userTypeIsCaster = "userTypeIsCaster";
+  static const String userNameRememberMe = "userNameRemeber";
+  static const String passwordRememberMe = "passwordRememberMe";
+
   static setUserName(String value) async {
-    _pref?.setString(_userName, value);
+    _pref?.setString(userName, value);
   }
 
   String getUserName() {
-    return _pref?.getString(_userName) ?? "";
+    return _pref?.getString(userName) ?? "";
+  }
+
+  static setRememberMe(bool value) async {
+    _pref?.setBool(rememberMe, value);
+  }
+
+  static bool getRememberMe() {
+    return _pref?.getBool(rememberMe) ?? false;
+  }
+
+  static setuserTypeIsCaster(bool value) async {
+    _pref?.setBool(userTypeIsCaster, value);
+  }
+
+  static bool getuserTypeIsCaster() {
+    return _pref?.getBool(userTypeIsCaster) ?? false;
+  }
+
+  static setUserNameRemeber(String value) async {
+    _pref?.setString(userNameRememberMe, value);
+  }
+
+  String getUserNameRemember() {
+    return _pref?.getString(userNameRememberMe) ?? "";
+  }
+
+  static setpasswordRememberMe(String value) async {
+    _pref?.setString(passwordRememberMe, value);
+  }
+
+  String getpasswordRememberMe() {
+    return _pref?.getString(passwordRememberMe) ?? "";
   }
 
   static setUserLogin(bool value) async {
@@ -52,7 +90,9 @@ class Preference {
     return _pref?.getString(_profileImage) ?? "";
   }
 
-
+  static removeShared(String val) {
+    _pref?.remove(val);
+  }
 
   clearSharedPreference() {
     _pref?.clear();

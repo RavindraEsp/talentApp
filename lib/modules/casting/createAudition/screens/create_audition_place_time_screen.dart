@@ -37,7 +37,7 @@ class CreateAuditionPlaceTimeScreen extends StatefulWidget {
   final String heightRangeMin;
   final String heightRangeMax;
 
-   const CreateAuditionPlaceTimeScreen(
+  const CreateAuditionPlaceTimeScreen(
       {super.key,
       required this.description,
       required this.workExperience,
@@ -50,8 +50,7 @@ class CreateAuditionPlaceTimeScreen extends StatefulWidget {
       required this.heightRangeMin,
       required this.heightRangeMax,
       required this.careerTag,
-      required this.auditionTalentAllData
-      });
+      required this.auditionTalentAllData});
 
   @override
   State<CreateAuditionPlaceTimeScreen> createState() =>
@@ -105,35 +104,52 @@ class _CreateAuditionPlaceTimeScreenState
               ),
               Expanded(
                 child: CustomButton(
-                  //  buttonText: context.loc.buttonPublish,
-                  buttonText:
-                      createAuditionPlaceTimeProvider.dateTimeList!.isEmpty
-                          ? context.loc.buttonNext
-                          : context.loc.buttonPublish,
+                  buttonText: context.loc.buttonPublish,
+                  // buttonText: context.loc.buttonPublish,
+                  // createAuditionPlaceTimeProvider.dateTimeList.isEmpty
+                  //     ? context.loc.buttonNext
+                  //     : context.loc.buttonPublish,
                   buttonType: ButtonType.yellow,
                   onTap: () {
-                    //   createAuditionPlaceTimeProvider.onNextButtonClick();
-
                     CommonMethod.hideKeyBoard(context);
-                    if(createAuditionPlaceTimeProvider.auditionLocationController.text.isEmpty){
+// ---vkk aadd this funtion --------
+                    if (createAuditionPlaceTimeProvider.dateController.text.isNotEmpty &&
+                        createAuditionPlaceTimeProvider
+                            .timeController.text.isNotEmpty &&
+                        createAuditionPlaceTimeProvider
+                            .spotsController.text.isNotEmpty) {
+                      createAuditionPlaceTimeProvider.dateTimeList.add(
+                          DateTimeModel(
+                              createAuditionPlaceTimeProvider
+                                  .dateController.text,
+                              createAuditionPlaceTimeProvider
+                                  .timeController.text,
+                              createAuditionPlaceTimeProvider
+                                  .spotsController.text));
+
+                      createAuditionPlaceTimeProvider.dateController.clear();
+                      createAuditionPlaceTimeProvider.timeController.clear();
+                      createAuditionPlaceTimeProvider.spotsController.clear();
+                    }
+// -------
+                    if (createAuditionPlaceTimeProvider
+                        .auditionLocationController.text.isEmpty) {
                       Common.showErrorSnackBar(context, "Please fill Location");
-                    }else if(createAuditionPlaceTimeProvider.dateTimeList.isEmpty){
-                      Common.showErrorSnackBar(context, "Please Add Date,Time and Spots");
-
-                    }else{
-
+                    } else if (createAuditionPlaceTimeProvider
+                        .dateTimeList.isEmpty) {
+                      Common.showErrorSnackBar(
+                          context, "Please Add Date,Time and Spots");
+                    } else {
                       Common.showLoadingDialog(context);
                       createAuditionPlaceTimeProvider.createAudition(
-
                         onSuccess: (msg) {
                           Navigator.pop(context);
-                          showAuditionAuditionCreateSuccessDialog(context: context);
-
-
-                        }, onFailure: (msg) {
-                        Common.showErrorSnackBar(context, msg);
-
-                      },
+                          showAuditionAuditionCreateSuccessDialog(
+                              context: context);
+                        },
+                        onFailure: (msg) {
+                          Common.showErrorSnackBar(context, msg);
+                        },
                         description: widget.description,
                         workExperience: widget.workExperience,
                         professionalTraining: widget.professionalTraining,
@@ -147,10 +163,7 @@ class _CreateAuditionPlaceTimeScreenState
                         auditionTalentdata: widget.auditionTalentAllData,
                         careerTag: widget.careerTag,
                       );
-
                     }
-
-
 
                     // showAuditionAuditionCreateSuccessDialog(context: context);
                   },
@@ -368,11 +381,20 @@ class _CreateAuditionPlaceTimeScreenState
                               ),
                               Expanded(
                                   flex: 2,
-                                  child: SimpleTextField(
-                                      controller:
+                                  child: InkWell(
+                                    onTap: () {
+                                      Common.selectTime(
+                                          context,
                                           createAuditionPlaceTimeProvider
-                                              .timeController,
-                                      hintText: "00:00")),
+                                              .timeController);
+                                    },
+                                    child: SimpleTextField(
+                                        controller:
+                                            createAuditionPlaceTimeProvider
+                                                .timeController,
+                                        hintText: "00:00",
+                                        isEnable: false),
+                                  )),
                               SizedBox(
                                 width: 7.w,
                               ),
@@ -417,7 +439,7 @@ class _CreateAuditionPlaceTimeScreenState
                                             .spotsController
                                             .clear();
                                       } else {
-                                       Common.showErrorSnackBar(context,
+                                        Common.showErrorSnackBar(context,
                                             context.loc.dateTimeAddValidation);
                                       }
 
@@ -460,21 +482,21 @@ class _CreateAuditionPlaceTimeScreenState
       );
     });
   }
+}
 
-  Future<dynamic> showAuditionAuditionCreateSuccessDialog({
-    required BuildContext context,
-  }) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          return SuccessAlertDialog(
-            title: context.loc.dialogGoodJob,
-            description: context.loc.dialogCreateAuditionSuccessDesc,
-            onCrossTap: () {},
-          );
-        }).then((value) {
-      Navigator.pop(context);
-      Navigator.pop(context);
-    });
-  }
+Future<dynamic> showAuditionAuditionCreateSuccessDialog({
+  required BuildContext context,
+}) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return SuccessAlertDialog(
+          title: context.loc.dialogGoodJob,
+          description: context.loc.dialogCreateAuditionSuccessDesc,
+          onCrossTap: () {},
+        );
+      }).then((value) {
+    Navigator.pop(context);
+    Navigator.pop(context);
+  });
 }
