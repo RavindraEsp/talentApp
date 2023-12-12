@@ -49,10 +49,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
   bool isExperienceNeeded = true;
   bool isParticipate = false;
 
-
   List<AuditionPropertyModel>? genreModel;
   List<AuditionPropertyModel>? bodyModel;
-
 
   final ImagePicker picker = ImagePicker();
 
@@ -68,8 +66,6 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
   void initState() {
     super.initState();
     setAutoFillValue();
-
-
   }
 
   setAutoFillValue() {
@@ -80,14 +76,11 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
     emailController.text = "Michaela@gmail.com";
     phoneController.text = "674294624";
 
+    instagramLinkController.text = "https://instagram.Com";
+    facebookLinkController.text = "https://facebook.Com";
+    tikTokLinkController.text = "https://tiktok.Com";
 
-     instagramLinkController.text = "https://instagram.Com";
-     facebookLinkController.text =  "https://facebook.Com";
-     tikTokLinkController.text = "https://tiktok.Com";
-
-     youtubeLinkController.text =  "https://tiktok.Com";
-
-
+    youtubeLinkController.text = "https://tiktok.Com";
 
     genreModel = [
       AuditionPropertyModel("Modeling", false),
@@ -100,7 +93,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
       AuditionPropertyModel("Hair color: blond", false),
       AuditionPropertyModel("H :1.7cm", false),
       AuditionPropertyModel("W :55k", false),
-      AuditionPropertyModel("Pans Size : 36", false),
+      AuditionPropertyModel("Pants Size : 36", false),
       AuditionPropertyModel("Shirt Size : S", false),
       AuditionPropertyModel("Shoe Size : 36", false)
     ];
@@ -233,46 +226,37 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                 MobileNumberTextField(
                   controller: phoneController,
                   hintText: context.loc.hintMobile,
-                  validator:
-                  Validators(context).validatorPhone,
+                  validator: Validators(context).validatorPhone,
                   onChanged: (PhoneNumber value) {
-                    AppLogger.logD(
-                        "IsoCode ${value.countryISOCode}");
-                    AppLogger.logD(
-                        "Country Code ${value.countryCode}");
+                    AppLogger.logD("IsoCode ${value.countryISOCode}");
+                    AppLogger.logD("Country Code ${value.countryCode}");
                     AppLogger.logD("Number ${value.number}");
                   },
                 ),
                 SizedBox(
                   height: 25.h,
                 ),
-
                 SimpleTextField(
                   controller: emailController,
                   suffixImage: ImageUtility.emailIcon,
                   hintText: context.loc.hintEmail,
                   textInputType: TextInputType.emailAddress,
-                  validator:
-                  Validators(context).validatorEmail,
+                  validator: Validators(context).validatorEmail,
                 ),
-
-
                 SizedBox(
                   height: 25.h,
                 ),
-
-                Text(context.loc.titleBirthday,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle.copyWith(
-                      fontSize: TextSizeUtility.textSize16.sp
-                  ),),
+                Text(
+                  context.loc.titleBirthday,
+                  style: StyleUtility.quicksandSemiBold5457BETextStyle
+                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
+                ),
                 SizedBox(
                   height: 10.h,
                 ),
-
                 GestureDetector(
                   onTap: () {
-                    Common.selectDateOfBirth(
-                        context, birthdayController);
+                    Common.selectDateOfBirth(context, birthdayController);
                   },
                   child: SimpleTextField(
                     controller: birthdayController,
@@ -281,15 +265,14 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     suffixImage: ImageUtility.calenderIcon,
                   ),
                 ),
-
-
                 SizedBox(
                   height: 25.h,
                 ),
-                Text(context.loc.titleFullAddress,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle.copyWith(
-                      fontSize: TextSizeUtility.textSize16.sp
-                  ),),
+                Text(
+                  context.loc.titleFullAddress,
+                  style: StyleUtility.quicksandSemiBold5457BETextStyle
+                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
+                ),
                 SizedBox(
                   height: 10.h,
                 ),
@@ -301,104 +284,91 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     setState(() {});
                   },
                 ),
-
                 SizedBox(
                   height: 25.h,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(context.loc.titleTellUsAboutYou,
-                      style: StyleUtility.quicksandBold5457BETextStyle.copyWith(
-                          fontSize: TextSizeUtility.textSize16.sp
-                      ),),
+                    Text(
+                      context.loc.titleTellUsAboutYou,
+                      style: StyleUtility.quicksandBold5457BETextStyle
+                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
+                    ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-
-                        Navigator.pushNamed(context, RouteName.editTellUsAboutScreen);
+                        Navigator.pushNamed(
+                            context, RouteName.editTellUsAboutScreen);
                       },
                       child: Padding(
                         padding: EdgeInsets.all(2.w),
                         child: Text(
                           context.loc.edit,
-                          style: StyleUtility
-                              .quicksandMedium5457BETextStyle
+                          style: StyleUtility.quicksandMedium5457BETextStyle
                               .copyWith(
-                              fontSize:
-                              TextSizeUtility.textSize14.sp),
+                                  fontSize: TextSizeUtility.textSize14.sp),
                         ),
                       ),
                     ),
-
-
                   ],
                 ),
-
                 SizedBox(
                   height: 13.h,
                 ),
-                Text("My name is Michaela, and I’m thrilled to be here auditioning for this incredible movie opportunity. Allow me to introduce myself and share a little about who I am. I am an aspiring actress with a burning passion for storytelling through the magic of film.",
-                style: StyleUtility.quicksandRegularBlackTextStyle,),
+                Text(
+                  "My name is Michaela, and I’m thrilled to be here auditioning for this incredible movie opportunity. Allow me to introduce myself and share a little about who I am. I am an aspiring actress with a burning passion for storytelling through the magic of film.",
+                  style: StyleUtility.quicksandRegularBlackTextStyle,
+                ),
                 SizedBox(
                   height: 20.h,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       context.loc.titleYourPhotos,
                       style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(
-                          fontSize: TextSizeUtility.textSize16.sp),
+                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                     ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-                        Navigator.pushNamed(context, RouteName.editPhotoGalleryScreen);
-
+                        Navigator.pushNamed(
+                            context, RouteName.editPhotoGalleryScreen);
                       },
                       child: Padding(
                         padding: EdgeInsets.all(2.w),
                         child: Text(
                           context.loc.edit,
-                          style: StyleUtility
-                              .quicksandMedium5457BETextStyle
+                          style: StyleUtility.quicksandMedium5457BETextStyle
                               .copyWith(
-                              fontSize:
-                              TextSizeUtility.textSize14.sp),
+                                  fontSize: TextSizeUtility.textSize14.sp),
                         ),
                       ),
                     ),
-
                   ],
                 ),
                 SizedBox(
                   height: 15.h,
                 ),
-
                 SizedBox(
                   height: 95.h,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
-                      itemBuilder: (context,index){
-
-                    return Container(
-                      margin: EdgeInsets.only(right: 10.w),
-                      child: Image.asset(
-                        ImageUtility.dummyVideoThumbnailImage,
-                        width: 90.w,
-                        height: 120.h,
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  }),
-                )
-                ,
-
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.only(right: 10.w),
+                          child: Image.asset(
+                            ImageUtility.dummyVideoThumbnailImage,
+                            width: 90.w,
+                            height: 120.h,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }),
+                ),
                 SizedBox(
                   height: 30.h,
                 ),
@@ -408,28 +378,24 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     Text(
                       context.loc.titleVideos,
                       style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(
-                          fontSize: TextSizeUtility.textSize16.sp),
+                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                     ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-                        Navigator.pushNamed(context, RouteName.editVideoGalleryScreen);
-
+                        Navigator.pushNamed(
+                            context, RouteName.editVideoGalleryScreen);
                       },
                       child: Padding(
                         padding: EdgeInsets.all(2.w),
                         child: Text(
                           context.loc.edit,
-                          style: StyleUtility
-                              .quicksandMedium5457BETextStyle
+                          style: StyleUtility.quicksandMedium5457BETextStyle
                               .copyWith(
-                              fontSize:
-                              TextSizeUtility.textSize14.sp),
+                                  fontSize: TextSizeUtility.textSize14.sp),
                         ),
                       ),
                     ),
-
                   ],
                 ),
                 SizedBox(
@@ -460,28 +426,23 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     Text(
                       context.loc.titleAudioFiles,
                       style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(
-                          fontSize: TextSizeUtility.textSize16.sp),
+                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                     ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         Navigator.pushNamed(context, RouteName.editAudioScreen);
-
                       },
                       child: Padding(
                         padding: EdgeInsets.all(2.w),
                         child: Text(
                           context.loc.edit,
-                          style: StyleUtility
-                              .quicksandMedium5457BETextStyle
+                          style: StyleUtility.quicksandMedium5457BETextStyle
                               .copyWith(
-                              fontSize:
-                              TextSizeUtility.textSize14.sp),
+                                  fontSize: TextSizeUtility.textSize14.sp),
                         ),
                       ),
                     ),
-
                   ],
                 ),
                 ListView.builder(
@@ -494,8 +455,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                           margin: EdgeInsets.only(top: 16.h),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.sp),
-                            border: Border.all(
-                                color: ColorUtility.colorD6D6D8),
+                            border: Border.all(color: ColorUtility.colorD6D6D8),
                           ),
                           child: Padding(
                             padding: EdgeInsets.only(
@@ -514,10 +474,10 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                 ),
                                 Expanded(
                                     child: Image.asset(
-                                      ImageUtility.dummyAudioImage,
-                                      width: double.infinity,
-                                      fit: BoxFit.contain,
-                                    )),
+                                  ImageUtility.dummyAudioImage,
+                                  width: double.infinity,
+                                  fit: BoxFit.contain,
+                                )),
                                 SizedBox(
                                   width: 22.w,
                                 ),
@@ -526,45 +486,37 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   style: StyleUtility
                                       .quicksandMediumACACAFTextStyle
                                       .copyWith(
-                                      fontSize: TextSizeUtility
-                                          .textSize13.sp),
+                                          fontSize:
+                                              TextSizeUtility.textSize13.sp),
                                 )
                               ],
                             ),
                           ));
                     }),
-
-
                 SizedBox(
                   height: 35.h,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                    //  context.loc.titleEyeColor,
-                     "Genre",
-                      style: StyleUtility
-                          .quicksandSemiBold5457BETextStyle
-                          .copyWith(
-                          fontSize: TextSizeUtility.textSize16.sp),
+                      //  context.loc.titleEyeColor,
+                      "Genre",
+                      style: StyleUtility.quicksandSemiBold5457BETextStyle
+                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                     ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-
                         Navigator.pushNamed(context, RouteName.editGenreScreen);
                       },
                       child: Padding(
                         padding: EdgeInsets.all(2.w),
                         child: Text(
                           context.loc.edit,
-                          style: StyleUtility
-                              .quicksandMedium5457BETextStyle
+                          style: StyleUtility.quicksandMedium5457BETextStyle
                               .copyWith(
-                              fontSize:
-                              TextSizeUtility.textSize14.sp),
+                                  fontSize: TextSizeUtility.textSize14.sp),
                         ),
                       ),
                     ),
@@ -577,8 +529,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                   children: [
                     for (var item in genreModel!)
                       Container(
-                          margin: EdgeInsets.only(
-                              right: 9.w, bottom: 13.h),
+                          margin: EdgeInsets.only(right: 9.w, bottom: 13.h),
                           padding: EdgeInsets.only(
                               left: 15.sp,
                               right: 20.sp,
@@ -588,23 +539,20 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                               color: item.isSelect == false
                                   ? ColorUtility.colorWhite
                                   : ColorUtility.colorEFF2F4,
-                              borderRadius:
-                              BorderRadius.circular(30.r),
-                              border: Border.all(
-                                  color: ColorUtility.colorD3D6D6)),
+                              borderRadius: BorderRadius.circular(30.r),
+                              border:
+                                  Border.all(color: ColorUtility.colorD3D6D6)),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-
                               Text(
                                 item.title,
                                 style: StyleUtility
                                     .quicksandRegularBlackTextStyle
                                     .copyWith(
-                                    fontSize: TextSizeUtility
-                                        .textSize14.sp),
+                                        fontSize:
+                                            TextSizeUtility.textSize14.sp),
                               ),
                             ],
                           ))
@@ -613,34 +561,26 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                 SizedBox(
                   height: 35.h,
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-
                       context.loc.titleBody,
-                      style: StyleUtility
-                          .quicksandSemiBold5457BETextStyle
-                          .copyWith(
-                          fontSize: TextSizeUtility.textSize16.sp),
+                      style: StyleUtility.quicksandSemiBold5457BETextStyle
+                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                     ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-
                         Navigator.pushNamed(context, RouteName.editBodyScreen);
-
                       },
                       child: Padding(
                         padding: EdgeInsets.all(2.w),
                         child: Text(
                           context.loc.edit,
-                          style: StyleUtility
-                              .quicksandMedium5457BETextStyle
+                          style: StyleUtility.quicksandMedium5457BETextStyle
                               .copyWith(
-                              fontSize:
-                              TextSizeUtility.textSize14.sp),
+                                  fontSize: TextSizeUtility.textSize14.sp),
                         ),
                       ),
                     ),
@@ -653,8 +593,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                   children: [
                     for (var item in bodyModel!)
                       Container(
-                          margin: EdgeInsets.only(
-                              right: 9.w, bottom: 13.h),
+                          margin: EdgeInsets.only(right: 9.w, bottom: 13.h),
                           padding: EdgeInsets.only(
                               left: 15.sp,
                               right: 20.sp,
@@ -664,23 +603,20 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                               color: item.isSelect == false
                                   ? ColorUtility.colorWhite
                                   : ColorUtility.colorEFF2F4,
-                              borderRadius:
-                              BorderRadius.circular(30.r),
-                              border: Border.all(
-                                  color: ColorUtility.colorD3D6D6)),
+                              borderRadius: BorderRadius.circular(30.r),
+                              border:
+                                  Border.all(color: ColorUtility.colorD3D6D6)),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-
                               Text(
                                 item.title,
                                 style: StyleUtility
                                     .quicksandRegularBlackTextStyle
                                     .copyWith(
-                                    fontSize: TextSizeUtility
-                                        .textSize14.sp),
+                                        fontSize:
+                                            TextSizeUtility.textSize14.sp),
                               ),
                             ],
                           ))
@@ -689,13 +625,10 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                 SizedBox(
                   height: 35.h,
                 ),
-
-
                 Text(
                   context.loc.titleAnyWorkExperience,
                   style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(
-                      fontSize: TextSizeUtility.textSize16.sp),
+                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                 ),
                 SizedBox(
                   height: 10.h,
@@ -705,7 +638,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     YesNoCheckBoxWidget(
                       title: context.loc.checkBoxYes,
                       status: isExperienceNeeded == true,
-                      onTap: (){
+                      onTap: () {
                         setState(() {
                           isExperienceNeeded = true;
                         });
@@ -717,7 +650,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     YesNoCheckBoxWidget(
                       title: context.loc.checkBoxNo,
                       status: isExperienceNeeded == false,
-                      onTap: (){
+                      onTap: () {
                         setState(() {
                           isExperienceNeeded = false;
                         });
@@ -725,17 +658,13 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 35.h,
                 ),
-
-
                 Text(
                   context.loc.titleDidYouParticipatedRealityShow,
                   style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(
-                      fontSize: TextSizeUtility.textSize16.sp),
+                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                 ),
                 SizedBox(
                   height: 10.h,
@@ -745,7 +674,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     YesNoCheckBoxWidget(
                       title: context.loc.checkBoxYes,
                       status: isParticipate == true,
-                      onTap: (){
+                      onTap: () {
                         setState(() {
                           isParticipate = true;
                         });
@@ -757,7 +686,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     YesNoCheckBoxWidget(
                       title: context.loc.checkBoxNo,
                       status: isParticipate == false,
-                      onTap: (){
+                      onTap: () {
                         setState(() {
                           isParticipate = false;
                         });
@@ -765,52 +694,42 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                     ),
                   ],
                 ),
-
                 SizedBox(
                   height: 35.h,
                 ),
                 Text(
                   context.loc.titleSocialMediaLinks,
                   style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(
-                      fontSize: TextSizeUtility.textSize16.sp),
+                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
                 ),
-
                 SizedBox(
                   height: 20.h,
                 ),
-
                 SimpleTextField(
                   controller: instagramLinkController,
-                  hintText:
-                  context.loc.hintAddInstagramProfileLink,
+                  hintText: context.loc.hintAddInstagramProfileLink,
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
                 SimpleTextField(
                   controller: facebookLinkController,
-                  hintText:
-                  context.loc.hintAddFacebookProfileLink,
+                  hintText: context.loc.hintAddFacebookProfileLink,
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
                 SimpleTextField(
                   controller: tikTokLinkController,
-                  hintText:
-                  context.loc.hintAddTikTokProfileLink,
+                  hintText: context.loc.hintAddTikTokProfileLink,
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
                 SimpleTextField(
                   controller: youtubeLinkController,
-                  hintText:
-                  context.loc.hintYouTubeProfileLink,
+                  hintText: context.loc.hintYouTubeProfileLink,
                 ),
-
-
                 SizedBox(
                   height: 35.h,
                 ),
@@ -820,10 +739,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                   onTap: () async {
                     if (_createCardKey.currentState!.validate()) {
                       AppLogger.logD("Valid data");
-
-                    } else {
-
-                    }
+                    } else {}
                   },
                 ),
                 SizedBox(
@@ -834,5 +750,4 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
       ]),
     );
   }
-
 }

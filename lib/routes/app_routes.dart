@@ -84,6 +84,7 @@ class AppRoute {
                     userType: arg["userType"],
                     email: arg["email"],
                     phone: arg["phone"],
+                    countyCode: arg["countyCode"],
                     userName: arg["userName"],
                     password: arg["password"],
                     confirmPassword: arg["confirmPassword"],

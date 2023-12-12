@@ -36,9 +36,7 @@ class _ManageAuditionCreatedScreenState
     AppLogger.logD("auditionId ${widget.auditionId}");
 
     Provider.of<ManageAuditionCreatedScreenProvider>(context, listen: false)
-        .getcreatedAuditionmanage(widget.auditionId, onFailure: (message) {
-      Common.showErrorSnackBar(context, message);
-    });
+        .getcreatedAuditionmanage(widget.auditionId, onFailure: (message) {});
   }
 
   // List<String> categoryList = ["Modeling", "Acting", "Singing"];

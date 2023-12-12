@@ -17,12 +17,10 @@ class EditBodyScreen extends StatefulWidget {
   const EditBodyScreen({super.key});
 
   @override
-  State<EditBodyScreen> createState() =>
-      _EditBodyScreenState();
+  State<EditBodyScreen> createState() => _EditBodyScreenState();
 }
 
-class _EditBodyScreenState
-    extends State<EditBodyScreen> {
+class _EditBodyScreenState extends State<EditBodyScreen> {
   DropDownModel? selectEyeColor;
   DropDownModel? selectHairColor;
   DropDownModel? selectHeight;
@@ -52,8 +50,8 @@ class _EditBodyScreenState
     DropDownModel("XL", "2")
   ];
   List<DropDownModel> pansSizeList = [
-    DropDownModel("Pans 1", "1"),
-    DropDownModel("Pans 2", "2")
+    DropDownModel("Pants 1", "1"),
+    DropDownModel("Pants 2", "2")
   ];
   List<DropDownModel> shoeSizeList = [
     DropDownModel("7", "7"),
@@ -66,132 +64,131 @@ class _EditBodyScreenState
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-
           SafeArea(
               child: Column(children: [
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    child: Padding(
-                      padding:  EdgeInsets.all(20.w),
-                      child: Image.asset(ImageUtility.crossIcon,
-                        height: 20.w,width: 20.w,),
-                    ),
+            Container(
+              alignment: Alignment.centerRight,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(20.w),
+                  child: Image.asset(
+                    ImageUtility.crossIcon,
+                    height: 20.w,
+                    width: 20.w,
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Expanded(
-                    child: ListView(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        children: [
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          Text(
-                            context.loc.titleCreateCardDescription,
-                            style: StyleUtility.quicksandSemiBold5457BETextStyle
-                                .copyWith(
-                                fontSize: TextSizeUtility.textSize16.sp),
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          CustomDropDownWidget(
-                              ovValueChange: (item) {
-                                selectEyeColor = item;
-                                setState(() {});
-                              },
-                              dropDownList: eyeColorList,
-                              selectItem: selectEyeColor,
-                              hintText: context.loc.hintEyeColor
-                            // hintText: context.loc.hint
-                          ),
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                          CustomDropDownWidget(
-                              ovValueChange: (item) {
-                                selectHairColor = item;
-                                setState(() {});
-                              },
-                              dropDownList: hairColorList,
-                              selectItem: selectHairColor,
-                              hintText: context.loc.hintHairColor),
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                          CustomDropDownWidget(
-                              ovValueChange: (item) {
-                                selectHeight = item;
-                                setState(() {});
-                              },
-                              dropDownList: heightList,
-                              selectItem: selectHeight,
-                              hintText: context.loc.hintHeight),
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                          CustomDropDownWidget(
-                              ovValueChange: (item) {
-                                selectWeight = item;
-                                setState(() {});
-                              },
-                              dropDownList: weightList,
-                              selectItem: selectWeight,
-                              hintText: context.loc.hintWeight),
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                          CustomDropDownWidget(
-                              ovValueChange: (item) {
-                                selectShirtSize = item;
-                                setState(() {});
-                              },
-                              dropDownList: shirtSizeList,
-                              selectItem: selectShirtSize,
-                              hintText: context.loc.hintShirtSize),
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                          CustomDropDownWidget(
-                              ovValueChange: (item) {
-                                selectPansSize = item;
-                                setState(() {});
-                              },
-                              dropDownList: pansSizeList,
-                              selectItem: selectPansSize,
-                              hintText: context.loc.hintPansSize),
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                          CustomDropDownWidget(
-                              ovValueChange: (item) {
-                                selectShoeSize = item;
-                                setState(() {});
-                              },
-                              dropDownList: shoeSizeList,
-                              selectItem: selectShoeSize,
-                              hintText: context.loc.hintShoeSize),
-                          SizedBox(
-                            height: 40.h,
-                          ),
-                          CustomButtonTopToBottomColor(
-                            buttonText: context.loc.buttonUpdate,
-                            buttonType: ButtonType.blue,
-                            onTap: () async {
-
-                            },
-                          ),
-                          SizedBox(
-                            height: 35.h,
-                          ),
-                        ])),
-              ])),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Expanded(
+                child: ListView(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    children: [
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Text(
+                    context.loc.titleCreateCardDescription,
+                    style: StyleUtility.quicksandSemiBold5457BETextStyle
+                        .copyWith(fontSize: TextSizeUtility.textSize16.sp),
+                  ),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  CustomDropDownWidget(
+                      ovValueChange: (item) {
+                        selectEyeColor = item;
+                        setState(() {});
+                      },
+                      dropDownList: eyeColorList,
+                      selectItem: selectEyeColor,
+                      hintText: context.loc.hintEyeColor
+                      // hintText: context.loc.hint
+                      ),
+                  SizedBox(
+                    height: 22.h,
+                  ),
+                  CustomDropDownWidget(
+                      ovValueChange: (item) {
+                        selectHairColor = item;
+                        setState(() {});
+                      },
+                      dropDownList: hairColorList,
+                      selectItem: selectHairColor,
+                      hintText: context.loc.hintHairColor),
+                  SizedBox(
+                    height: 22.h,
+                  ),
+                  CustomDropDownWidget(
+                      ovValueChange: (item) {
+                        selectHeight = item;
+                        setState(() {});
+                      },
+                      dropDownList: heightList,
+                      selectItem: selectHeight,
+                      hintText: context.loc.hintHeight),
+                  SizedBox(
+                    height: 22.h,
+                  ),
+                  CustomDropDownWidget(
+                      ovValueChange: (item) {
+                        selectWeight = item;
+                        setState(() {});
+                      },
+                      dropDownList: weightList,
+                      selectItem: selectWeight,
+                      hintText: context.loc.hintWeight),
+                  SizedBox(
+                    height: 22.h,
+                  ),
+                  CustomDropDownWidget(
+                      ovValueChange: (item) {
+                        selectShirtSize = item;
+                        setState(() {});
+                      },
+                      dropDownList: shirtSizeList,
+                      selectItem: selectShirtSize,
+                      hintText: context.loc.hintShirtSize),
+                  SizedBox(
+                    height: 22.h,
+                  ),
+                  CustomDropDownWidget(
+                      ovValueChange: (item) {
+                        selectPansSize = item;
+                        setState(() {});
+                      },
+                      dropDownList: pansSizeList,
+                      selectItem: selectPansSize,
+                      hintText: context.loc.hintPantsSize),
+                  SizedBox(
+                    height: 22.h,
+                  ),
+                  CustomDropDownWidget(
+                      ovValueChange: (item) {
+                        selectShoeSize = item;
+                        setState(() {});
+                      },
+                      dropDownList: shoeSizeList,
+                      selectItem: selectShoeSize,
+                      hintText: context.loc.hintShoeSize),
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  CustomButtonTopToBottomColor(
+                    buttonText: context.loc.buttonUpdate,
+                    buttonType: ButtonType.blue,
+                    onTap: () async {},
+                  ),
+                  SizedBox(
+                    height: 35.h,
+                  ),
+                ])),
+          ])),
         ],
       ),
     );

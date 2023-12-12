@@ -24,6 +24,7 @@ import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
+import 'package:talent_app/widgets/video_player/video_player_screen.dart';
 
 class EditAuditionPlaceTimeScreen extends StatefulWidget {
   EditAuditionScreen1DataModel editAuditionScreen1DataModel;
@@ -38,14 +39,6 @@ class EditAuditionPlaceTimeScreen extends StatefulWidget {
 class _EditAuditionPlaceTimeScreenState
     extends State<EditAuditionPlaceTimeScreen> {
   final _formKey = GlobalKey<FormState>();
-  List<DateTimeModel>? dateTimeList = [
-    DateTimeModel("19/10/2023", "10:00", "50"),
-    DateTimeModel("20/10/2023", "11:00", "60")
-  ];
-
-  TextEditingController dateController = TextEditingController();
-  TextEditingController timeController = TextEditingController();
-  TextEditingController spotsController = TextEditingController();
 
   void initState() {
     super.initState();
@@ -77,16 +70,23 @@ class _EditAuditionPlaceTimeScreenState
               width: 15.w,
             ),
             Expanded(
-              child: CustomButton(
-                //  buttonText: context.loc.buttonPublish,
-                buttonText: dateTimeList!.isEmpty
-                    ? context.loc.buttonNext
-                    : context.loc.buttonUpdate,
-                buttonType: ButtonType.yellow,
-                onTap: () {
-                  showAuditionAuditionCreateSuccessDialog(context: context);
-                },
-              ),
+              child: Consumer<EditAuditionPlaceTimeScreenProvider>(
+                  builder: (BuildContext context, provider, child) {
+                return provider.isLoading == true
+                    ? Container()
+                    : CustomButton(
+                        //  buttonText: context.loc.buttonPublish,
+                        buttonText: provider.dateTimeList.isEmpty
+                            ? context.loc.buttonNext
+                            : context.loc.buttonUpdate,
+                        buttonType: ButtonType.yellow,
+                        onTap: () {
+                          provider.updateBtnClick(context);
+                          // showAuditionAuditionCreateSuccessDialog(
+                          //     context: context);
+                        },
+                      );
+              }),
             )
           ],
         ),
@@ -256,34 +256,46 @@ class _EditAuditionPlaceTimeScreenState
                                 SizedBox(
                                   height: 10.h,
                                 ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      provider.ganareteIdListFromModel(provider
-                                          .editAuditionScreen1DataModel
-                                          .eyeColorModelList);
-                                    },
-                                    child: Text('test btn')),
+                                // ElevatedButton(
+                                //     onPressed: () {
+                                //       Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute(
+                                //               builder: (context) =>
+                                //                   const VideoPlayerScreen(
+                                //                       videoUrl:
+                                //                           'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')));
+                                //       // print(
+                                //       //     'aaaaa->${provider.ganareteAuditionDateTimeSpotsList(provider.dateTimeList)}');
+                                //     },
+                                //     child: const Text('test btn')),
                                 ListView.builder(
                                     padding: EdgeInsets.zero,
                                     primary: false,
                                     shrinkWrap: true,
-                                    itemCount: dateTimeList?.length ?? 0,
+                                    itemCount: provider.dateTimeList.length,
                                     itemBuilder: (context, index) {
                                       return Padding(
                                           padding:
                                               EdgeInsets.only(bottom: 16.h),
                                           child: DateTimeRowWidget(
                                               onRemoveIconTap: () {
-                                                dateTimeList?.removeAt(index);
+                                                provider.dateTimeList
+                                                    .removeAt(index);
                                                 setState(() {});
                                               },
-                                              date: dateTimeList?[index].date ??
+                                              date: provider
+                                                      .dateTimeList?[index]
+                                                      .date ??
                                                   "",
-                                              time: dateTimeList?[index].time ??
+                                              time: provider
+                                                      .dateTimeList?[index]
+                                                      .time ??
                                                   "",
-                                              spots:
-                                                  dateTimeList?[index].spots ??
-                                                      ""));
+                                              spots: provider
+                                                      .dateTimeList?[index]
+                                                      .spots ??
+                                                  ""));
                                     }),
                                 SizedBox(
                                   height: 5.h,
@@ -294,11 +306,11 @@ class _EditAuditionPlaceTimeScreenState
                                         flex: 4,
                                         child: GestureDetector(
                                           onTap: () {
-                                            Common.selectDate(
-                                                context, dateController);
+                                            Common.selectDate(context,
+                                                provider.dateController);
                                           },
                                           child: SimpleTextField(
-                                            controller: dateController,
+                                            controller: provider.dateController,
                                             hintText: "DD/MM/YYYY",
                                             isEnable: false,
                                           ),
@@ -306,18 +318,31 @@ class _EditAuditionPlaceTimeScreenState
                                     SizedBox(
                                       width: 7.w,
                                     ),
+                                    // Expanded(
+                                    //     flex: 2,
+                                    //     child: SimpleTextField(
+                                    //         controller: timeController,
+                                    //         hintText: "00:00")),
                                     Expanded(
                                         flex: 2,
-                                        child: SimpleTextField(
-                                            controller: timeController,
-                                            hintText: "00:00")),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Common.selectTime(context,
+                                                provider.timeController);
+                                          },
+                                          child: SimpleTextField(
+                                              controller:
+                                                  provider.timeController,
+                                              hintText: "00:00",
+                                              isEnable: false),
+                                        )),
                                     SizedBox(
                                       width: 7.w,
                                     ),
                                     Expanded(
                                         flex: 2,
                                         child: SimpleTextField(
-                                          controller: spotsController,
+                                          controller: provider.spotsController,
                                           hintText: "0",
                                           textInputType: TextInputType.number,
                                         )),
@@ -328,25 +353,8 @@ class _EditAuditionPlaceTimeScreenState
                                         flex: 1,
                                         child: GestureDetector(
                                           onTap: () {
-                                            if (dateController.text.isNotEmpty &&
-                                                timeController
-                                                    .text.isNotEmpty &&
-                                                spotsController
-                                                    .text.isNotEmpty) {
-                                              dateTimeList?.add(DateTimeModel(
-                                                  dateController.text,
-                                                  timeController.text,
-                                                  spotsController.text));
-
-                                              dateController.clear();
-                                              timeController.clear();
-                                              spotsController.clear();
-                                            } else {
-                                              Common.showErrorToast(context,
-                                                  "Please Fill All field");
-                                            }
-
-                                            setState(() {});
+                                            provider.datetimespotPlusBtnClick(
+                                                context);
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(

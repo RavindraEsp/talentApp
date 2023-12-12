@@ -3,25 +3,25 @@ import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/network/model/response/casterAudition/CasterHomeResponseModel.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 
-
-class CastHomeScreenProvider extends ChangeNotifier{
-
+class CastHomeScreenProvider extends ChangeNotifier {
   final AuditionRepository auditionRepository = AuditionRepository();
 
- bool  isLoading = false;
+  bool isLoading = false;
 
-   CastHomeResponseModel? castHomeResponseModel;
+  CastHomeResponseModel? castHomeResponseModel;
 
   getHomeDataForCaster({
     required ValueChanged<String> onFailure,
   }) {
-      isLoading = true;
+    isLoading = true;
     auditionRepository.getHomeDataForCaster().then((value) {
       if (value.success == true) {
         castHomeResponseModel = value;
-        isLoading = false;
+
         notifyListeners();
       }
+      isLoading = false;
+      notifyListeners();
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
       onFailure.call("Server Error");
@@ -29,8 +29,4 @@ class CastHomeScreenProvider extends ChangeNotifier{
       notifyListeners();
     });
   }
-
-
-
-
 }

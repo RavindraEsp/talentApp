@@ -51,8 +51,8 @@ class _TalentCreateCardStepTwoScreenState
     DropDownModel("XL", "2")
   ];
   List<DropDownModel> pansSizeList = [
-    DropDownModel("Pans 1", "1"),
-    DropDownModel("Pans 2", "2")
+    DropDownModel("Pants 1", "1"),
+    DropDownModel("Pants 2", "2")
   ];
   List<DropDownModel> shoeSizeList = [
     DropDownModel("7", "7"),
@@ -92,7 +92,6 @@ class _TalentCreateCardStepTwoScreenState
                         elevation: 0,
                         centerTitle: true,
                         iconTheme: const IconThemeData(color: Colors.white),
-
                         title: Text(
                           context.loc.headerCreateCard,
                           style: StyleUtility.headerTextStyle.copyWith(
@@ -100,8 +99,6 @@ class _TalentCreateCardStepTwoScreenState
                         ),
                       ),
                     ),
-
-
                     Expanded(
                         child: ListView(
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -182,7 +179,7 @@ class _TalentCreateCardStepTwoScreenState
                               },
                               dropDownList: pansSizeList,
                               selectItem: selectPansSize,
-                              hintText: context.loc.hintPansSize),
+                              hintText: context.loc.hintPantsSize),
                           SizedBox(
                             height: 22.h,
                           ),
@@ -197,12 +194,13 @@ class _TalentCreateCardStepTwoScreenState
                           SizedBox(
                             height: 40.h,
                           ),
-
                         ])),
-
                     Container(
-                      padding: EdgeInsets.only(left: 20.w,right: 20.w, top: 20.h,),
-
+                      padding: EdgeInsets.only(
+                        left: 20.w,
+                        right: 20.w,
+                        top: 20.h,
+                      ),
                       child: Row(
                         children: [
                           Expanded(
@@ -231,12 +229,6 @@ class _TalentCreateCardStepTwoScreenState
                     SizedBox(
                       height: 35.h,
                     ),
-
-
-
-
-
-
                   ]))),
         ],
       ),

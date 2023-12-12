@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
 import 'package:talent_app/modules/casting/createAudition/models/date_time_model.dart';
 import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
+import 'package:talent_app/modules/casting/editAudition/model/adition_details_model.dart';
 import 'package:talent_app/modules/casting/editAudition/model/edit_audition_sceen1_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:talent_app/utilities/common.dart';
@@ -24,6 +25,9 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
     auditionLocationController.text = editAuditionScreen1DataModel
             .auditionDetailsModelInitialData.data?.location ??
         "";
+
+    dateTimeList = await getDateTimeListData(); // spot time init
+    notifyListeners();
   }
 
   // ----- page 2 variable
@@ -32,18 +36,57 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
 
   List<DateTimeModel> dateTimeList = [];
 
-  List<int> ganareteIdListFromModel(List<AuditionPropertyModel> listCome) {
-    List<int> eyeList = [];
-    for (AuditionPropertyModel element in listCome) {
-      if (element.isSelect) {
-        eyeList.add(element.id ?? 0);
-      }
+  TextEditingController dateController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+  TextEditingController spotsController = TextEditingController();
+
+  // ------------
+
+  Future<List<DateTimeModel>> getDateTimeListData() async {
+    List<DateTimeModel> dateTimeList1 = [];
+
+    for (AuditionDates element in editAuditionScreen1DataModel
+            .auditionDetailsModelInitialData.data?.auditionDates ??
+        []) {
+      dateTimeList1.add(DateTimeModel(
+          element.date ?? '', element.time ?? '', element.spot.toString()));
+    }
+    return dateTimeList1;
+  }
+
+  Future<void> datetimespotPlusBtnClick(BuildContext context) async {
+    if (dateController.text.isNotEmpty &&
+        timeController.text.isNotEmpty &&
+        spotsController.text.isNotEmpty) {
+      dateTimeList.add(DateTimeModel(
+          dateController.text, timeController.text, spotsController.text));
+
+      dateController.clear();
+      timeController.clear();
+      spotsController.clear();
+    } else {
+      Common.showErrorToast(context, "Please Fill All field");
     }
 
-    return eyeList;
+    notifyListeners();
+  }
+
+  Future<void> datetimespotRowValueAdd(BuildContext context) async {
+    if (dateController.text.isNotEmpty &&
+        timeController.text.isNotEmpty &&
+        spotsController.text.isNotEmpty) {
+      dateTimeList.add(DateTimeModel(
+          dateController.text, timeController.text, spotsController.text));
+
+      dateController.clear();
+      timeController.clear();
+      spotsController.clear();
+    }
+    notifyListeners();
   }
 
   Future<void> updateBtnClick(BuildContext context) async {
+    await datetimespotRowValueAdd(context);
     Map<String, dynamic> request = {
       // "id": "3",
       // "description": "Hello first autdition update",
@@ -70,7 +113,8 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
       "id":
           editAuditionScreen1DataModel.auditionDetailsModelInitialData.data?.id,
       "description": editAuditionScreen1DataModel.description,
-      "careerTag": ["2"], // looking for hai ye
+      "careerTag": ganareteIdListFromModel(editAuditionScreen1DataModel
+          .lookingForModelList), // ["2"], // looking for hai ye
       "workExperience":
           editAuditionScreen1DataModel.isExperienceNeeded == true ? "1" : "0",
       "professionalTraining":
@@ -94,21 +138,60 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
       "shoeSize": ganareteIdListFromModel(
           editAuditionScreen1DataModel.shirtSizeModelList), // [1],
       "location": auditionLocationController.text,
-      "auditionTalentdata": [3],
-      "auditionDates": [
-        {"date": "10-04-2023", "time": "07:14:52", "spot": "2"}
-      ]
+      "auditionTalentdata": ganareteIdListFromModel(
+              editAuditionScreen1DataModel.eyeColorModelList) +
+          ganareteIdListFromModel(
+              editAuditionScreen1DataModel.hairColorModelList) +
+          ganareteIdListFromModel(
+              editAuditionScreen1DataModel.painsSizeModelList) +
+          ganareteIdListFromModel(
+              editAuditionScreen1DataModel.shirtSizeModelList) +
+          ganareteIdListFromModel(editAuditionScreen1DataModel
+              .shirtSizeModelList), // [  3 ],       // selectedEyeIds ,selectedHairColorIds ,selectedPansSizeIds ,selectedShirtSizeIds ,selectedShoeSizeIds
+      "auditionDates": ganareteAuditionDateTimeSpotsList(
+          dateTimeList), // [    {"date": "10-04-2023", "time": "07:14:52", "spot": "2"}]
     };
 
-    await auditionRepository.updateAudition(request).then((value) {
+    print('update audition api perms ===>$request');
+    print(
+        'date time perms auditionDates---->${ganareteAuditionDateTimeSpotsList(dateTimeList)}');
+    await auditionRepository.updateAudition(request).then((value) async {
       if (value.success == true) {
         Navigator.pop(context);
-        showAuditionAuditionCreateSuccessDialog(context: context);
+        Navigator.pop(context);
+        await showAuditionAuditionCreateSuccessDialog(context: context);
       } else {
         Common.showErrorSnackBar(context, value.msg ?? "");
       }
     }).onError((error, stackTrace) {
       Common.showErrorSnackBar(context, error.toString());
     });
+  }
+
+  List<int> ganareteIdListFromModel(List<AuditionPropertyModel> listCome) {
+    List<int> eyeList = [];
+    for (AuditionPropertyModel element in listCome) {
+      if (element.isSelect) {
+        eyeList.add(element.id ?? 0);
+      }
+    }
+
+    return eyeList;
+  }
+
+  List<Map<String, dynamic>> ganareteAuditionDateTimeSpotsList(
+      List<DateTimeModel> listCome) {
+    List<Map<String, dynamic>> auditionDateTimeSpotsList = [];
+    for (var a = 0; a < (listCome.length); a++) {
+      auditionDateTimeSpotsList.add(
+        {
+          "date": listCome[a].date,
+          "time": listCome[a].time,
+          "spot": listCome[a].spots,
+        },
+      );
+    }
+
+    return auditionDateTimeSpotsList;
   }
 }

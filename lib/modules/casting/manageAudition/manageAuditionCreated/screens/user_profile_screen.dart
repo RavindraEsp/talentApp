@@ -27,9 +27,9 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
     "Hair color: blond",
     "H :1.7cm",
     "W :55k",
-    "Pans Size : 36",
+    "Pants Size : 36",
     "Shirt Size : S",
-    "Shoe Size : 42"
+    "Shose Size : 42"
   ];
 
   bool isExperienceNeeded = true;
@@ -168,8 +168,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                     height: 23.h,
                   ),
                   Container(
-                      height: 420.sp,
-                      child: ProfileImageViewPagerWidget()),
+                      height: 420.sp, child: ProfileImageViewPagerWidget()),
                   SizedBox(
                     height: 23.h,
                   ),
@@ -183,11 +182,8 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                 "${context.loc.buttonChatWith} Michaela",
                             icon: ImageUtility.messageNavIcon,
                             onTap: () {
-                              Navigator.pushNamed(
-                                  context, RouteName.chatScreen,
-                              arguments: {
-                                    "userType":UserType.cast
-                              });
+                              Navigator.pushNamed(context, RouteName.chatScreen,
+                                  arguments: {"userType": UserType.cast});
                             }),
                         SizedBox(
                           height: 23.h,
@@ -537,13 +533,13 @@ class _ProfileImageViewPagerWidgetState
                 padding: EdgeInsets.only(right: 20.w, left: 20.w),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16.r),
-
                   child: Container(
                     height: 420.sp,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage(ImageUtility.dummyAppliedUserImage2),
+                          image:
+                              AssetImage(ImageUtility.dummyAppliedUserImage2),
                           fit: BoxFit.cover),
                     ),
                     padding:
@@ -559,7 +555,8 @@ class _ProfileImageViewPagerWidgetState
                         Text(
                           context.loc.buttonPopular,
                           style: StyleUtility.quicksandMediumWhiteTextStyle
-                              .copyWith(fontSize: TextSizeUtility.textSize12.sp),
+                              .copyWith(
+                                  fontSize: TextSizeUtility.textSize12.sp),
                         ),
                       ],
                     ),

@@ -38,9 +38,9 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
   TextEditingController phoneController = TextEditingController();
   bool passwordObscure = true;
   bool confPasswordObscure = true;
- // String passPrefixImage = ImageUtility.eyeOpenIcon;
+  // String passPrefixImage = ImageUtility.eyeOpenIcon;
   String passPrefixImage = ImageUtility.eyeCloseIcon;
- // String confPassPrefixImage = ImageUtility.eyeOpenIcon;
+  // String confPassPrefixImage = ImageUtility.eyeOpenIcon;
   String confPassPrefixImage = ImageUtility.eyeCloseIcon;
   bool isChecked = false;
   final _formKey = GlobalKey<FormState>();
@@ -96,7 +96,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                             elevation: 0,
                             centerTitle: true,
                             iconTheme: const IconThemeData(color: Colors.white),
-
                             title: Text(
                               context.loc.headerSignUp,
                               style: StyleUtility.headerTextStyle.copyWith(
@@ -277,22 +276,28 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                                     context, message);
 
                                                 ///Todo temp
-                                                Navigator.pushNamed(context,
-                                                    RouteName.castVerifyPhoneScreen,
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    RouteName
+                                                        .castVerifyPhoneScreen,
                                                     arguments: {
-                                                      "userType": widget.userType,
-                                                      "email": emailController.text,
-                                                      "phone": phoneController.text,
+                                                      "userType":
+                                                          widget.userType,
+                                                      "email":
+                                                          emailController.text,
+                                                      "phone":
+                                                          phoneController.text,
+                                                      "countyCode": "",
                                                       "userName":
-                                                      userNameController.text,
+                                                          userNameController
+                                                              .text,
                                                       "password":
-                                                      passwordController.text,
+                                                          passwordController
+                                                              .text,
                                                       "confirmPassword":
-                                                      confirmPasswordController
-                                                          .text,
+                                                          confirmPasswordController
+                                                              .text,
                                                     });
-
-
                                               },
                                               onFailure: (message) {
                                                 Navigator.pop(context);
@@ -300,13 +305,14 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                                     context, message);
                                               },
                                               request: SignupSendOtpRequest(
-                                                  email: emailController.text,
-                                                  mobileNumber:
-                                                      phoneController.text,
+                                                email: emailController.text,
+                                                mobileNumber:
+                                                    phoneController.text,
 
-                                                userType: widget.userType == UserType.talent  ? 1 :2,// for caster
-
-
+                                                userType: widget.userType ==
+                                                        UserType.talent
+                                                    ? 1
+                                                    : 2, // for caster
                                               ));
                                         }
                                       }

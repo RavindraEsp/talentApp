@@ -21,6 +21,7 @@ class CastVerifyPhoneScreen extends StatefulWidget {
 
   final String email;
   final String phone;
+  final String countyCode;
   final String userName;
   final String password;
   final String confirmPassword;
@@ -30,6 +31,7 @@ class CastVerifyPhoneScreen extends StatefulWidget {
       required this.userType,
       required this.email,
       required this.phone,
+      required this.countyCode,
       required this.userName,
       required this.password,
       required this.confirmPassword});
@@ -83,7 +85,6 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                         child: AppBar(
                           automaticallyImplyLeading: true,
                           iconTheme: const IconThemeData(color: Colors.white),
-
                           leading: InkWell(
                             onTap: () {
                               Navigator.pop(context);
@@ -130,7 +131,8 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: " 544-546-xxxx",
+                                      text:
+                                          " ${widget.countyCode} ${widget.phone}",
                                       style: StyleUtility
                                           .quicksandRegular16TextStyle
                                           .copyWith(
@@ -147,7 +149,8 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 10.h),
-                                child: CustomOtpTextField(controller: otpController),
+                                child: CustomOtpTextField(
+                                    controller: otpController),
                               ),
                               SizedBox(
                                 height: 30.h,
@@ -201,10 +204,10 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                             onSuccess: (message) {
                                               Navigator.pop(context);
 
-                                              showCongratulationDialog(context: context,onButtonTap: (){
-
-                                              });
-                                               },
+                                              showCongratulationDialog(
+                                                  context: context,
+                                                  onButtonTap: () {});
+                                            },
                                             onFailure: (message) {
                                               Navigator.pop(context);
                                               Common.showErrorSnackBar(
@@ -215,9 +218,13 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                                 mobileNumber: widget.phone,
                                                 userName: widget.userName,
                                                 password: widget.password,
-                                                confirmPassword: widget.confirmPassword,
+                                                confirmPassword:
+                                                    widget.confirmPassword,
                                                 oTP: otpController.text,
-                                                userType: widget.userType == UserType.talent  ? 1 :2// for caster
+                                                userType: widget.userType ==
+                                                        UserType.talent
+                                                    ? 1
+                                                    : 2 // for caster
 
                                                 ));
                                       }
@@ -258,11 +265,8 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
       if (widget.userType == UserType.cast) {
         Navigator.pop(context);
         Navigator.pop(context);
-        Navigator.pushNamed(context,
-            RouteName.castLoginScreen,
-            arguments: {
-              "userType" :UserType.cast
-            });
+        Navigator.pushNamed(context, RouteName.castLoginScreen,
+            arguments: {"userType": UserType.cast});
       } else {
         // Navigator.pop(context);
         // Navigator.pop(context);
@@ -270,11 +274,8 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
 
         Navigator.pop(context);
         Navigator.pop(context);
-        Navigator.pushNamed(context,
-            RouteName.castLoginScreen,
-            arguments: {
-              "userType" :UserType.talent
-            });
+        Navigator.pushNamed(context, RouteName.castLoginScreen,
+            arguments: {"userType": UserType.talent});
       }
     });
   }

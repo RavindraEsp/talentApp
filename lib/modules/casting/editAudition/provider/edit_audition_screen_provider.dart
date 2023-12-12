@@ -41,7 +41,7 @@ class EditAuditionScreenProvider extends ChangeNotifier {
 
   // ----------  --------
 
-// ---- call api
+// ---- call api -- get data --------
   getAuditionDetailById(
     int auditionId, {
     required ValueChanged<String> onFailure,
@@ -122,7 +122,7 @@ class EditAuditionScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //-- toggle
+  //-------- toggle ---------
   toggelWorkExperience(bool val) {
     isExperienceNeeded = val;
     notifyListeners();
@@ -144,7 +144,7 @@ class EditAuditionScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // --- page 1 next btn click----
+  // --- page 1 next btn click     ----
 
   Future<void> nextBtnClick(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;

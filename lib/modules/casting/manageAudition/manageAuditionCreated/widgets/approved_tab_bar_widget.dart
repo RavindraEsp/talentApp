@@ -408,7 +408,11 @@ class ApprovedTabBarWidget extends StatelessWidget {
                         EdgeInsets.only(left: 20.w, right: 20.w, top: 17.h),
                     child: CustomOutlineButton(
                         buttonText: context.loc.buttonCancelTheAudition,
-                        onTap: () {},
+                        onTap: () {
+                          provider.cancelTheAuditionApi(
+                            context,
+                          );
+                        },
                         buttonColor: ColorUtility.color5457BE),
                   ),
                   SizedBox(

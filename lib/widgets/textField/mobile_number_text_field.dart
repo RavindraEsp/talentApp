@@ -25,7 +25,7 @@ class MobileNumberTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PhoneNumber? phoneNumber;
+    // PhoneNumber? phoneNumber;
     return IntlPhoneField(
         textAlignVertical: TextAlignVertical.center,
         controller: controller,
@@ -99,7 +99,7 @@ class MobileNumberTextField extends StatelessWidget {
         initialCountryCode: 'IL',
         onChanged: (phone) {
           onChanged.call(phone);
-          phoneNumber = phone;
+          // phoneNumber = phone;
           // print("Phone $phone");
         },
         onCountryChanged: (country) {

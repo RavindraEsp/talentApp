@@ -79,8 +79,6 @@ class AuditionCreatedWidget extends StatelessWidget {
                                   buttonText: context.loc.buttonManage,
                                   height: 34,
                                   onTap: () {
-                                    print(
-                                        'createAudition?[index].auditionId--->${createAudition?[index].auditionId}');
                                     Navigator.pushNamed(context,
                                         RouteName.manageAuditionCreatedScreen,
                                         arguments: {
