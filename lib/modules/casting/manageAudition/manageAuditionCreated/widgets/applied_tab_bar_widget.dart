@@ -205,7 +205,11 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                                               context.loc.buttonSeeFullProfile,
                                           onTap: () {
                                             Navigator.pushNamed(context,
-                                                RouteName.seeUserProfileScreen);
+                                                RouteName.seeUserProfileScreen,
+                                                arguments: {
+                                                  "telentUserId":
+                                                      data?.talentUserId
+                                                });
                                           },
                                           buttonColor: ColorUtility.color5457BE,
                                         ),

@@ -28,7 +28,7 @@ import 'package:talent_app/modules/casting/editAudition/screens/edit_audition_sc
 import 'package:talent_app/modules/casting/helloCasting/hello_casting_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/manage_audition_created_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/providers/manage_audition_created_screen_provider.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/user_profile_screen.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/see_telent_user_profile_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/manage_finished_audition_screen.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/providers/manage_finished_audition_screen_provider.dart';
 import 'package:talent_app/modules/casting/menu/providers/web_content_provider.dart';
@@ -56,6 +56,8 @@ import 'package:talent_app/modules/talent/profile/screens/edit_video_gallery_scr
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
+
+import '../modules/casting/manageAudition/manageAuditionCreated/screens/providers/see_telent_user_profile_screen_provider.dart';
 
 class AppRoute {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -232,8 +234,13 @@ class AppRoute {
                 ));
 
       case RouteName.seeUserProfileScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const SeeUserProfileScreen(),
+          builder: (context) => ChangeNotifierProvider(
+              create: (context) => SeeTelentUserProfileScreenProvider(),
+              child: SeeUserProfileScreen(
+                telentUserId: arg["telentUserId"],
+              )),
         );
 
       case RouteName.menuStaticScreen:

@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
 
-/// Stateful widget to fetch and then display video content.
+//       Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//               builder: (context) =>
+//                   const VideoPlayerScreen(
+//                       videoUrl:
+//                           'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4')));
+
 class VideoPlayerScreen extends StatefulWidget {
   final String videoUrl;
   //  'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'

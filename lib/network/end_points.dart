@@ -28,4 +28,6 @@ class ApiEndPoints {
 
   String get getAuditionDetailById => "auth/getAuditionDetailById";
   String get cancelAudition => "auth/cancelAudition";
+
+  String get getTalentProfile => "get/getTalentProfile";
 }

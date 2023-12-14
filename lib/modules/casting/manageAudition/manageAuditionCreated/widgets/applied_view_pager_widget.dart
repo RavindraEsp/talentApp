@@ -61,183 +61,153 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                         child: SizedBox(
                           height: 420.sp,
                           width: double.infinity,
-                          child: InkWell(
-                            onTap: () {
-                              print(
-                                  '${Endpoints.imageBaseUrl}${widget.appliedUsers.profileFiles?[index1].filename}');
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.sp),
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 420.sp,
-                                    width: double.infinity,
-                                    child: CachedNetworkImage(
-                                        width: 100.sp,
-                                        height: 100.sp,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) =>
-                                            const Center(
-                                                child:
-                                                    CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) =>
-                                            Container(
-                                                color: Colors.grey,
-                                                child: Center(
-                                                    child: Icon(
-                                                  Icons.error,
-                                                  size: 25.sp,
-                                                ))),
-                                        // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                                        imageUrl:
-                                            "${Endpoints.imageBaseUrl}${widget.appliedUsers.profileFiles?[index1].filename}"),
-                                  ),
-                                  Container(
-                                    height: 420.sp,
-                                    width: double.infinity,
-                                    padding: EdgeInsets.only(
-                                        left: 10.w, right: 10.w, bottom: 10.w),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              ImageUtility.userIcon,
-                                              color: Colors.white,
-                                              width: 18.w,
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 4.w),
-                                                  child: Text(
-                                                    "${widget.appliedUsers.username ?? ""} ${widget.appliedUsers.age ?? ""}",
-                                                    style: StyleUtility
-                                                        .quicksandBoldWhiteTextStyle
-                                                        .copyWith(
-                                                            fontSize:
-                                                                TextSizeUtility
-                                                                    .textSize18
-                                                                    .sp),
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 2.h,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Image.asset(
-                                              ImageUtility.locationIcon,
-                                              color: Colors.white,
-                                              width: 20.w,
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 4.w),
-                                                  child: Text(
-                                                    widget.appliedUsers
-                                                            .address ??
-                                                        "",
-                                                    style: StyleUtility
-                                                        .quicksandMediumWhiteTextStyle
-                                                        .copyWith(
-                                                            fontSize:
-                                                                TextSizeUtility
-                                                                    .textSize16
-                                                                    .sp),
-                                                  )),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 16.h,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Image.asset(
-                                                  ImageUtility.backCircleIcon,
-                                                  width: 52.w,
-                                                ),
-                                                Text(
-                                                  context.loc.buttonBack,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.sp),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  height: 420.sp,
+                                  width: double.infinity,
+                                  child: CachedNetworkImage(
+                                      width: 100.sp,
+                                      height: 100.sp,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Container(
+                                              color: Colors.grey,
+                                              child: Center(
+                                                  child: Icon(
+                                                Icons.error,
+                                                size: 25.sp,
+                                              ))),
+                                      // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                                      imageUrl:
+                                          "${Endpoints.imageBaseUrl}${widget.appliedUsers.profileFiles?[index1].filename}"),
+                                ),
+                                Container(
+                                  height: 420.sp,
+                                  width: double.infinity,
+                                  padding: EdgeInsets.only(
+                                      left: 10.w, right: 10.w, bottom: 10.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            ImageUtility.userIcon,
+                                            color: Colors.white,
+                                            width: 18.w,
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 4.w),
+                                                child: Text(
+                                                  "${widget.appliedUsers.username ?? ""} ${widget.appliedUsers.age ?? ""}",
+                                                  style: StyleUtility
+                                                      .quicksandBoldWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize18
+                                                                  .sp),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Image.asset(
+                                            ImageUtility.locationIcon,
+                                            color: Colors.white,
+                                            width: 20.w,
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 4.w),
+                                                child: Text(
+                                                  widget.appliedUsers.address ??
+                                                      "",
                                                   style: StyleUtility
                                                       .quicksandMediumWhiteTextStyle
                                                       .copyWith(
                                                           fontSize:
                                                               TextSizeUtility
-                                                                  .textSize12
+                                                                  .textSize16
                                                                   .sp),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Image.asset(
-                                                  ImageUtility
-                                                      .declineCircleIcon,
-                                                  width: 52.w,
-                                                ),
-                                                Text(
-                                                  context.loc.decline,
-                                                  style: StyleUtility
-                                                      .quicksandMediumWhiteTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize12
-                                                                  .sp),
-                                                ),
-                                              ],
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                approvedDialog(
-                                                    context: context);
-                                                // addMoreSpotDialog(context: context);
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Image.asset(
-                                                    ImageUtility
-                                                        .verifyGreenIcon,
-                                                    width: 52.w,
-                                                  ),
-                                                  Text(
-                                                    context.loc.approve,
-                                                    style: StyleUtility
-                                                        .quicksandMediumWhiteTextStyle
-                                                        .copyWith(
-                                                            fontSize:
-                                                                TextSizeUtility
-                                                                    .textSize12
-                                                                    .sp),
-                                                  ),
-                                                ],
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Image.asset(
+                                                ImageUtility.backCircleIcon,
+                                                width: 52.w,
                                               ),
-                                            ),
-                                            Column(
+                                              Text(
+                                                context.loc.buttonBack,
+                                                style: StyleUtility
+                                                    .quicksandMediumWhiteTextStyle
+                                                    .copyWith(
+                                                        fontSize:
+                                                            TextSizeUtility
+                                                                .textSize12.sp),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              Image.asset(
+                                                ImageUtility.declineCircleIcon,
+                                                width: 52.w,
+                                              ),
+                                              Text(
+                                                context.loc.decline,
+                                                style: StyleUtility
+                                                    .quicksandMediumWhiteTextStyle
+                                                    .copyWith(
+                                                        fontSize:
+                                                            TextSizeUtility
+                                                                .textSize12.sp),
+                                              ),
+                                            ],
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              approvedDialog(context: context);
+                                              // addMoreSpotDialog(context: context);
+                                            },
+                                            child: Column(
                                               children: [
                                                 Image.asset(
-                                                  ImageUtility.nextCircleIcon,
+                                                  ImageUtility.verifyGreenIcon,
                                                   width: 52.w,
                                                 ),
                                                 Text(
-                                                  context.loc.buttonNext,
+                                                  context.loc.approve,
                                                   style: StyleUtility
                                                       .quicksandMediumWhiteTextStyle
                                                       .copyWith(
@@ -248,13 +218,30 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                                                 ),
                                               ],
                                             ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
+                                          ),
+                                          Column(
+                                            children: [
+                                              Image.asset(
+                                                ImageUtility.nextCircleIcon,
+                                                width: 52.w,
+                                              ),
+                                              Text(
+                                                context.loc.buttonNext,
+                                                style: StyleUtility
+                                                    .quicksandMediumWhiteTextStyle
+                                                    .copyWith(
+                                                        fontSize:
+                                                            TextSizeUtility
+                                                                .textSize12.sp),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
