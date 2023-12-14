@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
 import 'package:talent_app/modules/casting/createCard/cast_create_card_screen.dart';
+import 'package:talent_app/modules/splash/splash_screen.dart';
 import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
@@ -82,7 +83,8 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const IntroScreen(),
+          //  home: const IntroScreen(),
+            home: const SplashScreen(),
 
           //  home:CastBottomBarScreen(selectIndex: 0),
           //  home:TalentBottomBarScreen(selectIndex: 0),

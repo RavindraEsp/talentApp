@@ -104,33 +104,35 @@ class _CreateAuditionPlaceTimeScreenState
               ),
               Expanded(
                 child: CustomButton(
-                  buttonText: context.loc.buttonPublish,
-                  // buttonText: context.loc.buttonPublish,
-                  // createAuditionPlaceTimeProvider.dateTimeList.isEmpty
-                  //     ? context.loc.buttonNext
-                  //     : context.loc.buttonPublish,
+                //  buttonText: context.loc.buttonPublish,
+                  buttonText:
+                  createAuditionPlaceTimeProvider.dateTimeList.isEmpty
+                      ? context.loc.buttonNext
+                      : context.loc.buttonPublish,
                   buttonType: ButtonType.yellow,
                   onTap: () {
                     CommonMethod.hideKeyBoard(context);
 // ---vkk aadd this funtion --------
-                    if (createAuditionPlaceTimeProvider.dateController.text.isNotEmpty &&
-                        createAuditionPlaceTimeProvider
-                            .timeController.text.isNotEmpty &&
-                        createAuditionPlaceTimeProvider
-                            .spotsController.text.isNotEmpty) {
-                      createAuditionPlaceTimeProvider.dateTimeList.add(
-                          DateTimeModel(
-                              createAuditionPlaceTimeProvider
-                                  .dateController.text,
-                              createAuditionPlaceTimeProvider
-                                  .timeController.text,
-                              createAuditionPlaceTimeProvider
-                                  .spotsController.text));
-
-                      createAuditionPlaceTimeProvider.dateController.clear();
-                      createAuditionPlaceTimeProvider.timeController.clear();
-                      createAuditionPlaceTimeProvider.spotsController.clear();
-                    }
+//                     if (createAuditionPlaceTimeProvider.dateController.text.isNotEmpty &&
+//                         createAuditionPlaceTimeProvider
+//                             .timeController.text.isNotEmpty &&
+//                         createAuditionPlaceTimeProvider
+//                             .spotsController.text.isNotEmpty) {
+//
+//
+//                       createAuditionPlaceTimeProvider.dateTimeList.add(
+//                           DateTimeModel(
+//                               createAuditionPlaceTimeProvider
+//                                   .dateController.text,
+//                               createAuditionPlaceTimeProvider
+//                                   .timeController.text,
+//                               createAuditionPlaceTimeProvider
+//                                   .spotsController.text));
+//
+//                       createAuditionPlaceTimeProvider.dateController.clear();
+//                       createAuditionPlaceTimeProvider.timeController.clear();
+//                       createAuditionPlaceTimeProvider.spotsController.clear();
+//                     }
 // -------
                     if (createAuditionPlaceTimeProvider
                         .auditionLocationController.text.isEmpty) {

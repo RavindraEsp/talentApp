@@ -6,6 +6,7 @@ import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 
@@ -45,6 +46,20 @@ class _SettingScreenState extends State<SettingScreen> {
               image: ImageUtility.editProfileIcon,
               onTap: () {
 
+                if(Preference().getUserType() == 2){
+                  Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RouteName.castBottomBarScreen,
+                      arguments: {"selectIndex": 3},
+                          (route) => false);
+                }
+                else if(Preference().getUserType() == 1){
+                  Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RouteName.talentBottomBarScreen,
+                      arguments: {"selectIndex": 3},
+                          (route) => false);
+                }
                 // Navigator.pushNamedAndRemoveUntil(
                 //     context,
                 //     RouteName.castBottomBarScreen,
@@ -137,6 +152,7 @@ class _SettingScreenState extends State<SettingScreen> {
               title: context.loc.settingSignOut,
               image: ImageUtility.signOutIcon,
               onTap: () {
+                Preference().clearSharedPreference();
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(

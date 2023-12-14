@@ -31,22 +31,16 @@ class CastLoginScreen extends StatefulWidget {
 class _CastLoginScreenState extends State<CastLoginScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  // TextEditingController nameController =
-  //     TextEditingController(text: 'Hemant123');
-  // TextEditingController passwordController =
-  //     TextEditingController(text: 'Espsoft123#');
 
   final _formKey = GlobalKey<FormState>();
 
-  bool isChecked = false;
+  bool rememberMe = false;
   bool isObscurePassword = true;
 
   @override
   void initState() {
     super.initState();
-    isChecked = Preference.getRememberMe();
-    nameController.text = Preference().getUserNameRemember();
-    passwordController.text = Preference().getpasswordRememberMe();
+
   }
 
   @override
@@ -193,10 +187,10 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                     height: 15.h,
                                   ),
                                   CustomGradientCheckbox(
-                                      isChecked: isChecked,
+                                      isChecked: rememberMe,
                                       title: context.loc.rememberMe,
                                       onChanged: (value) {
-                                        isChecked = value;
+                                        rememberMe = value;
                                         castLoginProvider.updateUi();
                                       }),
                                   SizedBox(
@@ -213,24 +207,13 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                       if (_formKey.currentState!.validate()) {
                                         CommonMethod.hideKeyBoard(context);
 
-                                        if (isChecked == true) {
-                                          Preference.setUserNameRemeber(
-                                              nameController.text);
-                                          Preference.setpasswordRememberMe(
-                                              passwordController.text);
-                                          Preference.setRememberMe(true);
-                                        } else {
-                                          Preference.removeShared(
-                                              Preference.userNameRememberMe);
-                                          Preference.removeShared(
-                                              Preference.passwordRememberMe);
-                                          Preference.removeShared(
-                                              Preference.rememberMe);
-                                        }
+
                                         // if (isChecked == true) {
                                         ///with api
                                         Common.showLoadingDialog(context);
                                         castLoginProvider.login(
+                                          rememberMe: rememberMe,
+                                            userType: widget.userType,
                                             onSuccess: (response) {
                                               Navigator.pop(context);
                                               Common.showSuccessToast(

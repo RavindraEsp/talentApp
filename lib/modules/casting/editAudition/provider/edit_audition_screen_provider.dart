@@ -149,6 +149,10 @@ class EditAuditionScreenProvider extends ChangeNotifier {
   Future<void> nextBtnClick(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
+
+    // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList.length}");
+    // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList[0].id}");
+    // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList[1].id}");
     Navigator.pushNamed(context, RouteName.editAuditionPlaceTimeScreen,
         arguments: {
           "editAuditionScreen1DataModel": EditAuditionScreen1DataModel(

@@ -147,7 +147,7 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
           ganareteIdListFromModel(
               editAuditionScreen1DataModel.shirtSizeModelList) +
           ganareteIdListFromModel(editAuditionScreen1DataModel
-              .shirtSizeModelList), // [  3 ],       // selectedEyeIds ,selectedHairColorIds ,selectedPansSizeIds ,selectedShirtSizeIds ,selectedShoeSizeIds
+              .shoeSizeModelList), // [  3 ],       // selectedEyeIds ,selectedHairColorIds ,selectedPansSizeIds ,selectedShirtSizeIds ,selectedShoeSizeIds
       "auditionDates": ganareteAuditionDateTimeSpotsList(
           dateTimeList), // [    {"date": "10-04-2023", "time": "07:14:52", "spot": "2"}]
     };

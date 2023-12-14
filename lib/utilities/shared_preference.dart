@@ -19,53 +19,15 @@ class Preference {
   static const String _accessToken = "accessToken";
   static const String _profileImage = "profileImage";
   static const String _userLogin = "userLogin";
+  static const String _userType = "userType";
 
-  // remember me
-  static const String rememberMe = "rememberMe";
-  static const String userTypeIsCaster = "userTypeIsCaster";
-  static const String userNameRememberMe = "userNameRemeber";
-  static const String passwordRememberMe = "passwordRememberMe";
 
   static setUserName(String value) async {
     _pref?.setString(userName, value);
   }
-
   String getUserName() {
     return _pref?.getString(userName) ?? "";
   }
-
-  static setRememberMe(bool value) async {
-    _pref?.setBool(rememberMe, value);
-  }
-
-  static bool getRememberMe() {
-    return _pref?.getBool(rememberMe) ?? false;
-  }
-
-  static setuserTypeIsCaster(bool value) async {
-    _pref?.setBool(userTypeIsCaster, value);
-  }
-
-  static bool getuserTypeIsCaster() {
-    return _pref?.getBool(userTypeIsCaster) ?? false;
-  }
-
-  static setUserNameRemeber(String value) async {
-    _pref?.setString(userNameRememberMe, value);
-  }
-
-  String getUserNameRemember() {
-    return _pref?.getString(userNameRememberMe) ?? "";
-  }
-
-  static setpasswordRememberMe(String value) async {
-    _pref?.setString(passwordRememberMe, value);
-  }
-
-  String getpasswordRememberMe() {
-    return _pref?.getString(passwordRememberMe) ?? "";
-  }
-
   static setUserLogin(bool value) async {
     _pref?.setBool(_userLogin, value);
   }
@@ -73,6 +35,18 @@ class Preference {
   bool getUserLogin() {
     return _pref?.getBool(_userLogin) ?? false;
   }
+
+  //user type 1 for talent
+  //user type 2 for caster
+  static setUserType(int value) async {
+    _pref?.setInt(_userType, value);
+  }
+
+  int getUserType() {
+    return _pref?.getInt(_userType) ?? 0;
+  }
+
+
 
   static setAccessToken(String value) async {
     _pref?.setString(_accessToken, value);
@@ -90,9 +64,6 @@ class Preference {
     return _pref?.getString(_profileImage) ?? "";
   }
 
-  static removeShared(String val) {
-    _pref?.remove(val);
-  }
 
   clearSharedPreference() {
     _pref?.clear();
