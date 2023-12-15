@@ -12,7 +12,7 @@ class CastProfileProvider extends ChangeNotifier {
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
-  TextEditingController idController = TextEditingController();
+  TextEditingController govtIdController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
@@ -70,7 +70,7 @@ class CastProfileProvider extends ChangeNotifier {
 setAutoFillValue() {
     firstNameController.text = casterProfileResponseModel?.data?.firstName ?? "";
     lastNameController.text =  casterProfileResponseModel?.data?.lastName ?? "";
-    idController.text = "";
+    govtIdController.text =casterProfileResponseModel?.data?.govtId ?? "";
     addressController.text =  casterProfileResponseModel?.data?.address ?? "";
     companyNameController.text =  casterProfileResponseModel?.data?.companyName ?? "";
 
@@ -149,6 +149,7 @@ if(logoImage !=null){
         "companyName": companyNameController.text,
         "address": addressController.text,
         "logoPic": multipartFileLogoImage,
+        "GovtId":govtIdController.text
       };
 
 
@@ -161,6 +162,7 @@ if(logoImage !=null){
         "companyName": companyNameController.text,
         "address": addressController.text,
         "logoPic": multipartFileLogoImage,
+        "GovtId":govtIdController.text
       };
 
     }

@@ -11,8 +11,10 @@ import 'package:talent_app/modules/casting/createAudition/widgets/date_time_row_
 import 'package:talent_app/modules/casting/editAudition/model/edit_audition_sceen1_model.dart';
 import 'package:talent_app/modules/casting/editAudition/provider/edit_audition_place_time_provider.dart';
 import 'package:talent_app/modules/casting/editAudition/provider/edit_audition_screen_provider.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -28,6 +30,7 @@ import 'package:talent_app/widgets/video_player/video_player_screen.dart';
 
 class EditAuditionPlaceTimeScreen extends StatefulWidget {
   EditAuditionScreen1DataModel editAuditionScreen1DataModel;
+
   EditAuditionPlaceTimeScreen(
       {super.key, required this.editAuditionScreen1DataModel});
 
@@ -81,7 +84,20 @@ class _EditAuditionPlaceTimeScreenState
                             : context.loc.buttonUpdate,
                         buttonType: ButtonType.yellow,
                         onTap: () {
-                          provider.updateBtnClick(context);
+                          Common.showLoadingDialog(context);
+                          provider.updateBtnClick(
+                              context: context,
+                              onSuccess: (message) {
+                                Navigator.pop(context);
+
+                                showAuditionAuditionCreateSuccessDialog(
+                                    context: context);
+
+                              },
+                              onFailure: (message) {
+                                Navigator.pop(context);
+                               Common.showErrorSnackBar(context, message);
+                              });
                           // showAuditionAuditionCreateSuccessDialog(
                           //     context: context);
                         },
@@ -404,8 +420,18 @@ class _EditAuditionPlaceTimeScreenState
             onCrossTap: () {},
           );
         }).then((value) {
-      Navigator.pop(context);
-      Navigator.pop(context);
+      // Navigator.pop(context);
+      // Navigator.pop(context);
+
+      Navigator
+          .pushNamedAndRemoveUntil(
+          context,
+          RouteName
+              .castBottomBarScreen,
+          arguments: {
+            "selectIndex": 0
+          },
+              (route) => false);
     });
   }
 }

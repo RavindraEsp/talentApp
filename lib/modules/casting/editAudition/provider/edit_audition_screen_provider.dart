@@ -6,6 +6,7 @@ import 'package:talent_app/modules/casting/editAudition/model/adition_details_mo
 import 'package:talent_app/modules/casting/editAudition/model/edit_audition_sceen1_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:talent_app/routes/route_name.dart';
+import 'package:talent_app/utilities/common.dart';
 
 class EditAuditionScreenProvider extends ChangeNotifier {
   final AuditionRepository auditionRepository = AuditionRepository();
@@ -149,7 +150,6 @@ class EditAuditionScreenProvider extends ChangeNotifier {
   Future<void> nextBtnClick(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
-
     // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList.length}");
     // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList[0].id}");
     // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList[1].id}");
@@ -174,5 +174,31 @@ class EditAuditionScreenProvider extends ChangeNotifier {
               shoeSizeModelList: shoeSizeModelList,
               auditionDetailsModelInitialData: auditionDetailsModel),
         });
+  }
+
+  Future<void> cancelTheAuditionApi({
+   required int id,
+   required BuildContext context,
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+  }
+
+  ) async {
+    notifyListeners();
+    auditionRepository.cancelAudition({"id": id}).then((value) {
+      if (value["success"] == true) {
+        onSuccess.call("");
+      } else {
+        onFailure.call(value['msg']);
+        notifyListeners();
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+
+      notifyListeners();
+      onFailure.call("Server error");
+    });
+
+    notifyListeners();
   }
 }

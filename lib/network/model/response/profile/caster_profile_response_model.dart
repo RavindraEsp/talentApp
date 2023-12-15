@@ -39,6 +39,7 @@ class Data {
   String? mobileNumber;
   String? email;
   String? profilePic;
+  String? govtId;
 
   Data(
       {this.id,
@@ -52,7 +53,9 @@ class Data {
         this.forgotOtp,
         this.mobileNumber,
         this.email,
-        this.profilePic});
+        this.profilePic,
+        this.govtId
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -67,8 +70,8 @@ class Data {
     mobileNumber = json['mobileNumber'];
     email = json['email'];
     profilePic = json['profilePic'];
+    govtId = json['GovtId'];
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
@@ -83,6 +86,7 @@ class Data {
     data['mobileNumber'] = this.mobileNumber;
     data['email'] = this.email;
     data['profilePic'] = this.profilePic;
+    data['GovtId'] = this.govtId;
     return data;
   }
 }

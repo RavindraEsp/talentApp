@@ -200,7 +200,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                       child: SimpleTextField(
                         controller: idController,
                         hintText: context.loc.hintID,
-                        validator: Validators(context).validatorId,
+                        validator: Validators(context).validatorGovtId,
                         onPrefixIconTap: () {
                           setState(() {});
                         },

@@ -144,7 +144,7 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
                                       controller: idController,
                                       hintText: context.loc.hintID,
                                       validator:
-                                          Validators(context).validatorId,
+                                          Validators(context).validatorGovtId,
                                       onPrefixIconTap: () {
                                         setState(() {});
                                       },

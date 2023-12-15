@@ -8,6 +8,7 @@ import 'package:talent_app/modules/casting/createAudition/models/date_time_model
 import 'package:talent_app/modules/casting/createAudition/providers/create_audition_place_time_provider.dart';
 import 'package:talent_app/modules/casting/createAudition/providers/create_audition_provider.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/date_time_row_widget.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
@@ -498,7 +499,15 @@ Future<dynamic> showAuditionAuditionCreateSuccessDialog({
           onCrossTap: () {},
         );
       }).then((value) {
-    Navigator.pop(context);
-    Navigator.pop(context);
+
+    Navigator
+        .pushNamedAndRemoveUntil(
+        context,
+        RouteName
+            .castBottomBarScreen,
+        arguments: {
+          "selectIndex": 0
+        },
+            (route) => false);
   });
 }

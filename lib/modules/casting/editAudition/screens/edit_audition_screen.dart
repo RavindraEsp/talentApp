@@ -701,8 +701,23 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                                 showCancelDialog(
                                                     context: context,
                                                     onYesTap: () {
-                                                      showAuditionCancelSuccessDialog(
-                                                          context: context);
+
+                                                      Common.showLoadingDialog(context);
+                                                      provider.cancelTheAuditionApi(id: widget.auditionId,
+                                                          context: context, onFailure: (message){
+                                                        Navigator.pop(context);
+
+                                                        Common.showErrorSnackBar(context, message);
+                                                          }, onSuccess: (message){
+                                                            Navigator.pop(context);
+
+                                                            showAuditionCancelSuccessDialog(
+                                                                context: context);
+                                                          });
+                                                      // showAuditionCancelSuccessDialog(
+                                                      //     context: context);
+
+
                                                     });
                                               },
                                               buttonColor:
@@ -762,7 +777,16 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
             onCrossTap: () {},
           );
         }).then((value) {
-      Navigator.pop(context);
+     // Navigator.pop(context);
+      Navigator
+          .pushNamedAndRemoveUntil(
+          context,
+          RouteName
+              .castBottomBarScreen,
+          arguments: {
+            "selectIndex": 0
+          },
+              (route) => false);
     });
   }
 }

@@ -53,12 +53,25 @@ class Validators {
     }
     return null;
   }
-  String? validatorId(value) {
-    if (value.isEmpty) {
+  // String? validatorGovtId(value) {
+  //   if (value.isEmpty && value.length()) {
+  //     return context.loc.validationID;
+  //   }
+  //   return null;
+  // }
+
+  String? validatorGovtId(value) {
+    if (value.isEmpty ) {
       return context.loc.validationID;
+    }else if (value.length != 9) {
+      return '9 characters and numbers require';
     }
     return null;
   }
+
+
+
+
   String? validatorAddress(value) {
     if (value.isEmpty) {
       return context.loc.validationAddress;

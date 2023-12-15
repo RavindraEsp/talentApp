@@ -143,10 +143,11 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                                             Expanded(
                                               child: SimpleTextField(
                                                 controller: castProfileProvider
-                                                    .idController,
+                                                    .govtIdController,
+                                                maxLength: 9,
                                                 hintText: context.loc.hintID,
                                                 validator: Validators(context)
-                                                    .validatorId,
+                                                    .validatorGovtId,
                                               ),
                                             ),
                                             SizedBox(

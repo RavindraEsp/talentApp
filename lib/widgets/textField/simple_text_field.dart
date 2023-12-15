@@ -19,6 +19,7 @@ class SimpleTextField extends StatelessWidget {
     this.suffixImage,
     this.validator,
     this.isEnable = true,
+    this.maxLength,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -33,11 +34,14 @@ class SimpleTextField extends StatelessWidget {
 
   final FormFieldValidator? validator;
   final bool? isEnable;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        maxLength: maxLength,
+
         enabled: isEnable,
         obscureText: passwordObscure ?? false,
         controller: controller,

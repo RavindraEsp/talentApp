@@ -11,7 +11,7 @@ class CastCreateCardProvider extends ChangeNotifier {
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
-  TextEditingController idController = TextEditingController();
+  TextEditingController govtIdController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
@@ -87,6 +87,7 @@ class CastCreateCardProvider extends ChangeNotifier {
       "address": addressController.text,
       "profilePic": multipartFileProfileImage,
       "logoPic": multipartFileLogoImage,
+      "GovtId":govtIdController.text
     };
 
 

@@ -71,22 +71,24 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> datetimespotRowValueAdd(BuildContext context) async {
-    if (dateController.text.isNotEmpty &&
-        timeController.text.isNotEmpty &&
-        spotsController.text.isNotEmpty) {
-      dateTimeList.add(DateTimeModel(
-          dateController.text, timeController.text, spotsController.text));
+  // Future<void> datetimespotRowValueAdd() async {
+  //   if (dateController.text.isNotEmpty &&
+  //       timeController.text.isNotEmpty &&
+  //       spotsController.text.isNotEmpty) {
+  //     dateTimeList.add(DateTimeModel(
+  //         dateController.text, timeController.text, spotsController.text));
+  //
+  //     dateController.clear();
+  //     timeController.clear();
+  //     spotsController.clear();
+  //   }
+  //   notifyListeners();
+  // }
 
-      dateController.clear();
-      timeController.clear();
-      spotsController.clear();
-    }
-    notifyListeners();
-  }
-
-  Future<void> updateBtnClick(BuildContext context) async {
-    await datetimespotRowValueAdd(context);
+  Future<void> updateBtnClick({required BuildContext context,
+    required ValueChanged<String> onSuccess,
+    required ValueChanged<String> onFailure,}) async {
+ //   await datetimespotRowValueAdd();
     Map<String, dynamic> request = {
       // "id": "3",
       // "description": "Hello first autdition update",
@@ -157,14 +159,17 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
         'date time perms auditionDates---->${ganareteAuditionDateTimeSpotsList(dateTimeList)}');
     await auditionRepository.updateAudition(request).then((value) async {
       if (value.success == true) {
-        Navigator.pop(context);
-        Navigator.pop(context);
-        await showAuditionAuditionCreateSuccessDialog(context: context);
+        onSuccess.call("");
+        // Navigator.pop(context);
+        // Navigator.pop(context);
+        // await showAuditionAuditionCreateSuccessDialog(context: context);
       } else {
         Common.showErrorSnackBar(context, value.msg ?? "");
+        onFailure.call(value.msg ?? "");
       }
     }).onError((error, stackTrace) {
       Common.showErrorSnackBar(context, error.toString());
+      onFailure.call(error.toString());
     });
   }
 

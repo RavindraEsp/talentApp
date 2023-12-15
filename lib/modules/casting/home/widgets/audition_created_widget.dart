@@ -61,6 +61,10 @@ class AuditionCreatedWidget extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+
+                                const SizedBox(
+                                  height: 18,
+                                ),
                                 Text(
                                   // "Actors are needed for a variety of roles Extras and more",
                                   createAudition?[index].description ?? "",
@@ -72,9 +76,12 @@ class AuditionCreatedWidget extends StatelessWidget {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                SizedBox(
-                                  height: 13.h,
+                                const SizedBox(
+                                //  height: 13.h,
+                                  height: 18,
                                 ),
+
+
                                 CustomButtonTopToBottomColor(
                                   buttonText: context.loc.buttonManage,
                                   height: 34,
@@ -88,7 +95,8 @@ class AuditionCreatedWidget extends StatelessWidget {
                                   },
                                 ),
                                 SizedBox(
-                                  height: 17.h,
+                                //  height: 17.h,
+                                  height: 28.h,
                                 ),
                                 Row(
                                   mainAxisAlignment:

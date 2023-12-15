@@ -8,6 +8,7 @@ import 'package:talent_app/modules/casting/createCard/provider/cast_create_card_
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -30,6 +31,7 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
       children: [
         Container(
@@ -69,231 +71,186 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                     ),
                   ),
                   Expanded(
-                      child: Form(
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          CommonMethod.hideKeyBoard(context);
+                        },
+                        child: Form(
                     key: _createCardKey,
                     child: ListView(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        children: [
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          Text(
-                            context.loc.fillCardDetailText,
-                            style: StyleUtility.quicksandSemiBold5457BETextStyle
-                                .copyWith(
-                                    fontSize: TextSizeUtility.textSize16.sp),
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: SimpleTextField(
-                                  controller: castCreateCardProvider
-                                      .firstNameController,
-                                  validator:
-                                      Validators(context).validatorFirstName,
-                                  hintText: context.loc.hintFirstName,
-                                  onPrefixIconTap: () {
-                                    setState(() {});
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                width: 14.w,
-                              ),
-                              Expanded(
-                                child: SimpleTextField(
-                                  controller:
-                                      castCreateCardProvider.lastNameController,
-                                  hintText: context.loc.hintLastName,
-                                  validator:
-                                      Validators(context).validatorLastName,
-                                  onPrefixIconTap: () {
-                                    setState(() {});
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: SimpleTextField(
-                                  controller:
-                                      castCreateCardProvider.idController,
-                                  hintText: context.loc.hintID,
-                                  validator: Validators(context).validatorId,
-                                  onPrefixIconTap: () {
-                                    setState(() {});
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                width: 14.w,
-                              ),
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          children: [
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            Text(
+                              context.loc.fillCardDetailText,
+                              style: StyleUtility.quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: SimpleTextField(
+                                    controller: castCreateCardProvider
+                                        .firstNameController,
+                                    validator:
+                                        Validators(context).validatorFirstName,
+                                    hintText: context.loc.hintFirstName,
+                                    onPrefixIconTap: () {
+                                      setState(() {});
+                                    },
                                   ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    border: Border.all(
-                                      color: ColorUtility.colorD6D6D8,
+                                ),
+                                SizedBox(
+                                  width: 14.w,
+                                ),
+                                Expanded(
+                                  child: SimpleTextField(
+                                    controller:
+                                        castCreateCardProvider.lastNameController,
+                                    hintText: context.loc.hintLastName,
+                                    validator:
+                                        Validators(context).validatorLastName,
+                                    onPrefixIconTap: () {
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: SimpleTextField(
+
+                                    controller:
+                                        castCreateCardProvider.govtIdController,
+                                    maxLength: 9,
+                                    hintText: context.loc.hintID,
+                                    validator: Validators(context).validatorGovtId,
+                                  //   validator: (value) {
+                                  //     if (value.isEmpty ) {
+                                  //       return context.loc.validationID;
+                                  //     }else if (value.length != 9) {
+                                  //       return 'Id must be exactly 9 characters and numbers.';
+                                  //     }
+                                  //   },
+                                    onPrefixIconTap: () {
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 14.w,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8.w,
                                     ),
-                                  ),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      value:
-                                          castCreateCardProvider.selectedValue,
-                                      items: castCreateCardProvider.listItems,
-                                      isExpanded: true,
-                                      icon: SizedBox(
-                                        height: 10.h,
-                                        child: Image.asset(
-                                            ImageUtility.dropDownArrowIcon),
-                                      ),
-                                      underline: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      border: Border.all(
                                         color: ColorUtility.colorD6D6D8,
                                       ),
-                                      hint: Text(
-                                        context.loc.hintGender,
-                                        style: StyleUtility.hintTextStyle
-                                            .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize15.sp),
+                                    ),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+
+                                        value:
+                                            castCreateCardProvider.selectedValue,
+                                        items: castCreateCardProvider.listItems,
+                                        isExpanded: true,
+                                        icon: SizedBox(
+                                          height: 10.h,
+                                          child: Image.asset(
+                                              ImageUtility.dropDownArrowIcon),
+                                        ),
+                                        underline: Container(
+                                          color: ColorUtility.colorD6D6D8,
+                                        ),
+                                        hint: Text(
+                                          context.loc.hintGender,
+                                          style: StyleUtility.hintTextStyle
+                                              .copyWith(
+                                                  fontSize: TextSizeUtility
+                                                      .textSize15.sp),
+                                        ),
+                                        onChanged: (int? value) {
+                                          setState(() {
+                                            castCreateCardProvider.selectedValue =
+                                                value!;
+                                            print(value);
+                                          });
+                                        },
                                       ),
-                                      onChanged: (int? value) {
-                                        setState(() {
-                                          castCreateCardProvider.selectedValue =
-                                              value!;
-                                          print(value);
-                                        });
-                                      },
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          SimpleTextField(
-                            controller:
-                                castCreateCardProvider.addressController,
-                            hintText: context.loc.hintAddress,
-                            validator: Validators(context).validatorAddress,
-                            onPrefixIconTap: () {
-                              setState(() {});
-                            },
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          SimpleTextField(
-                            controller:
-                                castCreateCardProvider.companyNameController,
-                            hintText: context.loc.hintCompanyName,
-                            validator: Validators(context).validatorCompanyName,
-                            onPrefixIconTap: () {
-                              setState(() {});
-                            },
-                          ),
-                          SizedBox(
-                            height: 35.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    context.loc.addLogo,
-                                    style: StyleUtility
-                                        .quicksandSemiBold5457BETextStyle
-                                        .copyWith(
-                                            color: ColorUtility.color445DB8,
-                                            fontSize:
-                                                TextSizeUtility.textSize16),
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      await castCreateCardProvider
-                                          .getImageProfile();
-                                    },
-                                    child: Container(
-                                      height: 160.h,
-                                      width: 140.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        border: Border.all(
-                                          color: ColorUtility.colorD6D6D8,
-                                        ),
-                                      ),
-                                      child: castCreateCardProvider
-                                                  .profileImage ==
-                                              null
-                                          ? Container(
-                                              padding: EdgeInsets.all(53.w),
-                                              height: 5.h,
-                                              width: 30.w,
-                                              child: Image.asset(
-                                                ImageUtility.addIcon,
-                                              ),
-                                            )
-                                          : Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                              ),
-                                              child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
-                                                  child: Image.file(
-                                                    File(castCreateCardProvider
-                                                        .profileImage!.path),
-                                                    fit: BoxFit.cover,
-                                                  )),
-                                            ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            SimpleTextField(
+                              controller:
+                                  castCreateCardProvider.addressController,
+                              hintText: context.loc.hintAddress,
+                              validator: Validators(context).validatorAddress,
+                              onPrefixIconTap: () {
+                                setState(() {});
+                              },
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            SimpleTextField(
+                              controller:
+                                  castCreateCardProvider.companyNameController,
+                              hintText: context.loc.hintCompanyName,
+                              validator: Validators(context).validatorCompanyName,
+                              onPrefixIconTap: () {
+                                setState(() {});
+                              },
+                            ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      context.loc.addLogo,
+                                      style: StyleUtility
+                                          .quicksandSemiBold5457BETextStyle
+                                          .copyWith(
+                                              color: ColorUtility.color445DB8,
+                                              fontSize:
+                                                  TextSizeUtility.textSize16),
                                     ),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    context.loc.addProfileImage,
-                                    style: StyleUtility
-                                        .quicksandSemiBold5457BETextStyle
-                                        .copyWith(
-                                            color: ColorUtility.color445DB8,
-                                            fontSize:
-                                                TextSizeUtility.textSize16),
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      await castCreateCardProvider
-                                          .getImageLogo();
-                                    },
-                                    child: Container(
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        await castCreateCardProvider
+                                            .getImageProfile();
+                                      },
+                                      child: Container(
                                         height: 160.h,
                                         width: 140.w,
                                         decoration: BoxDecoration(
@@ -304,7 +261,7 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                           ),
                                         ),
                                         child: castCreateCardProvider
-                                                    .logoImage ==
+                                                    .profileImage ==
                                                 null
                                             ? Container(
                                                 padding: EdgeInsets.all(53.w),
@@ -317,67 +274,128 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                                             : Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
+                                                      BorderRadius.circular(10.r),
                                                 ),
                                                 child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
-                                                  child: Image.file(
-                                                    File(castCreateCardProvider
-                                                        .logoImage!.path),
-                                                    fit: BoxFit.cover,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                    child: Image.file(
+                                                      File(castCreateCardProvider
+                                                          .profileImage!.path),
+                                                      fit: BoxFit.cover,
+                                                    )),
+                                              ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      context.loc.addProfileImage,
+                                      style: StyleUtility
+                                          .quicksandSemiBold5457BETextStyle
+                                          .copyWith(
+                                              color: ColorUtility.color445DB8,
+                                              fontSize:
+                                                  TextSizeUtility.textSize16),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        await castCreateCardProvider
+                                            .getImageLogo();
+                                      },
+                                      child: Container(
+                                          height: 160.h,
+                                          width: 140.w,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.r),
+                                            border: Border.all(
+                                              color: ColorUtility.colorD6D6D8,
+                                            ),
+                                          ),
+                                          child: castCreateCardProvider
+                                                      .logoImage ==
+                                                  null
+                                              ? Container(
+                                                  padding: EdgeInsets.all(53.w),
+                                                  height: 5.h,
+                                                  width: 30.w,
+                                                  child: Image.asset(
+                                                    ImageUtility.addIcon,
                                                   ),
-                                                ),
-                                              )),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 40.h,
-                          ),
-                          CustomButton(
-                            buttonText: context.loc.buttonNext,
-                            buttonType: ButtonType.yellow,
-                            onTap: () async {
+                                                )
+                                              : Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                    child: Image.file(
+                                                      File(castCreateCardProvider
+                                                          .logoImage!.path),
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                )),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40.h,
+                            ),
+                            CustomButton(
+                              buttonText: context.loc.buttonNext,
+                              buttonType: ButtonType.yellow,
+                              onTap: () async {
 
-                              if (_createCardKey.currentState!.validate()) {
-                                AppLogger.logD("Valid data");
-                                if (castCreateCardProvider.logoImage == null ||
-                                    castCreateCardProvider.profileImage ==
-                                        null ||
-                                    castCreateCardProvider.selectedValue ==
-                                        null) {
-                                  await Common.showErrorToast(
-                                      context, "Please Fill All Fields");
-                                }else{
-                                  Common.showLoadingDialog(context);
-                                  castCreateCardProvider.createCard(
-                                    onSuccess: (msg) {
-                                      Navigator.pop(context);
+                                if (_createCardKey.currentState!.validate()) {
+                                  AppLogger.logD("Valid data");
+                                  if (castCreateCardProvider.logoImage == null ||
+                                      castCreateCardProvider.profileImage ==
+                                          null ||
+                                      castCreateCardProvider.selectedValue ==
+                                          null) {
+                                    await Common.showErrorToast(
+                                        context, "Please Fill All Fields");
+                                  }else{
+                                    Common.showLoadingDialog(context);
+                                    castCreateCardProvider.createCard(
+                                      onSuccess: (msg) {
+                                        Navigator.pop(context);
 
-                                      showCongratulationDialog(
-                                          context: context, onButtonTap: () {});
+                                        showCongratulationDialog(
+                                            context: context, onButtonTap: () {});
 
 
-                                    },
-                                    onFailure: (message) {
-                                      Navigator.pop(context);
-                                      Common.showErrorSnackBar(context, message);
-                                    },
-                                  );
+                                      },
+                                      onFailure: (message) {
+                                        Navigator.pop(context);
+                                        Common.showErrorSnackBar(context, message);
+                                      },
+                                    );
+                                  }
                                 }
-                              }
-                            },
-                          ),
-                          SizedBox(
-                            height: 35.h,
-                          ),
-                        ]),
-                  )),
+                              },
+                            ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                          ]),
+                  ),
+                      )),
                 ]);
               })),
         ),
