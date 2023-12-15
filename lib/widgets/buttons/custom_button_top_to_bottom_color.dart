@@ -57,7 +57,7 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
+            shadowColor: Colors.transparent.withOpacity(0.1),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.r)),
           ),
