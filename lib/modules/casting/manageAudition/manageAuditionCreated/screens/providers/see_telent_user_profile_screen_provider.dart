@@ -24,6 +24,7 @@ class SeeTelentUserProfileScreenProvider extends ChangeNotifier {
         initializeValriable();
       } else {
         isLoading = false;
+        onFailure.call(value.msg ?? "");
         notifyListeners();
       }
     }).onError((error, stackTrace) {

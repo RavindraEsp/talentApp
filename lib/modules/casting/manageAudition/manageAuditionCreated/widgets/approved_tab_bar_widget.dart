@@ -31,18 +31,15 @@ class ApprovedTabBarWidget extends StatelessWidget {
                 children: [
                   ListView.builder(
                       itemCount: provider.managAuditionCreatedScreenModel?.data
-                                  ?.approvedUsers?.length ==
-                              0
-                          ? 0
-                          : 1,
+                                  ?.approvedUsers?.length ?? 0,
                       padding: EdgeInsets.only(top: 20.h),
                       shrinkWrap: true,
                       primary: false,
-                      itemBuilder: (context, index) {
-                        ApprovedUsers? data = provider
+                      itemBuilder: (context, mainIndex) {
+                        ApprovedUsers? approveGroupList = provider
                             .managAuditionCreatedScreenModel
                             ?.data
-                            ?.approvedUsers?[index];
+                            ?.approvedUsers?[mainIndex];
                         return Container(
                           margin: EdgeInsets.only(
                               bottom: 20.h, left: 20.w, right: 20.w),
@@ -75,7 +72,8 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                           width: 8.w,
                                         ),
                                         Text(
-                                          "18/8/2023",
+                                         // "18/8/2023",
+                                          approveGroupList?.date ?? "",
                                           style: StyleUtility
                                               .quicksandSemiBoldWhiteTextStyle
                                               .copyWith(
@@ -94,7 +92,8 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                           width: 5.w,
                                         ),
                                         Text(
-                                          "09:00",
+                                        //  "09:00",
+                                       approveGroupList?.time ?? "",
                                           style: StyleUtility
                                               .quicksandSemiBoldWhiteTextStyle
                                               .copyWith(
@@ -114,7 +113,8 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                           width: 5.w,
                                         ),
                                         Text(
-                                          "46/50",
+                                        //  "46/50",
+                                          "${approveGroupList?.appliedCount ?? ""}/${approveGroupList?.spotCount ?? ""}",
                                           style: StyleUtility
                                               .quicksandSemiBoldWhiteTextStyle
                                               .copyWith(
@@ -150,14 +150,14 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                         itemCount: provider
                                             .managAuditionCreatedScreenModel
                                             ?.data
-                                            ?.approvedUsers
+                                            ?.approvedUsers?[mainIndex].userList
                                             ?.length,
                                         padding: EdgeInsets.zero,
-                                        itemBuilder: (context, i) {
-                                          ApprovedUsers? data = provider
+                                        itemBuilder: (context, innerIndex) {
+                                          UserList? userList = provider
                                               .managAuditionCreatedScreenModel
                                               ?.data
-                                              ?.approvedUsers?[i];
+                                              ?.approvedUsers?[mainIndex].userList?[innerIndex];
                                           return Padding(
                                               padding: EdgeInsets.only(
                                                   left: 12.w, right: 20.w),
@@ -205,8 +205,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                                                 Icons.error,
                                                                                 size: 25.sp,
                                                                               ))),
-                                                                          // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                                                                          imageUrl: "${Endpoints.imageBaseUrl}${data?.profilePic}"),
+                                                                          imageUrl: "${Endpoints.imageBaseUrl}${userList?.profilePic ?? ''}"),
                                                                     ),
 
                                                                     //  Image
@@ -247,7 +246,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                                               .start,
                                                                       children: [
                                                                         Text(
-                                                                          data?.username ??
+                                                                          userList?.username ??
                                                                               "",
                                                                           style: StyleUtility
                                                                               .quicksandSemiBoldBlackTextStyle
@@ -278,7 +277,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                                     Row(
                                                                       children: [
                                                                         Text(
-                                                                          data?.age ??
+                                                                          userList?.age ??
                                                                               "",
                                                                           maxLines:
                                                                               1,
@@ -300,7 +299,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          data?.address ??
+                                                                          userList?.address ??
                                                                               "",
                                                                           maxLines:
                                                                               1,
@@ -322,7 +321,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          data?.gender ??
+                                                                          userList?.gender ??
                                                                               "",
                                                                           maxLines:
                                                                               1,
@@ -409,9 +408,11 @@ class ApprovedTabBarWidget extends StatelessWidget {
                     child: CustomOutlineButton(
                         buttonText: context.loc.buttonCancelTheAudition,
                         onTap: () {
-                          provider.cancelTheAuditionApi(
-                            context,
-                          );
+
+                          // provider.cancelTheAuditionApi(
+                          //   context,
+                          // );
+
                         },
                         buttonColor: ColorUtility.color5457BE),
                   ),

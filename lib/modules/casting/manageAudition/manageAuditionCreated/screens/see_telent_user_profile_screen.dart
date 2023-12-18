@@ -21,7 +21,6 @@ import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
-import 'package:talent_app/widgets/video_player/video_player_screen.dart';
 
 class SeeUserProfileScreen extends StatefulWidget {
   final int telentUserId;
@@ -518,92 +517,128 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                   height: 22.h,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        if (provider
-                                                    .talantUserProfileModel
-                                                    ?.data
-                                                    ?.first
-                                                    .facebooklink ==
-                                                null ||
-                                            provider
-                                                    .talantUserProfileModel
-                                                    ?.data
-                                                    ?.first
-                                                    .facebooklink ==
-                                                "") {
-                                          Common.showErrorSnackBar(
-                                              context, "No Link Avaolabe");
-                                        }
-                                        ConstantMethod.launchUrlBrowser(provider
-                                                .talantUserProfileModel
-                                                ?.data
-                                                ?.first
-                                                .facebooklink ??
-                                            "");
-                                      },
-                                      child: Image.asset(
-                                        ImageUtility.fbCircleIcon,
-                                        width: 55.w,
-                                        height: 55.w,
+                                    Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      child: InkWell(
+                                        onTap: () {
+                                          if (provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .facebooklink ==
+                                                  null ||
+                                              provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .facebooklink ==
+                                                  "") {
+                                            Common.showErrorSnackBar(
+                                                context, "No Link Avaolabe");
+                                          }
+                                          ConstantMethod.launchUrlBrowser(provider
+                                                  .talantUserProfileModel
+                                                  ?.data
+                                                  ?.first
+                                                  .facebooklink ??
+                                              "");
+                                        },
+                                        child: Image.asset(
+                                          ImageUtility.fbCircleIcon,
+                                          width: 55.w,
+                                          height: 55.w,
+                                        ),
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        if (provider.talantUserProfileModel
-                                                    ?.data?.first.instalink ==
-                                                null ||
-                                            provider.talantUserProfileModel
-                                                    ?.data?.first.instalink ==
-                                                "") {
-                                          Common.showErrorSnackBar(
-                                              context, "No Link Avaolabe");
-                                        }
-                                        ConstantMethod.launchUrlBrowser(provider
-                                                .talantUserProfileModel
-                                                ?.data
-                                                ?.first
-                                                .instalink ??
-                                            "");
-                                      },
-                                      child: Image.asset(
-                                        ImageUtility.instagramCircleIcon,
-                                        width: 55.w,
-                                        height: 55.w,
+
+
+                                    Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      child: InkWell(
+                                        onTap: () {
+                                          if (provider.talantUserProfileModel
+                                                      ?.data?.first.instalink ==
+                                                  null ||
+                                              provider.talantUserProfileModel
+                                                      ?.data?.first.instalink ==
+                                                  "") {
+                                            Common.showErrorSnackBar(
+                                                context, "No Link Available");
+                                          }
+                                          ConstantMethod.launchUrlBrowser(provider
+                                                  .talantUserProfileModel
+                                                  ?.data
+                                                  ?.first
+                                                  .instalink ??
+                                              "");
+                                        },
+                                        child: Image.asset(
+                                          ImageUtility.instagramCircleIcon,
+                                          width: 55.w,
+                                          height: 55.w,
+                                        ),
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        if (provider.talantUserProfileModel
-                                                    ?.data?.first.youtubelink ==
-                                                null ||
-                                            provider.talantUserProfileModel
-                                                    ?.data?.first.youtubelink ==
-                                                "") {
-                                          Common.showErrorSnackBar(
-                                              context, "No Link Avaolabe");
-                                        }
-                                        ConstantMethod.launchUrlBrowser(provider
-                                                .talantUserProfileModel
-                                                ?.data
-                                                ?.first
-                                                .youtubelink ??
-                                            "");
-                                      },
-                                      child: Image.asset(
-                                        ImageUtility.youtubeCircleIcon,
-                                        width: 55.w,
-                                        height: 55.w,
+
+
+                                    Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      child: InkWell(
+                                        onTap: () {
+                                          if (provider.talantUserProfileModel
+                                                      ?.data?.first.youtubelink ==
+                                                  null ||
+                                              provider.talantUserProfileModel
+                                                      ?.data?.first.youtubelink ==
+                                                  "") {
+                                            Common.showErrorSnackBar(
+                                                context, "No Link Available");
+                                          }
+                                          ConstantMethod.launchUrlBrowser(provider
+                                                  .talantUserProfileModel
+                                                  ?.data
+                                                  ?.first
+                                                  .youtubelink ??
+                                              "");
+                                        },
+                                        child: Image.asset(
+                                          ImageUtility.youtubeCircleIcon,
+                                          width: 55.w,
+                                          height: 55.w,
+                                        ),
                                       ),
                                     ),
-                                    // Image.asset(
-                                    //   ImageUtility.tiktokCircleIcon,
-                                    //   width: 55.w,
-                                    //   height: 55.w,
-                                    // )
+
+
+                                    Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      child: InkWell(
+                                        onTap: () {
+                                          if (provider.talantUserProfileModel
+                                              ?.data?.first.youtubelink ==
+                                              null ||
+                                              provider.talantUserProfileModel
+                                                  ?.data?.first.youtubelink ==
+                                                  "") {
+                                            Common.showErrorSnackBar(
+                                                context, "No Link Available");
+                                          }
+                                          ConstantMethod.launchUrlBrowser(provider
+                                              .talantUserProfileModel
+                                              ?.data
+                                              ?.first
+                                              .youtubelink ??
+                                              "");
+                                        },
+                                        child: Image.asset(
+                                          ImageUtility.tiktokCircleIcon,
+                                          width: 55.w,
+                                          height: 55.w,
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                                 SizedBox(
@@ -620,13 +655,32 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                 SizedBox(
                                   height: 10.h,
                                 ),
-                                SimpleTextField(
-                                  controller: notesController,
-                                  hintText: context
-                                      .loc.hintWriteNotesAboutThisProfile,
-                                  maxLine: 5,
-                                  // isEnable: false,
+
+
+
+
+                                Container(
+                                  padding: EdgeInsets.only(left: 10.w, top: 16, bottom: 16, right: 10.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    border: Border.all(color: ColorUtility.colorD6D6D8),
+
+                                  ),
+                                  child: Text(provider
+                                      .talantUserProfileModel
+                                      ?.data
+                                      ?.first
+                                      .about ??
+                                      "",style: StyleUtility.inputTextStyle.copyWith(
+                                    fontSize: TextSizeUtility.textSize15.sp,
+                                  ),),
                                 ),
+
+
+
+
+
+
                                 SizedBox(
                                   height: 22.h,
                                 ),
@@ -692,8 +746,6 @@ class _ProfileImageViewPagerWidgetState
                           height: 420.sp,
                           width: double.infinity,
                           color: Colors.grey.withOpacity(0.1),
-                          padding: EdgeInsets.only(
-                              left: 10.w, right: 10.w, bottom: 10.w),
                           child: Stack(
                             children: [
                               SizedBox(
@@ -712,25 +764,28 @@ class _ProfileImageViewPagerWidgetState
                                           size: 25.sp,
                                         )),
                                     imageUrl:
-                                        "${Endpoints.imageBaseUrl}${provider.talantUserProfileModel?.data?.first.imageFiles?[index]}"),
+                                        "${Endpoints.imageBaseUrl}${provider.talantUserProfileModel?.data?.first.imageFiles?[index].files}"),
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    ImageUtility.popularIcon,
-                                    width: 52.w,
-                                  ),
-                                  Text(
-                                    context.loc.buttonPopular,
-                                    style: StyleUtility
-                                        .quicksandMediumWhiteTextStyle
-                                        .copyWith(
-                                            fontSize:
-                                                TextSizeUtility.textSize12.sp),
-                                  ),
-                                ],
+                              Padding(
+                                 padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.w),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.asset(
+                                      ImageUtility.popularIcon,
+                                      width: 52.w,
+                                    ),
+                                    Text(
+                                      context.loc.buttonPopular,
+                                      style: StyleUtility
+                                          .quicksandMediumWhiteTextStyle
+                                          .copyWith(
+                                              fontSize:
+                                                  TextSizeUtility.textSize12.sp),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

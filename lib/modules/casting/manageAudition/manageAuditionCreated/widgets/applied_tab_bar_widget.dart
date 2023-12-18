@@ -54,184 +54,187 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                   height: 12.h,
                 ),
 
-                // TODO added temp condition for view closed screen
-                //   1 == 1
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: provider.managAuditionCreatedScreenModel?.data
-                          ?.appliedUsers?.length,
-                      itemBuilder: (context, i) {
-                        AppliedUsers? data = provider
-                            .managAuditionCreatedScreenModel
-                            ?.data
-                            ?.appliedUsers?[i];
-                        return closeRegistration == false
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  data?.profileFiles?.isEmpty ?? true
-                                      ? Container()
-                                      : SizedBox(
-                                          height: 420.h,
-                                          child: AppliedViewPagerWidget(
-                                            appliedUsers: data!,
-                                            onCloseRegistration: () {
-                                              closeRegistration = true;
-                                              setState(() {});
-                                            },
-                                          )),
-                                  SizedBox(
-                                    height: 26.h,
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20.w),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          context.loc.titleCategory,
-                                          style: StyleUtility
-                                              .quicksandSemiBold5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize16.sp),
-                                        ),
-                                        Wrap(
-                                          children: [
-                                            for (var item
-                                                in data?.lookingFor ?? [])
-                                              Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 9.w, top: 12.h),
-                                                  padding: EdgeInsets.only(
-                                                      left: 20.sp,
-                                                      right: 20.sp,
-                                                      top: 9.sp,
-                                                      bottom: 12.sp),
-                                                  decoration: BoxDecoration(
-                                                      color: ColorUtility
-                                                          .colorWhite,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.r),
-                                                      border: Border.all(
-                                                          color: ColorUtility
-                                                              .colorD3D6D6)),
-                                                  child: Text(
-                                                    item,
-                                                    style: StyleUtility
-                                                        .quicksandRegularBlackTextStyle
-                                                        .copyWith(
-                                                            fontSize:
-                                                                TextSizeUtility
-                                                                    .textSize14
-                                                                    .sp),
-                                                  ))
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 20.h,
-                                        ),
-                                        Text(
-                                          context.loc.titleBody,
-                                          style: StyleUtility
-                                              .quicksandSemiBold5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize16.sp),
-                                        ),
-                                        Wrap(
-                                          children: [
-                                            for (var item
-                                                in data?.bodyList ?? [])
-                                              Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 9.w, top: 12.h),
-                                                  padding: EdgeInsets.only(
-                                                      left: 20.sp,
-                                                      right: 20.sp,
-                                                      top: 9.sp,
-                                                      bottom: 12.sp),
-                                                  decoration: BoxDecoration(
-                                                      color: ColorUtility
-                                                          .colorWhite,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.r),
-                                                      border: Border.all(
-                                                          color: ColorUtility
-                                                              .colorD3D6D6)),
-                                                  child: Text(
-                                                    item,
-                                                    style: StyleUtility
-                                                        .quicksandRegularBlackTextStyle
-                                                        .copyWith(
-                                                            fontSize:
-                                                                TextSizeUtility
-                                                                    .textSize14
-                                                                    .sp),
-                                                  ))
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 20.h,
-                                        ),
-                                        Text(
-                                          context.loc.titleIntroText,
-                                          style: StyleUtility
-                                              .quicksandSemiBold5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize16.sp),
-                                        ),
-                                        SizedBox(
-                                          height: 12.h,
-                                        ),
-                                        Text(
-                                          data?.introText ?? '',
-                                          style: StyleUtility
-                                              .quicksandRegularBlackTextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize16.sp),
-                                        ),
-                                        SizedBox(
-                                          height: 28.h,
-                                        ),
-                                        CustomOutlineButton(
-                                          buttonText:
-                                              context.loc.buttonSeeFullProfile,
-                                          onTap: () {
-                                            Navigator.pushNamed(context,
-                                                RouteName.seeUserProfileScreen,
-                                                arguments: {
-                                                  "telentUserId":
-                                                      data?.talentUserId
-                                                });
-                                          },
-                                          buttonColor: ColorUtility.color5457BE,
-                                        ),
-                                        SizedBox(
-                                          height: 20.h,
-                                        ),
-                                        ChatButton(
+                  child:
+                  // ListView.builder(
+                  //     itemCount: (provider.managAuditionCreatedScreenModel?.data
+                  //         ?.appliedUsers?.length ?? 0)> 0 ? 1 :0 ,
+                  //     itemBuilder: (context, i) {
+                  //       AppliedUsers? appliedUser = provider
+                  //           .managAuditionCreatedScreenModel
+                  //           ?.data
+                  //           ?.appliedUsers?[i];
+                  //       return
+
+                          closeRegistration == false
+                            ? SingleChildScrollView(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                   provider.appliedUser?.profileFiles?.isEmpty ?? true
+                                        ? Container()
+                                        : SizedBox(
+                                            height: 420.h,
+                                            child: AppliedViewPagerWidget(
+                                              appliedUsers:  provider.appliedUser!,
+                                              onCloseRegistration: () {
+                                                closeRegistration = true;
+                                                setState(() {});
+                                              },
+                                            )),
+                                    SizedBox(
+                                      height: 26.h,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 20.w),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            context.loc.titleCategory,
+                                            style: StyleUtility
+                                                .quicksandSemiBold5457BETextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize16.sp),
+                                          ),
+                                          Wrap(
+                                            children: [
+                                              for (var item
+                                                  in  provider.appliedUser?.lookingFor ?? [])
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 9.w, top: 12.h),
+                                                    padding: EdgeInsets.only(
+                                                        left: 20.sp,
+                                                        right: 20.sp,
+                                                        top: 9.sp,
+                                                        bottom: 12.sp),
+                                                    decoration: BoxDecoration(
+                                                        color: ColorUtility
+                                                            .colorWhite,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                30.r),
+                                                        border: Border.all(
+                                                            color: ColorUtility
+                                                                .colorD3D6D6)),
+                                                    child: Text(
+                                                      item,
+                                                      style: StyleUtility
+                                                          .quicksandRegularBlackTextStyle
+                                                          .copyWith(
+                                                              fontSize:
+                                                                  TextSizeUtility
+                                                                      .textSize14
+                                                                      .sp),
+                                                    ))
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Text(
+                                            context.loc.titleBody,
+                                            style: StyleUtility
+                                                .quicksandSemiBold5457BETextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize16.sp),
+                                          ),
+                                          Wrap(
+                                            children: [
+                                              for (var item
+                                                  in  provider.appliedUser?.bodyList ?? [])
+                                                Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 9.w, top: 12.h),
+                                                    padding: EdgeInsets.only(
+                                                        left: 20.sp,
+                                                        right: 20.sp,
+                                                        top: 9.sp,
+                                                        bottom: 12.sp),
+                                                    decoration: BoxDecoration(
+                                                        color: ColorUtility
+                                                            .colorWhite,
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                30.r),
+                                                        border: Border.all(
+                                                            color: ColorUtility
+                                                                .colorD3D6D6)),
+                                                    child: Text(
+                                                      item,
+                                                      style: StyleUtility
+                                                          .quicksandRegularBlackTextStyle
+                                                          .copyWith(
+                                                              fontSize:
+                                                                  TextSizeUtility
+                                                                      .textSize14
+                                                                      .sp),
+                                                    ))
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Text(
+                                            context.loc.titleIntroText,
+                                            style: StyleUtility
+                                                .quicksandSemiBold5457BETextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize16.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 12.h,
+                                          ),
+                                          Text(
+                                            provider.appliedUser?.introText ?? '',
+                                            style: StyleUtility
+                                                .quicksandRegularBlackTextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize16.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 28.h,
+                                          ),
+                                          CustomOutlineButton(
                                             buttonText:
-                                                "${context.loc.buttonChatWith} ${data?.username}",
-                                            icon: ImageUtility.messageNavIcon,
+                                                context.loc.buttonSeeFullProfile,
                                             onTap: () {
                                               Navigator.pushNamed(context,
-                                                  RouteName.chatScreen);
-                                            }),
-                                        SizedBox(
-                                          height: 35.h,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )
+                                                  RouteName.seeUserProfileScreen,
+                                                  arguments: {
+                                                    "telentUserId":
+                                                    provider.appliedUser?.talentUserId
+                                                  });
+                                            },
+                                            buttonColor: ColorUtility.color5457BE,
+                                          ),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          ChatButton(
+                                              buttonText:
+                                                  "${context.loc.buttonChatWith} ${ provider.appliedUser?.username}",
+                                              icon: ImageUtility.messageNavIcon,
+                                              onTap: () {
+                                                Navigator.pushNamed(context,
+                                                    RouteName.chatScreen);
+                                              }),
+                                          SizedBox(
+                                            height: 35.h,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                            )
                             : Padding(
                                 padding:
                                     EdgeInsets.only(left: 20.w, right: 20.w),
@@ -271,8 +274,11 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                                     ),
                                   ],
                                 ),
-                              );
-                      }),
+                              )
+
+
+
+                      // }),
                 )
               ],
             );

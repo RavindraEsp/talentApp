@@ -13,6 +13,10 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
 
   ManagAuditionCreatedScreenModel? managAuditionCreatedScreenModel;
 
+  AppliedUsers? appliedUser;
+
+  int currentAppliedIndex = 0;
+
   getcreatedAuditionmanage(
     int auditionId, {
     required ValueChanged<String> onFailure,
@@ -22,6 +26,12 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
         queryParameters: {'auditionId': auditionId}).then((value) {
       if (value.success == true) {
         managAuditionCreatedScreenModel = value;
+
+        if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >
+            0) {
+          appliedUser = managAuditionCreatedScreenModel?.data?.appliedUsers?[0];
+        }
+
         isLoading = false;
         notifyListeners();
       } else {
@@ -71,5 +81,24 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
+  }
+
+  onNextPress() {
+    if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >
+        currentAppliedIndex+1) {
+      currentAppliedIndex = currentAppliedIndex + 1;
+      appliedUser = managAuditionCreatedScreenModel
+          ?.data?.appliedUsers?[currentAppliedIndex];
+      notifyListeners();
+    }
+  }
+
+  onBackPress() {
+    if (currentAppliedIndex != 0) {
+      currentAppliedIndex = currentAppliedIndex - 1;
+      appliedUser = managAuditionCreatedScreenModel
+          ?.data?.appliedUsers?[currentAppliedIndex];
+      notifyListeners();
+    }
   }
 }

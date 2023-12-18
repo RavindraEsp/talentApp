@@ -46,6 +46,7 @@ class Data {
   String? instalink;
   String? facebooklink;
   String? youtubelink;
+  String? tiktoklink;
   List<Files>? imageFiles;
   List<Files>? audioFiles;
   List<Files>? videoFiles;
@@ -70,6 +71,7 @@ class Data {
       this.instalink,
       this.facebooklink,
       this.youtubelink,
+      this.tiktoklink,
       this.imageFiles,
       this.audioFiles,
       this.videoFiles,
@@ -94,6 +96,7 @@ class Data {
     instalink = json['instalink'];
     facebooklink = json['facebooklink'];
     youtubelink = json['youtubelink'];
+    tiktoklink = json['tiktoklink'];
     if (json['imageFiles'] != null) {
       imageFiles = <Files>[];
       json['imageFiles'].forEach((v) {
@@ -135,6 +138,7 @@ class Data {
     data['instalink'] = this.instalink;
     data['facebooklink'] = this.facebooklink;
     data['youtubelink'] = this.youtubelink;
+    data['tiktoklink'] = this.tiktoklink;
     if (this.imageFiles != null) {
       data['imageFiles'] = this.imageFiles!.map((v) => v.toJson()).toList();
     }
