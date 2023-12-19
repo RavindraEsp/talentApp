@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/home/providers/cast_home_screen_provider.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/model/manage_audition_created_screen_model.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/manage_audition_created_screen_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:talent_app/utilities/common.dart';
 
@@ -17,11 +15,13 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
 
   int currentAppliedIndex = 0;
 
-  getcreatedAuditionmanage(
+  getCreatedAuditionManage(
     int auditionId, {
     required ValueChanged<String> onFailure,
   }) {
     isLoading = true;
+    appliedUser = AppliedUsers();
+    managAuditionCreatedScreenModel = ManagAuditionCreatedScreenModel();
     auditionRepository.getcreatedAuditionmanage(
         queryParameters: {'auditionId': auditionId}).then((value) {
       if (value.success == true) {
@@ -46,42 +46,68 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> cancelTheAuditionApi(
-    BuildContext context,
-  ) async {
-    isLoading = true;
-    notifyListeners();
 
-    auditionRepository.cancelAudition(
-        {"id": managAuditionCreatedScreenModel?.data?.id}).then((value) {
-      if (value["success"] == true) {
-        Common.showSuccessToast(context, value['msg'] ?? "");
 
-        isLoading = false;
-        notifyListeners();
 
-        // Provider.of<CastHomeScreenProvider>(context, listen: false)
-        //     .getHomeDataForCaster(onFailure: (message) {
-        //   // Common.showErrorSnackBar(context, message);
-        // });
-        Navigator.pop(
-          context,
-        );
-      } else {
-        Common.showErrorSnackBar(context, value['msg'] ?? "");
-        isLoading = false;
-        notifyListeners();
-      }
-    }).onError((error, stackTrace) {
-      AppLogger.logD("error $error");
+  // Future<void> approveUserApi(
+  // {required ValueChanged<String> onSuccess,
+  //   required ValueChanged<String> onFailure,}
+  //
+  // ) async {
+  //
+  //   auditionRepository.cancelAudition(
+  //       {"id": managAuditionCreatedScreenModel?.data?.id}).then((value) {
+  //     if (value["success"] == true) {
+  //       onSuccess.call("");
+  //
+  //
+  //     } else {
+  //       onFailure.call("");
+  //
+  //
+  //     }
+  //   }).onError((error, stackTrace) {
+  //     AppLogger.logD("error $error");
+  //     onFailure.call("");
+  //   });
+  //
+  //   notifyListeners();
+  // }
 
-      isLoading = false;
-      notifyListeners();
-    });
 
-    isLoading = false;
-    notifyListeners();
-  }
+  // Future<void> cancelTheAuditionApi(
+  //   BuildContext context,
+  // ) async {
+  //   isLoading = true;
+  //   notifyListeners();
+  //
+  //   auditionRepository.cancelAudition(
+  //       {"id": managAuditionCreatedScreenModel?.data?.id}).then((value) {
+  //     if (value["success"] == true) {
+  //       Common.showSuccessToast(context, value['msg'] ?? "");
+  //
+  //       isLoading = false;
+  //       notifyListeners();
+  //       Navigator.pop(
+  //         context,
+  //       );
+  //     } else {
+  //       Common.showErrorSnackBar(context, value['msg'] ?? "");
+  //       isLoading = false;
+  //       notifyListeners();
+  //     }
+  //   }).onError((error, stackTrace) {
+  //     AppLogger.logD("error $error");
+  //
+  //     isLoading = false;
+  //     notifyListeners();
+  //   });
+  //
+  //   isLoading = false;
+  //   notifyListeners();
+  // }
+
+
 
   onNextPress() {
     if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >

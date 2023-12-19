@@ -62,6 +62,10 @@ class _CreateAuditionPlaceTimeScreenState
     extends State<CreateAuditionPlaceTimeScreen> {
   final _formKey = GlobalKey<FormState>();
 
+
+ // final List<Marker> _markers = <Marker>[];
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -79,6 +83,21 @@ class _CreateAuditionPlaceTimeScreenState
     AppLogger.logD("heightRangeMax ${widget.heightRangeMax}");
     AppLogger.logD("careerTag ${widget.careerTag}");
     AppLogger.logD("auditionTalentAllData ${widget.auditionTalentAllData}");
+
+    // _markers.add(
+    //     const Marker(
+    //       // given marker id
+    //       markerId: MarkerId("0"),
+    //       // given marker icon
+    //       // given position
+    //       position: LatLng(22.719568, 75.857727),
+    //       infoWindow: InfoWindow(
+    //         // given title for marker
+    //        // title: 'Location: '+i.toString(),
+    //       ),
+    //     )
+    // );
+
   }
 
   @override
@@ -263,7 +282,9 @@ class _CreateAuditionPlaceTimeScreenState
                               initialCameraPosition: const CameraPosition(
                                   tilt: 50,
                                   target: LatLng(22.719568, 75.857727),
+                                 // target: LatLng(0, 0),
                                   zoom: 15),
+                           //   markers: Set<Marker>.of(_markers),
                               onMapCreated: (GoogleMapController controller) {},
                             ),
                           ),

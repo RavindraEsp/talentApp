@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/model/telent_user_profile_model.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 
 class SeeTelentUserProfileScreenProvider extends ChangeNotifier {

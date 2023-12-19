@@ -21,6 +21,18 @@ class Common {
     ));
   }
 
+
+  static showWarningSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 2),
+      backgroundColor: ColorUtility.colorEFC275,
+      content: Text(
+        message,
+      ),
+    ));
+  }
+
   static showSuccessToast(BuildContext context, String message) {
     Fluttertoast.cancel();
     return Fluttertoast.showToast(

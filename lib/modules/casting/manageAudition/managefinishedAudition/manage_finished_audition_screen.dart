@@ -12,7 +12,6 @@ import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
-import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
@@ -67,6 +66,7 @@ class _ManageFinishedAuditionScreenState
                             end: Alignment.topRight,
                             colors: ColorUtility.castHeaderGradientColor)),
                     child: SafeArea(
+                      bottom: false,
                       child: Padding(
                         padding: EdgeInsets.only(
                             left: 18.w, right: 18.w, top: 24.h, bottom: 24.h),

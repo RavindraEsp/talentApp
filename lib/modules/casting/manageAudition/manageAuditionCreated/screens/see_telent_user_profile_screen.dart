@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/model/telent_user_profile_model.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/providers/see_telent_user_profile_screen_provider.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/providers/see_telent_user_profile_screen_provider.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -20,7 +20,6 @@ import 'package:talent_app/widgets/buttons/chat_button.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
-import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 class SeeUserProfileScreen extends StatefulWidget {
   final int telentUserId;
@@ -64,6 +63,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                             end: Alignment.topRight,
                             colors: ColorUtility.castHeaderGradientColor)),
                     child: SafeArea(
+                      bottom: false,
                       child: Padding(
                         padding: EdgeInsets.only(
                             left: 18.w,

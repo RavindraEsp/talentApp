@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/model/manage_audition_created_screen_model.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/providers/manage_audition_created_screen_provider.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/manage_audition_created_screen_model.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/providers/manage_audition_created_screen_provider.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/add_more_spot_dialog.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -53,7 +53,7 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                         _activePage = page;
                       });
                     },
-                    itemCount: widget.appliedUsers.profileFiles?.length,
+                    itemCount: widget.appliedUsers.images?.length,
                     itemBuilder: (BuildContext context, int index1) {
                       return Container(
                         color: Colors.white,
@@ -84,9 +84,9 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                                                 Icons.error,
                                                 size: 25.sp,
                                               ))),
-                                      // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+
                                       imageUrl:
-                                          "${Endpoints.imageBaseUrl}${widget.appliedUsers.profileFiles?[index1].filename}"),
+                                          "${Endpoints.imageBaseUrl}${widget.appliedUsers.images?[index1].files}"),
                                 ),
                                 Container(
                                   height: 420.sp,
@@ -161,22 +161,27 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Column(
-                                            children: [
-                                              Image.asset(
-                                                ImageUtility.backCircleIcon,
-                                                width: 52.w,
-                                              ),
-                                              Text(
-                                                context.loc.buttonBack,
-                                                style: StyleUtility
-                                                    .quicksandMediumWhiteTextStyle
-                                                    .copyWith(
-                                                        fontSize:
-                                                            TextSizeUtility
-                                                                .textSize12.sp),
-                                              ),
-                                            ],
+                                          GestureDetector(
+                                            onTap: (){
+                                              provider.onBackPress();
+                                            },
+                                            child: Column(
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtility.backCircleIcon,
+                                                  width: 52.w,
+                                                ),
+                                                Text(
+                                                  context.loc.buttonBack,
+                                                  style: StyleUtility
+                                                      .quicksandMediumWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize12.sp),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           Column(
                                             children: [
@@ -219,22 +224,27 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                                               ],
                                             ),
                                           ),
-                                          Column(
-                                            children: [
-                                              Image.asset(
-                                                ImageUtility.nextCircleIcon,
-                                                width: 52.w,
-                                              ),
-                                              Text(
-                                                context.loc.buttonNext,
-                                                style: StyleUtility
-                                                    .quicksandMediumWhiteTextStyle
-                                                    .copyWith(
-                                                        fontSize:
-                                                            TextSizeUtility
-                                                                .textSize12.sp),
-                                              ),
-                                            ],
+                                          GestureDetector(
+                                            onTap: (){
+                                              provider.onNextPress();
+                                            },
+                                            child: Column(
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtility.nextCircleIcon,
+                                                  width: 52.w,
+                                                ),
+                                                Text(
+                                                  context.loc.buttonNext,
+                                                  style: StyleUtility
+                                                      .quicksandMediumWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize12.sp),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       )
@@ -255,7 +265,7 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List<Widget>.generate(
-                          widget.appliedUsers.profileFiles?.length ?? 0,
+                          widget.appliedUsers.images?.length ?? 0,
                           (index) => Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),

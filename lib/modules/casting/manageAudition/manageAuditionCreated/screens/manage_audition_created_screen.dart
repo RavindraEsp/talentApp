@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/screens/providers/manage_audition_created_screen_provider.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/providers/manage_audition_created_screen_provider.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/applied_tab_bar_widget.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/approved_tab_bar_widget.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/providers/manage_finished_audition_screen_provider.dart';
@@ -36,7 +36,7 @@ class _ManageAuditionCreatedScreenState
     AppLogger.logD("auditionId ${widget.auditionId}");
 
     Provider.of<ManageAuditionCreatedScreenProvider>(context, listen: false)
-        .getcreatedAuditionmanage(widget.auditionId, onFailure: (message) {});
+        .getCreatedAuditionManage(widget.auditionId, onFailure: (message) {});
   }
 
   // List<String> categoryList = ["Modeling", "Acting", "Singing"];
@@ -73,14 +73,19 @@ class _ManageAuditionCreatedScreenState
                               begin: Alignment.bottomLeft,
                               end: Alignment.topRight,
                               colors: ColorUtility.castHeaderGradientColor)),
-                      child: SafeArea(
+                      child:
+
+
+                      SafeArea(
+                        bottom: false,
                         child: Padding(
                           padding: EdgeInsets.only(
                               left: 18.w,
                               right: 18.w,
                               // top: 24.h, bottom: 24.h
                               top: 14.h,
-                              bottom: 14.h),
+                              bottom: 14.h
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
