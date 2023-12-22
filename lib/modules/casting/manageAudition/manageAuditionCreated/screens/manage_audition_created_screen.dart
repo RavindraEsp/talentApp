@@ -6,9 +6,7 @@ import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/providers/manage_audition_created_screen_provider.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/applied_tab_bar_widget.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/approved_tab_bar_widget.dart';
-import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/providers/manage_finished_audition_screen_provider.dart';
 import 'package:talent_app/utilities/color_utility.dart';
-import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -20,6 +18,7 @@ import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class ManageAuditionCreatedScreen extends StatefulWidget {
   final int auditionId;
+
   const ManageAuditionCreatedScreen({super.key, required this.auditionId});
 
   @override
@@ -38,16 +37,6 @@ class _ManageAuditionCreatedScreenState
     Provider.of<ManageAuditionCreatedScreenProvider>(context, listen: false)
         .getCreatedAuditionManage(widget.auditionId, onFailure: (message) {});
   }
-
-  // List<String> categoryList = ["Modeling", "Acting", "Singing"];
-  // List<String> bodyList = [
-  //   "Eye color: Blue",
-  //   "Hair color: blond",
-  //   "W :55k",
-  //   "Pans Size : XS",
-  //   "Shirt Size : S",
-  //   "H :1.7cm"
-  // ];
 
   TextEditingController searchController = TextEditingController();
 
@@ -73,10 +62,7 @@ class _ManageAuditionCreatedScreenState
                               begin: Alignment.bottomLeft,
                               end: Alignment.topRight,
                               colors: ColorUtility.castHeaderGradientColor)),
-                      child:
-
-
-                      SafeArea(
+                      child: SafeArea(
                         bottom: false,
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -84,8 +70,7 @@ class _ManageAuditionCreatedScreenState
                               right: 18.w,
                               // top: 24.h, bottom: 24.h
                               top: 14.h,
-                              bottom: 14.h
-                          ),
+                              bottom: 14.h),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,7 +100,7 @@ class _ManageAuditionCreatedScreenState
                     Expanded(
                       child: provider.managAuditionCreatedScreenModel?.data ==
                               null
-                          ? NoDataWidget()
+                          ? const NoDataWidget()
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -279,10 +264,19 @@ class _ManageAuditionCreatedScreenState
                                 Expanded(
                                     child: TabBarView(
                                   children: [
+
+                                    (provider.managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) > 0 ?
                                     AppliedTabBarWidget(
                                       searchController: searchController,
-                                    ),
-                                    const ApprovedTabBarWidget()
+                                        auditionId:widget.auditionId
+                                    ):const Center(child:NoDataWidget(),),
+
+
+                                    (provider.managAuditionCreatedScreenModel?.data?.approvedUsers?.length ?? 0) > 0 ?
+
+                                     ApprovedTabBarWidget(
+                                        auditionId:widget.auditionId
+                                    ):const Center(child:NoDataWidget(),),
                                   ],
                                 )),
                               ],

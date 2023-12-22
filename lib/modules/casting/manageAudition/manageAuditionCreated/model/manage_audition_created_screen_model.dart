@@ -362,7 +362,7 @@ class AppliedUsers {
   String? about;
   String? height;
   String? weight;
-  Null? profilePic;
+  dynamic? profilePic;
   String? gender;
   String? address;
   String? age;
@@ -547,6 +547,7 @@ class UserList {
   int? viewapplystatus;
   String? datetime;
   int? totalApplied;
+  int? appliedId;
   String? username;
   List<Images>? images;
   int? talentProfileId;
@@ -568,6 +569,7 @@ class UserList {
         this.viewapplystatus,
         this.datetime,
         this.totalApplied,
+        this.appliedId,
         this.username,
         this.images,
         this.talentProfileId,
@@ -589,6 +591,7 @@ class UserList {
     viewapplystatus = json['viewapplystatus'];
     datetime = json['datetime'];
     totalApplied = json['totalApplied'];
+    appliedId = json['appliedId'];
     username = json['username'];
     if (json['images'] != null) {
       images = <Images>[];
@@ -617,6 +620,7 @@ class UserList {
     data['viewapplystatus'] = this.viewapplystatus;
     data['datetime'] = this.datetime;
     data['totalApplied'] = this.totalApplied;
+    data['appliedId'] = this.appliedId;
     data['username'] = this.username;
     if (this.images != null) {
       data['images'] = this.images!.map((v) => v.toJson()).toList();

@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/manage_audition_created_screen_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/providers/manage_audition_created_screen_provider.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -16,17 +19,16 @@ import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 
 class ApprovedTabBarWidget extends StatelessWidget {
+  final int auditionId;
   const ApprovedTabBarWidget({
-    super.key,
+    super.key, required this.auditionId,
   });
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ManageAuditionCreatedScreenProvider>(
         builder: (context, provider, child) {
-      return provider.isLoading == true
-          ? const CustomCircularLoaderWidget()
-          : SingleChildScrollView(
+      return SingleChildScrollView(
               child: Column(
                 children: [
                   ListView.builder(
@@ -341,27 +343,54 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                       SizedBox(
                                                         width: 5.w,
                                                       ),
-                                                      Column(
-                                                        children: [
-                                                          Image.asset(
-                                                            ImageUtility
-                                                                .declineIcon,
-                                                            width: 14.w,
-                                                          ),
-                                                          SizedBox(
-                                                            height: 7.h,
-                                                          ),
-                                                          Text(
-                                                            context.loc.decline,
-                                                            style: StyleUtility
-                                                                .quicksandRegular9F9E9ETextStyle
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        TextSizeUtility
-                                                                            .textSize10
-                                                                            .sp),
-                                                          )
-                                                        ],
+                                                      InkWell(
+
+                                                        onTap: (){
+                                                          AppLogger.logD("UserName is ${userList?.username}");
+                                                          AppLogger.logD("Applied id is ${userList?.appliedId}");
+
+                                                          CommonDialog.showLoadingDialog(context);
+                                                          provider.declineUserAuditionApi(
+                                                              appliedId: userList?.appliedId ?? 0,
+                                                              onSuccess: (message){
+                                                                Navigator.pop(context);
+
+                                                                //For refresh page
+                                                                provider.isLoading = true;
+                                                                provider.updateUi();
+                                                                provider.getCreatedAuditionManage(auditionId,
+                                                                    onFailure: (message){
+                                                                  Common.showErrorSnackBar(context, message);
+                                                                });
+
+                                                              }, onFailure: (message){
+                                                            Navigator.pop(context);
+                                                            Common.showErrorSnackBar(context, message);
+                                                          });
+
+                                                        },
+                                                        child: Column(
+                                                          children: [
+                                                            Image.asset(
+                                                              ImageUtility
+                                                                  .declineIcon,
+                                                              width: 14.w,
+                                                            ),
+                                                            SizedBox(
+                                                              height: 7.h,
+                                                            ),
+                                                            Text(
+                                                              context.loc.decline,
+                                                              style: StyleUtility
+                                                                  .quicksandRegular9F9E9ETextStyle
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          TextSizeUtility
+                                                                              .textSize10
+                                                                              .sp),
+                                                            )
+                                                          ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),

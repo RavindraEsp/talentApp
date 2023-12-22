@@ -30,4 +30,5 @@ class ApiEndPoints {
   String get cancelAudition => "auth/cancelAudition";
 
   String get getTalentProfile => "get/getTalentProfile";
+  String get approverejectApplyAudition => "auth/approverejectApplyAudition";
 }

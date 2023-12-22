@@ -84,4 +84,12 @@ class AuditionRepository {
             queryParameters: queryParameters)
         .then((value) => TalantUserProfileModel.fromJson(value));
   }
+
+  Future<BasicResponse> approveDeclineUserAudition(Map<String, dynamic>? request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.approverejectApplyAudition,
+        data: jsonEncode(request))
+        .then((value) =>BasicResponse.fromJson(value));
+  }
+
 }

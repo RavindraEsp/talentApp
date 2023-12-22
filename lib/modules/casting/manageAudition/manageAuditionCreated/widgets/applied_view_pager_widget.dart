@@ -8,6 +8,8 @@ import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/add_more_spot_dialog.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -16,12 +18,16 @@ import 'approved_dialog.dart';
 
 class AppliedViewPagerWidget extends StatefulWidget {
   final VoidCallback onCloseRegistration;
+  final VoidCallback onAddThisCandidate;
+  final VoidCallback onDecline;
 
   final AppliedUsers appliedUsers;
 
   const AppliedViewPagerWidget(
       {super.key,
       required this.onCloseRegistration,
+      required this.onAddThisCandidate,
+      required this.onDecline,
       required this.appliedUsers});
 
   @override
@@ -183,27 +189,32 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                                               ],
                                             ),
                                           ),
-                                          Column(
-                                            children: [
-                                              Image.asset(
-                                                ImageUtility.declineCircleIcon,
-                                                width: 52.w,
-                                              ),
-                                              Text(
-                                                context.loc.decline,
-                                                style: StyleUtility
-                                                    .quicksandMediumWhiteTextStyle
-                                                    .copyWith(
-                                                        fontSize:
-                                                            TextSizeUtility
-                                                                .textSize12.sp),
-                                              ),
-                                            ],
+                                          GestureDetector(
+                                            onTap: widget.onDecline,
+                                            child: Column(
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtility.declineCircleIcon,
+                                                  width: 52.w,
+                                                ),
+                                                Text(
+                                                  context.loc.decline,
+                                                  style: StyleUtility
+                                                      .quicksandMediumWhiteTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize12.sp),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              approvedDialog(context: context);
-                                              // addMoreSpotDialog(context: context);
+                                              approvedDialog(context: context,
+                                                onAddThisCandidate: widget.onAddThisCandidate
+                                              );
+
                                             },
                                             child: Column(
                                               children: [
@@ -298,6 +309,7 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
 
   Future<dynamic> approvedDialog({
     required BuildContext context,
+    required VoidCallback onAddThisCandidate,
   }) {
     return showDialog(
         context: context,
@@ -306,7 +318,10 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
               onAddMoreSpots: () {
                 addMoreSpotDialog(context: context);
               },
-              onCloseRegistration: widget.onCloseRegistration);
+              onCloseRegistration: widget.onCloseRegistration,
+            onAddThisCandidate: onAddThisCandidate,
+
+          );
         }).then((value) {});
   }
 
@@ -319,7 +334,8 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
           return AddMoreSpotDialog(
             onUpdateTap: () {},
             onBackTab: () {
-              approvedDialog(context: context);
+            //  approvedDialog(context: context);
+
             },
             title: context.loc.dialogAreYouSureCancelAudition,
           );

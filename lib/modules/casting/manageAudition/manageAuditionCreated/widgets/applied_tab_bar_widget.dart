@@ -6,6 +6,8 @@ import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/applied_view_pager_widget.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -13,16 +15,17 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/chat_button.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
-import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/textField/search_text_field.dart';
 
 class AppliedTabBarWidget extends StatefulWidget {
   const AppliedTabBarWidget({
     super.key,
     required this.searchController,
+    required this.auditionId,
   });
 
   final TextEditingController searchController;
+  final int auditionId;
 
   @override
   State<AppliedTabBarWidget> createState() => _AppliedTabBarWidgetState();
@@ -34,10 +37,8 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ManageAuditionCreatedScreenProvider>(
-        builder: (context, provider, child) {
-      return provider.isLoading == true
-          ? const CustomCircularLoaderWidget()
-          : Column(
+        builder: (context,  provider, child) {
+      return  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
@@ -79,6 +80,49 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                                               onCloseRegistration: () {
                                                 closeRegistration = true;
                                                 setState(() {});
+                                              },
+                                                onAddThisCandidate: (){
+
+                                                  CommonDialog.showLoadingDialog(context);
+
+                                                  provider.approveUserAuditionApi(
+                                                      appliedId: provider.appliedUser!.appliedId ?? 0,
+                                                      onSuccess: (message){
+                                                        Navigator.pop(context);
+
+                                                        //For refresh page
+                                                        provider.isLoading = true;
+                                                        provider.notifyListeners();
+                                                        provider.getCreatedAuditionManage(widget.auditionId, onFailure: (message){
+                                                          Common.showErrorSnackBar(context, message);
+
+                                                        });
+
+                                                      }, onFailure: (message){
+                                                    Navigator.pop(context);
+                                                    Common.showErrorSnackBar(context, message);
+                                                  });
+
+                                                },
+                                              onDecline:(){
+                                                CommonDialog.showLoadingDialog(context);
+                                                provider.declineUserAuditionApi(
+                                                    appliedId: provider.appliedUser!.appliedId ?? 0,
+                                                    onSuccess: (message){
+                                                      Navigator.pop(context);
+
+                                                      //For refresh page
+                                                      provider.isLoading = true;
+                                                      provider.updateUi();
+                                                      provider.getCreatedAuditionManage(widget.auditionId, onFailure: (message){
+                                                        Common.showErrorSnackBar(context, message);
+
+                                                      });
+
+                                                    }, onFailure: (message){
+                                                  Navigator.pop(context);
+                                                  Common.showErrorSnackBar(context, message);
+                                                });
                                               },
                                             )),
                                     SizedBox(

@@ -13,12 +13,15 @@ import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
 class ApprovedDialog extends StatelessWidget {
   final VoidCallback onAddMoreSpots;
   final VoidCallback onCloseRegistration;
+  final VoidCallback onAddThisCandidate;
   final String? buttonText;
 
   const ApprovedDialog({
     super.key,
     required this.onAddMoreSpots,
-    this.buttonText, required this.onCloseRegistration,
+    this.buttonText,
+    required this.onCloseRegistration,
+    required this.onAddThisCandidate,
   });
 
   @override
@@ -62,6 +65,7 @@ class ApprovedDialog extends StatelessWidget {
                 width: double.infinity,
                 onTap: () {
                   Navigator.pop(context);
+                  onAddThisCandidate.call();
                 },
               ),
               SizedBox(
