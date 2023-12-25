@@ -63,7 +63,7 @@ class _CreateAuditionPlaceTimeScreenState
   final _formKey = GlobalKey<FormState>();
 
 
- // final List<Marker> _markers = <Marker>[];
+  final List<Marker> _markers = <Marker>[];
 
 
   @override
@@ -84,19 +84,19 @@ class _CreateAuditionPlaceTimeScreenState
     AppLogger.logD("careerTag ${widget.careerTag}");
     AppLogger.logD("auditionTalentAllData ${widget.auditionTalentAllData}");
 
-    // _markers.add(
-    //     const Marker(
-    //       // given marker id
-    //       markerId: MarkerId("0"),
-    //       // given marker icon
-    //       // given position
-    //       position: LatLng(22.719568, 75.857727),
-    //       infoWindow: InfoWindow(
-    //         // given title for marker
-    //        // title: 'Location: '+i.toString(),
-    //       ),
-    //     )
-    // );
+    _markers.add(
+        const Marker(
+          // given marker id
+          markerId: MarkerId("0"),
+          // given marker icon
+          // given position
+          position: LatLng(22.719568, 75.857727),
+          infoWindow: InfoWindow(
+            // given title for marker
+           // title: 'Location: '+i.toString(),
+          ),
+        )
+    );
 
   }
 
@@ -284,7 +284,7 @@ class _CreateAuditionPlaceTimeScreenState
                                   target: LatLng(22.719568, 75.857727),
                                  // target: LatLng(0, 0),
                                   zoom: 15),
-                           //   markers: Set<Marker>.of(_markers),
+                              markers: Set<Marker>.of(_markers),
                               onMapCreated: (GoogleMapController controller) {},
                             ),
                           ),
