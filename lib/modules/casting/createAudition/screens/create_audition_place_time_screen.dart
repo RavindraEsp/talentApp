@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,16 @@ import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
+
+
+
+
+
+import 'package:google_maps_webservice/places.dart';
+
+
+
+
 
 class CreateAuditionPlaceTimeScreen extends StatefulWidget {
   final List<int> auditionTalentAllData;
@@ -64,6 +75,137 @@ class _CreateAuditionPlaceTimeScreenState
 
 
   final List<Marker> _markers = <Marker>[];
+
+  //
+  // Future<void> _handlePressButton(BuildContext context) async {
+  //   // show input autocomplete with selected mode
+  //   // then get the Prediction selected
+  //   Prediction? p = await PlacesAutocomplete.show(
+  //     // offset: 0,
+  //     // radius: 1000,
+  //      types: [],
+  //     strictbounds: false,
+  //
+  //
+  //     context: context,
+  //     apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+  //    // onError: onError,
+  //     mode: Mode.overlay,
+  //     language: "en",
+  //
+  //
+  //    // components: [Component(Component.country, "fr")],
+  //     components: [Component(Component.country, "ind")],
+  //   );
+  //
+  //   AppLogger.logD("data $p");
+  //
+  //  // displayPrediction(p, homeScaffoldKey.currentState);
+  // }
+
+
+
+  //
+  // openPicker(BuildContext context) async {
+  //   Prediction? p = await PlacesAutocomplete.show(
+  //       offset: 0,
+  //       radius: 1000,
+  //       types: [],
+  //       strictbounds: false,
+  //       region: "ar",
+  //       context: context,
+  //       apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+  //       mode: Mode.overlay,
+  //       language: "en",
+  //       components: [Component(Component.country, "ind")]);
+  //
+  //   if (p != null) {
+  //     GoogleMapsPlaces _places = GoogleMapsPlaces(
+  //       apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+  //     ); //Same API_KEY as above
+  //     PlacesDetailsResponse detail =
+  //     await _places.getDetailsByPlaceId(p.placeId!);
+  //
+  //     Map<String, dynamic> data;
+  //
+  //     if (detail.result.addressComponents.isNotEmpty) {
+  //       // for (var i = 0; i < detail.result.addressComponents.length; i++) {
+  //       //   for (var j = 0;
+  //       //   j < detail.result.addressComponents[i].types.length;
+  //       //   j++) {
+  //       //    // Log.logData(detail.result.addressComponents[i].types[j]);
+  //       //     if (detail.result.addressComponents[i].types[j] == 'postal_code') {
+  //       //       var getPostalCode = detail.result.addressComponents[i].longName;
+  //       //     }
+  //       //     if (detail.result.addressComponents[i].types[j] == 'locality') {
+  //       //       var getCity = detail.result.addressComponents[i].longName;
+  //       //     }
+  //       //     if (detail.result.addressComponents[i].types[j] == 'adminArea') {
+  //       //       var getState = detail.result.addressComponents[i].longName;
+  //       //     }
+  //       //   }
+  //       // }
+  //
+  //       var  selectLocation = p.description!;
+  //       //
+  //       // Log.logData("Selected location is - $selectLocation");
+  //       //
+  //       var  latt = detail.result.geometry?.location.lat.toDouble();
+  //      var   lngg = detail.result.geometry?.location.lng.toDouble();
+  //
+  //
+  //       // setMarkers();
+  //
+  //
+  //        AppLogger.logD("Lat long is - $latt $lngg");
+  //        AppLogger.logD("selectLocation - $selectLocation");
+  //       // Log.logData(latt);
+  //       // Log.logData(lngg);
+  //       // notifyListeners();
+  //     }
+  //   }
+  // }
+
+
+  // GestureDetector(
+  // onTap: () async {
+  // await provider.openPicker(context);
+  // },
+  // child: Container(
+  // height: TextSizeUtility.dropdownHeight,
+  // width: double.infinity,
+  // decoration: BoxDecoration(
+  // color: ColorUtility.whiteTextColor,
+  // borderRadius: BorderRadius.circular(10.r),
+  // ),
+  // // padding: EdgeInsets.only(left: 5),
+  // child: Row(
+  // children: [
+  // Container(width: 10.w),
+  // Expanded(
+  // child: Text(
+  // provider.latt == null
+  // ? context.loc.hint_select_location
+  //     : provider.selectLocation ?? "",
+  // style: provider.latt == null
+  // ? StyleUtility.hintTextStyle
+  //     : StyleUtility.inputTextStyle,
+  // maxLines: 1,
+  // ),
+  // ),
+  // Padding(
+  // padding: EdgeInsets.only(right: 8.w),
+  // child: Image.asset(
+  // ImageUtility.iconDown,
+  // width: 12.sp,
+  // ),
+  // ),
+  // Container(width: 2.w),
+  // ],
+  // ),
+  // )),
+
+
 
 
   @override
@@ -269,6 +411,13 @@ class _CreateAuditionPlaceTimeScreenState
                           SizedBox(
                             height: 10.h,
                           ),
+
+                          // GestureDetector(
+                          //   onTap: (){
+                          //    // _handlePressButton(context);
+                          //     openPicker(context);
+                          //   },
+                          //     child: Text("Picker")),
                           SimpleTextField(
                             controller: createAuditionPlaceTimeProvider
                                 .auditionLocationController,
@@ -507,6 +656,9 @@ class _CreateAuditionPlaceTimeScreenState
     });
   }
 }
+
+
+
 
 Future<dynamic> showAuditionAuditionCreateSuccessDialog({
   required BuildContext context,
