@@ -72,5 +72,14 @@ class AuthRepository {
 
 
 
+///Talent
+
+  Future<CasterProfileUpdateResponse> createTalentCard(Map<String, dynamic>  request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.createTalentCard,
+        data:FormData.fromMap(request)
+    )
+        .then((value) => CasterProfileUpdateResponse.fromJson(value));
+  }
 
 }

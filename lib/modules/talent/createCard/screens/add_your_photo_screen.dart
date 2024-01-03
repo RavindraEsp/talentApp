@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
+import 'package:talent_app/modules/talent/createCard/models/talent_create_card_model.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -12,7 +16,8 @@ import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
 
 class AddYourPhotoScreen extends StatefulWidget {
-  const AddYourPhotoScreen({super.key});
+  final TalentCreateCardModel talentCreateCardModel;
+  const AddYourPhotoScreen({super.key, required this.talentCreateCardModel});
 
   @override
   State<AddYourPhotoScreen> createState() => _AddYourPhotoScreenState();
@@ -22,22 +27,12 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
   List<XFile> selectedImages = []; // List of selected image
   final picker = ImagePicker();
 
-  Future getImagesFromGallery() async {
-    final pickedFile = await picker.pickMultiImage();
-    if (pickedFile.isNotEmpty) {
-      selectedImages.addAll(pickedFile);
-      setState(() {});
-    } else {}
-  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
-  Future getImageFromCamera() async {
-    XFile? pickedFile;
-    pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-    if (pickedFile != null) {
-      selectedImages.add(pickedFile);
-      setState(() {});
-    }
+    AppLogger.logD("talentCreateCardModel ${widget.talentCreateCardModel.toJson()}");
   }
 
   @override
@@ -133,6 +128,7 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
                                       child: Image.file(
                                         File(selectedImages[index - 1].path),
                                         fit: BoxFit.cover,
+                                        height: double.infinity,
                                         // height: 200,
                                         width: double.infinity,
                                       ),
@@ -189,8 +185,20 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
                               child: CustomButton(
                             buttonText: context.loc.buttonNext,
                             onTap: () {
-                              Navigator.pushNamed(
-                                  context, RouteName.addYourVideoScreen);
+
+                              AppLogger.logD("Image le ${selectedImages.length}");
+                              if(selectedImages.isEmpty){
+                                Common.showErrorSnackBar(context, "Please upload image.");
+                              }else{
+                                // Navigator.pushNamed(
+                                //     context, RouteName.addYourVideoScreen);
+                                Navigator.pushNamed(
+                                    context, RouteName.addInfoScreen,arguments: {
+                                      "talentCreateCardModel":widget.talentCreateCardModel,
+                                      "selectedImages":selectedImages,
+                                });
+                              }
+
                             },
                           ))
                         ],
@@ -203,6 +211,24 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
         ],
       ),
     );
+  }
+
+  Future getImagesFromGallery() async {
+    final pickedFile = await picker.pickMultiImage();
+    if (pickedFile.isNotEmpty) {
+      selectedImages.addAll(pickedFile);
+      setState(() {});
+    } else {}
+  }
+
+  Future getImageFromCamera() async {
+    XFile? pickedFile;
+    pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      selectedImages.add(pickedFile);
+      setState(() {});
+    }
   }
 
   showBottomSheetForSelectImage() {

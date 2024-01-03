@@ -18,37 +18,41 @@ class CategorySelectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            width: 38.w,
-            height: 38.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4.r),
-                border: Border.all(color: ColorUtility.colorD6D6D8)),
-            child: Center(
-              child: status == true
-                  ? Image.asset(
-                ImageUtility.checkIcon,
-                width: 16.w,
-              )
-                  : const SizedBox(),
+    return Container(
+     // color: Colors.red,
+      margin: EdgeInsets.only(right: 15.w,top: 15.w),
+      child: Row(
+
+mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: onTap,
+            child: Container(
+              width: 38.w,
+              height: 38.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.r),
+                  border: Border.all(color: ColorUtility.colorD6D6D8)),
+              child: Center(
+                child: status == true
+                    ? Image.asset(
+                  ImageUtility.checkIcon,
+                  width: 16.w,
+                )
+                    : const SizedBox(),
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          width: 10.w,
-        ),
-        Expanded(
-          child: Text(
+          SizedBox(
+            width: 10.w,
+          ),
+          Text(
            title,
             style: StyleUtility.quicksandRegularBlackTextStyle
                 .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

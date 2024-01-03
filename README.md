@@ -23,6 +23,7 @@ type 1 = talent
 
 type 2 = caster
 
+
 //
 
 1-Male
@@ -31,6 +32,11 @@ type 2 = caster
 
 
 AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w
+
+profileTalentdata  => eye color id in array [1,2,3]
+
+careerModel => category [1,2,3]
+
 
 
 

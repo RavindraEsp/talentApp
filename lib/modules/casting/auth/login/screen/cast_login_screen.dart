@@ -208,7 +208,7 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                         CommonMethod.hideKeyBoard(context);
 
 
-                                        // if (isChecked == true) {
+
                                         ///with api
                                         Common.showLoadingDialog(context);
                                         castLoginProvider.login(
@@ -221,7 +221,7 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
 
                                               if (widget.userType ==
                                                   UserType.cast) {
-                                                ///valid
+                                                ///valid   For caster user navigate dashboard or create card
                                                 if (response
                                                         .data?.isCardcreated ==
                                                     true) {
@@ -242,14 +242,38 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                                       (route) => false);
                                                 }
                                               } else {
-                                                Navigator.pushNamedAndRemoveUntil(
-                                                    context,
-                                                    RouteName
-                                                        .talentBottomBarScreen,
-                                                    arguments: {
-                                                      "selectIndex": 0
-                                                    },
-                                                    (route) => false);
+
+
+                                                if (response
+                                                    .data?.isCardcreated ==
+                                                    true) {
+                                                  Navigator.pushNamedAndRemoveUntil(
+                                                      context,
+                                                      RouteName
+                                                          .talentBottomBarScreen,
+                                                      arguments: {
+                                                        "selectIndex": 0
+                                                      },
+                                                          (route) => false);
+                                                } else {
+                                                  Navigator.pushNamedAndRemoveUntil(
+                                                      context,
+                                                      RouteName
+                                                          .talentCreateCardScreen,
+                                                          (route) => false);
+                                                }
+
+                                                // Navigator.pushNamedAndRemoveUntil(
+                                                //     context,
+                                                //     RouteName
+                                                //         .talentBottomBarScreen,
+                                                //     arguments: {
+                                                //       "selectIndex": 0
+                                                //     },
+                                                //     (route) => false);
+
+
+
                                               }
                                             },
                                             onFailure: (message) {
@@ -267,10 +291,7 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                                     : 2, // for caster
                                                 // fCMToken: "fcm token001"
                                                 fCMToken: "sdsdsdsdsdsds"));
-                                        // } else {
-                                        //   Common.showErrorSnackBar(context,
-                                        //       "Please check remember me.");
-                                        // }
+
                                       }
                                     },
                                   ),

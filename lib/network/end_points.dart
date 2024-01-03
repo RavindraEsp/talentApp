@@ -8,6 +8,8 @@ class Endpoints {
 }
 
 class ApiEndPoints {
+
+  /// for caster app
   String get signUpSendOtp => "auth/emailVerification";
   String get signUp => "auth/userRegister";
   String get login => "auth/login";
@@ -31,4 +33,10 @@ class ApiEndPoints {
 
   String get getTalentProfile => "get/getTalentProfile";
   String get approverejectApplyAudition => "auth/approverejectApplyAudition";
+
+
+  ///for talent app
+
+
+  String get createTalentCard => "auth/addEditTalentProfile";
 }

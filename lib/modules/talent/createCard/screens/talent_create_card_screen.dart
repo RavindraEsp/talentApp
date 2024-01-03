@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
+import 'package:talent_app/modules/talent/createCard/models/talent_create_card_model.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
@@ -25,7 +27,7 @@ class TalentCreateCardScreen extends StatefulWidget {
 class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
-  TextEditingController idController = TextEditingController();
+  TextEditingController govtIdController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController birthdayController = TextEditingController();
@@ -36,7 +38,7 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
 
   List<DropDownModel> genderList = [
     DropDownModel("Male", "1"),
-    DropDownModel("Female", "1")
+    DropDownModel("Female", "2")
   ];
 
   @override
@@ -141,8 +143,9 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
                                 children: [
                                   Expanded(
                                     child: SimpleTextField(
-                                      controller: idController,
+                                      controller: govtIdController,
                                       hintText: context.loc.hintID,
+                                      maxLength: 9,
                                       validator:
                                           Validators(context).validatorGovtId,
                                       onPrefixIconTap: () {
@@ -221,8 +224,30 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
                           onTap: () async {
                             if (_createCardKey.currentState!.validate()) {
                               if (selectGender != null) {
+
+
+
+                                TalentCreateCardModel? talentCreateCardModel;
+
+                                talentCreateCardModel = TalentCreateCardModel(
+                                  firstName: firstNameController.text,
+                                  lastName: lastNameController.text,
+                                    gender: selectGender?.value ?? "",
+                                  govtId: govtIdController.text,
+                                  address: addressController.text,
+                                  dateofbirth: birthdayController.text
+                                );
+
+                                AppLogger.logD(talentCreateCardModel.toJson());
+
                                 Navigator.pushNamed(context,
-                                    RouteName.talentCreateCardStepTwoScreen);
+                                    RouteName.talentCreateCardStepTwoScreen,
+                                arguments: {
+                                  "talentCreateCardModel":talentCreateCardModel
+                                });
+
+
+
                               } else {
                                 Common.showErrorSnackBar(
                                     context, context.loc.validationGender);

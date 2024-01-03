@@ -8,6 +8,7 @@ class Common {
 
   // static const dateFormatForAddDate = 'yyyy-MM-dd';
   static const dateFormatForAddDate = 'dd/MM/yyyy';
+  static const dateFormatForbirthday = 'yyyy-MM-dd';
   static const dateFormat = 'dd/MM/yyyy hh:mm a';
 
   static showErrorSnackBar(BuildContext context, String message) {
@@ -182,7 +183,9 @@ class Common {
           );
         });
     if (selected != null) {
-      String formattedDate = DateFormat(dateFormatForAddDate).format(selected);
+    //  String formattedDate = DateFormat(dateFormatForAddDate).format(selected);
+    //  String formattedDate = DateFormat(dateFormatForbirthday).format(selected);∂
+      String formattedDate = selected.toString();
       dateController.text = formattedDate;
     }
   }

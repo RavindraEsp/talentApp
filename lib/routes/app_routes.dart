@@ -39,6 +39,7 @@ import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/modules/talent/auditionDetails/screens/audition_detail_screen.dart';
 import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_screen.dart';
+import 'package:talent_app/modules/talent/createCard/provider/add_info_provider.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_info_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_your_audio_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/add_your_photo_screen.dart';
@@ -57,6 +58,8 @@ import 'package:talent_app/modules/talent/profile/screens/edit_video_gallery_scr
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
+
+import '../modules/talent/createCard/provider/talent_create_card_step_two_provider.dart';
 
 class AppRoute {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -283,13 +286,22 @@ class AppRoute {
         );
 
       case RouteName.talentCreateCardStepTwoScreen:
+        //"talentCreateCardModel":talentCreateCardModel
+
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const TalentCreateCardStepTwoScreen(),
+          builder: (context) => ChangeNotifierProvider(
+              create: (context) => TalentCreateCardStepTwoProvider(),
+              child: TalentCreateCardStepTwoScreen(
+                talentCreateCardModel: arg["talentCreateCardModel"],
+              )),
         );
 
       case RouteName.addYourPhotoScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const AddYourPhotoScreen(),
+          builder: (context) => AddYourPhotoScreen(
+              talentCreateCardModel: arg["talentCreateCardModel"]),
         );
 
       case RouteName.addYourVideoScreen:
@@ -303,9 +315,16 @@ class AppRoute {
         );
 
       case RouteName.addInfoScreen:
+        var arg = settings.arguments as Map;
+
         return MaterialPageRoute(
-          builder: (context) => const AddInfoScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => AddInfoProvider(),
+                  child: AddInfoScreen(
+                    talentCreateCardModel: arg["talentCreateCardModel"],
+                    selectedImages: arg["selectedImages"],
+                  ),
+                ));
 
       case RouteName.talentBottomBarScreen:
         var arg = settings.arguments as Map;
