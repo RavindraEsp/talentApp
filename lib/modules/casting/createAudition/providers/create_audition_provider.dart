@@ -34,7 +34,7 @@ class CreateAuditionProvider extends ChangeNotifier {
   getTalentData({
     required ValueChanged<String> onFailure,
   }) {
-    auditionRepository.getTalentData().then((value) {
+    auditionRepository.getTalentDataForCreateAudition().then((value) {
       if (value.success == true) {
         talentDataResponseModel = value;
 

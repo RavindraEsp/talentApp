@@ -7,12 +7,15 @@ import 'package:talent_app/network/client/dio_http_service.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/network/model/response/basic_response.dart';
 import 'package:talent_app/network/model/response/casterAudition/CasterHomeResponseModel.dart';
+import 'package:talent_app/network/model/response/talent/talent_home/talent_home_response_model.dart';
 import '../model/response/casterAudition/talent_data_response_model.dart';
 
-class AuditionRepository {
+class   AuditionRepository {
   DioHttpService dioHttpService = DioHttpService();
 
-  Future<TalentDataResponseModel> getTalentData(
+
+  ///Caster Module APi
+  Future<TalentDataResponseModel> getTalentDataForCreateAudition(
       {Map<String, dynamic>? queryParameters}) {
     return dioHttpService
         .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getTalentData)
@@ -91,5 +94,23 @@ class AuditionRepository {
         data: jsonEncode(request))
         .then((value) =>BasicResponse.fromJson(value));
   }
+
+
+
+
+
+  ///Talent Module Api
+///
+
+Future<TalentHomeResponseModel> getHomeDataForTalent() {
+    return dioHttpService
+        .get(
+          Endpoints.baseUrl +
+              Endpoints.apiEndPoints.getAlltalentdashboardAuditionList,
+        )
+        .then((value) => TalentHomeResponseModel.fromJson(value));
+  }
+
+
 
 }

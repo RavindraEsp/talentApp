@@ -9,6 +9,7 @@ import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
 import 'package:talent_app/modules/casting/notification/notification_provider.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
+import 'package:talent_app/modules/talent/home/providers/talent_home_screen_provider.dart';
 import 'package:talent_app/modules/talent/home/screen/talent_home_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/talent_profile_screen.dart';
 import 'package:talent_app/utilities/enums.dart';
@@ -32,12 +33,15 @@ class _TalentBottomBarScreenState extends State {
     // const ChatUserListScreen(),
     // const CastProfileScreen(),
 
-    const TalentHomeScreen(),
+    ChangeNotifierProvider(
+      create: (context) => TalentHomeScreenProvider(),
+      child: const TalentHomeScreen(),
+    ),
 
     // Center(
     //   child: Text("Home"),
     // ),
-  //  const NotificationScreen(userType: UserType.talent),
+    //  const NotificationScreen(userType: UserType.talent),
 
     ChangeNotifierProvider(
       create: (context) => NotificationProvider(),
@@ -46,7 +50,6 @@ class _TalentBottomBarScreenState extends State {
       ),
     ),
 
-
     const ChatUserListScreen(userType: UserType.talent),
 
     // Center(
@@ -54,7 +57,6 @@ class _TalentBottomBarScreenState extends State {
     // )
 
     const TalentProfileScreen(),
-
   ];
 
   late int selectIndex;
@@ -68,7 +70,6 @@ class _TalentBottomBarScreenState extends State {
       child: Consumer<BottomBarProvider>(builder: (context, provider, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-
           bottomNavigationBar: CurvedNavigationBar(
             index: selectIndex,
             animationDuration: const Duration(milliseconds: 100),
@@ -81,52 +82,52 @@ class _TalentBottomBarScreenState extends State {
                 labelStyle: StyleUtility.bottomBarLabelTextStyle,
                 child: selectIndex == 0
                     ? Image.asset(
-                  ImageUtility.homeNavSelectIcon,
-                  width: 47,
-                )
+                        ImageUtility.homeNavSelectIcon,
+                        width: 47,
+                      )
                     : Image.asset(
-                  ImageUtility.homeNavIcon,
-                  width: 27,
-                ),
+                        ImageUtility.homeNavIcon,
+                        width: 27,
+                      ),
                 label: selectIndex == 0 ? context.loc.tabHome : "",
               ),
               CurvedNavigationBarItem(
                 labelStyle: StyleUtility.bottomBarLabelTextStyle,
                 child: selectIndex == 1
                     ? Image.asset(
-                  ImageUtility.notificationNavSelectIcon,
-                  width: 47,
-                )
+                        ImageUtility.notificationNavSelectIcon,
+                        width: 47,
+                      )
                     : Image.asset(
-                  ImageUtility.notificationNavIcon,
-                  width: 23,
-                ),
+                        ImageUtility.notificationNavIcon,
+                        width: 23,
+                      ),
                 label: selectIndex == 1 ? context.loc.tabNotification : "",
               ),
               CurvedNavigationBarItem(
                 labelStyle: StyleUtility.bottomBarLabelTextStyle,
                 child: selectIndex == 2
                     ? Image.asset(
-                  ImageUtility.messageNavSelectIcon,
-                  width: 47,
-                )
+                        ImageUtility.messageNavSelectIcon,
+                        width: 47,
+                      )
                     : Image.asset(
-                  ImageUtility.messageNavIcon,
-                  width: 27,
-                ),
+                        ImageUtility.messageNavIcon,
+                        width: 27,
+                      ),
                 label: selectIndex == 2 ? context.loc.tabChat : "",
               ),
               CurvedNavigationBarItem(
                 labelStyle: StyleUtility.bottomBarLabelTextStyle,
                 child: selectIndex == 3
                     ? Image.asset(
-                  ImageUtility.profileNavSelectIcon,
-                  width: 47,
-                )
+                        ImageUtility.profileNavSelectIcon,
+                        width: 47,
+                      )
                     : Image.asset(
-                  ImageUtility.profileNavIcon,
-                  width: 22,
-                ),
+                        ImageUtility.profileNavIcon,
+                        width: 22,
+                      ),
                 label: selectIndex == 3 ? context.loc.tabProfile : "",
               ),
             ],

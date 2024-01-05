@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/network/model/response/talent/talent_home/talent_home_response_model.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
@@ -9,18 +10,25 @@ import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
 import 'package:talent_app/widgets/alertDialog/success_alert_dialog.dart';
-import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
+import 'package:talent_app/widgets/no_data_widget.dart';
 
 class ApprovedAuditionWidget extends StatelessWidget {
-  const ApprovedAuditionWidget({
-    super.key,
+ final List<ApprovedAuditionList>? approvedAuditionList;
+
+
+
+   const ApprovedAuditionWidget({
+    super.key, required this.approvedAuditionList,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return (approvedAuditionList?.length ?? 0) == 0
+        ? const NoDataWidget()
+        :ListView.builder(
         padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
-        itemCount: 2,
+      //  itemCount: 2,
+        itemCount: approvedAuditionList?.length ?? 0,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: (){
@@ -95,7 +103,8 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                         width: 5.w,
                                       ),
                                       Text(
-                                        "Audition Date 18/8/2023",
+                                       // "Audition Date 18/8/2023",
+                                        "Audition Date ${approvedAuditionList?[index].getAuditionDateArr?[0].date ?? ""}",
                                         style: StyleUtility
                                             .quicksandRegular8B8B8BTextStyle
                                             .copyWith(
@@ -117,7 +126,8 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                         width: 5.w,
                                       ),
                                       Text(
-                                        "09:00",
+                                       // "09:00",
+                                        approvedAuditionList?[index].getAuditionDateArr?[0].time ?? "",
                                         style: StyleUtility
                                             .quicksandRegular8B8B8BTextStyle
                                             .copyWith(
@@ -132,7 +142,8 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                 height: 15.h,
                               ),
                               Text(
-                                "Actors are needed for a variety of roles Extras and more",
+                               // "Actors are needed for a variety of roles Extras and more",
+                                approvedAuditionList?[index].description ?? "",
                                 style: StyleUtility.quicksandRegularBlackTextStyle
                                     .copyWith(
                                   fontSize: TextSizeUtility.textSize16.sp,

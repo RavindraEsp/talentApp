@@ -1,13 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/modules/talent/home/providers/talent_home_screen_provider.dart';
 import 'package:talent_app/modules/talent/home/widgets/approved_audition_widget.dart';
 import 'package:talent_app/modules/talent/home/widgets/audition_for_you_widget.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class TalentHomeScreen extends StatefulWidget {
@@ -18,6 +25,15 @@ class TalentHomeScreen extends StatefulWidget {
 }
 
 class _TalentHomeScreenState extends State<TalentHomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<TalentHomeScreenProvider>(context, listen: false)
+        .getHomeDataForTalent(onFailure: (message) {
+      Common.showErrorSnackBar(context, message);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -54,7 +70,8 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           children: [
                             const SettingButtonWidget(),
                             Text(
-                              "Hello, Michal",
+                            //  "Hello, Michal",
+                              "${context.loc.helloUserName} ${Preference().getUserName()}",
                               style: StyleUtility.kantumruyProSMedium18TextStyle
                                   .copyWith(
                                       fontSize: TextSizeUtility.textSize18.sp),
@@ -66,11 +83,29 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                     ),
                   ),
                 ),
-                Image.asset(
-                  ImageUtility.dummyProfileImage,
-                  width: 100.sp,
-                  height: 100.sp,
-                  fit: BoxFit.fill,
+                // Image.asset(
+                //   ImageUtility.dummyProfileImage,
+                //   width: 100.sp,
+                //   height: 100.sp,
+                //   fit: BoxFit.fill,
+                // )
+                ClipOval(
+                  child: CachedNetworkImage(
+                      width: 100.sp,
+                      height: 100.sp,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => Container(
+                          color: Colors.grey,
+                          child: Center(
+                              child: Icon(
+                                Icons.error,
+                                size: 25.sp,
+                              ))),
+                      // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                      imageUrl:
+                      "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
                 )
               ],
             ),
@@ -114,13 +149,23 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                 ),
               ],
             ),
-            const Expanded(
-                child: TabBarView(
+             Expanded(
+                child: Consumer<TalentHomeScreenProvider>(
+                  builder: (context, talentHomeScreenProvider,child) {
+                    return TabBarView(
               children: [
-                AuditionForYouWidget(),
-                ApprovedAuditionWidget(),
+                    AuditionForYouWidget(),
+                talentHomeScreenProvider.isLoading == true
+                    ? const CustomCircularLoaderWidget():
+                    ApprovedAuditionWidget(
+                      approvedAuditionList:
+                        talentHomeScreenProvider
+                            .talentHomeResponseModel?.data?.approvedAuditionList,
+                    ),
               ],
-            ))
+            );
+                  }
+                ))
           ],
         ),
       ),

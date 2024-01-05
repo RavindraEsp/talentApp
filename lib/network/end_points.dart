@@ -39,4 +39,5 @@ class ApiEndPoints {
 
 
   String get createTalentCard => "auth/addEditTalentProfile";
+  String get getAlltalentdashboardAuditionList => "get/getAlltalentdashboardAuditionList";
 }
