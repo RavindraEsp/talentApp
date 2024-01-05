@@ -184,8 +184,8 @@ class Common {
         });
     if (selected != null) {
     //  String formattedDate = DateFormat(dateFormatForAddDate).format(selected);
-    //  String formattedDate = DateFormat(dateFormatForbirthday).format(selected);∂
-      String formattedDate = selected.toString();
+      String formattedDate = DateFormat(dateFormatForbirthday).format(selected);
+    //  String formattedDate = selected.toString();
       dateController.text = formattedDate;
     }
   }

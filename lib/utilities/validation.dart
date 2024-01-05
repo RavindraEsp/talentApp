@@ -134,4 +134,18 @@ class Validators {
     return null;
   }
 
+  String? validatorAboutYou(value) {
+    if (value.isEmpty) {
+      return "Tell us about you is required.";
+    }
+    return null;
+  }
+
+  String? validatorBirthday(value) {
+    if (value.isEmpty) {
+      return "Birthday date is required.";
+    }
+    return null;
+  }
+
 }

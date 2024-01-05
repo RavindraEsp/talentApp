@@ -352,6 +352,7 @@ import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
@@ -378,6 +379,8 @@ class _TalentCreateCardStepTwoScreenState
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -443,157 +446,162 @@ class _TalentCreateCardStepTwoScreenState
                                 ),
                               ),
                               Expanded(
-                                  child: ListView(
-                                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                                      children: [
-                                        SizedBox(
-                                          height: 30.h,
-                                        ),
-                                        Text(
-                                          context.loc.titleCreateCardDescription,
-                                          style: StyleUtility
-                                              .quicksandSemiBold5457BETextStyle
-                                              .copyWith(
-                                              fontSize: TextSizeUtility.textSize16.sp),
-                                        ),
-                                        SizedBox(
-                                          height: 25.h,
-                                        ),
+                                  child: Form(
+                                    key: _formKey,
+                                    child: ListView(
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                        children: [
+                                          SizedBox(
+                                            height: 30.h,
+                                          ),
+                                          Text(
+                                            context.loc.titleCreateCardDescription,
+                                            style: StyleUtility
+                                                .quicksandSemiBold5457BETextStyle
+                                                .copyWith(
+                                                fontSize: TextSizeUtility.textSize16.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 25.h,
+                                          ),
 
 
-                                        Text(
-                                          context.loc.titleWeightRange,
-                                          style: StyleUtility
-                                              .quicksandSemiBold5457BETextStyle
-                                              .copyWith(
-                                              fontSize: TextSizeUtility.textSize16.sp),
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        SimpleTextField(
-                                            controller: weightController,
-                                            hintText: context.loc.hintMin,
-                                            textInputType: TextInputType.number
-                                        ),
-                                        SizedBox(
-                                          height: 22.h,
-                                        ),
-                                        Text(
-                                          context.loc.titleHeightRange,
-                                          style: StyleUtility
-                                              .quicksandSemiBold5457BETextStyle
-                                              .copyWith(
-                                              fontSize: TextSizeUtility.textSize16.sp),
-                                        ),
-                                        SizedBox(
-                                          height: 10.h,
-                                        ),
-                                        SimpleTextField(
-                                            controller: heightController,
-                                            hintText: context.loc.hintMin,
-                                            textInputType: TextInputType.number
-                                        ),
+                                          Text(
+                                            context.loc.titleWeightRange,
+                                            style: StyleUtility
+                                                .quicksandSemiBold5457BETextStyle
+                                                .copyWith(
+                                                fontSize: TextSizeUtility.textSize16.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          SimpleTextField(
+                                              controller: weightController,
+                                              hintText: context.loc.hintMin,
+                                              textInputType: TextInputType.number,
+                                            validator: Validators(context).validatorMinWeight,
+                                          ),
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
+                                          Text(
+                                            context.loc.titleHeightRange,
+                                            style: StyleUtility
+                                                .quicksandSemiBold5457BETextStyle
+                                                .copyWith(
+                                                fontSize: TextSizeUtility.textSize16.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          SimpleTextField(
+                                              controller: heightController,
+                                              hintText: context.loc.hintMin,
+                                              textInputType: TextInputType.number,
+                                            validator: Validators(context).validatorMinHeight,
+                                          ),
 
-                                        SizedBox(
-                                          height: 22.h,
-                                        ),
-
-
-                                        TalentBodyDropDownWidget(
-                                            ovValueChange: (item) {
-                                              talentCreateCardStepTwoProvider.selectEyeColor = item;
-                                              talentCreateCardStepTwoProvider.updateUi();
-                                            },
-                                            dropDownList: talentCreateCardStepTwoProvider.eyeColorModel,
-                                            selectItem: talentCreateCardStepTwoProvider.selectEyeColor,
-                                            hintText: context.loc.hintEyeColor
-                                          // hintText: context.loc.hint
-                                        ),
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
 
 
-                                        SizedBox(
-                                          height: 22.h,
-                                        ),
-                                        TalentBodyDropDownWidget(
-                                            ovValueChange: (item) {
-
-                                              talentCreateCardStepTwoProvider.selectHairColor = item;
-                                              talentCreateCardStepTwoProvider.updateUi();
-
-
-                                            },
-                                            dropDownList: talentCreateCardStepTwoProvider.hairColorModel,
-                                            selectItem: talentCreateCardStepTwoProvider.selectHairColor,
-                                            hintText: context.loc.hintHairColor),
-                                        SizedBox(
-                                          height: 22.h,
-                                        ),
-                                        // CustomDropDownWidget(
-                                        //     ovValueChange: (item) {
-                                        //       selectHeight = item;
-                                        //       setState(() {});
-                                        //     },
-                                        //     dropDownList: heightList,
-                                        //     selectItem: selectHeight,
-                                        //     hintText: context.loc.hintHeight),
-                                        // SizedBox(
-                                        //   height: 22.h,
-                                        // ),
-                                        // CustomDropDownWidget(
-                                        //     ovValueChange: (item) {
-                                        //       selectWeight = item;
-                                        //       setState(() {});
-                                        //     },
-                                        //     dropDownList: weightList,
-                                        //     selectItem: selectWeight,
-                                        //     hintText: context.loc.hintWeight),
-                                        // SizedBox(
-                                        //   height: 22.h,
-                                        // ),
-                                        TalentBodyDropDownWidget(
-                                            ovValueChange: (item) {
-                                              talentCreateCardStepTwoProvider.selectShirtSize = item;
-                                              talentCreateCardStepTwoProvider.updateUi();
-                                            },
-                                            dropDownList: talentCreateCardStepTwoProvider.shirtSizeModel,
-                                            selectItem: talentCreateCardStepTwoProvider.selectShirtSize,
-                                            hintText: context.loc.hintShirtSize),
-                                        SizedBox(
-                                          height: 22.h,
-                                        ),
-                                        TalentBodyDropDownWidget(
-                                            ovValueChange: (item) {
-
-                                              talentCreateCardStepTwoProvider.selectPainsSize = item;
-                                              talentCreateCardStepTwoProvider.updateUi();
-
-                                            },
-                                            dropDownList: talentCreateCardStepTwoProvider.painsSizeModel,
-                                            selectItem: talentCreateCardStepTwoProvider.selectPainsSize,
-                                            hintText: context.loc.hintPantsSize),
-                                        SizedBox(
-                                          height: 22.h,
-                                        ),
-                                        TalentBodyDropDownWidget(
-                                            ovValueChange: (item) {
-                                              talentCreateCardStepTwoProvider.selectShoeSize = item;
-                                              talentCreateCardStepTwoProvider.updateUi();
-                                            },
-                                            dropDownList: talentCreateCardStepTwoProvider.shoeSizeModel,
-                                            selectItem: talentCreateCardStepTwoProvider.selectShoeSize,
-                                            hintText: context.loc.hintShoeSize),
-
-                                        SizedBox(
-                                          height: 22.h,
-                                        ),
+                                          TalentBodyDropDownWidget(
+                                              ovValueChange: (item) {
+                                                talentCreateCardStepTwoProvider.selectEyeColor = item;
+                                                talentCreateCardStepTwoProvider.updateUi();
+                                              },
+                                              dropDownList: talentCreateCardStepTwoProvider.eyeColorModel,
+                                              selectItem: talentCreateCardStepTwoProvider.selectEyeColor,
+                                              hintText: context.loc.hintEyeColor
+                                            // hintText: context.loc.hint
+                                          ),
 
 
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
+                                          TalentBodyDropDownWidget(
+                                              ovValueChange: (item) {
 
-                                        SizedBox(
-                                          height: 40.h,
-                                        ),
-                                      ])),
+                                                talentCreateCardStepTwoProvider.selectHairColor = item;
+                                                talentCreateCardStepTwoProvider.updateUi();
+
+
+                                              },
+                                              dropDownList: talentCreateCardStepTwoProvider.hairColorModel,
+                                              selectItem: talentCreateCardStepTwoProvider.selectHairColor,
+                                              hintText: context.loc.hintHairColor),
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
+                                          // CustomDropDownWidget(
+                                          //     ovValueChange: (item) {
+                                          //       selectHeight = item;
+                                          //       setState(() {});
+                                          //     },
+                                          //     dropDownList: heightList,
+                                          //     selectItem: selectHeight,
+                                          //     hintText: context.loc.hintHeight),
+                                          // SizedBox(
+                                          //   height: 22.h,
+                                          // ),
+                                          // CustomDropDownWidget(
+                                          //     ovValueChange: (item) {
+                                          //       selectWeight = item;
+                                          //       setState(() {});
+                                          //     },
+                                          //     dropDownList: weightList,
+                                          //     selectItem: selectWeight,
+                                          //     hintText: context.loc.hintWeight),
+                                          // SizedBox(
+                                          //   height: 22.h,
+                                          // ),
+                                          TalentBodyDropDownWidget(
+                                              ovValueChange: (item) {
+                                                talentCreateCardStepTwoProvider.selectShirtSize = item;
+                                                talentCreateCardStepTwoProvider.updateUi();
+                                              },
+                                              dropDownList: talentCreateCardStepTwoProvider.shirtSizeModel,
+                                              selectItem: talentCreateCardStepTwoProvider.selectShirtSize,
+                                              hintText: context.loc.hintShirtSize),
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
+                                          TalentBodyDropDownWidget(
+                                              ovValueChange: (item) {
+
+                                                talentCreateCardStepTwoProvider.selectPainsSize = item;
+                                                talentCreateCardStepTwoProvider.updateUi();
+
+                                              },
+                                              dropDownList: talentCreateCardStepTwoProvider.painsSizeModel,
+                                              selectItem: talentCreateCardStepTwoProvider.selectPainsSize,
+                                              hintText: context.loc.hintPantsSize),
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
+                                          TalentBodyDropDownWidget(
+                                              ovValueChange: (item) {
+                                                talentCreateCardStepTwoProvider.selectShoeSize = item;
+                                                talentCreateCardStepTwoProvider.updateUi();
+                                              },
+                                              dropDownList: talentCreateCardStepTwoProvider.shoeSizeModel,
+                                              selectItem: talentCreateCardStepTwoProvider.selectShoeSize,
+                                              hintText: context.loc.hintShoeSize),
+
+                                          SizedBox(
+                                            height: 22.h,
+                                          ),
+
+
+
+                                          SizedBox(
+                                            height: 40.h,
+                                          ),
+                                        ]),
+                                  )),
                               Container(
                                 padding: EdgeInsets.only(
                                   left: 20.w,
@@ -625,11 +633,22 @@ class _TalentCreateCardStepTwoScreenState
                                           talentCreateCardModel?.profileTalentdata = talentCreateCardStepTwoProvider.talentBodyData;
                                           AppLogger.logD(
                                               talentCreateCardModel?.toJson());
-                                          Navigator.pushNamed(
-                                              context, RouteName.addYourPhotoScreen,
-                                              arguments: {
-                                                "talentCreateCardModel": talentCreateCardModel
-                                              });
+
+                                          if(_formKey.currentState!.validate()){
+                                            if(talentCreateCardStepTwoProvider.talentBodyData.isEmpty){
+
+                                              Common.showErrorSnackBar(context, StringsUtility.selectValueText);
+
+                                            }else{
+                                              Navigator.pushNamed(
+                                                  context, RouteName.addYourPhotoScreen,
+                                                  arguments: {
+                                                    "talentCreateCardModel": talentCreateCardModel
+                                                  });
+                                            }
+
+                                          }
+
                                         },
                                       ),
                                     )

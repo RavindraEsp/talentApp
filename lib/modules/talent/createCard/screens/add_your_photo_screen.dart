@@ -10,6 +10,7 @@ import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
@@ -188,7 +189,7 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
 
                               AppLogger.logD("Image le ${selectedImages.length}");
                               if(selectedImages.isEmpty){
-                                Common.showErrorSnackBar(context, "Please upload image.");
+                                Common.showErrorSnackBar(context, StringsUtility.uploadImage);
                               }else{
                                 // Navigator.pushNamed(
                                 //     context, RouteName.addYourVideoScreen);

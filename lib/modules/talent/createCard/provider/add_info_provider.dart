@@ -93,6 +93,7 @@ class AddInfoProvider extends ChangeNotifier {
 
       rawData = {
         //  userId:34
+       // "id": "18",
         "FirstName": talentCreateCardModel?.firstName,
         "LastName": talentCreateCardModel?.lastName,
         "Gender": talentCreateCardModel?.gender,

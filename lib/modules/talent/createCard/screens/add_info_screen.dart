@@ -15,9 +15,10 @@ import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
-import 'package:talent_app/utilities/shared_preference.dart';
+import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/utilities/validation.dart';
 import 'package:talent_app/widgets/alertDialog/congratulation_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
@@ -63,6 +64,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   ];
 
   DropDownModel? selectCourse;
+
 
   @override
   void initState() {
@@ -421,6 +423,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                             hintText: context.loc
                                                 .hintWriteAFewWordsAboutYourself,
                                             maxLine: 4,
+                                            validator: Validators(context).validatorAboutYou,
                                           ),
                                           SizedBox(
                                             height: 27.h,
@@ -501,30 +504,54 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                                     AppLogger.logD("TalentCreateCardModel ${talentCreateCardModel?.toJson()}");
 
 
+                                                    if(_formKey.currentState!.validate()){
+                                                      if((addInfoProvider.selectedLookingForIds?.length ?? 0) == 0 ){
 
-                                                    addInfoProvider.createTalentCard(onSuccess: (msg){},
-                                                        onFailure: (message){
-                                                      Common.showErrorSnackBar(context, message);
+                                                        Common.showErrorSnackBar(context, StringsUtility.selectCategory);
+                                                      }else {
 
-                                                        },
-                                                        talentCreateCardModel: talentCreateCardModel,
-                                                        selectedImages: widget.selectedImages);
-                                                    // showCongratulationDialog(
-                                                    //     context: context,
-                                                    //     onButtonTap: () {
-                                                    //
-                                                    //       Navigator
-                                                    //           .pushNamedAndRemoveUntil(
-                                                    //               context,
-                                                    //               RouteName
-                                                    //                   .talentBottomBarScreen,
-                                                    //               arguments: {
-                                                    //                 "selectIndex":
-                                                    //                     0
-                                                    //               },
-                                                    //               (route) =>
-                                                    //                   false);
-                                                    //     });
+                                                        Common.showLoadingDialog(context);
+                                                        addInfoProvider
+                                                            .createTalentCard(
+                                                            onSuccess: (msg) {
+                                                              Navigator.pop(context);
+
+                                                              showCongratulationDialog(
+                                                                  context: context,
+                                                                 );
+                                                            },
+                                                            onFailure: (
+                                                                message) {
+                                                              Navigator.pop(context);
+                                                              Common
+                                                                  .showErrorSnackBar(
+                                                                  context,
+                                                                  message);
+                                                            },
+                                                            talentCreateCardModel: talentCreateCardModel,
+                                                            selectedImages: widget
+                                                                .selectedImages);
+                                                        // showCongratulationDialog(
+                                                        //     context: context,
+                                                        //     onButtonTap: () {
+                                                        //
+                                                        //       Navigator
+                                                        //           .pushNamedAndRemoveUntil(
+                                                        //               context,
+                                                        //               RouteName
+                                                        //                   .talentBottomBarScreen,
+                                                        //               arguments: {
+                                                        //                 "selectIndex":
+                                                        //                     0
+                                                        //               },
+                                                        //               (route) =>
+                                                        //                   false);
+                                                        //     });
+
+                                                      }
+                                                    }
+
+
                                                   },
                                                   buttonType: ButtonType.blue,
                                                 ),
@@ -550,7 +577,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
 
   Future<dynamic> showCongratulationDialog({
     required BuildContext context,
-    required VoidCallback onButtonTap,
+
   }) {
     return showDialog(
         context: context,
@@ -559,11 +586,22 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
             title: context.loc.dialogWellDone,
             description: context.loc.dialogTalentCardSetSuccessDescription,
             buttonText: context.loc.buttonImReadyBringItOn,
-            onButtonTap: onButtonTap,
+            onButtonTap: (){},
             userType: UserType.talent,
           );
         }).then((value) {
       AppLogger.logD("Then is called");
+      Navigator
+          .pushNamedAndRemoveUntil(
+          context,
+          RouteName
+              .talentBottomBarScreen,
+          arguments: {
+            "selectIndex":
+            0
+          },
+              (route) =>
+          false);
     });
   }
 }

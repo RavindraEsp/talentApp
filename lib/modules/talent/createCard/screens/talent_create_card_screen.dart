@@ -208,6 +208,7 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
                                   hintText: "DD/MM/YYYY",
                                   isEnable: false,
                                   suffixImage: ImageUtility.calenderIcon,
+                                  validator: Validators(context).validatorBirthday,
                                 ),
                               ),
                               SizedBox(
