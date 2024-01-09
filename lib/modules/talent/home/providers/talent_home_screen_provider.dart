@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/network/model/response/casterAudition/CasterHomeResponseModel.dart';
 import 'package:talent_app/network/model/response/talent/talent_home/talent_home_response_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 

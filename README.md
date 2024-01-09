@@ -37,6 +37,10 @@ profileTalentdata  => eye color id in array [1,2,3]
 
 careerModel => category [1,2,3]
 
+//Talent app 
+Home screen
+"applyStatus" => 
+0=More details ,1=awaiting approval ,2=reschedule,
 
 
 

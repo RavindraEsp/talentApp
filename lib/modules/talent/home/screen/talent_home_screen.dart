@@ -154,7 +154,9 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                   builder: (context, talentHomeScreenProvider,child) {
                     return TabBarView(
               children: [
+
                     AuditionForYouWidget(),
+
                 talentHomeScreenProvider.isLoading == true
                     ? const CustomCircularLoaderWidget():
                     ApprovedAuditionWidget(
@@ -162,6 +164,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                         talentHomeScreenProvider
                             .talentHomeResponseModel?.data?.approvedAuditionList,
                     ),
+
               ],
             );
                   }

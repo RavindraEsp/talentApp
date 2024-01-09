@@ -54,8 +54,7 @@ class _HelloTalentScreenState extends State<HelloTalentScreen> {
                             color: Colors.white,
                           ),
                           Text(
-                            // context.loc.buttonIAmTalent,
-                            "I’m a Casting",
+                             context.loc.buttonIAmCasting,
                             style: StyleUtility.kantumruyProSMedium18TextStyle
                                 .copyWith(
                               fontSize: TextSizeUtility.textSize18.sp,
@@ -68,8 +67,7 @@ class _HelloTalentScreenState extends State<HelloTalentScreen> {
                         height: 18.h,
                       ),
                       Text(
-                        //  context.loc.helloCast,
-                        "Hello Talent",
+                          context.loc.helloTalent,
                         textAlign: TextAlign.center,
                         style: StyleUtility.extraLargeTextStyle
                             .copyWith(fontSize: TextSizeUtility.textSize40.sp),
@@ -78,8 +76,7 @@ class _HelloTalentScreenState extends State<HelloTalentScreen> {
                         height: 8.h,
                       ),
                       Text(
-                        // context.loc.helloCastDesc,
-                        "Come and join us and get good opportunities for work in the field of acting, singing, modeling and more… Let the work find you!",
+                         context.loc.helloTalentDesc,
                         textAlign: TextAlign.center,
                         style:
                             StyleUtility.quicksandRegular15TextStyle.copyWith(
