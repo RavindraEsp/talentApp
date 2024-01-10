@@ -26,7 +26,13 @@ class DioHttpService implements HttpService {
   //  Dio(baseOptions);
 
 
-
+    //need it if not add then token expired go to catch bloc
+    dio.options = BaseOptions(
+      responseType: ResponseType.json,
+        validateStatus: (int? status) {
+          return true;
+        },
+    );
 
     dio.interceptors.add(LoggyDioInterceptor());
     dio.interceptors.add(BearerTokenInterceptor(Preference().getAccessToken()));
@@ -122,7 +128,7 @@ class DioHttpService implements HttpService {
     Future<Response<dynamic>> api,
   ) async {
     try {
-      final response = await api;
+      final Response response = await api;
       if (response.statusCode == 200 || response.statusCode == 201) {
         return Future.value(response.data);
       } else {
@@ -131,6 +137,8 @@ class DioHttpService implements HttpService {
     } on DioError catch (e) {
       return Future.error(parseDioError(e));
     }
+
+
   }
 
 
@@ -175,7 +183,7 @@ class DioHttpService implements HttpService {
         return response.data;
       case 500:
         return AppException.error(
-            'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+            'Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
       default:
         return response.data;
     }

@@ -519,7 +519,8 @@ class _CreateAuditionPlaceTimeScreenState
                                         date: createAuditionPlaceTimeProvider
                                                 .dateTimeList[index].date ??
                                             "",
-                                        time: createAuditionPlaceTimeProvider
+                                        time:
+                                        createAuditionPlaceTimeProvider
                                                 .dateTimeList[index].time ??
                                             "",
                                         spots: createAuditionPlaceTimeProvider

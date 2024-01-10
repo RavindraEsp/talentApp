@@ -25,25 +25,28 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent.withOpacity(0.1),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.r)),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child:Center(child:
-          Text(buttonText,
-              maxLines: 1,
-              style: StyleUtility.buttonTextStyle.copyWith(
-                  fontSize: TextSizeUtility.textSize18.sp
-                  ,
-                  color: ColorUtility.color5457BE
+    return SizedBox(
+      height: TextSizeUtility.buttonHeight,
+      child: ElevatedButton(
+          onPressed: onTap,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent.withOpacity(0.1),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.r)),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child:Center(child:
+            Text(buttonText,
+                maxLines: 1,
+                style: StyleUtility.buttonTextStyle.copyWith(
+                    fontSize: TextSizeUtility.textSize18.sp
+                    ,
+                    color: ColorUtility.color5457BE
 
-              )),)
-        ));
+                )),)
+          )),
+    );
   }
 }

@@ -28,7 +28,7 @@ class NotificationProvider extends ChangeNotifier {
       }
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
-      onFailure.call("Server Error");
+      onFailure.call(error.toString());
       isLoading = false;
       notifyListeners();
     });

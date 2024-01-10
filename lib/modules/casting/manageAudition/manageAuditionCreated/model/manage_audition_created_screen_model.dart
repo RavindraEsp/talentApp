@@ -363,7 +363,7 @@ class AppliedUsers {
   String? height;
   String? weight;
   dynamic? profilePic;
-  String? gender;
+  int? gender;
   String? address;
   String? age;
   int? appliedId;
@@ -555,7 +555,7 @@ class UserList {
   String? height;
   String? weight;
   String? profilePic;
-  String? gender;
+  int? gender;
   String? address;
   String? age;
 

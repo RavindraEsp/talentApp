@@ -250,6 +250,7 @@
   "delete": "Delete",
   "noAnyNotification": "No Any Notification",
   "dateTimeAddValidation": "Please Fill All field.",
-  "applied": "Applied"
+  "applied": "Applied",
+  "auditionDate": "Audition date"
 }
 

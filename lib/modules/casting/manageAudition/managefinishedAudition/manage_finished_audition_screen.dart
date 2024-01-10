@@ -264,7 +264,10 @@ class CandidateListWidget extends StatelessWidget {
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     Navigator.pushNamed(context,
-                                        RouteName.seeUserProfileScreen);
+                                        RouteName.seeUserProfileScreen,
+                                        arguments: {
+                                          "telentUserId": data?.talentUserId
+                                        });
                                   },
                                   child: Row(
                                     children: [

@@ -304,7 +304,8 @@ class _EditAuditionPlaceTimeScreenState
                                                       .dateTimeList?[index]
                                                       .date ??
                                                   "",
-                                              time: provider
+                                              time:
+                                              provider
                                                       .dateTimeList?[index]
                                                       .time ??
                                                   "",

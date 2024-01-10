@@ -10,7 +10,6 @@ import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -29,6 +28,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
   @override
   void initState() {
     super.initState();
+
     Provider.of<TalentHomeScreenProvider>(context, listen: false)
         .getHomeDataForTalent(onFailure: (message) {
       Common.showErrorSnackBar(context, message);
@@ -104,8 +104,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                                 size: 25.sp,
                               ))),
                       // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                      imageUrl:
-                      "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
+                      imageUrl: "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
                 )
               ],
             ),
@@ -155,7 +154,14 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                     return TabBarView(
               children: [
 
-                    AuditionForYouWidget(),
+                talentHomeScreenProvider.isLoading == true
+                    ? const CustomCircularLoaderWidget():
+                    AuditionForYouWidget(
+                      auditionforyouList: talentHomeScreenProvider
+                          .talentHomeResponseModel?.data?.auditionforyouList,
+                      talentHomeScreenProvider: talentHomeScreenProvider,
+
+                    ),
 
                 talentHomeScreenProvider.isLoading == true
                     ? const CustomCircularLoaderWidget():
@@ -174,4 +180,6 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
       ),
     );
   }
+
+
 }

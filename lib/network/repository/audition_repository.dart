@@ -3,6 +3,7 @@ import 'package:talent_app/modules/casting/editAudition/model/adition_details_mo
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/manage_audition_created_screen_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/model/manage_finish_data_response_model.dart';
+import 'package:talent_app/modules/talent/auditionDetails/model/audition_detail_response_model.dart';
 import 'package:talent_app/network/client/dio_http_service.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/network/model/response/basic_response.dart';
@@ -110,6 +111,30 @@ Future<TalentHomeResponseModel> getHomeDataForTalent() {
         )
         .then((value) => TalentHomeResponseModel.fromJson(value));
   }
+
+  Future<AuditionDetailResponseModel> geAuditionDetails(Map<String, dynamic>? queryParameters) {
+    return dioHttpService
+        .get(
+      Endpoints.baseUrl +
+          Endpoints.apiEndPoints.getAuditionDetailbytalent,
+      queryParameters: queryParameters
+    )
+        .then((value) => AuditionDetailResponseModel.fromJson(value));
+  }
+
+
+  Future<BasicResponse> applyAudition(Map request) {
+    return dioHttpService
+        .post(
+        Endpoints.baseUrl +
+            Endpoints.apiEndPoints.applyAudition,
+      data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/auth/signup/provider/cast_verify_phone_provider.dart';
 import 'package:talent_app/network/model/request/auth/signup/SignUpRequest.dart';
+import 'package:talent_app/network/model/request/auth/signup/SignUpSendOtpRequest.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
@@ -166,14 +167,43 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                       fontSize: TextSizeUtility.textSize16.sp,
                                     ),
                                   ),
-                                  Text(
-                                    context.loc.resendCode,
-                                    style: StyleUtility.mulishRegular16TextStyle
-                                        .copyWith(
-                                            fontSize:
-                                                TextSizeUtility.textSize16.sp,
-                                            color: ColorUtility.color5457BE,
-                                            fontWeight: FontWeight.bold),
+                                  GestureDetector(
+                                    onTap: (){
+                                      Common.showLoadingDialog(context);
+                                      provider.reSendOtp(
+                                          onSuccess: (message) {
+                                            Navigator.pop(context);
+                                            Common.showSuccessToast(
+                                                context, message);
+
+                                          },
+                                          onFailure: (message) {
+                                            Navigator.pop(context);
+                                            Common.showErrorSnackBar(
+                                                context, message);
+                                          },
+                                          request: SignupSendOtpRequest(
+                                              email: widget.email,
+                                              mobileNumber:
+                                              widget.phone,
+
+                                              userType: widget.userType ==
+                                                  UserType.talent
+                                                  ? 1
+                                                  : 2, // for caster
+                                              userName: widget.userName,
+                                              apiType: "signup"
+                                          ));
+                                    },
+                                    child: Text(
+                                      context.loc.resendCode,
+                                      style: StyleUtility.mulishRegular16TextStyle
+                                          .copyWith(
+                                              fontSize:
+                                                  TextSizeUtility.textSize16.sp,
+                                              color: ColorUtility.color5457BE,
+                                              fontWeight: FontWeight.bold),
+                                    ),
                                   )
                                 ],
                               ),

@@ -14,6 +14,7 @@ class TalentHomeScreenProvider extends ChangeNotifier {
     required ValueChanged<String> onFailure,
   }) {
     isLoading = true;
+    talentHomeResponseModel = TalentHomeResponseModel();
     auditionRepository.getHomeDataForTalent().then((value) {
       if (value.success == true) {
         talentHomeResponseModel = value;
@@ -28,5 +29,9 @@ class TalentHomeScreenProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     });
+  }
+
+  updateUi(){
+    notifyListeners();
   }
 }

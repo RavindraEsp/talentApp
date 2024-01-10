@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 
 class Validators {
   BuildContext context;
@@ -99,9 +100,15 @@ class Validators {
     return null;
   }
 
+
+
   String? validatorMinWeight(value) {
+
     if (value.isEmpty) {
       return "Min weight is required";
+    }
+    else if(double.parse(value) < 1){
+      return "Invalid weight.";
     }
     return null;
   }
@@ -110,19 +117,28 @@ class Validators {
     if (value.isEmpty) {
       return "Max weight is required.";
     }
+    else if(double.parse(value) <1){
+      return "Invalid weight.";
+    }
     return null;
   }
 
   String? validatorMinHeight(value) {
     if (value.isEmpty) {
       return "Min height is required.";
+    } else if(double.parse(value) <1){
+      return "Invalid height.";
     }
     return null;
   }
 
+
+
   String? validatorMaxHeight(value) {
     if (value.isEmpty) {
       return "Max height is required.";
+    }else if(double.parse(value) <1){
+      return "Invalid height.";
     }
     return null;
   }

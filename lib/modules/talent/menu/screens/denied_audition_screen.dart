@@ -124,12 +124,12 @@ class _DeniedAuditionScreenState extends State<DeniedAuditionScreen> {
                                       child: ElevatedButton(
                                           onPressed: () {
 
-                                            Navigator.pushNamed(context,
-                                                RouteName.auditionDetailScreen,
-                                                arguments: {
-                                                  "auditionDetailType":
-                                                      AuditionDetailType.denied
-                                                });
+                                            // Navigator.pushNamed(context,
+                                            //     RouteName.auditionDetailScreen,
+                                            //     arguments: {
+                                            //       "auditionDetailType":
+                                            //           AuditionDetailType.denied
+                                            //     });
 
                                           },
                                           style: ElevatedButton.styleFrom(

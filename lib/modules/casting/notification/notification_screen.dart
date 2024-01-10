@@ -32,7 +32,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     Provider.of<NotificationProvider>(context, listen: false).getNotification(
       userType: widget.userType == UserType.talent  ? "1" :"2",
         onFailure: (msg) {
-      Common.showErrorToast(context, msg);
+      Common.showErrorSnackBar(context, msg);
     });
   }
 

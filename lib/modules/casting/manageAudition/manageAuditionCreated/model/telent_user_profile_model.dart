@@ -33,7 +33,7 @@ class TalantUserProfileModel {
 class Data {
   int? id;
   int? userId;
-  String? gender;
+  int? gender;
   String? phone;
   String? email;
   String? address;

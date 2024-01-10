@@ -83,15 +83,15 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
                title: context.loc.menuApprovedAuditions,
               image: ImageUtility.approvedAuditionIcon,
               onTap: () {
-                Navigator.pushNamed(
-                    context,
-                    RouteName
-                        .auditionDetailScreen,
-                    arguments: {
-                      "auditionDetailType":
-                      AuditionDetailType
-                          .approved
-                    });
+                // Navigator.pushNamed(
+                //     context,
+                //     RouteName
+                //         .auditionDetailScreen,
+                //     arguments: {
+                //       "auditionDetailType":
+                //       AuditionDetailType
+                //           .approved
+                //     });
               },
             ),
             Container(

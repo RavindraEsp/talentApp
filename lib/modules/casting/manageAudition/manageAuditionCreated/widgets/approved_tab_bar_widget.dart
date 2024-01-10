@@ -179,7 +179,10 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                             Navigator.pushNamed(
                                                                 context,
                                                                 RouteName
-                                                                    .seeUserProfileScreen);
+                                                                    .seeUserProfileScreen,
+                                                                arguments: {
+                                                                  "telentUserId": userList?.talentUserId
+                                                                });
                                                           },
                                                           child: Row(
                                                             children: [
@@ -323,8 +326,11 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          userList?.gender ??
-                                                                              "",
+
+                                                                          // userList?.gender ??
+                                                                          //     "",
+
+                                                                          userList?.gender == 1 ? "Male" :  userList?.gender == 2 ? "Female":"Other",
                                                                           maxLines:
                                                                               1,
                                                                           style: StyleUtility

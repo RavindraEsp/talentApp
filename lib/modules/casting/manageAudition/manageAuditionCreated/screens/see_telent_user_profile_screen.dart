@@ -23,6 +23,7 @@ import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class SeeUserProfileScreen extends StatefulWidget {
   final int telentUserId;
+
   const SeeUserProfileScreen({super.key, required this.telentUserId});
 
   @override
@@ -121,7 +122,13 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    "${provider.talantUserProfileModel?.data?.first.name ?? ""} | ${provider.talantUserProfileModel?.data?.first.gender ?? ""}",
+                                    "${provider.talantUserProfileModel?.data?.first.name ?? ""} |"
+                                    " ${provider.talantUserProfileModel?.data?.first.gender == 1 ? "Male" : provider.talantUserProfileModel?.data?.first.gender == 2 ? "Female" : "Other"}",
+
+                                    //  provider.talantUserProfileModel?.data?.first.gender == 1 ? "Male" :  provider.talantUserProfileModel?.data?.first.gender == 2 ? "Female":"Other",
+
+                                    // "${provider.talantUserProfileModel?.data?.first.name ?? ""} |"
+                                    //     " ${provider.talantUserProfileModel?.data?.first.gender ?? ""}",
                                     style: StyleUtility
                                         .quicksandRegularBlackTextStyle
                                         .copyWith(
@@ -520,7 +527,8 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       child: InkWell(
                                         onTap: () {
                                           if (provider
@@ -538,12 +546,13 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                             Common.showErrorSnackBar(
                                                 context, "No Link Avaolabe");
                                           }
-                                          ConstantMethod.launchUrlBrowser(provider
-                                                  .talantUserProfileModel
-                                                  ?.data
-                                                  ?.first
-                                                  .facebooklink ??
-                                              "");
+                                          ConstantMethod.launchUrlBrowser(
+                                              provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .facebooklink ??
+                                                  "");
                                         },
                                         child: Image.asset(
                                           ImageUtility.fbCircleIcon,
@@ -552,10 +561,9 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                         ),
                                       ),
                                     ),
-
-
                                     Padding(
-                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       child: InkWell(
                                         onTap: () {
                                           if (provider.talantUserProfileModel
@@ -567,12 +575,10 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                             Common.showErrorSnackBar(
                                                 context, "No Link Available");
                                           }
-                                          ConstantMethod.launchUrlBrowser(provider
-                                                  .talantUserProfileModel
-                                                  ?.data
-                                                  ?.first
-                                                  .instalink ??
-                                              "");
+                                          ConstantMethod.launchUrlBrowser(
+                                              provider.talantUserProfileModel
+                                                      ?.data?.first.instalink ??
+                                                  "");
                                         },
                                         child: Image.asset(
                                           ImageUtility.instagramCircleIcon,
@@ -581,27 +587,33 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                         ),
                                       ),
                                     ),
-
-
                                     Padding(
-                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       child: InkWell(
                                         onTap: () {
-                                          if (provider.talantUserProfileModel
-                                                      ?.data?.first.youtubelink ==
+                                          if (provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .youtubelink ==
                                                   null ||
-                                              provider.talantUserProfileModel
-                                                      ?.data?.first.youtubelink ==
+                                              provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .youtubelink ==
                                                   "") {
                                             Common.showErrorSnackBar(
                                                 context, "No Link Available");
                                           }
-                                          ConstantMethod.launchUrlBrowser(provider
-                                                  .talantUserProfileModel
-                                                  ?.data
-                                                  ?.first
-                                                  .youtubelink ??
-                                              "");
+                                          ConstantMethod.launchUrlBrowser(
+                                              provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .youtubelink ??
+                                                  "");
                                         },
                                         child: Image.asset(
                                           ImageUtility.youtubeCircleIcon,
@@ -610,27 +622,33 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                         ),
                                       ),
                                     ),
-
-
                                     Padding(
-                                      padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       child: InkWell(
                                         onTap: () {
-                                          if (provider.talantUserProfileModel
-                                              ?.data?.first.youtubelink ==
-                                              null ||
-                                              provider.talantUserProfileModel
-                                                  ?.data?.first.youtubelink ==
+                                          if (provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .youtubelink ==
+                                                  null ||
+                                              provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .youtubelink ==
                                                   "") {
                                             Common.showErrorSnackBar(
                                                 context, "No Link Available");
                                           }
-                                          ConstantMethod.launchUrlBrowser(provider
-                                              .talantUserProfileModel
-                                              ?.data
-                                              ?.first
-                                              .youtubelink ??
-                                              "");
+                                          ConstantMethod.launchUrlBrowser(
+                                              provider
+                                                      .talantUserProfileModel
+                                                      ?.data
+                                                      ?.first
+                                                      .youtubelink ??
+                                                  "");
                                         },
                                         child: Image.asset(
                                           ImageUtility.tiktokCircleIcon,
@@ -656,30 +674,26 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                   height: 10.h,
                                 ),
 
-
-
-
                                 Container(
-                                  padding: EdgeInsets.only(left: 10.w, top: 16, bottom: 16, right: 10.w),
+                                  padding: EdgeInsets.only(
+                                      left: 10.w,
+                                      top: 16,
+                                      bottom: 16,
+                                      right: 10.w),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.r),
-                                    border: Border.all(color: ColorUtility.colorD6D6D8),
-
+                                    border: Border.all(
+                                        color: ColorUtility.colorD6D6D8),
                                   ),
-                                  child: Text(provider
-                                      .talantUserProfileModel
-                                      ?.data
-                                      ?.first
-                                      .about ??
-                                      "",style: StyleUtility.inputTextStyle.copyWith(
-                                    fontSize: TextSizeUtility.textSize15.sp,
-                                  ),),
+                                  child: Text(
+                                    provider.talantUserProfileModel?.data?.first
+                                            .about ??
+                                        "",
+                                    style: StyleUtility.inputTextStyle.copyWith(
+                                      fontSize: TextSizeUtility.textSize15.sp,
+                                    ),
+                                  ),
                                 ),
-
-
-
-
-
 
                                 SizedBox(
                                   height: 22.h,
@@ -767,7 +781,8 @@ class _ProfileImageViewPagerWidgetState
                                         "${Endpoints.imageBaseUrl}${provider.talantUserProfileModel?.data?.first.imageFiles?[index].files}"),
                               ),
                               Padding(
-                                 padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.w),
+                                padding: EdgeInsets.only(
+                                    left: 10.w, right: 10.w, bottom: 10.w),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -781,8 +796,8 @@ class _ProfileImageViewPagerWidgetState
                                       style: StyleUtility
                                           .quicksandMediumWhiteTextStyle
                                           .copyWith(
-                                              fontSize:
-                                                  TextSizeUtility.textSize12.sp),
+                                              fontSize: TextSizeUtility
+                                                  .textSize12.sp),
                                     ),
                                   ],
                                 ),

@@ -16,7 +16,6 @@ class ApprovedAuditionWidget extends StatelessWidget {
  final List<ApprovedAuditionList>? approvedAuditionList;
 
 
-
    const ApprovedAuditionWidget({
     super.key, required this.approvedAuditionList,
   });
@@ -39,7 +38,8 @@ class ApprovedAuditionWidget extends StatelessWidget {
                   arguments: {
                     "auditionDetailType":
                     AuditionDetailType
-                        .approved
+                        .approved,
+                    "auditionId":approvedAuditionList?[index].auditionId,
                   });
             },
             child: Padding(

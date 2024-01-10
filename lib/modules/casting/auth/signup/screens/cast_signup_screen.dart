@@ -252,22 +252,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                         } else {
                                           CommonMethod.hideKeyBoard(context);
 
-                                          ///Todo temp
-                                          // Navigator.pushNamed(context,
-                                          //     RouteName.castVerifyPhoneScreen,
-                                          //     arguments: {
-                                          //       "userType": widget.userType,
-                                          //       "email": emailController.text,
-                                          //       "phone": phoneController.text,
-                                          //       "userName":
-                                          //           userNameController.text,
-                                          //       "password":
-                                          //           passwordController.text,
-                                          //       "confirmPassword":
-                                          //           confirmPasswordController
-                                          //               .text,
-                                          //     });
-
                                           Common.showLoadingDialog(context);
                                           provider.signUpGetOtp(
                                               onSuccess: (message) {
@@ -313,6 +297,8 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                                         UserType.talent
                                                     ? 1
                                                     : 2, // for caster
+                                                  userName: userNameController.text,
+                                                apiType: "signup"
                                               ));
                                         }
                                       }
