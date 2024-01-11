@@ -132,6 +132,27 @@ Future<TalentHomeResponseModel> getHomeDataForTalent() {
         .then((value) => BasicResponse.fromJson(value));
   }
 
+  Future<BasicResponse> rescheduleAudition(Map request) {
+    return dioHttpService
+        .post(
+        Endpoints.baseUrl +
+            Endpoints.apiEndPoints.applyAudition,
+        data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
+
+  Future<BasicResponse> withdrawAudition(Map request) {
+    return dioHttpService
+        .post(
+        Endpoints.baseUrl +
+            Endpoints.apiEndPoints.withdrawAudition,
+        data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
+
+
 
 
 

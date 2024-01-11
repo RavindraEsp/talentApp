@@ -324,6 +324,9 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                           SizedBox(
                             height: 18.h,
                           ),
+
+                          //date list view
+
                           ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount: auditionDetails?.getAuditionDateArr?.length ?? 0,
@@ -430,7 +433,6 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                         context.loc.buttonApplyForTheAudition,
                                     onTap: () {
 
-
                                       bool isDateSelect = false;
                                       int? selectDateId;
                                       for (var dateArr in auditionDetails!.getAuditionDateArr!) {
@@ -463,10 +465,6 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                         Common.showErrorSnackBar(context, StringsUtility.selectAuditionDate);
                                       }
 
-
-
-
-
                                     },
                                   ),
                                 )
@@ -482,8 +480,42 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                     buttonText: context
                                         .loc.buttonSendNewScheduleApproval,
                                     onTap: () {
-                                      showNewScheduleSuccessDialog(
-                                          context: context);
+
+                                      bool isDateSelect = false;
+                                      int? selectDateId;
+                                      for (var dateArr in auditionDetails!.getAuditionDateArr!) {
+                                        if(dateArr.isSelected == true){
+                                          isDateSelect = true;
+                                          selectDateId = dateArr.id;
+                                        }
+                                      }
+
+                                      if(isDateSelect == true){
+
+                                        Common.showLoadingDialog(context);
+                                        auditionDetailsScreenProvider.rescheduleAudition(
+                                            onFailure: (message){
+                                              Navigator.pop(context);
+                                              Common.showErrorSnackBar(context, message);
+                                            },
+                                            onSuccess:(message){
+                                              Navigator.pop(context);
+                                              showNewScheduleSuccessDialog(
+                                                  context: context);
+                                            },
+                                            casterUserId: auditionDetails.casterUserId,
+                                            auditionId: auditionDetails.auditionId,
+                                            auditionDateId: selectDateId,
+                                            applyId: auditionDetails.applyId);
+
+                                      }else{
+                                        Common.showErrorSnackBar(context, StringsUtility.selectAuditionDate);
+                                      }
+
+
+
+                                      // showNewScheduleSuccessDialog(
+                                      //     context: context);
                                     },
                                   ),
                                 )
@@ -543,7 +575,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                 )
                               : const SizedBox(),
 
-                          //For Reschedule
+                          //For Reschedule And awaitning both
                           widget.auditionDetailType ==
                                       AuditionDetailType.reschedule ||
                                   widget.auditionDetailType ==
@@ -561,7 +593,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                 )
                               : const SizedBox(),
 
-                          //For Reschedule
+                          //For Denied
                           widget.auditionDetailType == AuditionDetailType.denied
                               ? Container(
                                   margin: EdgeInsets.only(top: 15.h),
@@ -689,7 +721,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
             onCrossTap: () {},
           );
         }).then((value) {
-      Navigator.pop(context);
+      Navigator.pop(context,true);
     });
   }
 }

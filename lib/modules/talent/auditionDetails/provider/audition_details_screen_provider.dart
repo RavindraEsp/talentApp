@@ -64,6 +64,41 @@ class AuditionDetailsScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  rescheduleAudition({
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+    required int? casterUserId,
+    required int? auditionId,
+    required int? auditionDateId,
+    required int? applyId,
+  }) {
+
+    Map request = {
+     "casterUserId":casterUserId,
+        "auditionId":auditionId,
+        "auditionDateId":auditionDateId,
+        "applyId":applyId
+
+
+    };
+    auditionRepository.rescheduleAudition(request).then((value) {
+      if (value.success == true) {
+        onSuccess.call(value.msg ?? "");
+
+      }else{
+        onFailure.call(value.msg ?? "");
+      }
+
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+      onFailure.call(error.toString());
+    });
+    notifyListeners();
+  }
+
+
+
+
   updateUi(){
     notifyListeners();
   }

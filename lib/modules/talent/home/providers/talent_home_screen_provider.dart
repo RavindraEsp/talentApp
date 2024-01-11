@@ -7,6 +7,7 @@ class TalentHomeScreenProvider extends ChangeNotifier {
   final AuditionRepository auditionRepository = AuditionRepository();
 
   bool isLoading = false;
+
   //
   TalentHomeResponseModel? talentHomeResponseModel;
 
@@ -18,8 +19,9 @@ class TalentHomeScreenProvider extends ChangeNotifier {
     auditionRepository.getHomeDataForTalent().then((value) {
       if (value.success == true) {
         talentHomeResponseModel = value;
-
         notifyListeners();
+      } else {
+        onFailure.call(value.msg ?? "");
       }
       isLoading = false;
       notifyListeners();
@@ -31,7 +33,27 @@ class TalentHomeScreenProvider extends ChangeNotifier {
     });
   }
 
-  updateUi(){
+  withdrawAudition({
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+    required int? appliedId,
+  }) {
+    Map request = {"appliedId": appliedId};
+
+    auditionRepository.withdrawAudition(request).then((value) {
+      if (value.success == true) {
+        onSuccess.call(value.msg ?? "");
+      } else {
+        onFailure.call(value.msg ?? "");
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+      onFailure.call(error.toString());
+    });
+    notifyListeners();
+  }
+
+  updateUi() {
     notifyListeners();
   }
 }
