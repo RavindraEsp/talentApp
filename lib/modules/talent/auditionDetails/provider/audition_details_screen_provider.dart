@@ -96,7 +96,25 @@ class AuditionDetailsScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  withdrawAudition({
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+    required int? appliedId,
+  }) {
+    Map request = {"appliedId": appliedId};
 
+    auditionRepository.withdrawAudition(request).then((value) {
+      if (value.success == true) {
+        onSuccess.call(value.msg ?? "");
+      } else {
+        onFailure.call(value.msg ?? "");
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+      onFailure.call(error.toString());
+    });
+    notifyListeners();
+  }
 
 
   updateUi(){

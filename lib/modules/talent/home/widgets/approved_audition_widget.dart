@@ -243,18 +243,15 @@ class ApprovedAuditionWidget extends StatelessWidget {
             onCrossTap: () {},
           );
         }).then((value) {
-      getTalentHomeData(
-        context
-      );
+      getTalentHomeData(context);
     });
   }
 
-  getTalentHomeData(BuildContext context){
+  getTalentHomeData(BuildContext context) {
     talentHomeScreenProvider.isLoading = true;
     talentHomeScreenProvider.updateUi();
-    talentHomeScreenProvider.getHomeDataForTalent(onFailure: (message){
+    talentHomeScreenProvider.getHomeDataForTalent(onFailure: (message) {
       Common.showErrorSnackBar(context, message);
     });
-
   }
 }

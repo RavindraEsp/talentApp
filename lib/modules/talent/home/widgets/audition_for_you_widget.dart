@@ -309,7 +309,11 @@ class AuditionForYouWidget extends StatelessWidget {
                                                     HitTestBehavior.opaque,
                                                 onTap: () {
                                                   showWithdrawDialog(
-                                                      context: context);
+                                                      context: context,
+                                                      appliedId:
+                                                          auditionforyouList?[
+                                                                  index]
+                                                              .applyId);
                                                 },
                                                 child: Padding(
                                                   padding: EdgeInsets.all(2.sp),
@@ -462,7 +466,11 @@ class AuditionForYouWidget extends StatelessWidget {
                                                   GestureDetector(
                                                     onTap: () {
                                                       showWithdrawDialog(
-                                                          context: context);
+                                                          context: context,
+                                                          appliedId:
+                                                              auditionforyouList?[
+                                                                      index]
+                                                                  .applyId);
                                                     },
                                                     child: Padding(
                                                       padding:
@@ -497,7 +505,6 @@ class AuditionForYouWidget extends StatelessWidget {
             });
   }
 
-
   goToAuditionDetailsScreen({
     required BuildContext context,
     required AuditionDetailType auditionDetailType,
@@ -506,39 +513,41 @@ class AuditionForYouWidget extends StatelessWidget {
     Navigator.pushNamed(context, RouteName.auditionDetailScreen, arguments: {
       "auditionDetailType": auditionDetailType,
       "auditionId": auditionId,
-    }).then((value){
-      if(value == true){
+    }).then((value) {
+      if (value == true) {
         AppLogger.logD("Refresh page");
         talentHomeScreenProvider?.isLoading = true;
         talentHomeScreenProvider?.updateUi();
-        talentHomeScreenProvider?.getHomeDataForTalent(onFailure: (message){
+        talentHomeScreenProvider?.getHomeDataForTalent(onFailure: (message) {
           Common.showErrorSnackBar(context, message);
-
         });
       }
-
-
     });
-
   }
 
-  Future<dynamic> showWithdrawDialog({
-    required BuildContext context,
-  }) {
+  Future<dynamic> showWithdrawDialog(
+      {required BuildContext context, required int? appliedId}) {
     return showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
           return ConfirmAlertDialog(
             userType: UserType.talent,
             onYesTap: () {
-              showWithdrawAuditionSuccessDialog(context: context);
+              Common.showLoadingDialog(context);
+              talentHomeScreenProvider?.withdrawAudition(
+                  onFailure: (message) {
+                    Navigator.pop(context);
+                    Common.showErrorSnackBar(context, message);
+                  },
+                  onSuccess: (message) {
+                    Navigator.pop(context);
+                    showWithdrawAuditionSuccessDialog(context: context);
+                  },
+                  appliedId: appliedId);
             },
             title: context.loc.dialogAreYouSureYouWantToWithdrawYourApplication,
           );
-        }).then((value) {
-
-
-    });
+        }).then((value) {});
   }
 
   Future<dynamic> showWithdrawAuditionSuccessDialog({
@@ -553,8 +562,11 @@ class AuditionForYouWidget extends StatelessWidget {
             onCrossTap: () {},
           );
         }).then((value) {
-
-
+      talentHomeScreenProvider?.isLoading = true;
+      talentHomeScreenProvider?.updateUi();
+      talentHomeScreenProvider?.getHomeDataForTalent(onFailure: (message) {
+        Common.showErrorSnackBar(context, message);
+      });
     });
   }
 }

@@ -38,6 +38,7 @@
   "buttonSendNewScheduleApproval": "Send New Schedule approval",
   "buttonWithdrawApplication": "Withdraw Application",
   "buttonAwaitingApproval": "Awaiting approval",
+  "buttonAwaitingForCasterApproval": "Awaiting for casting approval",
   "buttonDeniedAudition": "Denied Audition",
   "buttonLetsGetStarted": "Lets get started",
   "validationName": "User name is required.",

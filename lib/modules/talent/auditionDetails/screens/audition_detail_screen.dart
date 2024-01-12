@@ -561,7 +561,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                               width: 8.w,
                                             ),
                                             Text(
-                                                "Awaiting for casting approval",
+                                                context.loc.buttonAwaitingForCasterApproval,
                                                 maxLines: 1,
                                                 style: StyleUtility
                                                     .buttonTextStyle
@@ -586,7 +586,9 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                     buttonText:
                                         context.loc.buttonWithdrawApplication,
                                     onTap: () {
-                                      showWithdrawDialog(context: context);
+                                      showWithdrawDialog(context: context,
+                                      appliedId: auditionDetails?.applyId,
+                                      auditionDetailsScreenProvider: auditionDetailsScreenProvider);
                                     },
                                     buttonColor: ColorUtility.color5457BE,
                                   ),
@@ -676,9 +678,10 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
       Navigator.pop(context,true);
     });
   }
-
   Future<dynamic> showWithdrawDialog({
     required BuildContext context,
+    required AuditionDetailsScreenProvider auditionDetailsScreenProvider,
+    required int? appliedId,
   }) {
     return showDialog(
         context: context,
@@ -686,7 +689,18 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
           return ConfirmAlertDialog(
             userType: UserType.talent,
             onYesTap: () {
-              showWithdrawAuditionSuccessDialog(context: context);
+              Common.showLoadingDialog(context);
+              auditionDetailsScreenProvider.withdrawAudition(
+                  onFailure: (message) {
+                    Navigator.pop(context);
+                    Common.showErrorSnackBar(context, message);
+                  },
+                  onSuccess: (message) {
+                    Navigator.pop(context);
+                    showWithdrawAuditionSuccessDialog(context: context);
+                  },
+                  appliedId: appliedId);
+
             },
             title: context.loc.dialogAreYouSureYouWantToWithdrawYourApplication,
           );
@@ -705,7 +719,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
             onCrossTap: () {},
           );
         }).then((value) {
-      Navigator.pop(context);
+      Navigator.pop(context,true);
     });
   }
 
