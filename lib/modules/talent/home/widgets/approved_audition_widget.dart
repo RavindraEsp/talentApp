@@ -105,7 +105,7 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                           ),
                                           Text(
                                             // "Audition Date 18/8/2023",
-                                            "Audition Date ${approvedAuditionList?[index].getAuditionDateArr?[0].date ?? ""}",
+                                            "${context.loc.auditionDate} ${approvedAuditionList?[index].getAuditionDateArr?[0].date ?? ""}",
                                             style: StyleUtility
                                                 .quicksandRegular8B8B8BTextStyle
                                                 .copyWith(

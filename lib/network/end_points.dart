@@ -43,4 +43,5 @@ class ApiEndPoints {
   String get getAuditionDetailbytalent => "get/getAuditionDetailbytalent";
   String get applyAudition => "auth/applyAudition";
   String get withdrawAudition => "auth/withdrawAudition";
+  String get gettalentdeclinedAuditionList => "get/gettalentdeclinedAuditionList";
 }

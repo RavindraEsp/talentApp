@@ -48,6 +48,7 @@ import 'package:talent_app/modules/talent/createCard/screens/add_your_video_scre
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_step_two_screen.dart';
 import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
+import 'package:talent_app/modules/talent/menu/provider/denied_audition_provider.dart';
 import 'package:talent_app/modules/talent/menu/screens/denied_audition_screen.dart';
 import 'package:talent_app/modules/talent/menu/screens/talent_menu_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_audio_screen.dart';
@@ -377,8 +378,11 @@ class AppRoute {
 
       case RouteName.deniedAuditionScreen:
         return MaterialPageRoute(
-          builder: (context) => const DeniedAuditionScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                create: (context) => DeniedAuditionProvider(),
+                child: const DeniedAuditionScreen()));
+
+      // deniedAuditionProvider
 
       case RouteName.auditionDetailScreen:
         var arg = settings.arguments as Map;

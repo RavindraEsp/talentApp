@@ -133,7 +133,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                       //   color: Colors.white,
                       // ),
                       Text(
-                        context.loc.headerEditAudition,
+                       // context.loc.headerEditProfile,
+                        "Edit Profile",
                         style: StyleUtility.kantumruyProSMedium18TextStyle
                             .copyWith(fontSize: TextSizeUtility.textSize18.sp),
                       ),

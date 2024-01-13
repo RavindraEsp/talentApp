@@ -4,6 +4,7 @@ import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/model/manage_finish_data_response_model.dart';
 import 'package:talent_app/modules/talent/auditionDetails/model/audition_detail_response_model.dart';
+import 'package:talent_app/modules/talent/menu/model/denied_audition_response_model.dart';
 import 'package:talent_app/network/client/dio_http_service.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/network/model/response/basic_response.dart';
@@ -153,7 +154,14 @@ Future<TalentHomeResponseModel> getHomeDataForTalent() {
 
 
 
-
+  Future<DeniedAuditionResponseModel> getDeniedAuditionList() {
+    return dioHttpService
+        .get(
+      Endpoints.baseUrl +
+          Endpoints.apiEndPoints.gettalentdeclinedAuditionList,
+    )
+        .then((value) => DeniedAuditionResponseModel.fromJson(value));
+  }
 
 
 
