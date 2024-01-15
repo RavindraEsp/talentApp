@@ -1,12 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
+import 'package:talent_app/modules/talent/profile/providers/talent_profile_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
@@ -16,7 +21,9 @@ import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
+import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/custom_drop_down_widget.dart';
+import 'package:talent_app/widgets/no_data_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/mobile_number_text_field.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
@@ -46,11 +53,11 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
 
   TextEditingController youtubeLinkController = TextEditingController();
 
-  bool isExperienceNeeded = true;
+  bool isExperienceNeeded = false;
   bool isParticipate = false;
 
-  List<AuditionPropertyModel>? genreModel;
-  List<AuditionPropertyModel>? bodyModel;
+  List<String> genreModel = [];
+  List<String> bodyModel = [];
 
   final ImagePicker picker = ImagePicker();
 
@@ -59,45 +66,85 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
   DropDownModel? selectGender;
   List<DropDownModel> genderList = [
     DropDownModel("Male", "1"),
-    DropDownModel("Female", "1")
+    DropDownModel("Female", "2")
   ];
 
   @override
   void initState() {
     super.initState();
-    setAutoFillValue();
+    // setAutoFillValue();
+
+    Provider.of<TalentProfileScreenProvider>(context, listen: false)
+        .getTalentProfile(onFailure: (message) {
+      Common.showErrorSnackBar(context, message);
+    }, onSuccess: (talantUserProfileModel) {
+      setAutoFillValue2(talantUserProfileModel);
+    });
   }
 
-  setAutoFillValue() {
-    firstNameController.text = "Michaela";
-    lastNameController.text = "Cohoen";
-    idController.text = "0548977559";
-    addressController.text = "Hahagana, 75, Rehovot, Israel";
-    emailController.text = "Michaela@gmail.com";
-    phoneController.text = "674294624";
+  setAutoFillValue2(TalantUserProfileModel talantUserProfileModel) {
+    var talentProfile = talantUserProfileModel.data?[0];
+    firstNameController.text = talentProfile?.firstName ?? "";
+    lastNameController.text = talentProfile?.lastName ?? "";
+    idController.text = talentProfile?.govtId.toString() ?? "";
+    addressController.text = talentProfile?.address ?? "";
+    emailController.text = talentProfile?.email ?? "";
+    phoneController.text = talentProfile?.phone ?? "";
 
-    instagramLinkController.text = "https://instagram.Com";
-    facebookLinkController.text = "https://facebook.Com";
-    tikTokLinkController.text = "https://tiktok.Com";
+    instagramLinkController.text = talentProfile?.instalink ?? "";
+    facebookLinkController.text = talentProfile?.facebooklink ?? "";
+    tikTokLinkController.text = talentProfile?.tiktoklink ?? "";
+    youtubeLinkController.text = talentProfile?.youtubelink ?? "";
+    birthdayController.text = talentProfile?.dateofbirth ?? "";
 
-    youtubeLinkController.text = "https://tiktok.Com";
+    selectGender = genderList.firstWhere((gender) =>
+        gender.value.toString() == talentProfile?.gender.toString());
 
-    genreModel = [
-      AuditionPropertyModel("Modeling", false),
-      AuditionPropertyModel("Acting", false),
-      AuditionPropertyModel("Singing", false)
-    ];
+    for (String item in talentProfile?.lookingFor ?? []) {
+      genreModel.add(item);
+    }
+    for (String item in talentProfile?.bodyList ?? []) {
+      bodyModel.add(item);
+    }
 
-    bodyModel = [
-      AuditionPropertyModel("Eye color: Blue", false),
-      AuditionPropertyModel("Hair color: blond", false),
-      AuditionPropertyModel("H :1.7cm", false),
-      AuditionPropertyModel("W :55k", false),
-      AuditionPropertyModel("Pants Size : 36", false),
-      AuditionPropertyModel("Shirt Size : S", false),
-      AuditionPropertyModel("Shoe Size : 36", false)
-    ];
+    isExperienceNeeded = talentProfile?.experience == 1 ? true : false;
+    isParticipate = talentProfile?.participated == 1 ? true : false;
   }
+
+  //
+  // setAutoFillValue() {
+  //   firstNameController.text = "Michaela";
+  //   lastNameController.text = "Cohoen";
+  //   idController.text = "0548977559";
+  //   addressController.text = "Hahagana, 75, Rehovot, Israel";
+  //   emailController.text = "Michaela@gmail.com";
+  //   phoneController.text = "674294624";
+  //
+  //   instagramLinkController.text = "https://instagram.Com";
+  //   facebookLinkController.text = "https://facebook.Com";
+  //   tikTokLinkController.text = "https://tiktok.Com";
+  //
+  //   youtubeLinkController.text = "https://tiktok.Com";
+  //
+  //   // genreModel = [
+  //   //   AuditionPropertyModel("Modeling", false),
+  //   //   AuditionPropertyModel("Acting", false),
+  //   //   AuditionPropertyModel("Singing", false)
+  //   // ];
+  //   //
+  //   // bodyModel = [
+  //   //   AuditionPropertyModel("Eye color: Blue", false),
+  //   //   AuditionPropertyModel("Hair color: blond", false),
+  //   //   AuditionPropertyModel("H :1.7cm", false),
+  //   //   AuditionPropertyModel("W :55k", false),
+  //   //   AuditionPropertyModel("Pants Size : 36", false),
+  //   //   AuditionPropertyModel("Shirt Size : S", false),
+  //   //   AuditionPropertyModel("Shoe Size : 36", false)
+  //   // ];
+  //
+  //
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +164,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
           child: SafeArea(
             child: Padding(
               padding: EdgeInsets.only(
-                  left: 18.w,
-                  right: 18.w,
-                  //  top: 24.h, bottom: 24.h
-                  top: 24.h,
-                  bottom: 24.h),
+                  left: 18.w, right: 18.w, top: 24.h, bottom: 24.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,12 +172,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                   const SettingButtonWidget(),
                   Row(
                     children: [
-                      // const BackButton(
-                      //   color: Colors.white,
-                      // ),
                       Text(
-                       // context.loc.headerEditProfile,
-                        "Edit Profile",
+                        context.loc.headerEditProfile,
                         style: StyleUtility.kantumruyProSMedium18TextStyle
                             .copyWith(fontSize: TextSizeUtility.textSize18.sp),
                       ),
@@ -146,608 +185,761 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
             ),
           ),
         ),
-        Expanded(
-            child: Form(
-          key: _createCardKey,
-          child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              children: [
-                SizedBox(
-                  height: 30.h,
-                ),
-                Text(
-                  context.loc.titleYourProfileDetails,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: SimpleTextField(
-                        controller: firstNameController,
-                        validator: Validators(context).validatorFirstName,
-                        hintText: context.loc.hintFirstName,
-                        onPrefixIconTap: () {
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 14.w,
-                    ),
-                    Expanded(
-                      child: SimpleTextField(
-                        controller: lastNameController,
-                        hintText: context.loc.hintLastName,
-                        validator: Validators(context).validatorLastName,
-                        onPrefixIconTap: () {
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: SimpleTextField(
-                        controller: idController,
-                        hintText: context.loc.hintID,
-                        validator: Validators(context).validatorGovtId,
-                        onPrefixIconTap: () {
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 14.w,
-                    ),
-                    Expanded(
-                        child: CustomDropDownWidget(
-                            ovValueChange: (item) {
-                              selectGender = item;
-                              setState(() {});
-                            },
-                            dropDownList: genderList,
-                            selectItem: selectGender,
-                            hintText: context.loc.hintGender))
-                  ],
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                MobileNumberTextField(
-                  controller: phoneController,
-                  hintText: context.loc.hintMobile,
-                  validator: Validators(context).validatorPhone,
-                  onChanged: (PhoneNumber value) {
-                    AppLogger.logD("IsoCode ${value.countryISOCode}");
-                    AppLogger.logD("Country Code ${value.countryCode}");
-                    AppLogger.logD("Number ${value.number}");
-                  },
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                SimpleTextField(
-                  controller: emailController,
-                  suffixImage: ImageUtility.emailIcon,
-                  hintText: context.loc.hintEmail,
-                  textInputType: TextInputType.emailAddress,
-                  validator: Validators(context).validatorEmail,
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Text(
-                  context.loc.titleBirthday,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Common.selectDateOfBirth(context, birthdayController);
-                  },
-                  child: SimpleTextField(
-                    controller: birthdayController,
-                    hintText: "DD/MM/YYYY",
-                    isEnable: false,
-                    suffixImage: ImageUtility.calenderIcon,
-                  ),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Text(
-                  context.loc.titleFullAddress,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                SimpleTextField(
-                  controller: addressController,
-                  hintText: context.loc.hintAddress,
-                  validator: Validators(context).validatorAddress,
-                  onPrefixIconTap: () {
-                    setState(() {});
-                  },
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      context.loc.titleTellUsAboutYou,
-                      style: StyleUtility.quicksandBold5457BETextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, RouteName.editTellUsAboutScreen);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(2.w),
-                        child: Text(
-                          context.loc.edit,
-                          style: StyleUtility.quicksandMedium5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize14.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 13.h,
-                ),
-                Text(
-                  "My name is Michaela, and I’m thrilled to be here auditioning for this incredible movie opportunity. Allow me to introduce myself and share a little about who I am. I am an aspiring actress with a burning passion for storytelling through the magic of film.",
-                  style: StyleUtility.quicksandRegularBlackTextStyle,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      context.loc.titleYourPhotos,
-                      style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, RouteName.editPhotoGalleryScreen);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(2.w),
-                        child: Text(
-                          context.loc.edit,
-                          style: StyleUtility.quicksandMedium5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize14.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                SizedBox(
-                  height: 95.h,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(right: 10.w),
-                          child: Image.asset(
-                            ImageUtility.dummyVideoThumbnailImage,
-                            width: 90.w,
-                            height: 120.h,
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      }),
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      context.loc.titleVideos,
-                      style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, RouteName.editVideoGalleryScreen);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(2.w),
-                        child: Text(
-                          context.loc.edit,
-                          style: StyleUtility.quicksandMedium5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize14.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Image.asset(
-                      ImageUtility.dummyVideoThumbnailImage,
-                      width: double.infinity,
-                      fit: BoxFit.fill,
-                    ),
-                    Image.asset(
-                      ImageUtility.playCircleIcon,
-                      width: 55.w,
-                      height: 55.w,
-                      fit: BoxFit.contain,
+        Consumer<TalentProfileScreenProvider>(
+            builder: (context, talentProfileScreenProvider, child) {
+          return Expanded(
+              child: talentProfileScreenProvider.isLoading == true
+                  ? const Center(
+                      child: CustomCircularLoaderWidget(),
                     )
-                  ],
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      context.loc.titleAudioFiles,
-                      style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteName.editAudioScreen);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(2.w),
-                        child: Text(
-                          context.loc.edit,
-                          style: StyleUtility.quicksandMedium5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize14.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: 2,
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (context, index) {
-                      return Container(
-                          margin: EdgeInsets.only(top: 16.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.sp),
-                            border: Border.all(color: ColorUtility.colorD6D6D8),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: 20.w,
-                                right: 14.w,
-                                top: 10.h,
-                                bottom: 10.h),
-                            child: Row(
+                  : Form(
+                      key: _createCardKey,
+                      child: ListView(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          children: [
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            Text(
+                              context.loc.titleYourProfileDetails,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.asset(
-                                  ImageUtility.playIcon,
-                                  width: 13.w,
+                                Expanded(
+                                  child: SimpleTextField(
+                                    controller: firstNameController,
+                                    validator:
+                                        Validators(context).validatorFirstName,
+                                    hintText: context.loc.hintFirstName,
+                                    onPrefixIconTap: () {
+                                      setState(() {});
+                                    },
+                                  ),
                                 ),
                                 SizedBox(
-                                  width: 28.w,
+                                  width: 14.w,
                                 ),
                                 Expanded(
-                                    child: Image.asset(
-                                  ImageUtility.dummyAudioImage,
-                                  width: double.infinity,
-                                  fit: BoxFit.contain,
-                                )),
-                                SizedBox(
-                                  width: 22.w,
+                                  child: SimpleTextField(
+                                    controller: lastNameController,
+                                    hintText: context.loc.hintLastName,
+                                    validator:
+                                        Validators(context).validatorLastName,
+                                    onPrefixIconTap: () {
+                                      setState(() {});
+                                    },
+                                  ),
                                 ),
-                                Text(
-                                  "0:31",
-                                  style: StyleUtility
-                                      .quicksandMediumACACAFTextStyle
-                                      .copyWith(
-                                          fontSize:
-                                              TextSizeUtility.textSize13.sp),
-                                )
                               ],
                             ),
-                          ));
-                    }),
-                SizedBox(
-                  height: 35.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      //  context.loc.titleEyeColor,
-                      "Genre",
-                      style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteName.editGenreScreen);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(2.w),
-                        child: Text(
-                          context.loc.edit,
-                          style: StyleUtility.quicksandMedium5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize14.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Wrap(
-                  children: [
-                    for (var item in genreModel!)
-                      Container(
-                          margin: EdgeInsets.only(right: 9.w, bottom: 13.h),
-                          padding: EdgeInsets.only(
-                              left: 15.sp,
-                              right: 20.sp,
-                              top: 9.sp,
-                              bottom: 9.sp),
-                          decoration: BoxDecoration(
-                              color: item.isSelect == false
-                                  ? ColorUtility.colorWhite
-                                  : ColorUtility.colorEFF2F4,
-                              borderRadius: BorderRadius.circular(30.r),
-                              border:
-                                  Border.all(color: ColorUtility.colorD3D6D6)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                item.title,
-                                style: StyleUtility
-                                    .quicksandRegularBlackTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize14.sp),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: SimpleTextField(
+                                    controller: idController,
+                                    hintText: context.loc.hintID,
+                                    validator:
+                                        Validators(context).validatorGovtId,
+                                    onPrefixIconTap: () {
+                                      setState(() {});
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 14.w,
+                                ),
+                                Expanded(
+                                    child: CustomDropDownWidget(
+                                        ovValueChange: (item) {
+                                          selectGender = item;
+                                          setState(() {});
+                                        },
+                                        dropDownList: genderList,
+                                        selectItem: selectGender,
+                                        hintText: context.loc.hintGender))
+                              ],
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            MobileNumberTextField(
+                              controller: phoneController,
+                              hintText: context.loc.hintMobile,
+                              validator: Validators(context).validatorPhone,
+                              onChanged: (PhoneNumber value) {
+                                AppLogger.logD(
+                                    "IsoCode ${value.countryISOCode}");
+                                AppLogger.logD(
+                                    "Country Code ${value.countryCode}");
+                                AppLogger.logD("Number ${value.number}");
+                              },
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            SimpleTextField(
+                              controller: emailController,
+                              suffixImage: ImageUtility.emailIcon,
+                              hintText: context.loc.hintEmail,
+                              textInputType: TextInputType.emailAddress,
+                              validator: Validators(context).validatorEmail,
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Text(
+                              context.loc.titleBirthday,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Common.selectDateOfBirth(
+                                    context, birthdayController);
+                              },
+                              child: SimpleTextField(
+                                controller: birthdayController,
+                                hintText: "DD/MM/YYYY",
+                                isEnable: false,
+                                suffixImage: ImageUtility.calenderIcon,
                               ),
-                            ],
-                          ))
-                  ],
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      context.loc.titleBody,
-                      style: StyleUtility.quicksandSemiBold5457BETextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteName.editBodyScreen);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(2.w),
-                        child: Text(
-                          context.loc.edit,
-                          style: StyleUtility.quicksandMedium5457BETextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize14.sp),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Wrap(
-                  children: [
-                    for (var item in bodyModel!)
-                      Container(
-                          margin: EdgeInsets.only(right: 9.w, bottom: 13.h),
-                          padding: EdgeInsets.only(
-                              left: 15.sp,
-                              right: 20.sp,
-                              top: 9.sp,
-                              bottom: 9.sp),
-                          decoration: BoxDecoration(
-                              color: item.isSelect == false
-                                  ? ColorUtility.colorWhite
-                                  : ColorUtility.colorEFF2F4,
-                              borderRadius: BorderRadius.circular(30.r),
-                              border:
-                                  Border.all(color: ColorUtility.colorD3D6D6)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                item.title,
-                                style: StyleUtility
-                                    .quicksandRegularBlackTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize14.sp),
-                              ),
-                            ],
-                          ))
-                  ],
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                Text(
-                  context.loc.titleAnyWorkExperience,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  children: [
-                    YesNoCheckBoxWidget(
-                      title: context.loc.checkBoxYes,
-                      status: isExperienceNeeded == true,
-                      onTap: () {
-                        setState(() {
-                          isExperienceNeeded = true;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 38.h,
-                    ),
-                    YesNoCheckBoxWidget(
-                      title: context.loc.checkBoxNo,
-                      status: isExperienceNeeded == false,
-                      onTap: () {
-                        setState(() {
-                          isExperienceNeeded = false;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                Text(
-                  context.loc.titleDidYouParticipatedRealityShow,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  children: [
-                    YesNoCheckBoxWidget(
-                      title: context.loc.checkBoxYes,
-                      status: isParticipate == true,
-                      onTap: () {
-                        setState(() {
-                          isParticipate = true;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 38.h,
-                    ),
-                    YesNoCheckBoxWidget(
-                      title: context.loc.checkBoxNo,
-                      status: isParticipate == false,
-                      onTap: () {
-                        setState(() {
-                          isParticipate = false;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                Text(
-                  context.loc.titleSocialMediaLinks,
-                  style: StyleUtility.quicksandSemiBold5457BETextStyle
-                      .copyWith(fontSize: TextSizeUtility.textSize16.sp),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SimpleTextField(
-                  controller: instagramLinkController,
-                  hintText: context.loc.hintAddInstagramProfileLink,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SimpleTextField(
-                  controller: facebookLinkController,
-                  hintText: context.loc.hintAddFacebookProfileLink,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SimpleTextField(
-                  controller: tikTokLinkController,
-                  hintText: context.loc.hintAddTikTokProfileLink,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                SimpleTextField(
-                  controller: youtubeLinkController,
-                  hintText: context.loc.hintYouTubeProfileLink,
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                CustomButton(
-                  buttonText: context.loc.buttonUpdate,
-                  buttonType: ButtonType.blue,
-                  onTap: () async {
-                    if (_createCardKey.currentState!.validate()) {
-                      AppLogger.logD("Valid data");
-                    } else {}
-                  },
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-              ]),
-        )),
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Text(
+                              context.loc.titleFullAddress,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            SimpleTextField(
+                              controller: addressController,
+                              hintText: context.loc.hintAddress,
+                              validator: Validators(context).validatorAddress,
+                              onPrefixIconTap: () {
+                                setState(() {});
+                              },
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context.loc.titleTellUsAboutYou,
+                                  style: StyleUtility
+                                      .quicksandBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        RouteName.editTellUsAboutScreen,arguments: {
+                                      "about" : talentProfileScreenProvider
+                                          .talantUserProfileModel?.data?[0].about ??
+                                          ""
+                                        });
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.w),
+                                    child: Text(
+                                      context.loc.edit,
+                                      style: StyleUtility
+                                          .quicksandMedium5457BETextStyle
+                                          .copyWith(
+                                              fontSize: TextSizeUtility
+                                                  .textSize14.sp),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 13.h,
+                            ),
+                            Text(
+                              // "My name is Michaela, and I’m thrilled to be here auditioning for this incredible movie opportunity. Allow me to introduce myself and share a little about who I am. I am an aspiring actress with a burning passion for storytelling through the magic of film.",
+                              talentProfileScreenProvider
+                                      .talantUserProfileModel?.data?[0].about ??
+                                  "",
+                              style:
+                                  StyleUtility.quicksandRegularBlackTextStyle,
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context.loc.titleYourPhotos,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        RouteName.editPhotoGalleryScreen);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.w),
+                                    child: Text(
+                                      context.loc.edit,
+                                      style: StyleUtility
+                                          .quicksandMedium5457BETextStyle
+                                          .copyWith(
+                                              fontSize: TextSizeUtility
+                                                  .textSize14.sp),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            SizedBox(
+                              height: 95.h,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  //  itemCount: 5,
+                                  itemCount: talentProfileScreenProvider
+                                          .talantUserProfileModel
+                                          ?.data?[0]
+                                          .imageFiles
+                                          ?.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                        margin: EdgeInsets.only(right: 10.w),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          child: CachedNetworkImage(
+                                              width: 90.sp,
+                                              height: 120.sp,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                      child:
+                                                          CircularProgressIndicator()),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Container(
+                                                          color: Colors.grey,
+                                                          child: Center(
+                                                              child: Icon(
+                                                            Icons.error,
+                                                            size: 25.sp,
+                                                          ))),
+                                              imageUrl:
+                                                  "${Endpoints.imageBaseUrl}${talentProfileScreenProvider.talantUserProfileModel?.data?[0].imageFiles?[index].files}"),
+                                        )
+                                        // Image.asset(
+                                        //   ImageUtility.dummyVideoThumbnailImage,
+                                        //   width: 90.w,
+                                        //   height: 120.h,
+                                        //   fit: BoxFit.cover,
+                                        // ),
+
+                                        );
+                                  }),
+                            ),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context.loc.titleVideos,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        RouteName.editVideoGalleryScreen);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.w),
+                                    child: Text(
+                                      context.loc.edit,
+                                      style: StyleUtility
+                                          .quicksandMedium5457BETextStyle
+                                          .copyWith(
+                                              fontSize: TextSizeUtility
+                                                  .textSize14.sp),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+
+                            (talentProfileScreenProvider.talantUserProfileModel
+                                            ?.data?[0].videoFiles?.length ??
+                                        0) ==
+                                    0
+                                ? SizedBox(
+                                    height: 100.h, child: const NoDataWidget())
+                                : SizedBox(
+                                    height: 210.h,
+                                    child: (talentProfileScreenProvider
+                                                    .talantUserProfileModel
+                                                    ?.data?[0]
+                                                    .videoFiles
+                                                    ?.length ??
+                                                0) ==
+                                            0
+                                        ? const NoDataWidget()
+                                        : ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            itemCount:
+                                                talentProfileScreenProvider
+                                                        .talantUserProfileModel
+                                                        ?.data?[0]
+                                                        .videoFiles
+                                                        ?.length ??
+                                                    0,
+                                            // itemCount: 2,
+
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              return Container(
+                                                margin: EdgeInsets.only(
+                                                    right: 15.w),
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    Image.asset(
+                                                      ImageUtility
+                                                          .dummyVideoThumbnailImage,
+                                                      //  width: double.infinity,
+                                                      height: 210.h,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                    Image.asset(
+                                                      ImageUtility
+                                                          .playCircleIcon,
+                                                      width: 55.w,
+                                                      height: 55.w,
+                                                      fit: BoxFit.contain,
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            }),
+                                  ),
+
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context.loc.titleAudioFiles,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RouteName.editAudioScreen);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.w),
+                                    child: Text(
+                                      context.loc.edit,
+                                      style: StyleUtility
+                                          .quicksandMedium5457BETextStyle
+                                          .copyWith(
+                                              fontSize: TextSizeUtility
+                                                  .textSize14.sp),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            (talentProfileScreenProvider.talantUserProfileModel
+                                            ?.data?[0].audioFiles?.length ??
+                                        0) ==
+                                    0
+                                ? SizedBox(
+                                    height: 100.h, child: const NoDataWidget())
+                                : ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount: talentProfileScreenProvider
+                                            .talantUserProfileModel
+                                            ?.data?[0]
+                                            .audioFiles
+                                            ?.length ??
+                                        0,
+                                    shrinkWrap: true,
+                                    primary: false,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          margin: EdgeInsets.only(top: 16.h),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12.sp),
+                                            border: Border.all(
+                                                color:
+                                                    ColorUtility.colorD6D6D8),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 20.w,
+                                                right: 14.w,
+                                                top: 10.h,
+                                                bottom: 10.h),
+                                            child: Row(
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtility.playIcon,
+                                                  width: 13.w,
+                                                ),
+                                                SizedBox(
+                                                  width: 28.w,
+                                                ),
+                                                Expanded(
+                                                    child: Image.asset(
+                                                  ImageUtility.dummyAudioImage,
+                                                  width: double.infinity,
+                                                  fit: BoxFit.contain,
+                                                )),
+                                                SizedBox(
+                                                  width: 22.w,
+                                                ),
+                                                Text(
+                                                  "0:31",
+                                                  style: StyleUtility
+                                                      .quicksandMediumACACAFTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize13
+                                                                  .sp),
+                                                )
+                                              ],
+                                            ),
+                                          ));
+                                    }),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context.loc.titleGenre,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RouteName.editGenreScreen);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.w),
+                                    child: Text(
+                                      context.loc.edit,
+                                      style: StyleUtility
+                                          .quicksandMedium5457BETextStyle
+                                          .copyWith(
+                                              fontSize: TextSizeUtility
+                                                  .textSize14.sp),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 16.h,
+                            ),
+                            Wrap(
+                              children: [
+                                for (var item in genreModel!)
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          right: 9.w, bottom: 13.h),
+                                      padding: EdgeInsets.only(
+                                          left: 15.sp,
+                                          right: 20.sp,
+                                          top: 9.sp,
+                                          bottom: 9.sp),
+                                      decoration: BoxDecoration(
+                                          color: ColorUtility.colorEFF2F4,
+                                          borderRadius:
+                                              BorderRadius.circular(30.r),
+                                          border: Border.all(
+                                              color: ColorUtility.colorD3D6D6)),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            item,
+                                            style: StyleUtility
+                                                .quicksandRegularBlackTextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize14.sp),
+                                          ),
+                                        ],
+                                      ))
+                              ],
+                            ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  context.loc.titleBody,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RouteName.editBodyScreen);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.all(2.w),
+                                    child: Text(
+                                      context.loc.edit,
+                                      style: StyleUtility
+                                          .quicksandMedium5457BETextStyle
+                                          .copyWith(
+                                              fontSize: TextSizeUtility
+                                                  .textSize14.sp),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 16.h,
+                            ),
+                            Wrap(
+                              children: [
+                                for (var item in bodyModel!)
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          right: 9.w, bottom: 13.h),
+                                      padding: EdgeInsets.only(
+                                          left: 15.sp,
+                                          right: 20.sp,
+                                          top: 9.sp,
+                                          bottom: 9.sp),
+                                      decoration: BoxDecoration(
+                                          color: ColorUtility.colorEFF2F4,
+                                          borderRadius:
+                                              BorderRadius.circular(30.r),
+                                          border: Border.all(
+                                              color: ColorUtility.colorD3D6D6)),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            item,
+                                            style: StyleUtility
+                                                .quicksandRegularBlackTextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize14.sp),
+                                          ),
+                                        ],
+                                      ))
+                              ],
+                            ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                            Text(
+                              context.loc.titleAnyWorkExperience,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Row(
+                              children: [
+                                YesNoCheckBoxWidget(
+                                  title: context.loc.checkBoxYes,
+                                  status: isExperienceNeeded == true,
+                                  onTap: () {
+                                    setState(() {
+                                      isExperienceNeeded = true;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 38.h,
+                                ),
+                                YesNoCheckBoxWidget(
+                                  title: context.loc.checkBoxNo,
+                                  status: isExperienceNeeded == false,
+                                  onTap: () {
+                                    setState(() {
+                                      isExperienceNeeded = false;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                            Text(
+                              context.loc.titleDidYouParticipatedRealityShow,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Row(
+                              children: [
+                                YesNoCheckBoxWidget(
+                                  title: context.loc.checkBoxYes,
+                                  status: isParticipate == true,
+                                  onTap: () {
+                                    setState(() {
+                                      isParticipate = true;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 38.h,
+                                ),
+                                YesNoCheckBoxWidget(
+                                  title: context.loc.checkBoxNo,
+                                  status: isParticipate == false,
+                                  onTap: () {
+                                    setState(() {
+                                      isParticipate = false;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                            Text(
+                              context.loc.titleSocialMediaLinks,
+                              style: StyleUtility
+                                  .quicksandSemiBold5457BETextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            SimpleTextField(
+                              controller: instagramLinkController,
+                              hintText: context.loc.hintAddInstagramProfileLink,
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            SimpleTextField(
+                              controller: facebookLinkController,
+                              hintText: context.loc.hintAddFacebookProfileLink,
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            SimpleTextField(
+                              controller: tikTokLinkController,
+                              hintText: context.loc.hintAddTikTokProfileLink,
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            SimpleTextField(
+                              controller: youtubeLinkController,
+                              hintText: context.loc.hintYouTubeProfileLink,
+                            ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                            // CustomButton(
+                            //   buttonText: context.loc.buttonUpdate,
+                            //   buttonType: ButtonType.blue,
+                            //   onTap: () async {
+                            //     if (_createCardKey.currentState!.validate()) {
+                            //       AppLogger.logD("Valid data");
+                            //     } else {}
+                            //   },
+                            // ),
+                            SizedBox(
+                              height: 35.h,
+                            ),
+                          ]),
+                    ));
+        }),
       ]),
     );
   }

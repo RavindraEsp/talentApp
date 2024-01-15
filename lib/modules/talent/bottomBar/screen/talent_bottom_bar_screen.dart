@@ -11,6 +11,7 @@ import 'package:talent_app/modules/casting/notification/notification_screen.dart
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
 import 'package:talent_app/modules/talent/home/providers/talent_home_screen_provider.dart';
 import 'package:talent_app/modules/talent/home/screen/talent_home_screen.dart';
+import 'package:talent_app/modules/talent/profile/providers/talent_profile_screen_provider.dart';
 import 'package:talent_app/modules/talent/profile/screens/talent_profile_screen.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
@@ -56,7 +57,12 @@ class _TalentBottomBarScreenState extends State {
     //   child: Text("Home"),
     // )
 
-    const TalentProfileScreen(),
+    ChangeNotifierProvider(
+      create: (context) => TalentProfileScreenProvider(),
+      child: const TalentProfileScreen(),
+    ),
+
+
   ];
 
   late int selectIndex;

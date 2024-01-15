@@ -136,18 +136,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AudioPlayerScreen(),
-    );
-  }
-}
+
 
 class AudioPlayerScreen extends StatefulWidget {
   @override
@@ -166,9 +156,30 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
+
+
+    _playAudio();
+  }
+
+   _playAudio() async {
+    var result = await _audioPlayer?.play(UrlSource("https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3"));
+
+
+
+  //  if (_audioPlayer.i) {
+      // success
+      setState(() {
+        isPlaying = true;
+      });
+   // } else {
+   //   print('Error playing audio');
+   // }
+
     _audioPlayer?.onDurationChanged.listen((Duration duration) {
       setState(() {
         _duration = duration;
+
+        print(_duration.toString());
       });
     });
 
@@ -178,23 +189,6 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       });
     });
 
-    _playAudio();
-  }
-
-   _playAudio() async {
-    var result = await _audioPlayer?.play(UrlSource("https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3"));
-
-
-    await _audioPlayer?.play(UrlSource(''));
-
-    if (1 == 1) {
-      // success
-      setState(() {
-        isPlaying = true;
-      });
-    } else {
-      print('Error playing audio');
-    }
   }
 
   void _pauseAudio() {
@@ -215,6 +209,10 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   void _seekAudio(double value) {
     Duration newPosition = Duration(milliseconds: (value * _duration.inMilliseconds).round());
     _audioPlayer?.seek(newPosition);
+
+    setState(() {
+
+    });
   }
 
   @override

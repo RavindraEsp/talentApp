@@ -8,13 +8,16 @@ import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/utilities/validation.dart';
 import 'package:talent_app/widgets/alertDialog/congratulation_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
 
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
 class EditTellUsAboutScreen extends StatefulWidget {
-  const EditTellUsAboutScreen({super.key});
+
+  final String about;
+  const EditTellUsAboutScreen({super.key, required this.about});
 
   @override
   State<EditTellUsAboutScreen> createState() => _EditTellUsAboutScreenState();
@@ -32,7 +35,8 @@ class _EditTellUsAboutScreenState extends State<EditTellUsAboutScreen> {
   void initState() {
     super.initState();
 
-    aboutYouController.text = "My name is Michaela, and I’m thrilled to be here auditioning for this incredible movie opportunity. Allow me to introduce myself and share a little about who I am. I am an aspiring actress with a burning passion for storytelling through the magic of film.";
+  //  aboutYouController.text = "My name is Michaela, and I’m thrilled to be here auditioning for this incredible movie opportunity. Allow me to introduce myself and share a little about who I am. I am an aspiring actress with a burning passion for storytelling through the magic of film.";
+    aboutYouController.text = widget.about;
   }
 
   @override
@@ -94,7 +98,10 @@ class _EditTellUsAboutScreenState extends State<EditTellUsAboutScreen> {
                                 hintText: context
                                     .loc.hintWriteAFewWordsAboutYourself,
                                 maxLine: 7,
+                                validator: Validators(context).validatorAboutYou,
                               ),
+
+
                               SizedBox(
                                 height: 27.h,
                               ),
@@ -103,6 +110,11 @@ class _EditTellUsAboutScreenState extends State<EditTellUsAboutScreen> {
                               CustomButtonTopToBottomColor(
                                 width: MediaQuery.of(context).size.width,
                                 buttonText: context.loc.buttonUpdate,
+                                onTap: (){
+                                  if(_formKey.currentState!.validate()){
+
+                                  }
+                                },
                               ),
 
                               SizedBox(

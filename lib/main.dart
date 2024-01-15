@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
             ),
 
             home: const SplashScreen(),
-          //  home:  AudioPlayerScreen(),
+          // home:  AudioPlayerScreen(),
 
           //  home:CastBottomBarScreen(selectIndex: 0),
           //  home:TalentBottomBarScreen(selectIndex: 0),

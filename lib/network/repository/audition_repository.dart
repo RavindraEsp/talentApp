@@ -82,7 +82,7 @@ class   AuditionRepository {
         .then((value) => value);
   }
 
-  Future<TalantUserProfileModel> getTalentProfile(
+  Future<TalantUserProfileModel> getTalentProfileInCasterApp(
       {Map<String, dynamic>? queryParameters}) {
     return dioHttpService
         .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getTalentProfile,

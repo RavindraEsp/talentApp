@@ -15,7 +15,7 @@ class SeeTelentUserProfileScreenProvider extends ChangeNotifier {
     required ValueChanged<String> onFailure,
   }) {
     isLoading = true;
-    auditionRepository.getTalentProfile(
+    auditionRepository.getTalentProfileInCasterApp(
         queryParameters: {"userType": 2, "talentUserId": userId}).then((value) {
       if (value.success == true) {
         talantUserProfileModel = value;
@@ -66,47 +66,6 @@ class SeeTelentUserProfileScreenProvider extends ChangeNotifier {
     for (Files item in talantUserProfileModel?.data?.first.audioFiles ?? []) {
       audioList.add(item);
     }
-    // isTrainingNeeded =
-    //     auditionDetailsModel.data?.professionalTraining == 1 ? true : false;
-    // isRepresented =
-    //     auditionDetailsModel.data?.candidateRepresentation == 1 ? true : false;
-    // minAgeController.text = '${auditionDetailsModel.data?.ageRangeMin ?? 0}';
-    // maxAgeController.text = '${auditionDetailsModel.data?.ageRangeMax ?? 0}';
-    // minWeightController.text =
-    //     '${auditionDetailsModel.data?.weightRangeMin ?? 0}';
-    // maxWeightController.text =
-    //     '${auditionDetailsModel.data?.weightRangeMax ?? 0}';
-    // minHeightController.text =
-    //     '${auditionDetailsModel.data?.heightRangeMin ?? 0}';
-    // maxHeightController.text =
-    //     '${auditionDetailsModel.data?.heightRangeMax ?? 0}';
-
-    // for (NameSelectedAttrButeModel item
-    //     in auditionDetailsModel.data?.eyeColor ?? []) {
-    //   eyeColorModelList.add(AuditionPropertyModel(
-    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    // }
-    // for (NameSelectedAttrButeModel item
-    //     in auditionDetailsModel.data?.hairColor ?? []) {
-    //   hairColorModelList.add(AuditionPropertyModel(
-    //       item.name ?? "", item.isSelected == "1" ? true : false,
-    //       id: item.id));
-    // }
-    // for (NameSelectedAttrButeModel item
-    //     in auditionDetailsModel.data?.pantSize ?? []) {
-    //   painsSizeModelList.add(AuditionPropertyModel(
-    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    // }
-    // for (NameSelectedAttrButeModel item
-    //     in auditionDetailsModel.data?.shirtSize ?? []) {
-    //   shirtSizeModelList.add(AuditionPropertyModel(
-    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    // }
-    // for (NameSelectedAttrButeModel item
-    //     in auditionDetailsModel.data?.shoeSize ?? []) {
-    //   shoeSizeModelList.add(AuditionPropertyModel(
-    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    // }
 
     notifyListeners();
   }

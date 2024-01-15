@@ -51,6 +51,9 @@ class Data {
   List<Files>? audioFiles;
   List<Files>? videoFiles;
   String? name;
+  String? firstName;
+  String? lastName;
+  var govtId;
   String? age;
   List<String>? lookingFor;
   List<String>? bodyList;
@@ -76,6 +79,9 @@ class Data {
       this.audioFiles,
       this.videoFiles,
       this.name,
+      this.firstName,
+      this.lastName,
+      this.govtId,
       this.age,
       this.lookingFor,
       this.bodyList});
@@ -116,6 +122,9 @@ class Data {
       });
     }
     name = json['name'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    govtId = json['GovtId'];
     age = json['Age'];
     lookingFor = json['lookingFor'].cast<String>();
     bodyList = json['bodyList'].cast<String>();
@@ -149,6 +158,9 @@ class Data {
       data['videoFiles'] = this.videoFiles!.map((v) => v.toJson()).toList();
     }
     data['name'] = this.name;
+    data['firstName'] = this.firstName;
+    data['lastName'] = this.lastName;
+    data['GovtId'] = this.govtId;
     data['Age'] = this.age;
     data['lookingFor'] = this.lookingFor;
     data['bodyList'] = this.bodyList;

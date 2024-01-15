@@ -349,8 +349,9 @@ class AppRoute {
         );
 
       case RouteName.editTellUsAboutScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditTellUsAboutScreen(),
+          builder: (context) =>  EditTellUsAboutScreen(about: arg["about"],),
         );
 
       case RouteName.editPhotoGalleryScreen:

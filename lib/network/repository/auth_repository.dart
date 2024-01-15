@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
+import 'package:talent_app/modules/talent/profile/model/talent_profile_resposne_model.dart';
 import 'package:talent_app/network/client/dio_http_service.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/network/model/request/auth/login_request.dart';
@@ -81,5 +83,20 @@ class AuthRepository {
     )
         .then((value) => CasterProfileUpdateResponse.fromJson(value));
   }
+
+
+  Future<TalantUserProfileModel> getTalentProfile(
+      {Map<String, dynamic>? queryParameters}) {
+    return dioHttpService
+        .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getTalentProfile,
+        queryParameters: queryParameters)
+        .then((value) => TalantUserProfileModel.fromJson(value));
+  }
+
+  // Future<TalentProfileResponseModel> getTalentProfile() {
+  //   return dioHttpService
+  //       .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getCasterProfile)
+  //       .then((value) => TalentProfileResponseModel.fromJson(value));
+  // }
 
 }

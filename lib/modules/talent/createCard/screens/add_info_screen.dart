@@ -43,7 +43,6 @@ class AddInfoScreen extends StatefulWidget {
 class _AddInfoScreenState extends State<AddInfoScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  List<AuditionPropertyModel>? categoryModel;
 
   bool? anyWorkExprienceExperience;
   bool? participateRealityShow;
@@ -70,14 +69,6 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   void initState() {
     super.initState();
 
-    categoryModel = [
-      AuditionPropertyModel("Modeling", false),
-      AuditionPropertyModel("Kid Artist", false),
-      AuditionPropertyModel("Acting", false),
-      AuditionPropertyModel("Network Star", false),
-      AuditionPropertyModel("Singing", false),
-      AuditionPropertyModel("Other Artist", false)
-    ];
 
     talentCreateCardModel = widget.talentCreateCardModel;
 
