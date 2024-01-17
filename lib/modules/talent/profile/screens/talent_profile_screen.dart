@@ -6,7 +6,6 @@ import 'package:intl_phone_field/phone_number.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
 import 'package:talent_app/modules/talent/profile/providers/talent_profile_screen_provider.dart';
@@ -15,19 +14,16 @@ import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
-import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/custom_drop_down_widget.dart';
 import 'package:talent_app/widgets/no_data_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/mobile_number_text_field.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
-
 import '../../../casting/createAudition/widgets/yes_no_checkbox.dart';
 
 class TalentProfileScreen extends StatefulWidget {
@@ -72,17 +68,21 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
   @override
   void initState() {
     super.initState();
-    // setAutoFillValue();
 
     Provider.of<TalentProfileScreenProvider>(context, listen: false)
         .getTalentProfile(onFailure: (message) {
       Common.showErrorSnackBar(context, message);
     }, onSuccess: (talantUserProfileModel) {
-      setAutoFillValue2(talantUserProfileModel);
+      setAutoFillValue(talantUserProfileModel);
     });
   }
 
-  setAutoFillValue2(TalantUserProfileModel talantUserProfileModel) {
+
+  getTalentProfileData(){
+
+  }
+
+  setAutoFillValue(TalantUserProfileModel talantUserProfileModel) {
     var talentProfile = talantUserProfileModel.data?[0];
     firstNameController.text = talentProfile?.firstName ?? "";
     lastNameController.text = talentProfile?.lastName ?? "";
@@ -110,41 +110,6 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
     isExperienceNeeded = talentProfile?.experience == 1 ? true : false;
     isParticipate = talentProfile?.participated == 1 ? true : false;
   }
-
-  //
-  // setAutoFillValue() {
-  //   firstNameController.text = "Michaela";
-  //   lastNameController.text = "Cohoen";
-  //   idController.text = "0548977559";
-  //   addressController.text = "Hahagana, 75, Rehovot, Israel";
-  //   emailController.text = "Michaela@gmail.com";
-  //   phoneController.text = "674294624";
-  //
-  //   instagramLinkController.text = "https://instagram.Com";
-  //   facebookLinkController.text = "https://facebook.Com";
-  //   tikTokLinkController.text = "https://tiktok.Com";
-  //
-  //   youtubeLinkController.text = "https://tiktok.Com";
-  //
-  //   // genreModel = [
-  //   //   AuditionPropertyModel("Modeling", false),
-  //   //   AuditionPropertyModel("Acting", false),
-  //   //   AuditionPropertyModel("Singing", false)
-  //   // ];
-  //   //
-  //   // bodyModel = [
-  //   //   AuditionPropertyModel("Eye color: Blue", false),
-  //   //   AuditionPropertyModel("Hair color: blond", false),
-  //   //   AuditionPropertyModel("H :1.7cm", false),
-  //   //   AuditionPropertyModel("W :55k", false),
-  //   //   AuditionPropertyModel("Pants Size : 36", false),
-  //   //   AuditionPropertyModel("Shirt Size : S", false),
-  //   //   AuditionPropertyModel("Shoe Size : 36", false)
-  //   // ];
-  //
-  //
-  //
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +242,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                             MobileNumberTextField(
                               controller: phoneController,
                               hintText: context.loc.hintMobile,
-                              validator: Validators(context).validatorPhone,
+                            isoCode: talentProfileScreenProvider.talantUserProfileModel?.data?[0].countryISOCode,
+                            //  validator: Validators(context).validatorPhone,
                               onChanged: (PhoneNumber value) {
                                 AppLogger.logD(
                                     "IsoCode ${value.countryISOCode}");

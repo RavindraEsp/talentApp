@@ -297,7 +297,10 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                                                       context, msg);
                                                 },
                                                 onFailure: (message) {
+
+                                                if(Navigator.canPop(context)){
                                                   Navigator.pop(context);
+                                                }
                                                   Common.showErrorSnackBar(
                                                       context, message);
                                                 },

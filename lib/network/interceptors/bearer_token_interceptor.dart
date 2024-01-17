@@ -15,5 +15,6 @@ class BearerTokenInterceptor extends Interceptor {
     AppLogger.logD(
         'REQUEST[\nMethod: => ${options.method}]\nPATH: => ${options.path}\nHeaders: => ${options.headers}');
     return super.onRequest(options, handler);
+
   }
 }

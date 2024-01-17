@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -14,6 +15,7 @@ class MobileNumberTextField extends StatelessWidget {
     required this.onChanged,
     required this.hintText,
     this.validator,
+    this.isoCode,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -23,13 +25,17 @@ class MobileNumberTextField extends StatelessWidget {
 
   final FormFieldValidator? validator;
 
+  final String? isoCode;
+
   @override
   Widget build(BuildContext context) {
     // PhoneNumber? phoneNumber;
-    return IntlPhoneField(
-        textAlignVertical: TextAlignVertical.center,
-        controller: controller,
-        validator: validator,
+    return
+
+
+      IntlPhoneField(
+         textAlignVertical: TextAlignVertical.center,
+         controller: controller,
         textAlign: TextAlign.left,
         style: StyleUtility.inputTextStyle.copyWith(
           fontSize: TextSizeUtility.textSize15.sp,
@@ -96,16 +102,18 @@ class MobileNumberTextField extends StatelessWidget {
           ),
           focusColor: Colors.white,
         ),
-        initialCountryCode: 'IL',
+        initialCountryCode: isoCode ?? 'IL',
+      //  initialCountryCode: isoCode ?? 'IN',
         onChanged: (phone) {
           onChanged.call(phone);
-          // phoneNumber = phone;
-          // print("Phone $phone");
+          AppLogger.logD("Phone $phone");
         },
         onCountryChanged: (country) {
           controller.clear();
         },
         dropdownIcon:
             const Icon(Icons.arrow_drop_down, color: ColorUtility.color5457BE));
+
+
   }
 }

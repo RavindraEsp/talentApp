@@ -321,8 +321,13 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                           controller: provider.maxAgeController,
                                           hintText: context.loc.hintMax,
                                           textInputType: TextInputType.number,
-                                          validator: Validators(context)
-                                              .validatorMaxAge,
+                                         // validator: Validators(context).validatorMaxAge,
+
+                                            validator: (value){
+
+                                              return Validators(context).validatorMaxAge2(provider.minAgeController.text,value);
+                                            }
+
                                         ),
                                       ),
                                     ],
@@ -374,8 +379,12 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                               provider.maxWeightController,
                                           hintText: context.loc.hintMax,
                                           textInputType: TextInputType.number,
-                                          validator: Validators(context)
-                                              .validatorMaxWeight,
+                                         // validator: Validators(context).validatorMaxWeight,
+
+                                            validator: (value){
+
+                                              return Validators(context).validatorMaxWeight2(provider.minWeightController.text,value);
+                                            }
                                         ),
                                       ),
                                     ],
@@ -427,8 +436,11 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                               provider.maxHeightController,
                                           hintText: context.loc.hintMax,
                                           textInputType: TextInputType.number,
-                                          validator: Validators(context)
-                                              .validatorMaxHeight,
+                                         // validator: Validators(context).validatorMaxHeight,
+                                            validator: (value){
+
+                                              return Validators(context).validatorMaxHeight2(provider.minHeightController.text,value);
+                                            }
                                         ),
                                       ),
                                     ],

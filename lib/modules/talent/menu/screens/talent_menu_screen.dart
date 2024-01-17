@@ -59,7 +59,8 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
               image: ImageUtility.aboutUsIcon,
               onTap: () {
                 Navigator.pushNamed(context, RouteName.menuStaticScreen,
-                    arguments: {"headerText": context.loc.menuAboutUs});
+                    arguments: {"headerText": context.loc.menuAboutUs,
+                      "pageName": PageName.aboutUs,});
               },
             ),
             Container(
@@ -137,7 +138,8 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
               onTap: () {
                 Navigator.pushNamed(context, RouteName.menuStaticScreen,
                     arguments: {
-                      "headerText": context.loc.menuTermAndConditions
+                      "headerText": context.loc.menuTermAndConditions,
+                      "pageName": PageName.termCondition,
                     });
               },
             ),
@@ -161,7 +163,8 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
               image: ImageUtility.policyIcon,
               onTap: () {
                 Navigator.pushNamed(context, RouteName.menuStaticScreen,
-                    arguments: {"headerText": context.loc.menuPolicy});
+                    arguments: {"headerText": context.loc.menuPolicy,
+                      "pageName": PageName.policy,});
               },
             ),
             Container(

@@ -23,6 +23,8 @@ void main() {
   runApp(const MyApp());
 }
 
+final GlobalKey<NavigatorState> mainNavigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -66,6 +68,7 @@ class _MyAppState extends State<MyApp> {
         // splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
+            navigatorKey: mainNavigatorKey,
             debugShowCheckedModeBanner: false,
             locale: _appLocale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,

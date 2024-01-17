@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:talent_app/logger/app_logger.dart';
+import 'package:talent_app/main.dart';
+import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/network/client/http_service.dart';
 import 'package:talent_app/network/exception/app_exception.dart';
 import 'package:talent_app/network/interceptors/bearer_token_interceptor.dart';
@@ -131,6 +134,11 @@ class DioHttpService implements HttpService {
       final Response response = await api;
       if (response.statusCode == 200 || response.statusCode == 201) {
         return Future.value(response.data);
+      }
+      else if (response.statusCode == 403) {
+        AppLogger.logD("New condition");
+        goToLogin();
+        return Future.value(response.data);
       } else {
         return Future.error(parseHttpException(response));
       }
@@ -178,7 +186,12 @@ class DioHttpService implements HttpService {
       case 401:
       case 403:
         AppLogger.logD("message Navigate to login screen ");
-        return AppException.error(response.data.toString());
+
+        goToLogin();
+      //  return AppException.error(response.data.toString());
+       // return AppException.error(response.data());
+      //  return AppException.error("Session Expired Please login Again !");
+        return Future.value(response.data);
       case 422:
         return response.data;
       case 500:
@@ -188,4 +201,15 @@ class DioHttpService implements HttpService {
         return response.data;
     }
   }
+
+
+
+  goToLogin(){
+
+    Preference().clearSharedPreference();
+    Navigator.pushAndRemoveUntil(mainNavigatorKey.currentContext!, MaterialPageRoute(builder: (context) => const IntroScreen()),
+            (route) => false);
+  }
+
+
 }

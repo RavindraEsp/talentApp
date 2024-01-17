@@ -114,6 +114,7 @@ class _MenuScreenState extends State<MenuScreen> {
               title: context.loc.menuTermAndConditions,
               image: ImageUtility.tCIcon,
               onTap: () {
+
                 Navigator.pushNamed(context, RouteName.menuStaticScreen,
                     arguments: {
                       "headerText": context.loc.menuTermAndConditions,

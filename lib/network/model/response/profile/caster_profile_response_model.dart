@@ -37,6 +37,8 @@ class Data {
   String? userName;
   String? forgotOtp;
   String? mobileNumber;
+  String? countryCode;
+  String? countryISOCode;
   String? email;
   String? profilePic;
   String? govtId;
@@ -52,6 +54,8 @@ class Data {
         this.userName,
         this.forgotOtp,
         this.mobileNumber,
+        this.countryCode,
+        this.countryISOCode,
         this.email,
         this.profilePic,
         this.govtId
@@ -68,6 +72,8 @@ class Data {
     userName = json['userName'];
     forgotOtp = json['forgotOtp'];
     mobileNumber = json['mobileNumber'];
+    countryCode = json['countryCode'];
+    countryISOCode = json['countryISOCode'];
     email = json['email'];
     profilePic = json['profilePic'];
     govtId = json['GovtId'];
@@ -84,6 +90,8 @@ class Data {
     data['userName'] = this.userName;
     data['forgotOtp'] = this.forgotOtp;
     data['mobileNumber'] = this.mobileNumber;
+    data['countryCode'] = this.countryCode;
+    data['countryISOCode'] = this.countryISOCode;
     data['email'] = this.email;
     data['profilePic'] = this.profilePic;
     data['GovtId'] = this.govtId;

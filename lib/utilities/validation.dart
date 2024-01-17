@@ -18,7 +18,7 @@ class Validators {
   String? validatorPassword(value) {
     if (value.isEmpty) {
       return context.loc.validationPass;
-    }else if (value.toString().length < 8) {
+    } else if (value.toString().length < 8) {
       return context.loc.validationPassLength;
     }
     return null;
@@ -27,8 +27,7 @@ class Validators {
   String? validatorEmail(value) {
     if (value.isEmpty) {
       return context.loc.validationEmail;
-    }
-    else if(validator.email(value) == false){
+    } else if (validator.email(value) == false) {
       return "Please enter valid email.";
     }
 
@@ -48,12 +47,14 @@ class Validators {
     }
     return null;
   }
+
   String? validatorLastName(value) {
     if (value.isEmpty) {
       return context.loc.validationLastName;
     }
     return null;
   }
+
   // String? validatorGovtId(value) {
   //   if (value.isEmpty && value.length()) {
   //     return context.loc.validationID;
@@ -62,16 +63,13 @@ class Validators {
   // }
 
   String? validatorGovtId(value) {
-    if (value.isEmpty ) {
+    if (value.isEmpty) {
       return context.loc.validationID;
-    }else if (value.length != 9) {
-      return '9 characters and numbers require';
+    } else if (value.length != 9) {
+      return 'Invalid id.';
     }
     return null;
   }
-
-
-
 
   String? validatorAddress(value) {
     if (value.isEmpty) {
@@ -79,6 +77,7 @@ class Validators {
     }
     return null;
   }
+
   String? validatorCompanyName(value) {
     if (value.isEmpty) {
       return context.loc.validationCompanyName;
@@ -93,40 +92,64 @@ class Validators {
     return null;
   }
 
-  String? validatorMaxAge(value) {
-    if (value.isEmpty) {
+  // String? validatorMaxAge(value) {
+  //   if (value.isEmpty) {
+  //     return "Max age is required.";
+  //   }
+  //   return null;
+  // }
+
+  String? validatorMaxAge2(String min, max) {
+    if (max.isEmpty) {
       return "Max age is required.";
+    } else if (double.parse(max) < double.parse(min)) {
+      return "Invalid max age.";
     }
     return null;
   }
-
-
 
   String? validatorMinWeight(value) {
-
     if (value.isEmpty) {
       return "Min weight is required";
-    }
-    else if(double.parse(value) < 1){
+    } else if (double.parse(value) < 1) {
       return "Invalid weight.";
     }
     return null;
   }
 
-  String? validatorMaxWeight(value) {
-    if (value.isEmpty) {
+
+
+  // String? validatorMaxWeight(value) {
+  //   if (value.isEmpty) {
+  //     return "Max weight is required.";
+  //   } else if (double.parse(value) < 1) {
+  //     return "Invalid max weight.";
+  //   }
+  //   return null;
+  // }
+
+  String? validatorMaxWeight2(String min, max) {
+    if (max.isEmpty) {
       return "Max weight is required.";
-    }
-    else if(double.parse(value) <1){
-      return "Invalid weight.";
+    } else if (double.parse(max) < double.parse(min)) {
+      return "Invalid max weight.";
     }
     return null;
   }
 
+
+  String? validatorWeight(value) {
+    if (value.isEmpty) {
+      return "Weight is required";
+    } else if (double.parse(value) < 1) {
+      return "Invalid weight.";
+    }
+    return null;
+  }
   String? validatorMinHeight(value) {
     if (value.isEmpty) {
       return "Min height is required.";
-    } else if(double.parse(value) <1){
+    } else if (double.parse(value) < 1) {
       return "Invalid height.";
     }
     return null;
@@ -134,14 +157,34 @@ class Validators {
 
 
 
-  String? validatorMaxHeight(value) {
-    if (value.isEmpty) {
+  // String? validatorMaxHeight(value) {
+  //   if (value.isEmpty) {
+  //     return "Max height is required.";
+  //   } else if (double.parse(value) < 1) {
+  //     return "Invalid max height.";
+  //   }
+  //   return null;
+  // }
+
+  String? validatorMaxHeight2(String min, max) {
+    if (max.isEmpty) {
       return "Max height is required.";
-    }else if(double.parse(value) <1){
+    } else if (double.parse(max) < double.parse(min)) {
+      return "Invalid max height.";
+    }
+    return null;
+  }
+
+
+  String? validatorHeight(value) {
+    if (value.isEmpty) {
+      return "Height is required.";
+    } else if (double.parse(value) < 1) {
       return "Invalid height.";
     }
     return null;
   }
+
 
   String? validatorDescription(value) {
     if (value.isEmpty) {
@@ -163,5 +206,4 @@ class Validators {
     }
     return null;
   }
-
 }

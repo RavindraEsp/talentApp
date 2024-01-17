@@ -17,7 +17,6 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/buttons/social_button.dart';
-import 'package:talent_app/widgets/custom_gradient_checkbox.dart';
 import 'package:talent_app/widgets/textField/mobile_number_text_field.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 
@@ -44,6 +43,9 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
   String confPassPrefixImage = ImageUtility.eyeCloseIcon;
   bool isChecked = false;
   final _formKey = GlobalKey<FormState>();
+
+  String? countryCode;
+  String? countryISOCode;
 
   @override
   Widget build(BuildContext context) {
@@ -217,12 +219,19 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                     hintText: context.loc.hintMobile,
                                     validator:
                                         Validators(context).validatorPhone,
-                                    onChanged: (PhoneNumber value) {
+                                    onChanged: (PhoneNumber? value) {
+
+                                      countryCode = value?.countryCode;
+                                      countryISOCode = value?.countryISOCode;
+
+
                                       AppLogger.logD(
-                                          "IsoCode ${value.countryISOCode}");
+                                          "IsoCode ${value?.countryISOCode}");
                                       AppLogger.logD(
-                                          "Country Code ${value.countryCode}");
-                                      AppLogger.logD("Number ${value.number}");
+                                          "Country Code ${value?.countryCode}");
+                                      AppLogger.logD("Number ${value?.number}");
+
+
                                     },
                                   ),
                                   // SizedBox(
@@ -271,7 +280,8 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                                           emailController.text,
                                                       "phone":
                                                           phoneController.text,
-                                                      "countyCode": "",
+                                                      "countyCode": countryCode,
+                                                      "countryISOCode": countryISOCode,
                                                       "userName":
                                                           userNameController
                                                               .text,
@@ -292,6 +302,8 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                                                 email: emailController.text,
                                                 mobileNumber:
                                                     phoneController.text,
+                                                countryCode: countryCode,
+
 
                                                 userType: widget.userType ==
                                                         UserType.talent

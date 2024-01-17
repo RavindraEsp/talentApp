@@ -35,6 +35,8 @@ class Data {
   int? userId;
   int? gender;
   String? phone;
+  String? countryCode;
+  String? countryISOCode;
   String? email;
   String? address;
   String? dateofbirth;
@@ -63,6 +65,8 @@ class Data {
       this.userId,
       this.gender,
       this.phone,
+      this.countryCode,
+      this.countryISOCode,
       this.email,
       this.address,
       this.dateofbirth,
@@ -91,6 +95,8 @@ class Data {
     userId = json['userId'];
     gender = json['Gender'];
     phone = json['Phone'];
+    countryCode = json['countryCode'];
+    countryISOCode = json['countryISOCode'];
     email = json['Email'];
     address = json['Address'];
     dateofbirth = json['Dateofbirth'];
@@ -136,6 +142,8 @@ class Data {
     data['userId'] = this.userId;
     data['Gender'] = this.gender;
     data['Phone'] = this.phone;
+    data['countryCode'] = this.countryCode;
+    data['countryISOCode'] = this.countryISOCode;
     data['Email'] = this.email;
     data['Address'] = this.address;
     data['Dateofbirth'] = this.dateofbirth;

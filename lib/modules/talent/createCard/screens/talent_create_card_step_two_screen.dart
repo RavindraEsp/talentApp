@@ -141,9 +141,9 @@ class _TalentCreateCardStepTwoScreenState
                                           ),
                                           SimpleTextField(
                                               controller: weightController,
-                                              hintText: context.loc.hintMin,
+                                              hintText: context.loc.hintWeight,
                                               textInputType: TextInputType.number,
-                                            validator: Validators(context).validatorMinWeight,
+                                            validator: Validators(context).validatorWeight,
                                           ),
                                           SizedBox(
                                             height: 22.h,
@@ -160,9 +160,9 @@ class _TalentCreateCardStepTwoScreenState
                                           ),
                                           SimpleTextField(
                                               controller: heightController,
-                                              hintText: context.loc.hintMin,
+                                              hintText: context.loc.hintHeight,
                                               textInputType: TextInputType.number,
-                                            validator: Validators(context).validatorMinHeight,
+                                            validator: Validators(context).validatorHeight,
                                           ),
 
                                           SizedBox(

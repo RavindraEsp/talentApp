@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
-import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
 import 'package:talent_app/modules/casting/createAudition/providers/create_audition_provider.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/select_unselect_widget.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
@@ -333,8 +331,13 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                             .maxAgeController,
                                         hintText: context.loc.hintMax,
                                         textInputType: TextInputType.number,
-                                        validator:
-                                            Validators(context).validatorMaxAge,
+                                      //  validator: Validators(context).validatorMaxAge,
+                                          validator: (value){
+
+                                       return Validators(context).validatorMaxAge2(createAuditionProvider.minAgeController.text,value);
+                                        }
+
+
                                       ),
                                     ),
                                   ],
@@ -385,8 +388,12 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                             .maxWeightController,
                                         hintText: context.loc.hintMax,
                                         textInputType: TextInputType.number,
-                                        validator: Validators(context)
-                                            .validatorMaxWeight,
+                                       // validator: Validators(context).validatorMaxWeight,
+
+                                          validator: (value){
+
+                                            return Validators(context).validatorMaxWeight2(createAuditionProvider.minWeightController.text,value);
+                                          }
                                       ),
                                     ),
                                   ],
@@ -437,8 +444,12 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                             .maxHeightController,
                                         hintText: context.loc.hintMax,
                                         textInputType: TextInputType.number,
-                                        validator: Validators(context)
-                                            .validatorMaxHeight,
+                                       // validator: Validators(context).validatorMaxHeight,
+
+                                          validator: (value){
+
+                                            return Validators(context).validatorMaxHeight2(createAuditionProvider.minHeightController.text,value);
+                                          }
                                       ),
                                     ),
                                   ],

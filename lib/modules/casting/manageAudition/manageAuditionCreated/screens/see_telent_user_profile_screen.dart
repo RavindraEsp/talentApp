@@ -198,7 +198,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                           SizedBox(
                             height: 23.h,
                           ),
-                          Container(
+                          SizedBox(
                               height: 420.sp,
                               child: ProfileImageViewPagerWidget()),
                           SizedBox(
@@ -785,7 +785,7 @@ class _ProfileImageViewPagerWidgetState
                                     left: 10.w, right: 10.w, bottom: 10.w),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Image.asset(
                                       ImageUtility.popularIcon,

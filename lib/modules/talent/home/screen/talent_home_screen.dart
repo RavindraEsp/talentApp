@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/main.dart';
+import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/modules/talent/home/providers/talent_home_screen_provider.dart';
 import 'package:talent_app/modules/talent/home/widgets/approved_audition_widget.dart';
 import 'package:talent_app/modules/talent/home/widgets/audition_for_you_widget.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/network/end_points.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/enums.dart';
@@ -36,6 +39,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
       Common.showErrorSnackBar(context, message);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +74,9 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+
                             const SettingButtonWidget(),
+
                             Text(
                               //  "Hello, Michal",
                               "${context.loc.helloUserName} ${Preference().getUserName()}",
@@ -185,3 +191,5 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
 
 
 }
+
+

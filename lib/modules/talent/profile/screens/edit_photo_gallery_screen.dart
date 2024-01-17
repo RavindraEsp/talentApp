@@ -113,6 +113,7 @@ class _EditPhotoGalleryScreenState extends State<EditPhotoGalleryScreen> {
                               fit: BoxFit.cover,
                               // height: 200,
                               width: double.infinity,
+                              height: double.infinity,
                             ),
                           ),
                           InkWell(

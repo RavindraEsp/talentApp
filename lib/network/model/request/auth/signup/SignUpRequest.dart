@@ -2,6 +2,8 @@ class SignupRequest {
   String? userName;
   String? email;
   String? mobileNumber;
+  String? countryCode;
+  String? countryISOCode;
   String? password;
   String? confirmPassword;
   String? oTP;
@@ -11,6 +13,8 @@ class SignupRequest {
       {this.userName,
         this.email,
         this.mobileNumber,
+        this.countryCode,
+        this.countryISOCode,
         this.password,
         this.confirmPassword,
         this.oTP,
@@ -20,6 +24,8 @@ class SignupRequest {
     userName = json['userName'];
     email = json['email'];
     mobileNumber = json['mobileNumber'];
+    countryCode = json['countryCode'];
+    countryISOCode = json['countryISOCode'];
     password = json['password'];
     confirmPassword = json['confirmPassword'];
     oTP = json['OTP'];
@@ -31,6 +37,8 @@ class SignupRequest {
     data['userName'] = this.userName;
     data['email'] = this.email;
     data['mobileNumber'] = this.mobileNumber;
+    data['countryCode'] = this.countryCode;
+    data['countryISOCode'] = this.countryISOCode;
     data['password'] = this.password;
     data['confirmPassword'] = this.confirmPassword;
     data['OTP'] = this.oTP;

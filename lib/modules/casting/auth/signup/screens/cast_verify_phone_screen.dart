@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/auth/signup/provider/cast_verify_phone_provider.dart';
 import 'package:talent_app/network/model/request/auth/signup/SignUpRequest.dart';
 import 'package:talent_app/network/model/request/auth/signup/SignUpSendOtpRequest.dart';
@@ -22,7 +23,8 @@ class CastVerifyPhoneScreen extends StatefulWidget {
 
   final String email;
   final String phone;
-  final String countyCode;
+  final String countryCode;
+  final String countryISOCode;
   final String userName;
   final String password;
   final String confirmPassword;
@@ -32,7 +34,8 @@ class CastVerifyPhoneScreen extends StatefulWidget {
       required this.userType,
       required this.email,
       required this.phone,
-      required this.countyCode,
+      required this.countryCode,
+      required this.countryISOCode,
       required this.userName,
       required this.password,
       required this.confirmPassword});
@@ -43,6 +46,14 @@ class CastVerifyPhoneScreen extends StatefulWidget {
 
 class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
   TextEditingController otpController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AppLogger.logD("Country iso ${widget.countryISOCode}");
+    AppLogger.logD("Country code ${widget.countryCode}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +144,7 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                   children: <TextSpan>[
                                     TextSpan(
                                       text:
-                                          " ${widget.countyCode} ${widget.phone}",
+                                          " ${widget.countryCode} ${widget.phone}",
                                       style: StyleUtility
                                           .quicksandRegular16TextStyle
                                           .copyWith(
@@ -145,14 +156,17 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                   ],
                                 ),
                               ),
+
                               SizedBox(
                                 height: 35.h,
                               ),
+
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 10.h),
                                 child: CustomOtpTextField(
                                     controller: otpController),
                               ),
+
                               SizedBox(
                                 height: 30.h,
                               ),
@@ -186,6 +200,7 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                               email: widget.email,
                                               mobileNumber:
                                               widget.phone,
+                                              countryCode: widget.countryCode,
 
                                               userType: widget.userType ==
                                                   UserType.talent
@@ -246,6 +261,8 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                             request: SignupRequest(
                                                 email: widget.email,
                                                 mobileNumber: widget.phone,
+                                                countryCode: widget.countryCode,
+                                                countryISOCode: widget.countryISOCode,
                                                 userName: widget.userName,
                                                 password: widget.password,
                                                 confirmPassword:

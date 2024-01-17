@@ -17,6 +17,7 @@ import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
+import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/alertDialog/success_alert_dialog.dart';
@@ -84,20 +85,32 @@ class _EditAuditionPlaceTimeScreenState
                             : context.loc.buttonUpdate,
                         buttonType: ButtonType.yellow,
                         onTap: () {
-                          Common.showLoadingDialog(context);
-                          provider.updateBtnClick(
-                              context: context,
-                              onSuccess: (message) {
-                                Navigator.pop(context);
 
-                                showAuditionAuditionCreateSuccessDialog(
-                                    context: context);
+                          if (provider
+                              .auditionLocationController.text.isEmpty) {
+                            Common.showErrorSnackBar(context, StringsUtility.validationLocation);
+                          } else if (provider
+                              .dateTimeList.isEmpty) {
+                            Common.showErrorSnackBar(
+                                context, StringsUtility.validationAddDAteTime);
+                          }
 
-                              },
-                              onFailure: (message) {
-                                Navigator.pop(context);
-                               Common.showErrorSnackBar(context, message);
-                              });
+
+                         else{
+                            Common.showLoadingDialog(context);
+                            provider.updateBtnClick(
+                                context: context,
+                                onSuccess: (message) {
+                                  Navigator.pop(context);
+                                  showAuditionAuditionCreateSuccessDialog(
+                                      context: context);
+
+                                },
+                                onFailure: (message) {
+                                  Navigator.pop(context);
+                                  Common.showErrorSnackBar(context, message);
+                                });
+                          }
                           // showAuditionAuditionCreateSuccessDialog(
                           //     context: context);
                         },
