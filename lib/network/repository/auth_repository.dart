@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/modules/talent/profile/model/talent_body_response_model.dart';
 import 'package:talent_app/modules/talent/profile/model/talent_category_response_model.dart';
-import 'package:talent_app/modules/talent/profile/model/talent_profile_resposne_model.dart';
 import 'package:talent_app/network/client/dio_http_service.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/network/model/request/auth/login_request.dart';

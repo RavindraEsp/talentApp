@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/talent/profile/model/talent_body_response_model.dart';
 import 'package:talent_app/modules/talent/profile/providers/edit_talent_body_screen_provider.dart';
+import 'package:talent_app/modules/talent/profile/widgets/talent_edit_body_dropdown_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/enums.dart';
@@ -32,8 +33,6 @@ class _EditTalentBodyScreenState extends State<EditTalentBodyScreen> {
 
   // DropDownModel? selectHeight;
   // DropDownModel? selectWeight;
-
-
 
   // List<DropDownModel> eyeColorList = [
   //   DropDownModel("Red", "1"),
@@ -68,19 +67,14 @@ class _EditTalentBodyScreenState extends State<EditTalentBodyScreen> {
   void initState() {
     super.initState();
     Provider.of<EditTalentBodyScreenProvider>(context, listen: false)
-        .fetchTalentBody(
-            onSuccess: (talentBodyResponseModel) {
-             // setAutofillValue(talentBodyResponseModel);
-            },
-            onFailure: (message) {
-              if (Navigator.canPop(context)) {
-                Navigator.pop(context);
-              }
-            });
+        .fetchTalentBody(onSuccess: (talentBodyResponseModel) {
+      // setAutofillValue(talentBodyResponseModel);
+    }, onFailure: (message) {
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+    });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -131,36 +125,32 @@ class _EditTalentBodyScreenState extends State<EditTalentBodyScreen> {
                             height: 25.h,
                           ),
 
+                          TalentEditBodyDropDownWidget(
+                              ovValueChange: (item) {
+                                editTalentBodyScreenProvider.selectEyeColor =
+                                    item;
+                                editTalentBodyScreenProvider.updateUi();
+                              },
+                              dropDownList: editTalentBodyScreenProvider
+                                  .talentBodyResponseModel.data?.eyeColorArr,
+                              selectItem:
+                                  editTalentBodyScreenProvider.selectEyeColor,
+                              hintText: context.loc.hintEyeColor),
 
-                        TalentEditBodyDropDownWidget(
-                            ovValueChange: (item) {
-                             editTalentBodyScreenProvider.selectEyeColor = item;
-                              setState(() {});
-                            },
-                            dropDownList: editTalentBodyScreenProvider.talentBodyResponseModel.data?.eyeColorArr,
-                            selectItem: editTalentBodyScreenProvider.selectEyeColor,
-                            hintText: context.loc.hintEyeColor),
-
-
-
-
-                        SizedBox(
+                          SizedBox(
                             height: 22.h,
                           ),
 
-
-
-
-
-
-
-                        TalentEditBodyDropDownWidget(
+                          TalentEditBodyDropDownWidget(
                               ovValueChange: (item) {
-                                editTalentBodyScreenProvider.selectHairColor = item;
-                                setState(() {});
+                                editTalentBodyScreenProvider.selectHairColor =
+                                    item;
+                                editTalentBodyScreenProvider.updateUi();
                               },
-                              dropDownList: editTalentBodyScreenProvider.talentBodyResponseModel.data?.hairColorArr,
-                              selectItem: editTalentBodyScreenProvider.selectHairColor,
+                              dropDownList: editTalentBodyScreenProvider
+                                  .talentBodyResponseModel.data?.hairColorArr,
+                              selectItem:
+                                  editTalentBodyScreenProvider.selectHairColor,
                               hintText: context.loc.hintHairColor),
                           SizedBox(
                             height: 22.h,
@@ -188,7 +178,6 @@ class _EditTalentBodyScreenState extends State<EditTalentBodyScreen> {
                           //   height: 22.h,
                           // ),
 
-
                           // CustomDropDownWidget(
                           //     ovValueChange: (item) {
                           //       selectShirtSize = item;
@@ -199,40 +188,45 @@ class _EditTalentBodyScreenState extends State<EditTalentBodyScreen> {
                           //     hintText: context.loc.hintShirtSize),
                           //
 
-                        TalentEditBodyDropDownWidget(
-                            ovValueChange: (item) {
-                              editTalentBodyScreenProvider.selectShirtSize = item;
-                              setState(() {});
-                            },
-                            dropDownList: editTalentBodyScreenProvider.talentBodyResponseModel.data?.shirtSizeArr,
-                            selectItem: editTalentBodyScreenProvider.selectShirtSize,
-                            hintText: context.loc.hintShirtSize),
+                          TalentEditBodyDropDownWidget(
+                              ovValueChange: (item) {
+                                editTalentBodyScreenProvider.selectShirtSize =
+                                    item;
+                                editTalentBodyScreenProvider.updateUi();
+                              },
+                              dropDownList: editTalentBodyScreenProvider
+                                  .talentBodyResponseModel.data?.shirtSizeArr,
+                              selectItem:
+                                  editTalentBodyScreenProvider.selectShirtSize,
+                              hintText: context.loc.hintShirtSize),
 
-
-
-
-
-                        SizedBox(
+                          SizedBox(
                             height: 22.h,
                           ),
-                        TalentEditBodyDropDownWidget(
+                          TalentEditBodyDropDownWidget(
                               ovValueChange: (item) {
-                                editTalentBodyScreenProvider.selectPansSize = item;
-                                setState(() {});
+                                editTalentBodyScreenProvider.selectPansSize =
+                                    item;
+                                editTalentBodyScreenProvider.updateUi();
                               },
-                              dropDownList: editTalentBodyScreenProvider.talentBodyResponseModel.data?.pantSizeArr,
-                              selectItem: editTalentBodyScreenProvider.selectPansSize,
+                              dropDownList: editTalentBodyScreenProvider
+                                  .talentBodyResponseModel.data?.pantSizeArr,
+                              selectItem:
+                                  editTalentBodyScreenProvider.selectPansSize,
                               hintText: context.loc.hintPantsSize),
                           SizedBox(
                             height: 22.h,
                           ),
-                        TalentEditBodyDropDownWidget(
+                          TalentEditBodyDropDownWidget(
                               ovValueChange: (item) {
-                                editTalentBodyScreenProvider.selectShoeSize = item;
-                                setState(() {});
+                                editTalentBodyScreenProvider.selectShoeSize =
+                                    item;
+                                editTalentBodyScreenProvider.updateUi();
                               },
-                              dropDownList: editTalentBodyScreenProvider.talentBodyResponseModel.data?.shoeSizeArr,
-                              selectItem: editTalentBodyScreenProvider.selectShoeSize,
+                              dropDownList: editTalentBodyScreenProvider
+                                  .talentBodyResponseModel.data?.shoeSizeArr,
+                              selectItem:
+                                  editTalentBodyScreenProvider.selectShoeSize,
                               hintText: context.loc.hintShoeSize),
                           SizedBox(
                             height: 40.h,
@@ -241,25 +235,26 @@ class _EditTalentBodyScreenState extends State<EditTalentBodyScreen> {
                             buttonText: context.loc.buttonUpdate,
                             buttonType: ButtonType.blue,
                             onTap: () async {
-
-                              editTalentBodyScreenProvider.setTalentBodyArrayData();
+                              editTalentBodyScreenProvider
+                                  .setTalentBodyArrayData();
 
                               Common.showLoadingDialog(context);
-                              editTalentBodyScreenProvider.updateTalentProfileData(
+                              editTalentBodyScreenProvider
+                                  .updateTalentProfileData(
                                 id: widget.id,
-                                  onSuccess: (message){
-
-                                    Navigator.pop(context);
-                                    Navigator.pop(context,true);
-                                    Common.showSuccessToast(context, message);
-
-                              }, onFailure: (message){
-                                if(Navigator.canPop(context)){
+                                onSuccess: (message) {
                                   Navigator.pop(context);
-                                }
-                                Common.showErrorSnackBar(context, message);
-                              }, );
-                            //  editTalentBodyScreenProvider.u
+                                  Navigator.pop(context, true);
+                                  Common.showSuccessToast(context, message);
+                                },
+                                onFailure: (message) {
+                                  if (Navigator.canPop(context)) {
+                                    Navigator.pop(context);
+                                  }
+                                  Common.showErrorSnackBar(context, message);
+                                },
+                              );
+                              //  editTalentBodyScreenProvider.u
                             },
                           ),
                           SizedBox(
@@ -269,77 +264,6 @@ class _EditTalentBodyScreenState extends State<EditTalentBodyScreen> {
             })),
           ])),
         ],
-      ),
-    );
-  }
-}
-
-
-
-
-
-class TalentEditBodyDropDownWidget extends StatelessWidget {
-  const TalentEditBodyDropDownWidget({
-    super.key,
-    required this.ovValueChange,
-    required this.dropDownList,
-    required this.selectItem,
-    required this.hintText,
-  });
-
-  final ValueChanged<EyeColorArr> ovValueChange;
-
-  final List<EyeColorArr>? dropDownList;
-  final EyeColorArr? selectItem;
-  final String hintText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 15.w,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(
-          color: ColorUtility.colorD6D6D8,
-        ),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<EyeColorArr>(
-          value: selectItem,
-          items: dropDownList?.map((EyeColorArr items) {
-            return DropdownMenuItem(
-              value: items,
-              child: Text(
-                items.option ?? "",
-                style: StyleUtility.inputTextStyle
-                    .copyWith(fontSize: TextSizeUtility.textSize15.sp),
-              ),
-            );
-          }).toList(),
-          isExpanded: true,
-          icon: SizedBox(
-            height: 10.h,
-            child: Image.asset(ImageUtility.dropDownArrowIcon),
-          ),
-          underline: Container(
-            color: ColorUtility.colorD6D6D8,
-          ),
-          hint: Text(
-            hintText,
-            style: StyleUtility.hintTextStyle
-                .copyWith(fontSize: TextSizeUtility.textSize15.sp),
-          ),
-          onChanged: (EyeColorArr? value) {
-            // setState(() {
-            //   selectHeight = value!;
-            //   print(value);
-            // });
-
-            ovValueChange.call(value!);
-          },
-        ),
       ),
     );
   }

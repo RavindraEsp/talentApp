@@ -380,7 +380,9 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                       .talantUserProfileModel?.data?[0].about ??
                                   "",
                               style:
-                                  StyleUtility.quicksandRegularBlackTextStyle,
+                                  StyleUtility.quicksandRegularBlackTextStyle.copyWith(
+                                    fontSize: TextSizeUtility.textSize16.sp
+                                  ),
                             ),
                             SizedBox(
                               height: 20.h,
@@ -420,10 +422,9 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                               height: 15.h,
                             ),
                             SizedBox(
-                              height: 95.h,
+                              height: 120.sp,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  //  itemCount: 5,
                                   itemCount: talentProfileScreenProvider
                                           .talantUserProfileModel
                                           ?.data?[0]

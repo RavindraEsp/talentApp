@@ -61,12 +61,15 @@ class _EditPhotoGalleryScreenState extends State<EditPhotoGalleryScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 Text(
-                  context.loc.titleUploadMultimediaFiles,
+                  context.loc.titleUploadPhoto,
                   style: StyleUtility.quicksandSemiBold5457BETextStyle
                       .copyWith(fontSize: TextSizeUtility.textSize16.sp),
+                ),
+                SizedBox(
+                  height: 10.h,
                 ),
                 Expanded(
                   child: GridView.builder(

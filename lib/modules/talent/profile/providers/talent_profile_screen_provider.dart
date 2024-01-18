@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
-import 'package:talent_app/modules/talent/profile/model/talent_profile_resposne_model.dart';
 import 'package:talent_app/network/repository/auth_repository.dart';
 
 class TalentProfileScreenProvider extends ChangeNotifier{
