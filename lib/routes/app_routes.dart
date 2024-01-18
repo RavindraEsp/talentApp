@@ -51,8 +51,11 @@ import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
 import 'package:talent_app/modules/talent/menu/provider/denied_audition_provider.dart';
 import 'package:talent_app/modules/talent/menu/screens/denied_audition_screen.dart';
 import 'package:talent_app/modules/talent/menu/screens/talent_menu_screen.dart';
+import 'package:talent_app/modules/talent/profile/providers/edit_genre_screen_provider.dart';
+import 'package:talent_app/modules/talent/profile/providers/edit_talent_body_screen_provider.dart';
+import 'package:talent_app/modules/talent/profile/providers/edit_tell_us_about_you_screen_provider.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_audio_screen.dart';
-import 'package:talent_app/modules/talent/profile/screens/edit_body_screen.dart';
+import 'package:talent_app/modules/talent/profile/screens/edit_talent_body_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_genre_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_photo_gallery_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_tell_us_about_screen.dart';
@@ -352,7 +355,13 @@ class AppRoute {
       case RouteName.editTellUsAboutScreen:
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) =>  EditTellUsAboutScreen(about: arg["about"],),
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => EditTellUsAboutScreenProvider(),
+            child: EditTellUsAboutScreen(
+              about: arg["about"],
+              id: arg["id"],
+            ),
+          ),
         );
 
       case RouteName.editPhotoGalleryScreen:
@@ -369,14 +378,24 @@ class AppRoute {
           builder: (context) => const EditAudioScreen(),
         );
       case RouteName.editGenreScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditGenreScreen(),
+          builder: (context) => ChangeNotifierProvider(
+              create: (context) => EditGenreScreenProvider(),
+              child: EditGenreScreen(
+                id: arg["id"],
+              )),
         );
 
       case RouteName.editBodyScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditBodyScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => EditTalentBodyScreenProvider(),
+                  child:  EditTalentBodyScreen(
+                    id: arg["id"],
+                  ),
+                ));
 
       case RouteName.deniedAuditionScreen:
         return MaterialPageRoute(

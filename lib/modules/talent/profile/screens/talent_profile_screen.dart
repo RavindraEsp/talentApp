@@ -77,12 +77,21 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
     });
   }
 
-
-  getTalentProfileData(){
-
+  getTalentProfileData(
+      TalentProfileScreenProvider talentProfileScreenProvider) {
+    talentProfileScreenProvider.isLoading = true;
+    talentProfileScreenProvider.updateUi();
+    talentProfileScreenProvider.getTalentProfile(onFailure: (message) {
+      Common.showErrorSnackBar(context, message);
+    }, onSuccess: (talantUserProfileModel) {
+      setAutoFillValue(talantUserProfileModel);
+    });
   }
 
   setAutoFillValue(TalantUserProfileModel talantUserProfileModel) {
+    genreModel = [];
+    bodyModel = [];
+
     var talentProfile = talantUserProfileModel.data?[0];
     firstNameController.text = talentProfile?.firstName ?? "";
     lastNameController.text = talentProfile?.lastName ?? "";
@@ -242,8 +251,11 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                             MobileNumberTextField(
                               controller: phoneController,
                               hintText: context.loc.hintMobile,
-                            isoCode: talentProfileScreenProvider.talantUserProfileModel?.data?[0].countryISOCode,
-                            //  validator: Validators(context).validatorPhone,
+                              isoCode: talentProfileScreenProvider
+                                  .talantUserProfileModel
+                                  ?.data?[0]
+                                  .countryISOCode,
+                              //  validator: Validators(context).validatorPhone,
                               onChanged: (PhoneNumber value) {
                                 AppLogger.logD(
                                     "IsoCode ${value.countryISOCode}");
@@ -326,11 +338,24 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     Navigator.pushNamed(context,
-                                        RouteName.editTellUsAboutScreen,arguments: {
-                                      "about" : talentProfileScreenProvider
-                                          .talantUserProfileModel?.data?[0].about ??
-                                          ""
-                                        });
+                                        RouteName.editTellUsAboutScreen,
+                                        arguments: {
+                                          "about": talentProfileScreenProvider
+                                                  .talantUserProfileModel
+                                                  ?.data?[0]
+                                                  .about ??
+                                              "",
+                                          "id": talentProfileScreenProvider
+                                                  .talantUserProfileModel
+                                                  ?.data?[0]
+                                                  .id ??
+                                              0
+                                        }).then((value) {
+                                      if (value == true) {
+                                        getTalentProfileData(
+                                            talentProfileScreenProvider);
+                                      }
+                                    });
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(2.w),
@@ -650,7 +675,19 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, RouteName.editGenreScreen);
+                                        context, RouteName.editGenreScreen,
+                                        arguments: {
+                                          "id": talentProfileScreenProvider
+                                                  .talantUserProfileModel
+                                                  ?.data?[0]
+                                                  .id ??
+                                              0
+                                        }).then((value) {
+                                      if (value == true) {
+                                        getTalentProfileData(
+                                            talentProfileScreenProvider);
+                                      }
+                                    });
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(2.w),
@@ -721,7 +758,19 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, RouteName.editBodyScreen);
+                                        context, RouteName.editBodyScreen,
+                                        arguments: {
+                                          "id": talentProfileScreenProvider
+                                                  .talantUserProfileModel
+                                                  ?.data?[0]
+                                                  .id ??
+                                              0
+                                        }).then((value){
+                                          if(value == true){
+                                            getTalentProfileData(
+                                                talentProfileScreenProvider);
+                                          }
+                                    });
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(2.w),

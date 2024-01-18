@@ -39,9 +39,13 @@ class ApiEndPoints {
 
 
   String get createTalentCard => "auth/addEditTalentProfile";
+  String get updateTalentProfile => "auth/UpdateTalentProfile";
   String get getAlltalentdashboardAuditionList => "get/getAlltalentdashboardAuditionList";
   String get getAuditionDetailbytalent => "get/getAuditionDetailbytalent";
   String get applyAudition => "auth/applyAudition";
   String get withdrawAudition => "auth/withdrawAudition";
   String get gettalentdeclinedAuditionList => "get/gettalentdeclinedAuditionList";
+
+  String get  getEditlookingData => "get/getEditlookingData";
+  String get  getEditTalentBody => "get/getEditTalentBody";
 }

@@ -22,6 +22,7 @@ class TalentProfileScreenProvider extends ChangeNotifier{
         required ValueChanged<TalantUserProfileModel> onSuccess,
       }) {
     isLoading = true;
+    talantUserProfileModel = TalantUserProfileModel();
     authRepository.getTalentProfile(
         queryParameters: {
           "userType": 1, //Here us Talent app
