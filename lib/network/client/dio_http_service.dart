@@ -42,7 +42,6 @@ class DioHttpService implements HttpService {
     dio.interceptors.add(RetryOnConnectionChangeInterceptor(dio: dio));
 
 
-
   }
 
   @override

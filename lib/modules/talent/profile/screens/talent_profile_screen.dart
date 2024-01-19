@@ -77,17 +77,6 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
     });
   }
 
-  getTalentProfileData(
-      TalentProfileScreenProvider talentProfileScreenProvider) {
-    talentProfileScreenProvider.isLoading = true;
-    talentProfileScreenProvider.updateUi();
-    talentProfileScreenProvider.getTalentProfile(onFailure: (message) {
-      Common.showErrorSnackBar(context, message);
-    }, onSuccess: (talantUserProfileModel) {
-      setAutoFillValue(talantUserProfileModel);
-    });
-  }
-
   setAutoFillValue(TalantUserProfileModel talantUserProfileModel) {
     genreModel = [];
     bodyModel = [];
@@ -118,6 +107,34 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
 
     isExperienceNeeded = talentProfile?.experience == 1 ? true : false;
     isParticipate = talentProfile?.participated == 1 ? true : false;
+  }
+
+  getTalentProfileDataAfterUpdate(
+      TalentProfileScreenProvider talentProfileScreenProvider) {
+    talentProfileScreenProvider.isLoading = true;
+    talentProfileScreenProvider.updateUi();
+    talentProfileScreenProvider.getTalentProfile(onFailure: (message) {
+      Common.showErrorSnackBar(context, message);
+    }, onSuccess: (talantUserProfileModel) {
+      setAutoFillValue(talantUserProfileModel);
+    });
+  }
+
+  deleteFile(TalentProfileScreenProvider talentProfileScreenProvider, int id) {
+    Common.showLoadingDialog(context);
+    talentProfileScreenProvider.deleteFile(
+        id: id,
+        onFailure: (message) {
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+          Common.showErrorSnackBar(context, message);
+        },
+        onSuccess: (msg) {
+          Navigator.pop(context);
+          Common.showSuccessSnackBar(context, msg);
+          getTalentProfileDataAfterUpdate(talentProfileScreenProvider);
+        });
   }
 
   @override
@@ -352,7 +369,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                               0
                                         }).then((value) {
                                       if (value == true) {
-                                        getTalentProfileData(
+                                        getTalentProfileDataAfterUpdate(
                                             talentProfileScreenProvider);
                                       }
                                     });
@@ -379,10 +396,9 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                               talentProfileScreenProvider
                                       .talantUserProfileModel?.data?[0].about ??
                                   "",
-                              style:
-                                  StyleUtility.quicksandRegularBlackTextStyle.copyWith(
-                                    fontSize: TextSizeUtility.textSize16.sp
-                                  ),
+                              style: StyleUtility.quicksandRegularBlackTextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp),
                             ),
                             SizedBox(
                               height: 20.h,
@@ -402,7 +418,19 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     Navigator.pushNamed(context,
-                                        RouteName.editPhotoGalleryScreen);
+                                        RouteName.editPhotoGalleryScreen,
+                                        arguments: {
+                                          "id": talentProfileScreenProvider
+                                                  .talantUserProfileModel
+                                                  ?.data?[0]
+                                                  .id ??
+                                              0
+                                        }).then((value) {
+                                      if (value == true) {
+                                        getTalentProfileDataAfterUpdate(
+                                            talentProfileScreenProvider);
+                                      }
+                                    });
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(2.w),
@@ -421,52 +449,98 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                             SizedBox(
                               height: 15.h,
                             ),
-                            SizedBox(
-                              height: 120.sp,
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: talentProfileScreenProvider
-                                          .talantUserProfileModel
-                                          ?.data?[0]
-                                          .imageFiles
-                                          ?.length ??
-                                      0,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                        margin: EdgeInsets.only(right: 10.w),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10.r),
-                                          child: CachedNetworkImage(
-                                              width: 90.sp,
-                                              height: 120.sp,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, url) =>
-                                                  const Center(
-                                                      child:
-                                                          CircularProgressIndicator()),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Container(
-                                                          color: Colors.grey,
-                                                          child: Center(
-                                                              child: Icon(
-                                                            Icons.error,
-                                                            size: 25.sp,
-                                                          ))),
-                                              imageUrl:
-                                                  "${Endpoints.imageBaseUrl}${talentProfileScreenProvider.talantUserProfileModel?.data?[0].imageFiles?[index].files}"),
-                                        )
-                                        // Image.asset(
-                                        //   ImageUtility.dummyVideoThumbnailImage,
-                                        //   width: 90.w,
-                                        //   height: 120.h,
-                                        //   fit: BoxFit.cover,
-                                        // ),
+                            (talentProfileScreenProvider.talantUserProfileModel
+                                            ?.data?[0].imageFiles?.length ??
+                                        0) ==
+                                    0
+                                ? SizedBox(
+                                    height: 100.h, child: const NoDataWidget())
+                                : SizedBox(
+                                    height: 120.sp,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: talentProfileScreenProvider
+                                                .talantUserProfileModel
+                                                ?.data?[0]
+                                                .imageFiles
+                                                ?.length ??
+                                            0,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 10.w),
+                                              child: Stack(
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.r),
+                                                    child: CachedNetworkImage(
+                                                        width: 90.sp,
+                                                        height: 120.sp,
+                                                        fit: BoxFit.cover,
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            const Center(
+                                                                child:
+                                                                    CircularProgressIndicator()),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            Container(
+                                                                color:
+                                                                    Colors.grey,
+                                                                child: Center(
+                                                                    child: Icon(
+                                                                  Icons.error,
+                                                                  size: 25.sp,
+                                                                ))),
+                                                        imageUrl:
+                                                            "${Endpoints.imageBaseUrl}${talentProfileScreenProvider.talantUserProfileModel?.data?[0].imageFiles?[index].files}"),
+                                                  ),
+                                                  Container(
+                                                    width: 90.sp,
+                                                    height: 120.sp,
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        AppLogger.logD(
+                                                            "Deleted image");
+                                                        deleteFile(
+                                                            talentProfileScreenProvider,
+                                                            talentProfileScreenProvider
+                                                                    .talantUserProfileModel
+                                                                    ?.data?[0]
+                                                                    .imageFiles?[
+                                                                        index]
+                                                                    .fileId ??
+                                                                0);
+                                                      },
+                                                      child: Padding(
+                                                        padding: EdgeInsets.all(
+                                                            5.sp),
+                                                        child: Icon(
+                                                          Icons
+                                                              .delete_outline_outlined,
+                                                          size: 20.sp,
+                                                          color: ColorUtility
+                                                              .colorE24848,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                              // Image.asset(
+                                              //   ImageUtility.dummyVideoThumbnailImage,
+                                              //   width: 90.w,
+                                              //   height: 120.h,
+                                              //   fit: BoxFit.cover,
+                                              // ),
 
-                                        );
-                                  }),
-                            ),
+                                              );
+                                        }),
+                                  ),
                             SizedBox(
                               height: 30.h,
                             ),
@@ -485,7 +559,19 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     Navigator.pushNamed(context,
-                                        RouteName.editVideoGalleryScreen);
+                                        RouteName.editVideoGalleryScreen,
+                                        arguments: {
+                                          "id": talentProfileScreenProvider
+                                                  .talantUserProfileModel
+                                                  ?.data?[0]
+                                                  .id ??
+                                              0
+                                        }).then((value) {
+                                      if (value == true) {
+                                        getTalentProfileDataAfterUpdate(
+                                            talentProfileScreenProvider);
+                                      }
+                                    });
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(2.w),
@@ -540,19 +626,65 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                                 child: Stack(
                                                   alignment: Alignment.center,
                                                   children: [
-                                                    Image.asset(
-                                                      ImageUtility
-                                                          .dummyVideoThumbnailImage,
-                                                      //  width: double.infinity,
+                                                    // Image.asset(
+                                                    //   ImageUtility
+                                                    //       .dummyVideoThumbnailImage,
+                                                    //   //  width: double.infinity,
+                                                    //   height: 210.h,
+                                                    //   fit: BoxFit.fill,
+                                                    // ),
+
+                                                    Container(
                                                       height: 210.h,
-                                                      fit: BoxFit.fill,
+                                                      width: 300.w,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
+                                                        color: Colors.black,
+                                                      ),
                                                     ),
+
                                                     Image.asset(
                                                       ImageUtility
                                                           .playCircleIcon,
                                                       width: 55.w,
                                                       height: 55.w,
                                                       fit: BoxFit.contain,
+                                                    ),
+
+                                                    Container(
+                                                      height: 210.h,
+                                                      width: 300.w,
+                                                      alignment:
+                                                          Alignment.topRight,
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          AppLogger.logD(
+                                                              "Deleted image");
+                                                          deleteFile(
+                                                              talentProfileScreenProvider,
+                                                              talentProfileScreenProvider
+                                                                      .talantUserProfileModel
+                                                                      ?.data?[0]
+                                                                      .videoFiles?[
+                                                                          index]
+                                                                      .fileId ??
+                                                                  0);
+                                                        },
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  5.sp),
+                                                          child: Icon(
+                                                            Icons
+                                                                .delete_outline_outlined,
+                                                            size: 24.sp,
+                                                            color: ColorUtility
+                                                                .colorE24848,
+                                                          ),
+                                                        ),
+                                                      ),
                                                     )
                                                   ],
                                                 ),
@@ -578,7 +710,19 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, RouteName.editAudioScreen);
+                                        context, RouteName.editAudioScreen,
+                                        arguments: {
+                                          "id": talentProfileScreenProvider
+                                                  .talantUserProfileModel
+                                                  ?.data?[0]
+                                                  .id ??
+                                              0
+                                        }).then((value) {
+                                      if (value == true) {
+                                        getTalentProfileDataAfterUpdate(
+                                            talentProfileScreenProvider);
+                                      }
+                                    });
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.all(2.w),
@@ -611,52 +755,88 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                     shrinkWrap: true,
                                     primary: false,
                                     itemBuilder: (context, index) {
-                                      return Container(
-                                          margin: EdgeInsets.only(top: 16.h),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(12.sp),
-                                            border: Border.all(
-                                                color:
-                                                    ColorUtility.colorD6D6D8),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 20.w,
-                                                right: 14.w,
-                                                top: 10.h,
-                                                bottom: 10.h),
-                                            child: Row(
-                                              children: [
-                                                Image.asset(
-                                                  ImageUtility.playIcon,
-                                                  width: 13.w,
+                                      return Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                                margin:
+                                                    EdgeInsets.only(top: 16.h),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12.sp),
+                                                  border: Border.all(
+                                                      color: ColorUtility
+                                                          .colorD6D6D8),
                                                 ),
-                                                SizedBox(
-                                                  width: 28.w,
-                                                ),
-                                                Expanded(
-                                                    child: Image.asset(
-                                                  ImageUtility.dummyAudioImage,
-                                                  width: double.infinity,
-                                                  fit: BoxFit.contain,
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 20.w,
+                                                      right: 14.w,
+                                                      top: 10.h,
+                                                      bottom: 10.h),
+                                                  child: Row(
+                                                    children: [
+                                                      Image.asset(
+                                                        ImageUtility.playIcon,
+                                                        width: 13.w,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 28.w,
+                                                      ),
+                                                      Expanded(
+                                                          child: Image.asset(
+                                                        ImageUtility
+                                                            .dummyAudioImage,
+                                                        width: double.infinity,
+                                                        fit: BoxFit.contain,
+                                                      )),
+                                                      SizedBox(
+                                                        width: 22.w,
+                                                      ),
+                                                      // Text(
+                                                      //   "0:31",
+                                                      //   style: StyleUtility
+                                                      //       .quicksandMediumACACAFTextStyle
+                                                      //       .copyWith(
+                                                      //       fontSize:
+                                                      //       TextSizeUtility
+                                                      //           .textSize13
+                                                      //           .sp),
+                                                      // ),
+                                                    ],
+                                                  ),
                                                 )),
-                                                SizedBox(
-                                                  width: 22.w,
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 16.h),
+                                            child: InkWell(
+                                              onTap: () {
+                                                AppLogger.logD("Deleted image");
+                                                deleteFile(
+                                                    talentProfileScreenProvider,
+                                                    talentProfileScreenProvider
+                                                            .talantUserProfileModel
+                                                            ?.data?[0]
+                                                            .audioFiles?[index]
+                                                            .fileId ??
+                                                        0);
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.all(5.sp),
+                                                child: Icon(
+                                                  Icons.delete_outline_outlined,
+                                                  size: 24.sp,
+                                                  color:
+                                                      ColorUtility.colorE24848,
                                                 ),
-                                                Text(
-                                                  "0:31",
-                                                  style: StyleUtility
-                                                      .quicksandMediumACACAFTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize13
-                                                                  .sp),
-                                                )
-                                              ],
+                                              ),
                                             ),
-                                          ));
+                                          ),
+                                        ],
+                                      );
                                     }),
                             SizedBox(
                               height: 35.h,
@@ -685,7 +865,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                               0
                                         }).then((value) {
                                       if (value == true) {
-                                        getTalentProfileData(
+                                        getTalentProfileDataAfterUpdate(
                                             talentProfileScreenProvider);
                                       }
                                     });
@@ -766,11 +946,11 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                                   ?.data?[0]
                                                   .id ??
                                               0
-                                        }).then((value){
-                                          if(value == true){
-                                            getTalentProfileData(
-                                                talentProfileScreenProvider);
-                                          }
+                                        }).then((value) {
+                                      if (value == true) {
+                                        getTalentProfileDataAfterUpdate(
+                                            talentProfileScreenProvider);
+                                      }
                                     });
                                   },
                                   child: Padding(

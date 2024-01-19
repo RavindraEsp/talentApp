@@ -80,7 +80,7 @@ class AddInfoProvider extends ChangeNotifier {
           filename: selectedImages[a].name,
         );
         multipartImageList.add(multipartImage);
-        print("multipartImage ${multipartImage}");
+        AppLogger.logD("multipartImage ${multipartImage}");
       }
 
     }
@@ -92,8 +92,6 @@ class AddInfoProvider extends ChangeNotifier {
     Map<String, dynamic>? rawData;
 
       rawData = {
-        //  userId:34
-       // "id": "18",
         "FirstName": talentCreateCardModel?.firstName,
         "LastName": talentCreateCardModel?.lastName,
         "Gender": talentCreateCardModel?.gender,

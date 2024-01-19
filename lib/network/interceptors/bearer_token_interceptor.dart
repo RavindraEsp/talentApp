@@ -11,6 +11,7 @@ class BearerTokenInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
 
     options.headers.addAll({"Authorization": "${tokenBox}"});
+  //  options.headers.addAll({"Authorization": "fgfgf"});
 
     AppLogger.logD(
         'REQUEST[\nMethod: => ${options.method}]\nPATH: => ${options.path}\nHeaders: => ${options.headers}');

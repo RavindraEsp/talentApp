@@ -79,6 +79,10 @@ class _MyAppState extends State<MyApp> {
             ),
 
             home: const SplashScreen(),
+
+
+           // home: const VideoScreen(file: 'image-1705662962037.mp4',),
+          //  home:  VideoPlayerRemote(file: 'image-1705662962037.mp4',),
           // home:  AudioPlayerScreen(),
 
           //  home:CastBottomBarScreen(selectIndex: 0),

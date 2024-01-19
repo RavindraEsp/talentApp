@@ -48,4 +48,5 @@ class ApiEndPoints {
 
   String get  getEditlookingData => "get/getEditlookingData";
   String get  getEditTalentBody => "get/getEditTalentBody";
+  String get  deleteProfileFiles => "auth/deleteProfilefiles";
 }

@@ -223,6 +223,8 @@
   "titleFullAddress": "Full Address",
   "titleBirthday": "Birthday",
   "titleUploadPhoto": "Upload Photo",
+  "titleUploadAudio": "Upload Audio",
+  "titleUploadVideo": "Upload Video",
   "bottomSheetTakePhoto": "Take a Photo",
   "bottomChooseFromGallery": "Choose from gallery",
   "bottomTakeVideo": "Take a Video",

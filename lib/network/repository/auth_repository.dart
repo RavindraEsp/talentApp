@@ -75,7 +75,7 @@ class AuthRepository {
 
 
 
-///Talent
+///Talent Module API
 
   Future<CasterProfileUpdateResponse> createTalentCard(Map<String, dynamic>  request) {
     return dioHttpService
@@ -119,6 +119,15 @@ class AuthRepository {
         queryParameters: queryParameters)
         .then((value) => TalentBodyResponseModel.fromJson(value));
   }
+
+
+  Future<BasicResponse> deleteTalentFile(Map request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.deleteProfileFiles,
+        data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
 
   // Future<TalentProfileResponseModel> getTalentProfile() {
   //   return dioHttpService

@@ -178,16 +178,19 @@ class Data {
 
 class Files {
   String? files;
+  int? fileId;
 
-  Files({this.files});
+  Files({this.files,this.fileId});
 
   Files.fromJson(Map<String, dynamic> json) {
     files = json['files'];
+    fileId = json['fileId'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['files'] = this.files;
+    data['fileId'] = this.fileId;
     return data;
   }
 }

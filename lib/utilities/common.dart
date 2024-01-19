@@ -22,6 +22,17 @@ class Common {
     ));
   }
 
+  static showSuccessSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 2),
+      backgroundColor: ColorUtility.color1B9D16,
+      content: Text(
+        message,
+      ),
+    ));
+  }
+
 
   static showWarningSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).clearSnackBars();

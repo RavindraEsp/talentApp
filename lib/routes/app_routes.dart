@@ -51,9 +51,11 @@ import 'package:talent_app/modules/talent/helloTalent/hello_talent_screen.dart';
 import 'package:talent_app/modules/talent/menu/provider/denied_audition_provider.dart';
 import 'package:talent_app/modules/talent/menu/screens/denied_audition_screen.dart';
 import 'package:talent_app/modules/talent/menu/screens/talent_menu_screen.dart';
+import 'package:talent_app/modules/talent/profile/providers/edit_audio_screen_provider.dart';
 import 'package:talent_app/modules/talent/profile/providers/edit_genre_screen_provider.dart';
 import 'package:talent_app/modules/talent/profile/providers/edit_talent_body_screen_provider.dart';
 import 'package:talent_app/modules/talent/profile/providers/edit_tell_us_about_you_screen_provider.dart';
+import 'package:talent_app/modules/talent/profile/providers/edit_video_gallery_screen_provider.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_audio_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_talent_body_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_genre_screen.dart';
@@ -65,6 +67,7 @@ import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 
 import '../modules/talent/createCard/provider/talent_create_card_step_two_provider.dart';
+import '../modules/talent/profile/providers/edit_photo_gallery_screen_provider.dart';
 
 class AppRoute {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -365,17 +368,32 @@ class AppRoute {
         );
 
       case RouteName.editPhotoGalleryScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditPhotoGalleryScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => EditPhotoGalleryScreenProvider(),
+                  child: EditPhotoGalleryScreen(
+                    id: arg["id"],
+                  ),
+                ));
 
       case RouteName.editVideoGalleryScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditVideoGalleryScreen(),
-        );
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => EditVideoGalleryScreenProvider(),
+                  child: EditVideoGalleryScreen(
+                    id: arg["id"],
+                  ),
+                ));
       case RouteName.editAudioScreen:
+        var arg = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => const EditAudioScreen(),
+          builder: (context) => ChangeNotifierProvider(
+              create: (context) => EditAudioScreenProvider(),
+              child: EditAudioScreen(
+                id: arg["id"],
+              )),
         );
       case RouteName.editGenreScreen:
         var arg = settings.arguments as Map;
@@ -392,7 +410,7 @@ class AppRoute {
         return MaterialPageRoute(
             builder: (context) => ChangeNotifierProvider(
                   create: (context) => EditTalentBodyScreenProvider(),
-                  child:  EditTalentBodyScreen(
+                  child: EditTalentBodyScreen(
                     id: arg["id"],
                   ),
                 ));
