@@ -645,12 +645,25 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                                       ),
                                                     ),
 
-                                                    Image.asset(
-                                                      ImageUtility
-                                                          .playCircleIcon,
-                                                      width: 55.w,
-                                                      height: 55.w,
-                                                      fit: BoxFit.contain,
+                                                    GestureDetector(
+                                                      onTap: (){
+                                                        Navigator.pushNamed(context,
+                                                            RouteName.videoPlayerScreen,
+                                                            arguments: {
+                                                              "videoFromApi":talentProfileScreenProvider
+                                                                  .talantUserProfileModel
+                                                                  ?.data?[0]
+                                                                  .videoFiles?[index]
+                                                                  .files ?? ""
+                                                            });
+                                                      },
+                                                      child: Image.asset(
+                                                        ImageUtility
+                                                            .playCircleIcon,
+                                                        width: 55.w,
+                                                        height: 55.w,
+                                                        fit: BoxFit.contain,
+                                                      ),
                                                     ),
 
                                                     Container(
@@ -779,9 +792,22 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                                       bottom: 10.h),
                                                   child: Row(
                                                     children: [
-                                                      Image.asset(
-                                                        ImageUtility.playIcon,
-                                                        width: 13.w,
+                                                      GestureDetector(
+                                                        onTap:(){
+                                                          Navigator.pushNamed(context,
+                                                              RouteName.audioPlayerScreen,
+                                                          arguments: {
+                                                            "audioFromApi":talentProfileScreenProvider
+                                                                .talantUserProfileModel
+                                                                ?.data?[0]
+                                                                .audioFiles?[index]
+                                                                .files ?? ""
+                                                          });
+                                                        },
+                                                        child: Image.asset(
+                                                          ImageUtility.playIcon,
+                                                          width: 13.w,
+                                                        ),
                                                       ),
                                                       SizedBox(
                                                         width: 28.w,

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dar
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
+import 'package:talent_app/widgets/audio_player/audio_player_screen.dart';
 import 'package:talent_app/widgets/video_player/video_player_screen.dart';
 
 
@@ -81,9 +83,13 @@ class _MyAppState extends State<MyApp> {
             home: const SplashScreen(),
 
 
-           // home: const VideoScreen(file: 'image-1705662962037.mp4',),
-          //  home:  VideoPlayerRemote(file: 'image-1705662962037.mp4',),
-          // home:  AudioPlayerScreen(),
+
+            //final
+          //  home:  AudioPlayerScreen(),
+
+            //final
+          //  home:  VideoPlayerScreen(file: 'image-1705662962037.mp4',),
+
 
           //  home:CastBottomBarScreen(selectIndex: 0),
           //  home:TalentBottomBarScreen(selectIndex: 0),

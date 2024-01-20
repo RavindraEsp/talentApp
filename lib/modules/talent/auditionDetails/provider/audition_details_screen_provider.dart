@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/talent/auditionDetails/model/audition_detail_response_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
@@ -9,18 +12,21 @@ class AuditionDetailsScreenProvider extends ChangeNotifier {
   bool isLoading = false;
   AuditionDetailResponseModel? auditionDetailResponseModel;
 
+  final List<Marker> markers = <Marker>[];
 
-  geAuditionDetails({
-    required ValueChanged<String> onFailure,
-    required int auditionId
-  }) {
+  final Completer<GoogleMapController> controller =
+      Completer<GoogleMapController>();
+
+
+  geAuditionDetails(
+      {required ValueChanged<String> onFailure,
+      required int auditionId}) async {
     isLoading = true;
-    auditionRepository.geAuditionDetails({
-      "auditionId":auditionId
-    }).then((value) {
+    await auditionRepository
+        .geAuditionDetails({"auditionId": auditionId}).then((value) {
       if (value.success == true) {
         auditionDetailResponseModel = value;
-
+        addMarker();
         notifyListeners();
       }
       isLoading = false;
@@ -33,9 +39,6 @@ class AuditionDetailsScreenProvider extends ChangeNotifier {
     });
   }
 
-
-
-
   applyAudition({
     required ValueChanged<String> onFailure,
     required ValueChanged<String> onSuccess,
@@ -43,20 +46,17 @@ class AuditionDetailsScreenProvider extends ChangeNotifier {
     required int? auditionId,
     required int? auditionDateId,
   }) {
-
     Map request = {
-      "casterUserId":casterUserId,
-      "auditionId":auditionId,
-      "auditionDateId":auditionDateId
+      "casterUserId": casterUserId,
+      "auditionId": auditionId,
+      "auditionDateId": auditionDateId
     };
     auditionRepository.applyAudition(request).then((value) {
       if (value.success == true) {
         onSuccess.call(value.msg ?? "");
-
-      }else{
+      } else {
         onFailure.call(value.msg ?? "");
       }
-
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
       onFailure.call(error.toString());
@@ -71,24 +71,21 @@ class AuditionDetailsScreenProvider extends ChangeNotifier {
     required int? auditionId,
     required int? auditionDateId,
     required int? applyId,
+    required int? applyStatus,
   }) {
-
     Map request = {
-     "casterUserId":casterUserId,
-        "auditionId":auditionId,
-        "auditionDateId":auditionDateId,
-        "applyId":applyId
-
-
+      "casterUserId": casterUserId,
+      "auditionId": auditionId,
+      "auditionDateId": auditionDateId,
+      "applyId": applyId,
+      "applyStatus": applyStatus
     };
     auditionRepository.rescheduleAudition(request).then((value) {
       if (value.success == true) {
         onSuccess.call(value.msg ?? "");
-
-      }else{
+      } else {
         onFailure.call(value.msg ?? "");
       }
-
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
       onFailure.call(error.toString());
@@ -116,8 +113,27 @@ class AuditionDetailsScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  addMarker() {
 
-  updateUi(){
+
+    markers.clear();
+
+    markers.add(Marker(
+      // given marker id
+      markerId: const MarkerId("0"),
+      // given marker icon
+      // given position
+      position: LatLng(double.parse(auditionDetailResponseModel?.data?.latitude ?? "0.0"),
+        double.parse(auditionDetailResponseModel?.data?.longitude ?? "0.0")),
+      // position: LatLng(lat!, lng!),
+      infoWindow: const InfoWindow(
+          // given title for marker
+          // title: 'Location: '+i.toString(),
+          ),
+    ));
+  }
+
+  updateUi() {
     notifyListeners();
   }
 }

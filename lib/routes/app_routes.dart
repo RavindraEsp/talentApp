@@ -65,6 +65,8 @@ import 'package:talent_app/modules/talent/profile/screens/edit_video_gallery_scr
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
+import 'package:talent_app/widgets/audio_player/audio_player_screen.dart';
+import 'package:talent_app/widgets/video_player/video_player_screen.dart';
 
 import '../modules/talent/createCard/provider/talent_create_card_step_two_provider.dart';
 import '../modules/talent/profile/providers/edit_photo_gallery_screen_provider.dart';
@@ -433,6 +435,22 @@ class AppRoute {
                     auditionId: arg["auditionId"],
                   ),
                 ));
+
+      case RouteName.audioPlayerScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+            builder: (context) => AudioPlayerScreen(
+                  audioFromApi: arg["audioFromApi"],
+                ));
+
+      case RouteName.videoPlayerScreen:
+        var arg = settings.arguments as Map;
+        return MaterialPageRoute(
+            builder: (context) => VideoPlayerScreen(
+              videoFromApi: arg["videoFromApi"],
+            ));
+
+
 
       default:
         return MaterialPageRoute(builder: (context) => const IntroScreen());

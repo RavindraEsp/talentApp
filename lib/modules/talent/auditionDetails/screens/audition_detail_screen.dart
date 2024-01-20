@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/talent/auditionDetails/provider/audition_details_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/network/end_points.dart';
@@ -33,11 +37,6 @@ class AuditionDetailScreen extends StatefulWidget {
 }
 
 class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
-  // List<DateModel> dateModel = [
-  //   DateModel(date: '18/09/2023', time: "09:00", isSelect: true),
-  //   DateModel(date: '19/09/2023', time: "10:30", isSelect: false)
-  // ];
-
   @override
   void initState() {
     super.initState();
@@ -55,7 +54,8 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
     return Scaffold(
       body: Consumer<AuditionDetailsScreenProvider>(
           builder: (context, auditionDetailsScreenProvider, child) {
-            var auditionDetails = auditionDetailsScreenProvider.auditionDetailResponseModel?.data;
+        var auditionDetails =
+            auditionDetailsScreenProvider.auditionDetailResponseModel?.data;
         return auditionDetailsScreenProvider.isLoading == true
             ? const CustomCircularLoaderWidget()
             : Column(
@@ -136,31 +136,40 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                       bottomLeft: Radius.circular(15.r),
                                     ),
                                     child:
-                                    // Image.asset(
-                                    //   ImageUtility.helloCastBgImage,
-                                    //   width: 63.sp,
-                                    //   height: 63.sp,
-                                    //   fit: BoxFit.fill,
-                                    // ),
-                                    (auditionDetails?.casterProfile != "" && auditionDetails?.casterProfile != null) ?
-                                    CachedNetworkImage(
-                                        width: 63.sp,
-                                        height: 63.sp,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) =>
-                                        const Center(child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) => Container(
-                                          //  color: Colors.grey,
-                                            child: Center(
-                                                child: Icon(
-                                                  Icons.error,
-                                                  size: 25.sp,
-                                                ))),
-                                        // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                                        imageUrl: "${Endpoints.imageBaseUrl}${auditionDetails?.casterProfile}"):const SizedBox(
-                                      width: 0,
-                                      height: 0,
-                                    ),
+                                        // Image.asset(
+                                        //   ImageUtility.helloCastBgImage,
+                                        //   width: 63.sp,
+                                        //   height: 63.sp,
+                                        //   fit: BoxFit.fill,
+                                        // ),
+                                        (auditionDetails?.casterProfile != "" &&
+                                                auditionDetails
+                                                        ?.casterProfile !=
+                                                    null)
+                                            ? CachedNetworkImage(
+                                                width: 63.sp,
+                                                height: 63.sp,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Container(
+                                                        //  color: Colors.grey,
+                                                        child: Center(
+                                                            child: Icon(
+                                                      Icons.error,
+                                                      size: 25.sp,
+                                                    ))),
+                                                // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                                                imageUrl:
+                                                    "${Endpoints.imageBaseUrl}${auditionDetails?.casterProfile}")
+                                            : const SizedBox(
+                                                width: 0,
+                                                height: 0,
+                                              ),
                                   ),
                                   Expanded(
                                       child: Padding(
@@ -182,8 +191,8 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                             ),
                                             Expanded(
                                                 child: Text(
-                                             // "Nir David",
-                                                  auditionDetails?.castername ?? "",
+                                              // "Nir David",
+                                              auditionDetails?.castername ?? "",
                                               style: StyleUtility
                                                   .quicksandSemiBoldBlackTextStyle
                                                   .copyWith(
@@ -209,8 +218,9 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                             ),
                                             Expanded(
                                                 child: Text(
-                                            //  "Telenteam",
-                                                  auditionDetails?.companyName ?? "",
+                                              //  "Telenteam",
+                                              auditionDetails?.companyName ??
+                                                  "",
                                               style: StyleUtility
                                                   .quicksandSemiBoldBlackTextStyle
                                                   .copyWith(
@@ -227,25 +237,30 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                   //   height: 64.sp,
                                   //   fit: BoxFit.fill,
                                   // ),
-                                  (auditionDetails?.casterLogo != "" && auditionDetails?.casterLogo != null) ?
-                                  CachedNetworkImage(
-                                      height: 64.sp,
-                                      fit: BoxFit.contain,
-                                      placeholder: (context, url) =>
-                                      const Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) => Container(
-                                        //  color: Colors.grey,
-                                          child: Center(
-                                              child: Icon(
+                                  (auditionDetails?.casterLogo != "" &&
+                                          auditionDetails?.casterLogo != null)
+                                      ? CachedNetworkImage(
+                                          height: 64.sp,
+                                          fit: BoxFit.contain,
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Container(
+                                                  //  color: Colors.grey,
+                                                  child: Center(
+                                                      child: Icon(
                                                 Icons.error,
                                                 size: 25.sp,
                                               ))),
-                                      // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                                      imageUrl: "${Endpoints.imageBaseUrl}${auditionDetails?.casterLogo}"):const SizedBox(
-                                    width: 0,
-                                      height: 0,
-                                  ),
-
+                                          // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
+                                          imageUrl:
+                                              "${Endpoints.imageBaseUrl}${auditionDetails?.casterLogo}")
+                                      : const SizedBox(
+                                          width: 0,
+                                          height: 0,
+                                        ),
                                 ],
                               ),
                             )
@@ -274,8 +289,8 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                             height: 10.h,
                           ),
                           Text(
-                          //  "I’m looking for self-motivated, reliable, responsible and hard working person. I am a mature team worker and adaptable to all .",
-                          auditionDetails?.description ?? "",
+                            //  "I’m looking for self-motivated, reliable, responsible and hard working person. I am a mature team worker and adaptable to all .",
+                            auditionDetails?.description ?? "",
                             style: StyleUtility.quicksandRegularBlackTextStyle
                                 .copyWith(
                                     fontSize: TextSizeUtility.textSize16.sp),
@@ -293,7 +308,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                             height: 10.h,
                           ),
                           Text(
-                          //  "Vijay Nagar,Indore.",
+                            //  "Vijay Nagar,Indore.",
                             auditionDetails?.location ?? "",
                             style: StyleUtility.quicksandRegularBlackTextStyle
                                 .copyWith(
@@ -302,16 +317,36 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                           SizedBox(
                             height: 10.h,
                           ),
+
                           SizedBox(
                             height: 170.sp,
-                            // child: GoogleMap(
-                            //   initialCameraPosition: const CameraPosition(
-                            //       tilt: 50,
-                            //       target: LatLng(22.719568, 75.857727),
-                            //       zoom: 15),
-                            //   onMapCreated: (GoogleMapController controller) {},
-                            // ),
+                            child: GoogleMap(
+                              initialCameraPosition: CameraPosition(
+                                  tilt: 50,
+                                  //  target: LatLng(22.719568, 75.857727),
+                                  //  target: LatLng(22.719600, 75.857700),
+                                  // target: LatLng(
+                                  //     auditionDetailsScreenProvider.lat,
+                                  //     auditionDetailsScreenProvider.lng),
+
+
+                                  target: LatLng(
+                                      double.parse(auditionDetails?.latitude ?? "0.0"),
+                                    double.parse(auditionDetails?.longitude ?? "0.0"),),
+
+
+                                  zoom: 15),
+                              markers: Set<Marker>.of(
+                                  auditionDetailsScreenProvider.markers),
+                              // onMapCreated: (GoogleMapController controller) {},
+
+                              onMapCreated: (GoogleMapController controller) {
+                                auditionDetailsScreenProvider.controller
+                                    .complete(controller);
+                              },
+                            ),
                           ),
+
                           SizedBox(
                             height: 40.h,
                           ),
@@ -329,23 +364,23 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
 
                           ListView.builder(
                               padding: EdgeInsets.zero,
-                              itemCount: auditionDetails?.getAuditionDateArr?.length ?? 0,
+                              itemCount:
+                                  auditionDetails?.getAuditionDateArr?.length ??
+                                      0,
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   behavior: HitTestBehavior.opaque,
                                   onTap: () {
-
-                                    for (var dateArr in auditionDetails!.getAuditionDateArr!) {
+                                    for (var dateArr in auditionDetails!
+                                        .getAuditionDateArr!) {
                                       dateArr.isSelected = false;
                                     }
-                                    auditionDetails.getAuditionDateArr?[index].isSelected = true;
+                                    auditionDetails.getAuditionDateArr?[index]
+                                        .isSelected = true;
 
                                     auditionDetailsScreenProvider.updateUi();
-
-
-
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(top: 10.h),
@@ -363,8 +398,11 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                           Row(
                                             children: [
                                               Image.asset(
-                                              //  dateModel[index].isSelect ==
-                                                auditionDetails?.getAuditionDateArr?[index].isSelected ==
+                                                //  dateModel[index].isSelect ==
+                                                auditionDetails
+                                                            ?.getAuditionDateArr?[
+                                                                index]
+                                                            .isSelected ==
                                                         true
                                                     ? ImageUtility
                                                         .selectRadioIcon
@@ -377,8 +415,14 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                                 width: 10.w,
                                               ),
                                               Text(
-                                                auditionDetails?.getAuditionDateArr?[index].date ?? "",
-                                                style: auditionDetails?.getAuditionDateArr?[index]
+                                                auditionDetails
+                                                        ?.getAuditionDateArr?[
+                                                            index]
+                                                        .date ??
+                                                    "",
+                                                style: auditionDetails
+                                                            ?.getAuditionDateArr?[
+                                                                index]
                                                             .isSelected ==
                                                         true
                                                     ? StyleUtility
@@ -399,8 +443,14 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                             ],
                                           ),
                                           Text(
-                                            auditionDetails?.getAuditionDateArr?[index].time ?? "",
-                                            style: auditionDetails?.getAuditionDateArr?[index].isSelected ==
+                                            auditionDetails
+                                                    ?.getAuditionDateArr?[index]
+                                                    .time ??
+                                                "",
+                                            style: auditionDetails
+                                                        ?.getAuditionDateArr?[
+                                                            index]
+                                                        .isSelected ==
                                                     true
                                                 ? StyleUtility
                                                     .quicksandRegular5457BETextStyle
@@ -432,39 +482,39 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                     buttonText:
                                         context.loc.buttonApplyForTheAudition,
                                     onTap: () {
-
                                       bool isDateSelect = false;
                                       int? selectDateId;
-                                      for (var dateArr in auditionDetails!.getAuditionDateArr!) {
-                                        if(dateArr.isSelected == true){
+                                      for (var dateArr in auditionDetails!
+                                          .getAuditionDateArr!) {
+                                        if (dateArr.isSelected == true) {
                                           isDateSelect = true;
                                           selectDateId = dateArr.id;
                                         }
                                       }
 
-                                      if(isDateSelect == true){
-
+                                      if (isDateSelect == true) {
                                         Common.showLoadingDialog(context);
-                                        auditionDetailsScreenProvider.applyAudition(
-                                            onFailure: (message){
-                                              Navigator.pop(context);
-                                              Common.showErrorSnackBar(context, message);
-                                            },
-                                            onSuccess:(message){
-                                              Navigator.pop(context);
-                                              showApplyAuditionSuccessDialog(
-                                                  context: context);
-                                            },
-                                            casterUserId: auditionDetails.casterUserId,
-                                            auditionId: auditionDetails.auditionId,
-                                            auditionDateId: selectDateId);
-
-
-
-                                      }else{
-                                        Common.showErrorSnackBar(context, StringsUtility.selectAuditionDate);
+                                        auditionDetailsScreenProvider
+                                            .applyAudition(
+                                                onFailure: (message) {
+                                                  Navigator.pop(context);
+                                                  Common.showErrorSnackBar(
+                                                      context, message);
+                                                },
+                                                onSuccess: (message) {
+                                                  Navigator.pop(context);
+                                                  showApplyAuditionSuccessDialog(
+                                                      context: context);
+                                                },
+                                                casterUserId: auditionDetails
+                                                    .casterUserId,
+                                                auditionId:
+                                                    auditionDetails.auditionId,
+                                                auditionDateId: selectDateId);
+                                      } else {
+                                        Common.showErrorSnackBar(context,
+                                            StringsUtility.selectAuditionDate);
                                       }
-
                                     },
                                   ),
                                 )
@@ -480,39 +530,43 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                     buttonText: context
                                         .loc.buttonSendNewScheduleApproval,
                                     onTap: () {
-
                                       bool isDateSelect = false;
                                       int? selectDateId;
-                                      for (var dateArr in auditionDetails!.getAuditionDateArr!) {
-                                        if(dateArr.isSelected == true){
+                                      for (var dateArr in auditionDetails!
+                                          .getAuditionDateArr!) {
+                                        if (dateArr.isSelected == true) {
                                           isDateSelect = true;
                                           selectDateId = dateArr.id;
                                         }
                                       }
 
-                                      if(isDateSelect == true){
-
+                                      if (isDateSelect == true) {
                                         Common.showLoadingDialog(context);
-                                        auditionDetailsScreenProvider.rescheduleAudition(
-                                            onFailure: (message){
-                                              Navigator.pop(context);
-                                              Common.showErrorSnackBar(context, message);
-                                            },
-                                            onSuccess:(message){
-                                              Navigator.pop(context);
-                                              showNewScheduleSuccessDialog(
-                                                  context: context);
-                                            },
-                                            casterUserId: auditionDetails.casterUserId,
-                                            auditionId: auditionDetails.auditionId,
-                                            auditionDateId: selectDateId,
-                                            applyId: auditionDetails.applyId);
-
-                                      }else{
-                                        Common.showErrorSnackBar(context, StringsUtility.selectAuditionDate);
+                                        auditionDetailsScreenProvider
+                                            .rescheduleAudition(
+                                          onFailure: (message) {
+                                            Navigator.pop(context);
+                                            Common.showErrorSnackBar(
+                                                context, message);
+                                          },
+                                          onSuccess: (message) {
+                                            Navigator.pop(context);
+                                            showNewScheduleSuccessDialog(
+                                                context: context);
+                                          },
+                                          casterUserId:
+                                              auditionDetails.casterUserId,
+                                          auditionId:
+                                              auditionDetails.auditionId,
+                                          auditionDateId: selectDateId,
+                                          applyId: auditionDetails.applyId,
+                                          applyStatus:
+                                              auditionDetails.applyStatus,
+                                        );
+                                      } else {
+                                        Common.showErrorSnackBar(context,
+                                            StringsUtility.selectAuditionDate);
                                       }
-
-
 
                                       // showNewScheduleSuccessDialog(
                                       //     context: context);
@@ -561,7 +615,8 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                               width: 8.w,
                                             ),
                                             Text(
-                                                context.loc.buttonAwaitingForCasterApproval,
+                                                context.loc
+                                                    .buttonAwaitingForCasterApproval,
                                                 maxLines: 1,
                                                 style: StyleUtility
                                                     .buttonTextStyle
@@ -586,9 +641,11 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                     buttonText:
                                         context.loc.buttonWithdrawApplication,
                                     onTap: () {
-                                      showWithdrawDialog(context: context,
-                                      appliedId: auditionDetails?.applyId,
-                                      auditionDetailsScreenProvider: auditionDetailsScreenProvider);
+                                      showWithdrawDialog(
+                                          context: context,
+                                          appliedId: auditionDetails?.applyId,
+                                          auditionDetailsScreenProvider:
+                                              auditionDetailsScreenProvider);
                                     },
                                     buttonColor: ColorUtility.color5457BE,
                                   ),
@@ -675,9 +732,10 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
             onCrossTap: () {},
           );
         }).then((value) {
-      Navigator.pop(context,true);
+      Navigator.pop(context, true);
     });
   }
+
   Future<dynamic> showWithdrawDialog({
     required BuildContext context,
     required AuditionDetailsScreenProvider auditionDetailsScreenProvider,
@@ -700,7 +758,6 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                     showWithdrawAuditionSuccessDialog(context: context);
                   },
                   appliedId: appliedId);
-
             },
             title: context.loc.dialogAreYouSureYouWantToWithdrawYourApplication,
           );
@@ -719,7 +776,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
             onCrossTap: () {},
           );
         }).then((value) {
-      Navigator.pop(context,true);
+      Navigator.pop(context, true);
     });
   }
 
@@ -735,7 +792,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
             onCrossTap: () {},
           );
         }).then((value) {
-      Navigator.pop(context,true);
+      Navigator.pop(context, true);
     });
   }
 }

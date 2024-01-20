@@ -41,4 +41,6 @@ class RouteName {
   static const String editBodyScreen = "/editBodyScreen";
   static const String deniedAuditionScreen = "/deniedAuditionScreen";
   static const String auditionDetailScreen = "/auditionDetailScreen";
+  static const String audioPlayerScreen = "/audioPlayerScreen";
+  static const String videoPlayerScreen = "/videoPlayerScreen";
 }
