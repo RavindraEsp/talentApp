@@ -7,13 +7,19 @@ class CreateAuditionPlaceTimeProvider extends ChangeNotifier {
   final AuditionRepository auditionRepository = AuditionRepository();
 
   List<DateTimeModel> dateTimeList = [];
-  TextEditingController auditionLocationController = TextEditingController();
+ // TextEditingController auditionLocationController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
   TextEditingController spotsController = TextEditingController();
 
-  double lat = 22.7533;
-  double lng = 75.8937;
+  // double lat = 22.7533;
+  // double lng = 75.8937;
+
+  String? location;
+  double? lat;
+  double? lng;
+
+
 
   List<Map<String, dynamic>> auditionDateTimeSpotsList = [];
 
@@ -31,7 +37,7 @@ class CreateAuditionPlaceTimeProvider extends ChangeNotifier {
     required String heightRangeMin,
     required String heightRangeMax,
     required List<int> auditionTalentdata,
-    required List<int> careerTag,
+    required List<int> careerTag
   }) {
     auditionDateTimeSpotsList = [];
 
@@ -60,7 +66,9 @@ class CreateAuditionPlaceTimeProvider extends ChangeNotifier {
       "heightRangeMax": heightRangeMax,
       "auditionTalentdata": auditionTalentdata,
       "careerTag": careerTag,
-      "location": auditionLocationController.text,
+      "location": location,
+      "latitude": lat,
+      "longitude": lng,
       "auditionDates": auditionDateTimeSpotsList
     };
 
@@ -71,9 +79,9 @@ class CreateAuditionPlaceTimeProvider extends ChangeNotifier {
         onFailure.call(value.msg ?? "");
       }
     }).onError((error, stackTrace) {
-      AppLogger.logD("error $error");
+      AppLogger.logD("Error $error");
 
-      onFailure.call("Server Error");
+      onFailure.call(error.toString());
     });
   }
 

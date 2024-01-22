@@ -28,10 +28,6 @@ import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
 import 'package:google_maps_webservice/places.dart';
 
-
-
-
-
 class CreateAuditionPlaceTimeScreen extends StatefulWidget {
   final List<int> auditionTalentAllData;
   final List<int> careerTag;
@@ -71,12 +67,9 @@ class _CreateAuditionPlaceTimeScreenState
     extends State<CreateAuditionPlaceTimeScreen> {
   final _formKey = GlobalKey<FormState>();
 
-
   final List<Marker> _markers = <Marker>[];
 
-  String? location;
-  double? lat;
-  double? lng;
+
 
   late CameraPosition initialCameraPosition;
 
@@ -108,10 +101,10 @@ class _CreateAuditionPlaceTimeScreenState
   // }
 
   final Completer<GoogleMapController> _controller =
-  Completer<GoogleMapController>();
+      Completer<GoogleMapController>();
 
-
-  openPicker(BuildContext context,CreateAuditionPlaceTimeProvider createAuditionPlaceTimeProvider) async {
+  openPicker(BuildContext context,
+      CreateAuditionPlaceTimeProvider createAuditionPlaceTimeProvider) async {
     Prediction? p = await PlacesAutocomplete.show(
         offset: 0,
         radius: 1000,
@@ -129,7 +122,7 @@ class _CreateAuditionPlaceTimeScreenState
         apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
       ); //Same API_KEY as above
       PlacesDetailsResponse detail =
-      await _places.getDetailsByPlaceId(p.placeId!);
+          await _places.getDetailsByPlaceId(p.placeId!);
 
       Map<String, dynamic> data;
 
@@ -151,29 +144,25 @@ class _CreateAuditionPlaceTimeScreenState
         //   }
         // }
 
-        var  selectLocation = p.description!;
+        var selectLocation = p.description!;
 
-        createAuditionPlaceTimeProvider
-            .auditionLocationController.text = selectLocation;
+        // createAuditionPlaceTimeProvider.auditionLocationController.text =
+        //     selectLocation;
 
-        location = selectLocation;
+        createAuditionPlaceTimeProvider.location = selectLocation;
         //
         // Log.logData("Selected location is - $selectLocation");
         //
-          lat = detail.result.geometry?.location.lat.toDouble() ?? 0.0;
-          lng = detail.result.geometry?.location.lng.toDouble() ?? 0.0;
-
+        createAuditionPlaceTimeProvider.lat = detail.result.geometry?.location.lat.toDouble() ?? 0.0;
+        createAuditionPlaceTimeProvider.lng = detail.result.geometry?.location.lng.toDouble() ?? 0.0;
 
         // setMarkers();
 
+        AppLogger.logD("Lat long is - ${createAuditionPlaceTimeProvider.lat} ${createAuditionPlaceTimeProvider.lng}");
+        AppLogger.logD("selectLocation - $selectLocation");
 
-         AppLogger.logD("Lat long is - $lat $lng");
-         AppLogger.logD("selectLocation - $selectLocation");
-
-        addMarker();
-         setState(() {
-
-         });
+        addMarker(createAuditionPlaceTimeProvider);
+        setState(() {});
         // Log.logData(latt);
         // Log.logData(lngg);
         // notifyListeners();
@@ -181,43 +170,33 @@ class _CreateAuditionPlaceTimeScreenState
     }
   }
 
-  addMarker(){
-
+  addMarker(CreateAuditionPlaceTimeProvider createAuditionPlaceTimeProvider) {
     _markers.clear();
 
-    _markers.add(
-         Marker(
-          // given marker id
-          markerId: const MarkerId("0"),
-          // given marker icon
-          // given position
-         // position: LatLng(22.719568, 75.857727),
-          position: LatLng(lat!, lng!),
-          infoWindow: const InfoWindow(
-            // given title for marker
-            // title: 'Location: '+i.toString(),
+    _markers.add(Marker(
+      // given marker id
+      markerId: const MarkerId("0"),
+      // given marker icon
+      // given position
+      // position: LatLng(22.719568, 75.857727),
+      position: LatLng(createAuditionPlaceTimeProvider.lat!, createAuditionPlaceTimeProvider.lng!),
+      infoWindow: const InfoWindow(
+          // given title for marker
+          // title: 'Location: '+i.toString(),
           ),
-        )
-    );
+    ));
 
-    _goToTheLake();
-
+    _goToTheLake(createAuditionPlaceTimeProvider);
   }
 
-
-  Future<void> _goToTheLake() async {
+  Future<void> _goToTheLake(CreateAuditionPlaceTimeProvider createAuditionPlaceTimeProvider) async {
     final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-      target: LatLng(lat ?? 0, lng ?? 0), // New map center
+    await controller
+        .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: LatLng(createAuditionPlaceTimeProvider.lat ?? 0, createAuditionPlaceTimeProvider.lng ?? 0), // New map center
       zoom: 15.0, // New zoom level
     )));
   }
-
-
-
-
-
-
 
   // GestureDetector(
   // onTap: () async {
@@ -257,9 +236,6 @@ class _CreateAuditionPlaceTimeScreenState
   // ),
   // )),
 
-
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -278,24 +254,11 @@ class _CreateAuditionPlaceTimeScreenState
     AppLogger.logD("careerTag ${widget.careerTag}");
     AppLogger.logD("auditionTalentAllData ${widget.auditionTalentAllData}");
 
-
     initialCameraPosition = const CameraPosition(
-            tilt: 50,
-            target: LatLng(22.719568, 75.857727),
-            zoom: 15);
-    // _markers.add(
-    //     const Marker(
-    //       // given marker id
-    //       markerId: MarkerId("0"),
-    //       // given marker icon
-    //       // given position
-    //       position: LatLng(22.719568, 75.857727),
-    //       infoWindow: InfoWindow(
-    //         // given title for marker
-    //        // title: 'Location: '+i.toString(),
-    //       ),
-    //     )
-    // );
+        tilt: 50, target: LatLng(
+       // 22.719568, 75.857727
+        0.0, 0.0
+    ), zoom: 15);
 
   }
 
@@ -323,19 +286,19 @@ class _CreateAuditionPlaceTimeScreenState
               ),
               Expanded(
                 child: CustomButton(
-                //  buttonText: context.loc.buttonPublish,
+                  //  buttonText: context.loc.buttonPublish,
                   buttonText:
-                  createAuditionPlaceTimeProvider.dateTimeList.isEmpty
-                      ? context.loc.buttonNext
-                      : context.loc.buttonPublish,
+                      createAuditionPlaceTimeProvider.dateTimeList.isEmpty
+                          ? context.loc.buttonNext
+                          : context.loc.buttonPublish,
                   buttonType: ButtonType.yellow,
                   onTap: () {
-
                     CommonMethod.hideKeyBoard(context);
 
                     if (createAuditionPlaceTimeProvider
-                        .auditionLocationController.text.isEmpty) {
-                      Common.showErrorSnackBar(context, StringsUtility.validationLocation);
+                        .location == null) {
+                      Common.showErrorSnackBar(
+                          context, StringsUtility.validationLocation);
                     } else if (createAuditionPlaceTimeProvider
                         .dateTimeList.isEmpty) {
                       Common.showErrorSnackBar(
@@ -363,6 +326,7 @@ class _CreateAuditionPlaceTimeScreenState
                         heightRangeMax: widget.heightRangeMax,
                         auditionTalentdata: widget.auditionTalentAllData,
                         careerTag: widget.careerTag,
+
                       );
                     }
 
@@ -455,23 +419,44 @@ class _CreateAuditionPlaceTimeScreenState
                           //     openPicker(context,createAuditionPlaceTimeProvider); // us
                           //   },
                           //     child: Text("Picker")),
-                          SimpleTextField(
-                            controller: createAuditionPlaceTimeProvider
-                                .auditionLocationController,
-                            hintText: "Location picker",
-                            maxLine: 1,
-                            // suffixImage: ImageUtility.dropDownArrowIcon,
-                            // onPrefixIconTap: (){
-                            //
-                            //   // _handlePressButton(context);
-                            //   openPicker(context,createAuditionPlaceTimeProvider); // us
-                            //
-                            // },
 
+                          GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: (){
 
+                              openPicker(context, createAuditionPlaceTimeProvider);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5.h),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  Expanded(child: Text( createAuditionPlaceTimeProvider.location ?? "Select location",
+                                  style: StyleUtility.inputTextStyle.copyWith(
+                                    fontSize: TextSizeUtility.textSize15.sp,
+                                  ),)),
+
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  SizedBox(
+                                    width: 22.sp,
+                                      height: 22.sp,
+                                      child: Image.asset(ImageUtility.dropDownArrowIcon))
+                                ],
+                              ),
+                            ),
                           ),
 
 
+                          // SimpleTextField(
+                          //   controller: createAuditionPlaceTimeProvider
+                          //       .auditionLocationController,
+                          //   hintText: "Location picker",
+                          //   maxLine: 1,
+                          //
+                          // ),
 
                           // Row(
                           //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -496,15 +481,13 @@ class _CreateAuditionPlaceTimeScreenState
                           //   ],
                           // ),
 
-
-
                           SizedBox(height: 15.h),
                           SizedBox(
                             height: 170.sp,
                             child: GoogleMap(
-                              initialCameraPosition:  initialCameraPosition,
+                              initialCameraPosition: initialCameraPosition,
                               markers: Set<Marker>.of(_markers),
-                             // onMapCreated: (GoogleMapController controller) {},
+                              // onMapCreated: (GoogleMapController controller) {},
 
                               onMapCreated: (GoogleMapController controller) {
                                 _controller.complete(controller);
@@ -593,8 +576,7 @@ class _CreateAuditionPlaceTimeScreenState
                                         date: createAuditionPlaceTimeProvider
                                                 .dateTimeList[index].date ??
                                             "",
-                                        time:
-                                        createAuditionPlaceTimeProvider
+                                        time: createAuditionPlaceTimeProvider
                                                 .dateTimeList[index].time ??
                                             "",
                                         spots: createAuditionPlaceTimeProvider
@@ -732,9 +714,6 @@ class _CreateAuditionPlaceTimeScreenState
   }
 }
 
-
-
-
 Future<dynamic> showAuditionAuditionCreateSuccessDialog({
   required BuildContext context,
 }) {
@@ -747,15 +726,10 @@ Future<dynamic> showAuditionAuditionCreateSuccessDialog({
           onCrossTap: () {},
         );
       }).then((value) {
-
-    Navigator
-        .pushNamedAndRemoveUntil(
+    Navigator.pushNamedAndRemoveUntil(
         context,
-        RouteName
-            .castBottomBarScreen,
-        arguments: {
-          "selectIndex": 0
-        },
-            (route) => false);
+        RouteName.castBottomBarScreen,
+        arguments: {"selectIndex": 0},
+        (route) => false);
   });
 }

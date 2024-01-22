@@ -19,6 +19,7 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/chat_button.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
+import 'package:talent_app/widgets/no_data_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class SeeUserProfileScreen extends StatefulWidget {
@@ -338,40 +339,78 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                   height: 10.h,
                                 ),
 
-                                Wrap(
-                                  children: [
-                                    for (Files item in provider.videoList)
-                                      InkWell(
-                                        onTap: () {
-                                          // Navigator.push(
-                                          //     context,
-                                          //     MaterialPageRoute(
-                                          //         builder: (context) =>
-                                          //             VideoPlayerScreen(
-                                          //                 videoUrl:
-                                          //                     item.files ??
-                                          //                         "")));
-                                        },
-                                        child: Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            Image.asset(
-                                              ImageUtility
-                                                  .dummyVideoThumbnailImage,
-                                              width: double.infinity,
-                                              fit: BoxFit.fill,
-                                            ),
-                                            Image.asset(
-                                              ImageUtility.playCircleIcon,
-                                              width: 55.w,
-                                              height: 55.w,
-                                              fit: BoxFit.contain,
-                                            )
-                                          ],
-                                        ),
+                                (provider.videoList.length ?? 0) == 0
+                                    ? SizedBox(
+                                        height: 100.h,
+                                        child: const NoDataWidget())
+                                    : SizedBox(
+                                        height: 210.h,
+                                        child: (provider.videoList.length ??
+                                                    0) ==
+                                                0
+                                            ? const NoDataWidget()
+                                            : ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                itemCount:
+                                                    provider.videoList.length ??
+                                                        0,
+                                                // itemCount: 2,
+
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemBuilder: (context, index) {
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 15.w),
+                                                    child: Stack(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      children: [
+                                                        // Image.asset(
+                                                        //   ImageUtility
+                                                        //       .dummyVideoThumbnailImage,
+                                                        //   //  width: double.infinity,
+                                                        //   height: 210.h,
+                                                        //   fit: BoxFit.fill,
+                                                        // ),
+
+                                                        Container(
+                                                          height: 210.h,
+                                                          width: 300.w,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.r),
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Navigator.pushNamed(context,
+                                                                RouteName.videoPlayerScreen,
+                                                                arguments: {
+                                                                  "videoFromApi":provider.videoList[index]
+                                                                      .files ?? ""
+                                                                });
+                                                          },
+                                                          child: Image.asset(
+                                                            ImageUtility
+                                                                .playCircleIcon,
+                                                            width: 55.w,
+                                                            height: 55.w,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }),
                                       ),
-                                  ],
-                                ),
+
+
 
                                 SizedBox(
                                   height: 30.h,
@@ -407,9 +446,19 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                 bottom: 10.h),
                                             child: Row(
                                               children: [
-                                                Image.asset(
-                                                  ImageUtility.playIcon,
-                                                  width: 13.w,
+                                                GestureDetector(
+                                                  onTap:(){
+                                                    Navigator.pushNamed(context,
+                                                        RouteName.audioPlayerScreen,
+                                                        arguments: {
+                                                          "audioFromApi": provider.audioList[index]
+                                                              .files ?? ""
+                                                        });
+                                                  },
+                                                  child: Image.asset(
+                                                    ImageUtility.playIcon,
+                                                    width: 13.w,
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   width: 28.w,
@@ -423,16 +472,16 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                 SizedBox(
                                                   width: 22.w,
                                                 ),
-                                                Text(
-                                                  "0:31",
-                                                  style: StyleUtility
-                                                      .quicksandMediumACACAFTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize13
-                                                                  .sp),
-                                                )
+                                                // Text(
+                                                //   "0:31",
+                                                //   style: StyleUtility
+                                                //       .quicksandMediumACACAFTextStyle
+                                                //       .copyWith(
+                                                //           fontSize:
+                                                //               TextSizeUtility
+                                                //                   .textSize13
+                                                //                   .sp),
+                                                // )
                                               ],
                                             ),
                                           ));
