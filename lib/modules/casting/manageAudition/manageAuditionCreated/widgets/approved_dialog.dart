@@ -82,14 +82,14 @@ class ApprovedDialog extends StatelessWidget {
               SizedBox(
                 height: 15.h,
               ),
-              CustomOutlineButton(
-                buttonText: context.loc.buttonCloseRegistration,
-                onTap: () {
-                  Navigator.pop(context);
-                  onCloseRegistration();
-                },
-                buttonColor: ColorUtility.color5457BE,
-              ),
+              // CustomOutlineButton(
+              //   buttonText: context.loc.buttonCloseRegistration,
+              //   onTap: () {
+              //     Navigator.pop(context);
+              //     onCloseRegistration();
+              //   },
+              //   buttonColor: ColorUtility.color5457BE,
+              // ),
             ],
           ),
         ),

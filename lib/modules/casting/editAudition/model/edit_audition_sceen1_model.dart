@@ -21,7 +21,7 @@ class EditAuditionScreen1DataModel {
   List<AuditionPropertyModel> shirtSizeModelList;
   List<AuditionPropertyModel> shoeSizeModelList;
 
-  AuditionDetails auditionDetailsModelInitialData;
+  AuditionDetailsModel auditionDetailsModelInitialData;
 
   EditAuditionScreen1DataModel({
     required this.description,

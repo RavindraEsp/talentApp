@@ -66,13 +66,16 @@ class CreateAudition {
   int? totalView;
   int? totalApply;
   String? date;
+  String? auditionDate;
 
   CreateAudition(
       {this.auditionId,
       this.description,
       this.totalView,
       this.totalApply,
-      this.date});
+      this.date,
+      this.auditionDate
+      });
 
   CreateAudition.fromJson(Map<String, dynamic> json) {
     auditionId = json['auditionId'];
@@ -80,6 +83,7 @@ class CreateAudition {
     totalView = json['totalView'];
     totalApply = json['totalApply'];
     date = json['date'];
+    auditionDate = json['auditionDate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -89,6 +93,7 @@ class CreateAudition {
     data['totalView'] = this.totalView;
     data['totalApply'] = this.totalApply;
     data['date'] = this.date;
+    data['auditionDate'] = this.auditionDate;
     return data;
   }
 }

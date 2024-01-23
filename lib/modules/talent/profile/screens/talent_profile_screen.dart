@@ -273,6 +273,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                   ?.data?[0]
                                   .countryISOCode,
                               //  validator: Validators(context).validatorPhone,
+                              isEnable: false,
                               onChanged: (PhoneNumber value) {
                                 AppLogger.logD(
                                     "IsoCode ${value.countryISOCode}");
@@ -285,6 +286,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                               height: 25.h,
                             ),
                             SimpleTextField(
+                              isEnable: false,
                               controller: emailController,
                               suffixImage: ImageUtility.emailIcon,
                               hintText: context.loc.hintEmail,

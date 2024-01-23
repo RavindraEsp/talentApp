@@ -16,6 +16,7 @@ class MobileNumberTextField extends StatelessWidget {
     required this.hintText,
     this.validator,
     this.isoCode,
+    this.isEnable = true,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -27,16 +28,16 @@ class MobileNumberTextField extends StatelessWidget {
 
   final String? isoCode;
 
+  final bool? isEnable;
+
   @override
   Widget build(BuildContext context) {
     // PhoneNumber? phoneNumber;
-    return
-
-
-      IntlPhoneField(
-         textAlignVertical: TextAlignVertical.center,
-         controller: controller,
+    return IntlPhoneField(
+        textAlignVertical: TextAlignVertical.center,
+        controller: controller,
         textAlign: TextAlign.left,
+        enabled: isEnable ?? true,
         style: StyleUtility.inputTextStyle.copyWith(
           fontSize: TextSizeUtility.textSize15.sp,
         ),
@@ -103,7 +104,7 @@ class MobileNumberTextField extends StatelessWidget {
           focusColor: Colors.white,
         ),
         initialCountryCode: isoCode ?? 'IL',
-      //  initialCountryCode: isoCode ?? 'IN',
+        //  initialCountryCode: isoCode ?? 'IN',
         onChanged: (phone) {
           onChanged.call(phone);
           AppLogger.logD("Phone $phone");
@@ -113,7 +114,5 @@ class MobileNumberTextField extends StatelessWidget {
         },
         dropdownIcon:
             const Icon(Icons.arrow_drop_down, color: ColorUtility.color5457BE));
-
-
   }
 }

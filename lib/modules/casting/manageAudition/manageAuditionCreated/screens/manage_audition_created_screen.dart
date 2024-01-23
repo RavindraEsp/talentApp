@@ -157,15 +157,21 @@ class _ManageAuditionCreatedScreenState
                                             width: 5.w,
                                           ),
                                           Text(
+                                            // provider.managAuditionCreatedScreenModel
+                                            //             ?.data?.datetime ==
+                                            //         null
+                                            //     ? ""
+                                            //     : CommonMethod.getDate(provider
+                                            //             .managAuditionCreatedScreenModel
+                                            //             ?.data
+                                            //             ?.datetime ??
+                                            //         ""),
+
                                             provider.managAuditionCreatedScreenModel
-                                                        ?.data?.datetime ==
-                                                    null
-                                                ? ""
-                                                : CommonMethod.getDate(provider
-                                                        .managAuditionCreatedScreenModel
-                                                        ?.data
-                                                        ?.datetime ??
-                                                    ""),
+                                                    ?.data?.auditionDate ??
+                                                "",
+
+                                            // "dsd",
                                             style: StyleUtility
                                                 .quicksandRegular8B8B8BTextStyle
                                                 .copyWith(
@@ -264,19 +270,25 @@ class _ManageAuditionCreatedScreenState
                                 Expanded(
                                     child: TabBarView(
                                   children: [
-
-                                    (provider.managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) > 0 ?
-                                    AppliedTabBarWidget(
-                                      searchController: searchController,
-                                        auditionId:widget.auditionId
-                                    ):const Center(child:NoDataWidget(),),
-
-
-                                    (provider.managAuditionCreatedScreenModel?.data?.approvedUsers?.length ?? 0) > 0 ?
-
-                                     ApprovedTabBarWidget(
-                                        auditionId:widget.auditionId
-                                    ):const Center(child:NoDataWidget(),),
+                                    (provider.managAuditionCreatedScreenModel?.data
+                                                    ?.appliedUsers?.length ??
+                                                0) >
+                                            0
+                                        ? AppliedTabBarWidget(
+                                            searchController: searchController,
+                                            auditionId: widget.auditionId)
+                                        : const Center(
+                                            child: NoDataWidget(),
+                                          ),
+                                    (provider.managAuditionCreatedScreenModel?.data
+                                                    ?.approvedUsers?.length ??
+                                                0) >
+                                            0
+                                        ? ApprovedTabBarWidget(
+                                            auditionId: widget.auditionId)
+                                        : const Center(
+                                            child: NoDataWidget(),
+                                          ),
                                   ],
                                 )),
                               ],

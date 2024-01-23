@@ -13,6 +13,7 @@ class CastHomeScreenProvider extends ChangeNotifier {
   getHomeDataForCaster({
     required ValueChanged<String> onFailure,
   }) {
+
     isLoading = true;
     auditionRepository.getHomeDataForCaster().then((value) {
       if (value.success == true) {

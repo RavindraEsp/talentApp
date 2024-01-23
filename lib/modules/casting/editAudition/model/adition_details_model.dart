@@ -1,12 +1,12 @@
-class AuditionDetails {
+class AuditionDetailsModel {
   bool? success;
   int? statusCode;
   String? msg;
   Data? data;
 
-  AuditionDetails({this.success, this.statusCode, this.msg, this.data});
+  AuditionDetailsModel({this.success, this.statusCode, this.msg, this.data});
 
-  AuditionDetails.fromJson(Map<String, dynamic> json) {
+  AuditionDetailsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     statusCode = json['statusCode'];
     msg = json['msg'];
@@ -47,6 +47,8 @@ class Data {
   int? heightRangeMin;
   int? heightRangeMax;
   String? location;
+  String? latitude;
+  String? longitude;
   int? totalView;
   int? totalApply;
 
@@ -72,6 +74,8 @@ class Data {
       this.heightRangeMin,
       this.heightRangeMax,
       this.location,
+      this.latitude,
+      this.longitude,
       this.totalView,
       this.totalApply});
 
@@ -132,6 +136,8 @@ class Data {
     heightRangeMin = json['heightRangeMin'];
     heightRangeMax = json['heightRangeMax'];
     location = json['location'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
     totalView = json['totalView'];
     totalApply = json['totalApply'];
   }
@@ -174,6 +180,8 @@ class Data {
     data['heightRangeMin'] = this.heightRangeMin;
     data['heightRangeMax'] = this.heightRangeMax;
     data['location'] = this.location;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
     data['totalView'] = this.totalView;
     data['totalApply'] = this.totalApply;
     return data;
@@ -245,8 +253,6 @@ class AuditionDates {
     return data;
   }
 }
-
-
 
 // class AuditionDetails {
 //   bool? success;

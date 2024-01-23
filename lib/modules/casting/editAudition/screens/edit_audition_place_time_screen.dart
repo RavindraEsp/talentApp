@@ -1,22 +1,23 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/createAudition/models/date_time_model.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/date_time_row_widget.dart';
 import 'package:talent_app/modules/casting/editAudition/model/edit_audition_sceen1_model.dart';
 import 'package:talent_app/modules/casting/editAudition/provider/edit_audition_place_time_provider.dart';
-import 'package:talent_app/modules/casting/editAudition/provider/edit_audition_screen_provider.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
+import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -27,7 +28,8 @@ import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/simple_text_field.dart';
-import 'package:talent_app/widgets/video_player/video_player_screen.dart';
+
+import 'package:google_maps_webservice/places.dart';
 
 class EditAuditionPlaceTimeScreen extends StatefulWidget {
   EditAuditionScreen1DataModel editAuditionScreen1DataModel;
@@ -44,6 +46,7 @@ class _EditAuditionPlaceTimeScreenState
     extends State<EditAuditionPlaceTimeScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  @override
   void initState() {
     super.initState();
 
@@ -85,18 +88,13 @@ class _EditAuditionPlaceTimeScreenState
                             : context.loc.buttonUpdate,
                         buttonType: ButtonType.yellow,
                         onTap: () {
-
-                          if (provider
-                              .auditionLocationController.text.isEmpty) {
-                            Common.showErrorSnackBar(context, StringsUtility.validationLocation);
-                          } else if (provider
-                              .dateTimeList.isEmpty) {
+                          if (provider.location == null) {
+                            Common.showErrorSnackBar(
+                                context, StringsUtility.validationLocation);
+                          } else if (provider.dateTimeList.isEmpty) {
                             Common.showErrorSnackBar(
                                 context, StringsUtility.validationAddDAteTime);
-                          }
-
-
-                         else{
+                          } else {
                             Common.showLoadingDialog(context);
                             provider.updateBtnClick(
                                 context: context,
@@ -104,15 +102,12 @@ class _EditAuditionPlaceTimeScreenState
                                   Navigator.pop(context);
                                   showAuditionAuditionCreateSuccessDialog(
                                       context: context);
-
                                 },
                                 onFailure: (message) {
                                   Navigator.pop(context);
                                   Common.showErrorSnackBar(context, message);
                                 });
                           }
-                          // showAuditionAuditionCreateSuccessDialog(
-                          //     context: context);
                         },
                       );
               }),
@@ -201,22 +196,63 @@ class _EditAuditionPlaceTimeScreenState
                                 SizedBox(
                                   height: 10.h,
                                 ),
-                                SimpleTextField(
-                                  controller:
-                                      provider.auditionLocationController,
-                                  hintText: "Location picker",
-                                  maxLine: 1,
+
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    provider.openPicker(context, provider);
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 5.h),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                            child: Text(
+                                          provider.location ??
+                                              "Select location",
+                                          style: StyleUtility.inputTextStyle
+                                              .copyWith(
+                                            fontSize:
+                                                TextSizeUtility.textSize15.sp,
+                                          ),
+                                        )),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        SizedBox(
+                                            width: 22.sp,
+                                            height: 22.sp,
+                                            child: Image.asset(
+                                                ImageUtility.dropDownArrowIcon))
+                                      ],
+                                    ),
+                                  ),
                                 ),
+
+                                // SimpleTextField(
+                                //   controller:
+                                //       provider.auditionLocationController,
+                                //   hintText: "Location picker",
+                                //   maxLine: 1,
+                                // ),
                                 SizedBox(height: 15.h),
                                 SizedBox(
                                   height: 170.sp,
                                   child: GoogleMap(
-                                    initialCameraPosition: const CameraPosition(
-                                        tilt: 50,
-                                        target: LatLng(22.719568, 75.857727),
-                                        zoom: 15),
+                                    initialCameraPosition:
+                                        provider.initialCameraPosition ??
+                                            const CameraPosition(
+                                                tilt: 50,
+                                                target: LatLng(0.0, 0.0),
+                                                zoom: 15),
+                                    markers: Set<Marker>.of(provider.markers),
                                     onMapCreated:
-                                        (GoogleMapController controller) {},
+                                        (GoogleMapController controller) {
+                                      provider.controller.complete(controller);
+                                    },
                                   ),
                                 ),
                                 SizedBox(height: 36.h),
@@ -317,8 +353,7 @@ class _EditAuditionPlaceTimeScreenState
                                                       .dateTimeList?[index]
                                                       .date ??
                                                   "",
-                                              time:
-                                              provider
+                                              time: provider
                                                       .dateTimeList?[index]
                                                       .time ??
                                                   "",
@@ -437,15 +472,11 @@ class _EditAuditionPlaceTimeScreenState
       // Navigator.pop(context);
       // Navigator.pop(context);
 
-      Navigator
-          .pushNamedAndRemoveUntil(
+      Navigator.pushNamedAndRemoveUntil(
           context,
-          RouteName
-              .castBottomBarScreen,
-          arguments: {
-            "selectIndex": 0
-          },
-              (route) => false);
+          RouteName.castBottomBarScreen,
+          arguments: {"selectIndex": 0},
+          (route) => false);
     });
   }
 }

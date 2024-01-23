@@ -140,18 +140,18 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                     buttonType: ButtonType.yellow,
                     icon: ImageUtility.editIcon,
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  CreateAuditionButton(
-                    buttonText: context.loc.buttonCreateAJob,
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, RouteName.createAuditionScreen);
-                    },
-                    buttonType: ButtonType.yellow,
-                    icon: ImageUtility.editIcon,
-                  )
+                  // SizedBox(
+                  //   height: 12.h,
+                  // ),
+                  // CreateAuditionButton(
+                  //   buttonText: context.loc.buttonCreateAJob,
+                  //   onTap: () {
+                  //     Navigator.pushNamed(
+                  //         context, RouteName.createAuditionScreen);
+                  //   },
+                  //   buttonType: ButtonType.yellow,
+                  //   icon: ImageUtility.editIcon,
+                  // )
                 ],
               ),
             ),

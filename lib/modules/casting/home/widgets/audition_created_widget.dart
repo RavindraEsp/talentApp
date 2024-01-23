@@ -116,10 +116,11 @@ class AuditionCreatedWidget extends StatelessWidget {
                                         ),
                                         Text(
                                           // "23/8/2023",
-                                          createAudition?[index].date != null
-                                              ? CommonMethod.getDate(
-                                                  createAudition![index].date!)
-                                              : "",
+                                          // createAudition?[index].date != null
+                                          //     ? CommonMethod.getDate(
+                                          //         createAudition![index].date!)
+                                          //     : "",
+                                          createAudition?[index].auditionDate ?? "",
                                           style: StyleUtility
                                               .quicksandRegular8B8B8BTextStyle
                                               .copyWith(

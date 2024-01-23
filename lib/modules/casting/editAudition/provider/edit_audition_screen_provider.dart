@@ -6,14 +6,13 @@ import 'package:talent_app/modules/casting/editAudition/model/adition_details_mo
 import 'package:talent_app/modules/casting/editAudition/model/edit_audition_sceen1_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:talent_app/routes/route_name.dart';
-import 'package:talent_app/utilities/common.dart';
 
 class EditAuditionScreenProvider extends ChangeNotifier {
   final AuditionRepository auditionRepository = AuditionRepository();
 
   bool isLoading = false;
 
-  AuditionDetails auditionDetailsModel = AuditionDetails();
+  AuditionDetailsModel auditionDetailsModel = AuditionDetailsModel();
 
   // ---------- screen 1 variables --------
   final formKey = GlobalKey<FormState>();
@@ -56,6 +55,7 @@ class EditAuditionScreenProvider extends ChangeNotifier {
         initializeValriable();
       } else {
         isLoading = false;
+        onFailure.call(value.msg ?? "");
         notifyListeners();
       }
     }).onError((error, stackTrace) {
@@ -172,7 +172,8 @@ class EditAuditionScreenProvider extends ChangeNotifier {
               painsSizeModelList: painsSizeModelList,
               shirtSizeModelList: shirtSizeModelList,
               shoeSizeModelList: shoeSizeModelList,
-              auditionDetailsModelInitialData: auditionDetailsModel),
+              auditionDetailsModelInitialData: auditionDetailsModel
+          ),
         });
   }
 

@@ -295,6 +295,7 @@ class Data {
   String? id;
   String? description;
   String? datetime;
+  String? auditionDate;
   int? viewCount;
   int? appliedCount;
   List<AppliedUsers>? appliedUsers;
@@ -304,6 +305,7 @@ class Data {
       {this.id,
         this.description,
         this.datetime,
+        this.auditionDate,
         this.viewCount,
         this.appliedCount,
         this.appliedUsers,
@@ -313,6 +315,7 @@ class Data {
     id = json['id'];
     description = json['description'];
     datetime = json['datetime'];
+    auditionDate = json['auditionDate'];
     viewCount = json['viewCount'];
     appliedCount = json['appliedCount'];
     if (json['appliedUsers'] != null) {
@@ -334,6 +337,7 @@ class Data {
     data['id'] = this.id;
     data['description'] = this.description;
     data['datetime'] = this.datetime;
+    data['auditionDate'] = this.datetime;
     data['viewCount'] = this.viewCount;
     data['appliedCount'] = this.appliedCount;
     if (this.appliedUsers != null) {

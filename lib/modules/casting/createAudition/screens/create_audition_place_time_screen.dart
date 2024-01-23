@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
@@ -73,32 +72,6 @@ class _CreateAuditionPlaceTimeScreenState
 
   late CameraPosition initialCameraPosition;
 
-  //
-  // Future<void> _handlePressButton(BuildContext context) async {
-  //   // show input autocomplete with selected mode
-  //   // then get the Prediction selected
-  //   Prediction? p = await PlacesAutocomplete.show(
-  //     // offset: 0,
-  //     // radius: 1000,
-  //      types: [],
-  //     strictbounds: false,
-  //
-  //
-  //     context: context,
-  //     apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
-  //    // onError: onError,
-  //     mode: Mode.overlay,
-  //     language: "en",
-  //
-  //
-  //    // components: [Component(Component.country, "fr")],
-  //     components: [Component(Component.country, "ind")],
-  //   );
-  //
-  //   AppLogger.logD("data $p");
-  //
-  //  // displayPrediction(p, homeScaffoldKey.currentState);
-  // }
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -127,45 +100,22 @@ class _CreateAuditionPlaceTimeScreenState
       Map<String, dynamic> data;
 
       if (detail.result.addressComponents.isNotEmpty) {
-        // for (var i = 0; i < detail.result.addressComponents.length; i++) {
-        //   for (var j = 0;
-        //   j < detail.result.addressComponents[i].types.length;
-        //   j++) {
-        //    // Log.logData(detail.result.addressComponents[i].types[j]);
-        //     if (detail.result.addressComponents[i].types[j] == 'postal_code') {
-        //       var getPostalCode = detail.result.addressComponents[i].longName;
-        //     }
-        //     if (detail.result.addressComponents[i].types[j] == 'locality') {
-        //       var getCity = detail.result.addressComponents[i].longName;
-        //     }
-        //     if (detail.result.addressComponents[i].types[j] == 'adminArea') {
-        //       var getState = detail.result.addressComponents[i].longName;
-        //     }
-        //   }
-        // }
+
 
         var selectLocation = p.description!;
 
-        // createAuditionPlaceTimeProvider.auditionLocationController.text =
-        //     selectLocation;
 
         createAuditionPlaceTimeProvider.location = selectLocation;
-        //
-        // Log.logData("Selected location is - $selectLocation");
-        //
+
         createAuditionPlaceTimeProvider.lat = detail.result.geometry?.location.lat.toDouble() ?? 0.0;
         createAuditionPlaceTimeProvider.lng = detail.result.geometry?.location.lng.toDouble() ?? 0.0;
-
-        // setMarkers();
 
         AppLogger.logD("Lat long is - ${createAuditionPlaceTimeProvider.lat} ${createAuditionPlaceTimeProvider.lng}");
         AppLogger.logD("selectLocation - $selectLocation");
 
         addMarker(createAuditionPlaceTimeProvider);
         setState(() {});
-        // Log.logData(latt);
-        // Log.logData(lngg);
-        // notifyListeners();
+
       }
     }
   }
@@ -197,44 +147,6 @@ class _CreateAuditionPlaceTimeScreenState
       zoom: 15.0, // New zoom level
     )));
   }
-
-  // GestureDetector(
-  // onTap: () async {
-  // await provider.openPicker(context);
-  // },
-  // child: Container(
-  // height: TextSizeUtility.dropdownHeight,
-  // width: double.infinity,
-  // decoration: BoxDecoration(
-  // color: ColorUtility.whiteTextColor,
-  // borderRadius: BorderRadius.circular(10.r),
-  // ),
-  // // padding: EdgeInsets.only(left: 5),
-  // child: Row(
-  // children: [
-  // Container(width: 10.w),
-  // Expanded(
-  // child: Text(
-  // provider.latt == null
-  // ? context.loc.hint_select_location
-  //     : provider.selectLocation ?? "",
-  // style: provider.latt == null
-  // ? StyleUtility.hintTextStyle
-  //     : StyleUtility.inputTextStyle,
-  // maxLines: 1,
-  // ),
-  // ),
-  // Padding(
-  // padding: EdgeInsets.only(right: 8.w),
-  // child: Image.asset(
-  // ImageUtility.iconDown,
-  // width: 12.sp,
-  // ),
-  // ),
-  // Container(width: 2.w),
-  // ],
-  // ),
-  // )),
 
   @override
   void initState() {
@@ -413,12 +325,7 @@ class _CreateAuditionPlaceTimeScreenState
                             height: 10.h,
                           ),
 
-                          // GestureDetector(
-                          //   onTap: (){
-                          //    // _handlePressButton(context);
-                          //     openPicker(context,createAuditionPlaceTimeProvider); // us
-                          //   },
-                          //     child: Text("Picker")),
+
 
                           GestureDetector(
                             behavior: HitTestBehavior.opaque,

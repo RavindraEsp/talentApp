@@ -61,11 +61,11 @@ class   AuditionRepository {
             ));
   }
 
-  Future<AuditionDetails> getAuditionDetailById(Map<String, dynamic>? request) {
+  Future<AuditionDetailsModel> getAuditionDetailById(Map<String, dynamic>? request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.getAuditionDetailById,
             data: jsonEncode(request))
-        .then((value) => AuditionDetails.fromJson(value));
+        .then((value) => AuditionDetailsModel.fromJson(value));
   }
 
   Future<BasicResponse> updateAudition(Map<String, dynamic>? request) {

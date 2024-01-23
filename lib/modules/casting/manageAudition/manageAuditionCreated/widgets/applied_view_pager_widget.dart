@@ -8,8 +8,6 @@ import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/add_more_spot_dialog.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
-import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -189,26 +187,26 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                                               ],
                                             ),
                                           ),
-                                          GestureDetector(
-                                            onTap: widget.onDecline,
-                                            child: Column(
-                                              children: [
-                                                Image.asset(
-                                                  ImageUtility.declineCircleIcon,
-                                                  width: 52.w,
-                                                ),
-                                                Text(
-                                                  context.loc.decline,
-                                                  style: StyleUtility
-                                                      .quicksandMediumWhiteTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize12.sp),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                          // GestureDetector(
+                                          //   onTap: widget.onDecline,
+                                          //   child: Column(
+                                          //     children: [
+                                          //       Image.asset(
+                                          //         ImageUtility.declineCircleIcon,
+                                          //         width: 52.w,
+                                          //       ),
+                                          //       Text(
+                                          //         context.loc.decline,
+                                          //         style: StyleUtility
+                                          //             .quicksandMediumWhiteTextStyle
+                                          //             .copyWith(
+                                          //                 fontSize:
+                                          //                     TextSizeUtility
+                                          //                         .textSize12.sp),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
                                           GestureDetector(
                                             onTap: () {
                                               approvedDialog(context: context,

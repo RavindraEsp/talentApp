@@ -423,6 +423,11 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                           fontSize:
                                               TextSizeUtility.textSize16.sp),
                                 ),
+                                (provider.videoList.length ?? 0) == 0
+                                    ? SizedBox(
+                                    height: 100.h,
+                                    child: const NoDataWidget())
+                                    :
                                 ListView.builder(
                                     padding: EdgeInsets.zero,
                                     itemCount: provider.audioList.length,
@@ -729,6 +734,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                       top: 16,
                                       bottom: 16,
                                       right: 10.w),
+                                  width: double.infinity,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.r),
                                     border: Border.all(

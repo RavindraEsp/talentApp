@@ -90,24 +90,67 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
 
 
 
+  // onNextPress() {
+  //   if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >
+  //       currentAppliedIndex + 1) {
+  //     currentAppliedIndex = currentAppliedIndex + 1;
+  //     appliedUser = managAuditionCreatedScreenModel
+  //         ?.data?.appliedUsers?[currentAppliedIndex];
+  //     notifyListeners();
+  //   }
+  // }
+  //
+  // onBackPress() {
+  //   if (currentAppliedIndex != 0) {
+  //     currentAppliedIndex = currentAppliedIndex - 1;
+  //     appliedUser = managAuditionCreatedScreenModel
+  //         ?.data?.appliedUsers?[currentAppliedIndex];
+  //     notifyListeners();
+  //   }
+  // }
+
+
+  //With scroll
+
   onNextPress() {
     if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >
-        currentAppliedIndex + 1) {
-      currentAppliedIndex = currentAppliedIndex + 1;
-      appliedUser = managAuditionCreatedScreenModel
-          ?.data?.appliedUsers?[currentAppliedIndex];
+         1) {
+
+      if((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) ==
+          currentAppliedIndex + 1){
+        currentAppliedIndex = 0;
+        appliedUser = managAuditionCreatedScreenModel
+            ?.data?.appliedUsers?[currentAppliedIndex];
+      }else{
+        currentAppliedIndex = currentAppliedIndex + 1;
+        appliedUser = managAuditionCreatedScreenModel
+            ?.data?.appliedUsers?[currentAppliedIndex];
+      }
+
       notifyListeners();
     }
   }
 
+
   onBackPress() {
-    if (currentAppliedIndex != 0) {
-      currentAppliedIndex = currentAppliedIndex - 1;
-      appliedUser = managAuditionCreatedScreenModel
-          ?.data?.appliedUsers?[currentAppliedIndex];
+    if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) > 1) {
+
+      if(currentAppliedIndex == 0){
+
+        currentAppliedIndex = ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 1) - 1);
+        appliedUser = managAuditionCreatedScreenModel
+            ?.data?.appliedUsers?[currentAppliedIndex];
+      }else{
+        currentAppliedIndex = currentAppliedIndex - 1;
+        appliedUser = managAuditionCreatedScreenModel
+            ?.data?.appliedUsers?[currentAppliedIndex];
+      }
+
       notifyListeners();
     }
   }
+
+
 
   updateUi(){
     notifyListeners();

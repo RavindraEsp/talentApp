@@ -16,7 +16,6 @@ import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/chat_button.dart';
 import 'package:talent_app/widgets/buttons/custom_outline_button.dart';
-import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 
 class ApprovedTabBarWidget extends StatelessWidget {
   final int auditionId;
@@ -430,8 +429,22 @@ class ApprovedTabBarWidget extends StatelessWidget {
                           ),
                         );
                       }),
+
                   Padding(
-                    padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                    padding:
+                    EdgeInsets.only(left: 20.w, right: 20.w),
+                    child: CustomOutlineButton(
+                      buttonText: context.loc.buttonCloseRegistration,
+                      onTap: () {
+
+                      },
+                      buttonColor: ColorUtility.color5457BE,
+                    ),
+                  ),
+
+
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 17.h),
                     child: CustomOutlineButton(
                         buttonText: context.loc.buttonManageTimeSlots,
                         onTap: () {},
