@@ -14,10 +14,12 @@ import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/utilities/validation.dart';
+import 'package:talent_app/widgets/buttons/custom_button.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/custom_drop_down_widget.dart';
 import 'package:talent_app/widgets/no_data_widget.dart';
@@ -57,7 +59,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
 
   final ImagePicker picker = ImagePicker();
 
-  final _createCardKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   DropDownModel? selectGender;
   List<DropDownModel> genderList = [
@@ -184,7 +186,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                       child: CustomCircularLoaderWidget(),
                     )
                   : Form(
-                      key: _createCardKey,
+                      key: _formKey,
                       child: ListView(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           children: [
@@ -243,9 +245,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                     hintText: context.loc.hintID,
                                     validator:
                                         Validators(context).validatorGovtId,
-                                    onPrefixIconTap: () {
-                                      setState(() {});
-                                    },
+                                    maxLength: 9,
+
                                   ),
                                 ),
                                 SizedBox(
@@ -592,7 +593,6 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                             SizedBox(
                               height: 15.h,
                             ),
-
                             (talentProfileScreenProvider.talantUserProfileModel
                                             ?.data?[0].videoFiles?.length ??
                                         0) ==
@@ -648,15 +648,19 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                                     ),
 
                                                     GestureDetector(
-                                                      onTap: (){
-                                                        Navigator.pushNamed(context,
-                                                            RouteName.videoPlayerScreen,
+                                                      onTap: () {
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            RouteName
+                                                                .videoPlayerScreen,
                                                             arguments: {
-                                                              "videoFromApi":talentProfileScreenProvider
-                                                                  .talantUserProfileModel
-                                                                  ?.data?[0]
-                                                                  .videoFiles?[index]
-                                                                  .files ?? ""
+                                                              "videoFromApi": talentProfileScreenProvider
+                                                                      .talantUserProfileModel
+                                                                      ?.data?[0]
+                                                                      .videoFiles?[
+                                                                          index]
+                                                                      .files ??
+                                                                  ""
                                                             });
                                                       },
                                                       child: Image.asset(
@@ -706,7 +710,6 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                               );
                                             }),
                                   ),
-
                             SizedBox(
                               height: 30.h,
                             ),
@@ -795,16 +798,21 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                                   child: Row(
                                                     children: [
                                                       GestureDetector(
-                                                        onTap:(){
-                                                          Navigator.pushNamed(context,
-                                                              RouteName.audioPlayerScreen,
-                                                          arguments: {
-                                                            "audioFromApi":talentProfileScreenProvider
-                                                                .talantUserProfileModel
-                                                                ?.data?[0]
-                                                                .audioFiles?[index]
-                                                                .files ?? ""
-                                                          });
+                                                        onTap: () {
+                                                          Navigator.pushNamed(
+                                                              context,
+                                                              RouteName
+                                                                  .audioPlayerScreen,
+                                                              arguments: {
+                                                                "audioFromApi": talentProfileScreenProvider
+                                                                        .talantUserProfileModel
+                                                                        ?.data?[
+                                                                            0]
+                                                                        .audioFiles?[
+                                                                            index]
+                                                                        .files ??
+                                                                    ""
+                                                              });
                                                         },
                                                         child: Image.asset(
                                                           ImageUtility.playIcon,
@@ -1149,17 +1157,57 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                             SizedBox(
                               height: 35.h,
                             ),
-                            // CustomButton(
-                            //   buttonText: context.loc.buttonUpdate,
-                            //   buttonType: ButtonType.blue,
-                            //   onTap: () async {
-                            //     if (_createCardKey.currentState!.validate()) {
-                            //       AppLogger.logD("Valid data");
-                            //     } else {}
-                            //   },
-                            // ),
+                            CustomButton(
+                              buttonText: context.loc.buttonUpdate,
+                              buttonType: ButtonType.blue,
+                              onTap: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  Common.showLoadingDialog(context);
+                                  talentProfileScreenProvider
+                                      .updateTalentProfileData(
+                                      onSuccess: (message) {
+                                        Navigator.pop(context);
+                                        Common.showSuccessToast(
+                                            context, message);
+                                      },
+                                      onFailure: (message) {
+                                        if (Navigator.canPop(context)) {
+                                          Navigator.pop(context);
+                                        }
+                                        Common.showErrorToast(
+                                            context, message);
+                                      },
+                                      id: talentProfileScreenProvider
+                                          .talantUserProfileModel
+                                          ?.data?[0]
+                                          .id ??
+                                          0,
+                                      firstName: firstNameController.text,
+                                      lastName: lastNameController.text,
+                                      gender: selectGender?.value,
+                                      address: addressController.text,
+                                      dateofbirth: birthdayController.text,
+                                      experience: isExperienceNeeded == true
+                                          ? "1"
+                                          : "0",
+                                      participated:
+                                      isParticipate == true ? "1" : "0",
+                                      instalink:
+                                      instagramLinkController.text,
+                                      facebooklink:
+                                      facebookLinkController.text,
+                                      youtubelink:
+                                      youtubeLinkController.text,
+                                      tiktoklink: tikTokLinkController.text,
+                                      govtId: idController.text);
+                                } else {
+
+                                }
+                              },
+                            ),
                             SizedBox(
-                              height: 35.h,
+                             // height: 35.h,
+                              height: 150.h,
                             ),
                           ]),
                     ));

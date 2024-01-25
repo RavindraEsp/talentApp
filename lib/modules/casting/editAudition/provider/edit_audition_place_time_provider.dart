@@ -81,7 +81,7 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
         apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
         mode: Mode.overlay,
         language: "en",
-        components: [Component(Component.country, "ind")]);
+        components: [Component(Component.country, "ind"),Component(Component.country, "il")]);
 
     if (p != null) {
       GoogleMapsPlaces _places = GoogleMapsPlaces(

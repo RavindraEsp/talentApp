@@ -56,6 +56,54 @@ class TalentProfileScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  updateTalentProfileData(
+      {required ValueChanged<String> onSuccess,
+        required ValueChanged<String> onFailure,
+        required int id,
+        required String firstName,
+        required String lastName,
+        required String? gender,
+        required String address,
+        required String dateofbirth,
+        required String experience,
+        required String participated,
+        required String instalink,
+        required String facebooklink,
+        required String youtubelink,
+        required String tiktoklink,
+        required String govtId
+      }) async {
+    Map<String, dynamic>? rawData;
+
+    rawData = {
+      "id": id,
+      "FirstName": firstName,
+      "LastName": lastName,
+      "Gender": gender,
+      "Address": address,
+      "Dateofbirth": dateofbirth,
+       "experience": experience,
+      "participated": participated,
+      "instalink": instalink,
+      "facebooklink": facebooklink,
+      "youtubelink": youtubelink,
+      "tiktoklink": tiktoklink,
+      "GovtId": govtId,
+
+    };
+
+    authRepository.updateTalentProfile(rawData).then((value) {
+      if (value.success == true) {
+        onSuccess.call(value.msg ?? "");
+      } else {
+        onFailure.call(value.msg ?? "");
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+      onFailure.call(error.toString());
+    });
+  }
+
   updateUi() {
     notifyListeners();
   }

@@ -84,6 +84,13 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
                title: context.loc.menuApprovedAuditions,
               image: ImageUtility.approvedAuditionIcon,
               onTap: () {
+
+                Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.talentBottomBarScreen,
+                    arguments: {"selectIndex": 0},
+                        (route) => false);
+
                 // Navigator.pushNamed(
                 //     context,
                 //     RouteName
