@@ -30,6 +30,7 @@ class ApiEndPoints {
 
   String get getAuditionDetailById => "auth/getAuditionDetailById";
   String get cancelAudition => "auth/cancelAudition";
+  String get closeRegistration => "auth/closeRegistration";
 
   String get getTalentProfile => "get/getTalentProfile";
   String get approverejectApplyAudition => "auth/approverejectApplyAudition";

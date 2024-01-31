@@ -82,6 +82,13 @@ class   AuditionRepository {
         .then((value) => value);
   }
 
+  Future<BasicResponse> closeRegistration(Map<String, dynamic>? request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.closeRegistration,
+        data: jsonEncode(request))
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
   Future<TalantUserProfileModel> getTalentProfileInCasterApp(
       {Map<String, dynamic>? queryParameters}) {
     return dioHttpService

@@ -22,7 +22,7 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
     appliedUser = AppliedUsers();
     managAuditionCreatedScreenModel = ManagAuditionCreatedScreenModel();
     auditionRepository.getcreatedAuditionmanage(
-        queryParameters: {'auditionId': auditionId}).then((value) {
+            queryParameters: {'auditionId': auditionId}).then((value) {
       if (value.success == true) {
         managAuditionCreatedScreenModel = value;
 
@@ -38,17 +38,15 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
         notifyListeners();
       }
     })
-    //     .onError((error, stackTrace) {
-    //   AppLogger.logD("error $error");
-    //   onFailure.call("Server Error");
-    //   isLoading = false;
-    //   notifyListeners();
-    // }
-    // )
-    ;
+        //     .onError((error, stackTrace) {
+        //   AppLogger.logD("error $error");
+        //   onFailure.call("Server Error");
+        //   isLoading = false;
+        //   notifyListeners();
+        // }
+        // )
+        ;
   }
-
-
 
   Future<void> approveUserAuditionApi({
     required ValueChanged<String> onSuccess,
@@ -88,7 +86,52 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
     });
   }
 
+  Future<void> cancelTheAuditionApi({
+    required int id,
+    required BuildContext context,
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+  }) async {
+    notifyListeners();
+    auditionRepository.cancelAudition({"id": id}).then((value) {
+      if (value["success"] == true) {
+        onSuccess.call("");
+      } else {
+        onFailure.call(value['msg']);
+        notifyListeners();
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
 
+      notifyListeners();
+      onFailure.call("Server error");
+    });
+
+    notifyListeners();
+  }
+
+  Future closeRegistrationApi({
+    required int id,
+    required BuildContext context,
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+  }) async {
+    notifyListeners();
+    auditionRepository.closeRegistration({"id": id}).then((value) {
+      if (value.success == true) {
+        onSuccess.call("");
+      } else {
+        onFailure.call(value.msg ?? "");
+        notifyListeners();
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+      notifyListeners();
+      onFailure.call("Server error");
+    });
+
+    notifyListeners();
+  }
 
   // onNextPress() {
   //   if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >
@@ -109,19 +152,17 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
   //   }
   // }
 
-
   //With scroll
 
   onNextPress() {
     if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >
-         1) {
-
-      if((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) ==
-          currentAppliedIndex + 1){
+        1) {
+      if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) ==
+          currentAppliedIndex + 1) {
         currentAppliedIndex = 0;
         appliedUser = managAuditionCreatedScreenModel
             ?.data?.appliedUsers?[currentAppliedIndex];
-      }else{
+      } else {
         currentAppliedIndex = currentAppliedIndex + 1;
         appliedUser = managAuditionCreatedScreenModel
             ?.data?.appliedUsers?[currentAppliedIndex];
@@ -131,16 +172,17 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
     }
   }
 
-
   onBackPress() {
-    if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) > 1) {
-
-      if(currentAppliedIndex == 0){
-
-        currentAppliedIndex = ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 1) - 1);
+    if ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ?? 0) >
+        1) {
+      if (currentAppliedIndex == 0) {
+        currentAppliedIndex =
+            ((managAuditionCreatedScreenModel?.data?.appliedUsers?.length ??
+                    1) -
+                1);
         appliedUser = managAuditionCreatedScreenModel
             ?.data?.appliedUsers?[currentAppliedIndex];
-      }else{
+      } else {
         currentAppliedIndex = currentAppliedIndex - 1;
         appliedUser = managAuditionCreatedScreenModel
             ?.data?.appliedUsers?[currentAppliedIndex];
@@ -150,9 +192,7 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
     }
   }
 
-
-
-  updateUi(){
+  updateUi() {
     notifyListeners();
   }
 }

@@ -8,6 +8,7 @@ import 'package:talent_app/modules/casting/createCard/cast_create_card_screen.da
 import 'package:talent_app/modules/splash/splash_screen.dart';
 import 'package:talent_app/modules/talent/bottomBar/screen/talent_bottom_bar_screen.dart';
 import 'package:talent_app/modules/talent/createCard/screens/talent_create_card_screen.dart';
+import 'package:talent_app/modules/talent/education/screens/education_list_screen.dart';
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -80,7 +81,8 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
 
-            home: const SplashScreen(),
+         //   home: const SplashScreen(),
+            home: const EducationListScreen(),
 
 
 
