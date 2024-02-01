@@ -34,6 +34,7 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+     // height: 55,
       child: TextFormField(
         enabled: isEnable,
         obscureText: passwordObscure ?? false,
@@ -48,8 +49,8 @@ class SearchTextField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         inputFormatters: inputFormatter,
         decoration: InputDecoration(
-          contentPadding:
-              EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
+
+          contentPadding: EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
           filled: true,
           fillColor: Colors.white,
           hintStyle: StyleUtility.hintTextStyle.copyWith(

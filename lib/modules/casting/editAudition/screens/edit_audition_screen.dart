@@ -708,8 +708,8 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                     children: [
                                       Expanded(
                                           child: CustomOutlineButton(
-                                              buttonText: context
-                                                  .loc.buttonCancelAudition,
+                                            //  buttonText: context.loc.buttonCancelAudition,
+                                              buttonText: context.loc.buttonCancel,
                                               onTap: () {
                                                 showCancelDialog(
                                                     context: context,

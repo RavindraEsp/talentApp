@@ -350,18 +350,22 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                           SizedBox(
                             height: 40.h,
                           ),
+
+
+                          widget.auditionDetailType != AuditionDetailType.denied ?
                           Text(
                             context.loc.titleChooseTimeAndDateForTheAudition,
                             style: StyleUtility.quicksandSemiBold5457BETextStyle
                                 .copyWith(
                                     fontSize: TextSizeUtility.textSize16.sp),
-                          ),
+                          ):const SizedBox(),
                           SizedBox(
-                            height: 18.h,
+                            height:  widget.auditionDetailType != AuditionDetailType.denied ?
+                            18.h:0,
                           ),
 
                           //date list view
-
+                          widget.auditionDetailType != AuditionDetailType.denied ?
                           ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount:
@@ -470,7 +474,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                     ),
                                   ),
                                 );
-                              }),
+                              }):const SizedBox(),
 
                           //For Apply
 
@@ -653,49 +657,49 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                               : const SizedBox(),
 
                           //For Denied
-                          widget.auditionDetailType == AuditionDetailType.denied
-                              ? Container(
-                                  margin: EdgeInsets.only(top: 15.h),
-                                  height: TextSizeUtility.buttonHeight,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: ColorUtility.colorDD4F4F,
-                                    borderRadius: BorderRadius.circular(30.r),
-                                  ),
-                                  child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.transparent,
-                                        shadowColor: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.r)),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 1.w),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                                context
-                                                    .loc.buttonDeniedAudition,
-                                                maxLines: 1,
-                                                style: StyleUtility
-                                                    .buttonTextStyle
-                                                    .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize16.sp,
-                                                )),
-                                          ],
-                                        ),
-                                      )),
-                                )
-                              : const SizedBox(),
+                          // widget.auditionDetailType == AuditionDetailType.denied
+                          //     ? Container(
+                          //         margin: EdgeInsets.only(top: 15.h),
+                          //         height: TextSizeUtility.buttonHeight,
+                          //         width: double.infinity,
+                          //         decoration: BoxDecoration(
+                          //           color: ColorUtility.colorDD4F4F,
+                          //           borderRadius: BorderRadius.circular(30.r),
+                          //         ),
+                          //         child: ElevatedButton(
+                          //             onPressed: () {},
+                          //             style: ElevatedButton.styleFrom(
+                          //               backgroundColor: Colors.transparent,
+                          //               shadowColor: Colors.transparent,
+                          //               shape: RoundedRectangleBorder(
+                          //                   borderRadius:
+                          //                       BorderRadius.circular(30.r)),
+                          //             ),
+                          //             child: Padding(
+                          //               padding: EdgeInsets.symmetric(
+                          //                   horizontal: 1.w),
+                          //               child: Row(
+                          //                 mainAxisSize: MainAxisSize.min,
+                          //                 mainAxisAlignment:
+                          //                     MainAxisAlignment.center,
+                          //                 crossAxisAlignment:
+                          //                     CrossAxisAlignment.center,
+                          //                 children: [
+                          //                   Text(
+                          //                       context
+                          //                           .loc.buttonDeniedAudition,
+                          //                       maxLines: 1,
+                          //                       style: StyleUtility
+                          //                           .buttonTextStyle
+                          //                           .copyWith(
+                          //                         fontSize: TextSizeUtility
+                          //                             .textSize16.sp,
+                          //                       )),
+                          //                 ],
+                          //               ),
+                          //             )),
+                          //       )
+                          //     : const SizedBox(),
 
                           SizedBox(
                             height: 15.h,

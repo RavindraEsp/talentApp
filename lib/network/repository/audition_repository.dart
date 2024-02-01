@@ -170,7 +170,14 @@ Future<TalentHomeResponseModel> getHomeDataForTalent() {
         .then((value) => DeniedAuditionResponseModel.fromJson(value));
   }
 
-
+  Future<BasicResponse> deleteDeniedAudition(Map request) {
+    return dioHttpService
+        .post(
+        Endpoints.baseUrl +
+            Endpoints.apiEndPoints.deleteDeniedAudition,
+        data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
 
 
 

@@ -34,6 +34,33 @@ class DeniedAuditionProvider extends ChangeNotifier {
     });
   }
 
+  deleteDeniedAudition({
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+    required int? appliedId,
+    required int index,
+  }) {
+    Map request = {"appliedId": appliedId};
+
+    auditionRepository.deleteDeniedAudition(request).then((value) {
+      if (value.success == true) {
+
+        deniedAuditionResponseModel?.data?.removeAt(index);
+        notifyListeners();
+        onSuccess.call(value.msg ?? "");
+
+      } else {
+        onFailure.call(value.msg ?? "");
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("Error $error");
+      onFailure.call(error.toString());
+    });
+    notifyListeners();
+  }
+
+
+
 
   updateUi() {
     notifyListeners();

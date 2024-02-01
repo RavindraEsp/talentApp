@@ -13,6 +13,7 @@ class ApiEndPoints {
   String get signUpSendOtp => "auth/emailVerification";
   String get signUp => "auth/userRegister";
   String get login => "auth/login";
+  String get deleteAccount => "auth/deleteAccount";
   String get forgotPasswordGetOtp => "auth/forgotPassword";
   String get forgotPassSetNewPass => "auth/resetpassword";
   String get forgotPassMobileotpVerify => "auth/mobileemailotpVerify";
@@ -50,4 +51,5 @@ class ApiEndPoints {
   String get  getEditlookingData => "get/getEditlookingData";
   String get  getEditTalentBody => "get/getEditTalentBody";
   String get  deleteProfileFiles => "auth/deleteProfilefiles";
+  String get  deleteDeniedAudition => "auth/deletedeniedAudition";
 }

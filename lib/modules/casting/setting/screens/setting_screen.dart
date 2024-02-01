@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/bottomBar/screen/cast_bottom_bar_screen.dart';
+import 'package:talent_app/modules/casting/setting/provider/setting_screen_provider.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -36,139 +39,157 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            SettingTileWidget(
-              title: context.loc.settingEditProfile,
-              image: ImageUtility.editProfileIcon,
-              onTap: () {
-
-                if(Preference().getUserType() == 2){
-                  Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      RouteName.castBottomBarScreen,
-                      arguments: {"selectIndex": 3},
-                          (route) => false);
-                }
-                else if(Preference().getUserType() == 1){
-                  Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      RouteName.talentBottomBarScreen,
-                      arguments: {"selectIndex": 3},
-                          (route) => false);
-                }
-                // Navigator.pushNamedAndRemoveUntil(
-                //     context,
-                //     RouteName.castBottomBarScreen,
-                //     arguments: {"selectIndex": 3},
-                //         (route) => false);
-
-
-              },
-            ),
-            Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-                color: ColorUtility.colorEDEDEF),
-            InkWell(
-              onTap: () {},
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: 25.w, right: 25.w, top: 14.h, bottom: 14.h),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      ImageUtility.languageIcon,
-                      width: 26.w,
-                      fit: BoxFit.fill,
-                    ),
-                    SizedBox(
-                      width: 15.w,
-                    ),
-                    Text(
-                      context.loc.settingLanguage,
-                      style: StyleUtility.quicksandMediumBlackTextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize18),
-                    ),
-                    Expanded(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "EN",
-                          style: StyleUtility.quicksandMediumBlackTextStyle
-                              .copyWith(fontSize: TextSizeUtility.textSize18),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Image.asset(
-                          ImageUtility.arrowForwardIcon,
-                          height: 17.w,
-                          fit: BoxFit.fill,
-                          color: ColorUtility.color5457BE,
-                        ),
-                      ],
-                    ))
-                  ],
+        child: Consumer<SettingScreenProvider>(
+            builder: (context, settingScreenProvider, child) {
+          return Column(
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              SettingTileWidget(
+                title: context.loc.settingEditProfile,
+                image: ImageUtility.editProfileIcon,
+                onTap: () {
+                  if (Preference().getUserType() == 2) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RouteName.castBottomBarScreen,
+                        arguments: {"selectIndex": 3},
+                        (route) => false);
+                  } else if (Preference().getUserType() == 1) {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RouteName.talentBottomBarScreen,
+                        arguments: {"selectIndex": 3},
+                        (route) => false);
+                  }
+                  // Navigator.pushNamedAndRemoveUntil(
+                  //     context,
+                  //     RouteName.castBottomBarScreen,
+                  //     arguments: {"selectIndex": 3},
+                  //         (route) => false);
+                },
+              ),
+              Container(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorUtility.colorEDEDEF),
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: 25.w, right: 25.w, top: 14.h, bottom: 14.h),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        ImageUtility.languageIcon,
+                        width: 26.w,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      Text(
+                        context.loc.settingLanguage,
+                        style: StyleUtility.quicksandMediumBlackTextStyle
+                            .copyWith(fontSize: TextSizeUtility.textSize18),
+                      ),
+                      Expanded(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "EN",
+                            style: StyleUtility.quicksandMediumBlackTextStyle
+                                .copyWith(fontSize: TextSizeUtility.textSize18),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Image.asset(
+                            ImageUtility.arrowForwardIcon,
+                            height: 17.w,
+                            fit: BoxFit.fill,
+                            color: ColorUtility.color5457BE,
+                          ),
+                        ],
+                      ))
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-                color: ColorUtility.colorEDEDEF),
-            SettingTileWidget(
-              title: context.loc.settingDeleteAccount,
-              image: ImageUtility.deleteAccountIcon,
-              onTap: () {},
-            ),
-            Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-                color: ColorUtility.colorEDEDEF),
-            SettingTileWidget(
-              title: context.loc.settingAccountStatus,
-              image: ImageUtility.accountStatusIcon,
-              onTap: () {},
-            ),
-            Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-                color: ColorUtility.colorEDEDEF),
-            SettingTileWidget(
-              title: context.loc.settingNotificationSettings,
-              image: ImageUtility.notificationSettingIconIcon,
-              onTap: () {},
-            ),
-            Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-                color: ColorUtility.colorEDEDEF),
-            SettingTileWidget(
-              title: context.loc.settingSignOut,
-              image: ImageUtility.signOutIcon,
-              onTap: () {
-                Preference().clearSharedPreference();
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const IntroScreen()),
-                    (route) => false);
-              },
-            ),
-            Container(
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-                color: ColorUtility.colorEDEDEF),
-            SizedBox(
-              height: 35.h,
-            ),
-          ],
-        ),
+              Container(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorUtility.colorEDEDEF),
+              SettingTileWidget(
+                title: context.loc.settingDeleteAccount,
+                image: ImageUtility.deleteAccountIcon,
+                onTap: () {
+                  Common.showLoadingDialog(context);
+                  settingScreenProvider.deleteAccount(onSuccess: (message) {
+                    Navigator.pop(context);
+                    Preference().clearSharedPreference();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const IntroScreen()),
+                        (route) => false);
+
+
+                    Common.showSuccessToast(context, message);
+                  }, onFailure: (message) {
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                    Common.showErrorToast(context, message);
+                  });
+                },
+              ),
+              Container(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorUtility.colorEDEDEF),
+              SettingTileWidget(
+                title: context.loc.settingAccountStatus,
+                image: ImageUtility.accountStatusIcon,
+                onTap: () {},
+              ),
+              Container(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorUtility.colorEDEDEF),
+              SettingTileWidget(
+                title: context.loc.settingNotificationSettings,
+                image: ImageUtility.notificationSettingIconIcon,
+                onTap: () {},
+              ),
+              Container(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorUtility.colorEDEDEF),
+              SettingTileWidget(
+                title: context.loc.settingSignOut,
+                image: ImageUtility.signOutIcon,
+                onTap: () {
+                  Preference().clearSharedPreference();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const IntroScreen()),
+                      (route) => false);
+                },
+              ),
+              Container(
+                  height: 1,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorUtility.colorEDEDEF),
+              SizedBox(
+                height: 35.h,
+              ),
+            ],
+          );
+        }),
       ),
     );
   }

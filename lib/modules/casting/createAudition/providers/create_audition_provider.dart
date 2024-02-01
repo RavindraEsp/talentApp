@@ -52,12 +52,15 @@ class CreateAuditionProvider extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
       }
-    }).onError((error, stackTrace) {
-      AppLogger.logD("error $error");
-      onFailure.call("Server Error");
-      isLoading = false;
-      notifyListeners();
-    });
+    })
+    //     .onError((error, stackTrace) {
+    //   AppLogger.logD("error $error");
+    //   onFailure.call("Server Error");
+    //   isLoading = false;
+    //   notifyListeners();
+    // })
+
+    ;
   }
 
   updateUi() {

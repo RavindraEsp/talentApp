@@ -25,34 +25,38 @@ class AuthRepository {
 
   Future<BasicResponse> signUp(SignupRequest request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.signUp, data: request.toJson())
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.signUp,
+            data: request.toJson())
         .then((value) => BasicResponse.fromJson(value));
   }
 
   Future<LoginResponse> login(LoginRequest request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.login, data: request.toJson())
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.login,
+            data: request.toJson())
         .then((value) => LoginResponse.fromJson(value));
   }
 
   Future<SignupSendOtpResponse> forgotPassGetOtp(Map request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.forgotPasswordGetOtp,
-        data: request)
+            data: request)
         .then((value) => SignupSendOtpResponse.fromJson(value));
   }
 
   Future<BasicResponse> forgotPassSetNewPass(Map request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.forgotPassSetNewPass,
-        data: request)
+            data: request)
         .then((value) => BasicResponse.fromJson(value));
   }
 
   Future<BasicResponse> forgotPassMobileotpVerify(Map request) {
     return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.forgotPassMobileotpVerify,
-        data: request)
+        .post(
+            Endpoints.baseUrl +
+                Endpoints.apiEndPoints.forgotPassMobileotpVerify,
+            data: request)
         .then((value) => BasicResponse.fromJson(value));
   }
 
@@ -62,53 +66,53 @@ class AuthRepository {
         .then((value) => CasterProfileResponseModel.fromJson(value));
   }
 
-
-  Future<CasterProfileUpdateResponse> updateCasterProfile(Map<String, dynamic>  request) {
+  Future<CasterProfileUpdateResponse> updateCasterProfile(
+      Map<String, dynamic> request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.updateCasterProfile,
-        data:FormData.fromMap(request)
-    )
+            data: FormData.fromMap(request))
         .then((value) => CasterProfileUpdateResponse.fromJson(value));
+  }
+
+  Future<BasicResponse> deleteAccount() {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.deleteAccount)
+        .then((value) => BasicResponse.fromJson(value));
   }
 
   //return await postRequest(path, perms: FormData.fromMap(data));
 
+  ///Talent Module API
 
-
-///Talent Module API
-
-  Future<CasterProfileUpdateResponse> createTalentCard(Map<String, dynamic>  request) {
+  Future<CasterProfileUpdateResponse> createTalentCard(
+      Map<String, dynamic> request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.createTalentCard,
-        data:FormData.fromMap(request)
-    )
+            data: FormData.fromMap(request))
         .then((value) => CasterProfileUpdateResponse.fromJson(value));
   }
-
 
   Future<TalantUserProfileModel> getTalentProfile(
       {Map<String, dynamic>? queryParameters}) {
     return dioHttpService
         .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getTalentProfile,
-        queryParameters: queryParameters)
+            queryParameters: queryParameters)
         .then((value) => TalantUserProfileModel.fromJson(value));
   }
 
-
-  Future<CasterProfileUpdateResponse> updateTalentProfile(Map<String, dynamic>  request) {
+  Future<CasterProfileUpdateResponse> updateTalentProfile(
+      Map<String, dynamic> request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.updateTalentProfile,
-        data:FormData.fromMap(request)
-    )
+            data: FormData.fromMap(request))
         .then((value) => CasterProfileUpdateResponse.fromJson(value));
   }
-
 
   Future<TalentCategoryResponseModel> getTalentCategory(
       {Map<String, dynamic>? queryParameters}) {
     return dioHttpService
         .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getEditlookingData,
-        queryParameters: queryParameters)
+            queryParameters: queryParameters)
         .then((value) => TalentCategoryResponseModel.fromJson(value));
   }
 
@@ -116,23 +120,20 @@ class AuthRepository {
       {Map<String, dynamic>? queryParameters}) {
     return dioHttpService
         .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getEditTalentBody,
-        queryParameters: queryParameters)
+            queryParameters: queryParameters)
         .then((value) => TalentBodyResponseModel.fromJson(value));
   }
-
 
   Future<BasicResponse> deleteTalentFile(Map request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.deleteProfileFiles,
-        data: request)
+            data: request)
         .then((value) => BasicResponse.fromJson(value));
   }
 
-
-  // Future<TalentProfileResponseModel> getTalentProfile() {
-  //   return dioHttpService
-  //       .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getCasterProfile)
-  //       .then((value) => TalentProfileResponseModel.fromJson(value));
-  // }
-
+// Future<TalentProfileResponseModel> getTalentProfile() {
+//   return dioHttpService
+//       .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getCasterProfile)
+//       .then((value) => TalentProfileResponseModel.fromJson(value));
+// }
 }

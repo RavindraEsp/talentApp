@@ -35,6 +35,7 @@ import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition
 import 'package:talent_app/modules/casting/menu/providers/web_content_provider.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_screen.dart';
 import 'package:talent_app/modules/casting/menu/screens/menu_static_screen.dart';
+import 'package:talent_app/modules/casting/setting/provider/setting_screen_provider.dart';
 import 'package:talent_app/modules/casting/setting/screens/setting_screen.dart';
 import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/modules/talent/auditionDetails/provider/audition_details_screen_provider.dart';
@@ -167,7 +168,10 @@ class AppRoute {
 
       case RouteName.settingScreen:
         return MaterialPageRoute(
-          builder: (context) => const SettingScreen(),
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => SettingScreenProvider(),
+            child: const SettingScreen(),
+          ),
         );
 
       case RouteName.menuScreen:
@@ -447,10 +451,8 @@ class AppRoute {
         var arg = settings.arguments as Map;
         return MaterialPageRoute(
             builder: (context) => VideoPlayerScreen(
-              videoFromApi: arg["videoFromApi"],
-            ));
-
-
+                  videoFromApi: arg["videoFromApi"],
+                ));
 
       default:
         return MaterialPageRoute(builder: (context) => const IntroScreen());

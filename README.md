@@ -47,7 +47,7 @@ Added  cancel audition confirm dialog - DONE
 implemented cancel audition  api on  approved audition screen - DONE
 show audition cancel  success pop up and refresh home page after cancel audition - DONE
 Worked on close registration module - DONE
-discuss with team  for new module 
+worked on education module -in progress
 
 
 

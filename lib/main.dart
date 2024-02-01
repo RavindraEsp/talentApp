@@ -81,8 +81,9 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
 
-         //   home: const SplashScreen(),
-            home: const EducationListScreen(),
+            home: const SplashScreen(),
+
+          //  home: const EducationListScreen(),
 
 
 
