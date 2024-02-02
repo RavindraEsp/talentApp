@@ -86,6 +86,30 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
     });
   }
 
+
+  Future<void> declineApprovedUserApi({
+    required ValueChanged<String> onSuccess,
+    required ValueChanged<String> onFailure,
+    required int appliedId,
+  }) async {
+    //  status 1 = approve, 2=reject // 0 for move to apply
+    Map<String, dynamic> request = {"appliedId": appliedId, "status": "0"};
+    auditionRepository.approveDeclineUserAudition(request).then((value) {
+      if (value.success == true) {
+        onSuccess.call(value.msg ?? "");
+      } else {
+        onFailure.call(value.msg ?? "");
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("Error $error");
+      onFailure.call(error.toString() ?? "");
+    });
+  }
+
+
+
+
+
   Future<void> cancelTheAuditionApi({
     required int id,
     required BuildContext context,

@@ -376,7 +376,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                         .showLoadingDialog(
                                                             context);
                                                     provider
-                                                        .declineUserAuditionApi(
+                                                        .declineApprovedUserApi(
                                                             appliedId: userList
                                                                     ?.appliedId ??
                                                                 0,

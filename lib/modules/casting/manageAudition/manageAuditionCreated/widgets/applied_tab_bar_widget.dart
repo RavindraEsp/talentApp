@@ -105,24 +105,24 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
 
                                                 },
                                               onDecline:(){
-                                                CommonDialog.showLoadingDialog(context);
-                                                provider.declineUserAuditionApi(
-                                                    appliedId: provider.appliedUser!.appliedId ?? 0,
-                                                    onSuccess: (message){
-                                                      Navigator.pop(context);
-
-                                                      //For refresh page
-                                                      provider.isLoading = true;
-                                                      provider.updateUi();
-                                                      provider.getCreatedAuditionManage(widget.auditionId, onFailure: (message){
-                                                        Common.showErrorSnackBar(context, message);
-
-                                                      });
-
-                                                    }, onFailure: (message){
-                                                  Navigator.pop(context);
-                                                  Common.showErrorSnackBar(context, message);
-                                                });
+                                                // CommonDialog.showLoadingDialog(context);
+                                                // provider.declineUserAuditionApi(
+                                                //     appliedId: provider.appliedUser!.appliedId ?? 0,
+                                                //     onSuccess: (message){
+                                                //       Navigator.pop(context);
+                                                //
+                                                //       //For refresh page
+                                                //       provider.isLoading = true;
+                                                //       provider.updateUi();
+                                                //       provider.getCreatedAuditionManage(widget.auditionId, onFailure: (message){
+                                                //         Common.showErrorSnackBar(context, message);
+                                                //
+                                                //       });
+                                                //
+                                                //     }, onFailure: (message){
+                                                //   Navigator.pop(context);
+                                                //   Common.showErrorSnackBar(context, message);
+                                                // });
                                               },
                                             )),
                                     SizedBox(

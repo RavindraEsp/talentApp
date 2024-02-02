@@ -26,6 +26,7 @@ class TextSizeUtility {
 
   static double textSize9 = 9;
   static double textSize10 = 10;
+  static double textSize11 = 11;
   static double textSize12 = 12;
   static double textSize13 = 13;
   static double textSize14 = 14;

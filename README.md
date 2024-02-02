@@ -43,13 +43,8 @@ careerModel => category [1,2,3]
 0=More details ,1=awaiting approval ,2=reschedule,
 
 
-Added  cancel audition confirm dialog - DONE
-implemented cancel audition  api on  approved audition screen - DONE
-show audition cancel  success pop up and refresh home page after cancel audition - DONE
-Worked on close registration module - DONE
-worked on education module -in progress
 
-
+socket_io_client: ^2.0.3+1
 
 
 

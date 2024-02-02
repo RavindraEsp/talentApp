@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
@@ -12,8 +11,11 @@ import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
 class ChatScreen extends StatefulWidget {
   final UserType userType;
+
   const ChatScreen({Key? key, required this.userType}) : super(key: key);
 
   @override
@@ -41,6 +43,62 @@ class ChatScreenState extends State<ChatScreen> {
     MessageData(true, "Ok Good"),
   ];
 
+  IO.Socket? socket;
+
+  @override
+  void dispose() {
+    socket?.disconnect();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AppLogger.logD('Init called');
+
+    //
+
+    try {
+      socket = IO.io(
+          'https://fusiongrid.dev:8010',
+          IO.OptionBuilder()
+              .setTransports(['websocket'])
+              .enableAutoConnect()
+              .enableForceNewConnection()
+              .enableReconnection()
+              .build());
+
+      socket?.onConnect((_) {
+        AppLogger.logD('connect');
+        socket?.emit('msg', 'test');
+      });
+      socket?.on('event', (data) => AppLogger.logD(data));
+      socket?.onDisconnect((_) => AppLogger.logD('disconnect'));
+      socket?.on('fromServer', (_) => AppLogger.logD(_));
+
+      socket?.onConnectError((data) {
+        AppLogger.logD("Error 1 onConnectError");
+        AppLogger.logD("data is  2 $data");
+      });
+
+      socket?.onConnectTimeout((data) {
+        AppLogger.logD("Error 2 onConnectTimeout");
+      });
+
+      socket?.onConnecting((data) {
+        AppLogger.logD("Error 3 onConnecting");
+      });
+
+      socket?.onError((data) {
+        AppLogger.logD("Error 4 onError");
+        AppLogger.logD("data is 4 $data");
+      });
+    } catch (e) {
+      AppLogger.logD(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,14 +111,13 @@ class ChatScreenState extends State<ChatScreen> {
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40.r),
                     bottomRight: Radius.circular(40.r)),
-                gradient:  LinearGradient(
+                gradient: LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
-                   // colors: ColorUtility.castHeaderGradientColor
+                    // colors: ColorUtility.castHeaderGradientColor
                     colors: widget.userType == UserType.cast
                         ? ColorUtility.castHeaderGradientColor
-                        : ColorUtility.talentHeaderGradientColor
-                )),
+                        : ColorUtility.talentHeaderGradientColor)),
             child: SafeArea(
               bottom: false,
               child: Padding(
@@ -90,11 +147,9 @@ class ChatScreenState extends State<ChatScreen> {
                         ),
                       ],
                     ),
-
-                    widget.userType == UserType.cast ?
-                    const MenuButtonWidget():
-
-                    const TalentMenuButtonWidget()
+                    widget.userType == UserType.cast
+                        ? const MenuButtonWidget()
+                        : const TalentMenuButtonWidget()
                   ],
                 ),
               ),

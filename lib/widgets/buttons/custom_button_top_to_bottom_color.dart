@@ -10,8 +10,10 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
   String? icon;
   double? height;
   double? width;
+  double? padding;
   final VoidCallback? onTap;
   final ButtonType? buttonType;
+  final TextStyle? textStyle;
 
   CustomButtonTopToBottomColor({
     Key? key,
@@ -20,7 +22,9 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
     this.icon,
     this.height,
     this.width,
+    this.padding,
     this.buttonType,
+    this.textStyle,
   }) : super(key: key);
 
   @override
@@ -62,7 +66,7 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.r)),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            padding: EdgeInsets.symmetric(horizontal: padding ?? 10.w),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -82,7 +86,7 @@ class CustomButtonTopToBottomColor extends StatelessWidget {
                     : const SizedBox(),
                 Text(buttonText,
                     maxLines: 1,
-                    style: StyleUtility.buttonTextStyle.copyWith(
+                    style: textStyle ?? StyleUtility.buttonTextStyle.copyWith(
                       fontSize: height == null
                           ? TextSizeUtility.textSize18.sp
                           : TextSizeUtility.textSize16.sp,
