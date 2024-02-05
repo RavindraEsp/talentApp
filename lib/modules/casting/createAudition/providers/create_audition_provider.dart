@@ -53,12 +53,12 @@ class CreateAuditionProvider extends ChangeNotifier {
         notifyListeners();
       }
     })
-    //     .onError((error, stackTrace) {
-    //   AppLogger.logD("error $error");
-    //   onFailure.call("Server Error");
-    //   isLoading = false;
-    //   notifyListeners();
-    // })
+        .onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+      onFailure.call("Server Error");
+      isLoading = false;
+      notifyListeners();
+    })
 
     ;
   }
@@ -98,6 +98,7 @@ class CreateAuditionProvider extends ChangeNotifier {
 
     auditionTalentAllData = [];
     selectedLookingForIds = [];
+
 
     auditionTalentAllData.addAll(selectedEyeIds ?? []);
     auditionTalentAllData.addAll(selectedHairColorIds ?? []);

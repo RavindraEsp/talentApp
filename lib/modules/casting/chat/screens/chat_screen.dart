@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
@@ -57,8 +59,27 @@ class ChatScreenState extends State<ChatScreen> {
     super.initState();
     AppLogger.logD('Init called');
 
+
+    //dummy
+
+
+    final Map<String, dynamic> data = {
+      "ticket_id": 1,
+      "sender": 2,
+      "receiver": 0,
+      "message": "msg",
+    };
+
+    AppLogger.logD("data is => ");
+    AppLogger.logD(data);
+
+    AppLogger.logD("data is encode => ");
+    AppLogger.logD(jsonEncode(data));
     //
 
+
+
+    jsonDecode("data");
     try {
       socket = IO.io(
           'https://fusiongrid.dev:8010',

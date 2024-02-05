@@ -93,6 +93,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                 //   fit: BoxFit.fill,
                 // )
 
+
                 ClipOval(
                   child: CachedNetworkImage(
                       width: 100.sp,
@@ -113,7 +114,44 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                 ),
 
 
+                Positioned(
+                  bottom: 10.sp,
+                  left: 187.w,
+                  child: Container(
+                   //margin: EdgeInsets.only(bottom:10.sp,left: 100.sp),
+                    padding: EdgeInsets.only(right:15.sp,left: 65.sp),
 
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                          colors:[
+                            ColorUtility.colorFAD175,
+                            ColorUtility.colorDD4F4F,
+                            ColorUtility.colorE24848,
+
+                          ]
+                             ),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30.r),
+                          bottomRight: Radius.circular(30.r),
+                      )
+                    ),
+                    height: 32.sp,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.ac_unit,color: Colors.white,
+                        size: 20.sp,),
+
+                        Padding(
+                          padding:  EdgeInsets.only(left: 7.w),
+                          child: Text("5/20",style: StyleUtility.buttonTextStyle.copyWith(
+                            fontSize: TextSizeUtility.textSize14.sp
+                          ),),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
 
 
               ],
