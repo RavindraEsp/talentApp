@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_app/modules/casting/createAudition/models/talentdata_response_model_new.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
 import 'package:talent_app/network/model/response/casterAudition/talent_data_response_model.dart';
 import 'package:talent_app/utilities/color_utility.dart';
@@ -16,10 +17,10 @@ class TalentBodyDropDownWidget extends StatelessWidget {
     required this.hintText,
   });
 
-  final ValueChanged<EyeColor> ovValueChange;
+  final ValueChanged<BodyData> ovValueChange;
 
-  final List<EyeColor>? dropDownList;
-  final EyeColor? selectItem;
+  final List<BodyData>? dropDownList;
+  final BodyData? selectItem;
   final String hintText;
 
   @override
@@ -35,9 +36,9 @@ class TalentBodyDropDownWidget extends StatelessWidget {
         ),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<EyeColor>(
+        child: DropdownButton<BodyData>(
           value: selectItem,
-          items: dropDownList?.map((EyeColor items) {
+          items: dropDownList?.map((BodyData items) {
             return DropdownMenuItem(
               value: items,
               child: Text(
@@ -60,7 +61,7 @@ class TalentBodyDropDownWidget extends StatelessWidget {
             style: StyleUtility.hintTextStyle
                 .copyWith(fontSize: TextSizeUtility.textSize15.sp),
           ),
-          onChanged: (EyeColor? value) {
+          onChanged: (BodyData? value) {
             // setState(() {
             //   selectHeight = value!;
             //   print(value);

@@ -165,94 +165,103 @@ class _TalentCreateCardStepTwoScreenState
                                             validator: Validators(context).validatorHeight,
                                           ),
 
-                                          SizedBox(
-                                            height: 22.h,
-                                          ),
+
+                                          ListView.builder(
+                                            itemCount: talentCreateCardStepTwoProvider.talentDataResponseModel?.data?.bodyDetail?.length ?? 0,
+                                              shrinkWrap: true,
+                                              primary: false,
+                                              itemBuilder: (context,index){
+
+                                            return Column(
+                                              children: [
+
+                                                SizedBox(
+                                                  height: 22.h,
+                                                ),
+
+                                                TalentBodyDropDownWidget(
+                                                    ovValueChange: (item) {
+                                                      talentCreateCardStepTwoProvider.talentDataResponseModel?.data?.bodyDetail?[index].selectDropDown = item;
+                                                      talentCreateCardStepTwoProvider.updateUi();
+                                                    },
+                                                    dropDownList: talentCreateCardStepTwoProvider.talentDataResponseModel?.data?.bodyDetail?[index].bodyData,
+                                                  selectItem: talentCreateCardStepTwoProvider.talentDataResponseModel?.data?.bodyDetail?[index].selectDropDown,
+                                                   hintText: talentCreateCardStepTwoProvider.talentDataResponseModel?.data?.bodyDetail?[index].name ?? ""
+                                                  // hintText: context.loc.hint
+                                                ),
 
 
-                                          TalentBodyDropDownWidget(
-                                              ovValueChange: (item) {
-                                                talentCreateCardStepTwoProvider.selectEyeColor = item;
-                                                talentCreateCardStepTwoProvider.updateUi();
-                                              },
-                                              dropDownList: talentCreateCardStepTwoProvider.eyeColorModel,
-                                              selectItem: talentCreateCardStepTwoProvider.selectEyeColor,
-                                              hintText: context.loc.hintEyeColor
-                                            // hintText: context.loc.hint
-                                          ),
+                                              ],
+                                            );
 
 
-                                          SizedBox(
-                                            height: 22.h,
-                                          ),
-                                          TalentBodyDropDownWidget(
-                                              ovValueChange: (item) {
+                                          }),
 
-                                                talentCreateCardStepTwoProvider.selectHairColor = item;
-                                                talentCreateCardStepTwoProvider.updateUi();
-
-
-                                              },
-                                              dropDownList: talentCreateCardStepTwoProvider.hairColorModel,
-                                              selectItem: talentCreateCardStepTwoProvider.selectHairColor,
-                                              hintText: context.loc.hintHairColor),
-                                          SizedBox(
-                                            height: 22.h,
-                                          ),
-                                          // CustomDropDownWidget(
-                                          //     ovValueChange: (item) {
-                                          //       selectHeight = item;
-                                          //       setState(() {});
-                                          //     },
-                                          //     dropDownList: heightList,
-                                          //     selectItem: selectHeight,
-                                          //     hintText: context.loc.hintHeight),
                                           // SizedBox(
                                           //   height: 22.h,
                                           // ),
-                                          // CustomDropDownWidget(
+                                          //
+                                          // TalentBodyDropDownWidget(
                                           //     ovValueChange: (item) {
-                                          //       selectWeight = item;
-                                          //       setState(() {});
+                                          //       talentCreateCardStepTwoProvider.selectEyeColor = item;
+                                          //       talentCreateCardStepTwoProvider.updateUi();
                                           //     },
-                                          //     dropDownList: weightList,
-                                          //     selectItem: selectWeight,
-                                          //     hintText: context.loc.hintWeight),
+                                          //     dropDownList: talentCreateCardStepTwoProvider.eyeColorModel,
+                                          //     selectItem: talentCreateCardStepTwoProvider.selectEyeColor,
+                                          //     hintText: context.loc.hintEyeColor
+                                          //   // hintText: context.loc.hint
+                                          // ),
+                                          //
                                           // SizedBox(
                                           //   height: 22.h,
                                           // ),
-                                          TalentBodyDropDownWidget(
-                                              ovValueChange: (item) {
-                                                talentCreateCardStepTwoProvider.selectShirtSize = item;
-                                                talentCreateCardStepTwoProvider.updateUi();
-                                              },
-                                              dropDownList: talentCreateCardStepTwoProvider.shirtSizeModel,
-                                              selectItem: talentCreateCardStepTwoProvider.selectShirtSize,
-                                              hintText: context.loc.hintShirtSize),
-                                          SizedBox(
-                                            height: 22.h,
-                                          ),
-                                          TalentBodyDropDownWidget(
-                                              ovValueChange: (item) {
-
-                                                talentCreateCardStepTwoProvider.selectPainsSize = item;
-                                                talentCreateCardStepTwoProvider.updateUi();
-
-                                              },
-                                              dropDownList: talentCreateCardStepTwoProvider.painsSizeModel,
-                                              selectItem: talentCreateCardStepTwoProvider.selectPainsSize,
-                                              hintText: context.loc.hintPantsSize),
-                                          SizedBox(
-                                            height: 22.h,
-                                          ),
-                                          TalentBodyDropDownWidget(
-                                              ovValueChange: (item) {
-                                                talentCreateCardStepTwoProvider.selectShoeSize = item;
-                                                talentCreateCardStepTwoProvider.updateUi();
-                                              },
-                                              dropDownList: talentCreateCardStepTwoProvider.shoeSizeModel,
-                                              selectItem: talentCreateCardStepTwoProvider.selectShoeSize,
-                                              hintText: context.loc.hintShoeSize),
+                                          // TalentBodyDropDownWidget(
+                                          //     ovValueChange: (item) {
+                                          //
+                                          //       talentCreateCardStepTwoProvider.selectHairColor = item;
+                                          //       talentCreateCardStepTwoProvider.updateUi();
+                                          //
+                                          //
+                                          //     },
+                                          //     dropDownList: talentCreateCardStepTwoProvider.hairColorModel,
+                                          //     selectItem: talentCreateCardStepTwoProvider.selectHairColor,
+                                          //     hintText: context.loc.hintHairColor),
+                                          // SizedBox(
+                                          //   height: 22.h,
+                                          // ),
+                                          //
+                                          // TalentBodyDropDownWidget(
+                                          //     ovValueChange: (item) {
+                                          //       talentCreateCardStepTwoProvider.selectShirtSize = item;
+                                          //       talentCreateCardStepTwoProvider.updateUi();
+                                          //     },
+                                          //     dropDownList: talentCreateCardStepTwoProvider.shirtSizeModel,
+                                          //     selectItem: talentCreateCardStepTwoProvider.selectShirtSize,
+                                          //     hintText: context.loc.hintShirtSize),
+                                          // SizedBox(
+                                          //   height: 22.h,
+                                          // ),
+                                          // TalentBodyDropDownWidget(
+                                          //     ovValueChange: (item) {
+                                          //
+                                          //       talentCreateCardStepTwoProvider.selectPainsSize = item;
+                                          //       talentCreateCardStepTwoProvider.updateUi();
+                                          //
+                                          //     },
+                                          //     dropDownList: talentCreateCardStepTwoProvider.painsSizeModel,
+                                          //     selectItem: talentCreateCardStepTwoProvider.selectPainsSize,
+                                          //     hintText: context.loc.hintPantsSize),
+                                          // SizedBox(
+                                          //   height: 22.h,
+                                          // ),
+                                          // TalentBodyDropDownWidget(
+                                          //     ovValueChange: (item) {
+                                          //       talentCreateCardStepTwoProvider.selectShoeSize = item;
+                                          //       talentCreateCardStepTwoProvider.updateUi();
+                                          //     },
+                                          //     dropDownList: talentCreateCardStepTwoProvider.shoeSizeModel,
+                                          //     selectItem: talentCreateCardStepTwoProvider.selectShoeSize,
+                                          //     hintText: context.loc.hintShoeSize),
 
                                           SizedBox(
                                             height: 22.h,

@@ -454,310 +454,431 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 20.h),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.loc.titleEyeColor,
-                                      style: StyleUtility
-                                          .quicksandSemiBold5457BETextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize16.sp),
-                                    ),
-                                    GestureDetector(
-                                      behavior: HitTestBehavior.opaque,
-                                      onTap: () {
-                                        for (var item in createAuditionProvider
-                                            .eyeColorModel!) {
-                                          item.isSelect = true;
-                                          createAuditionProvider.updateUi();
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(2.w),
-                                        child: Text(
-                                          "Select All",
-                                          style: StyleUtility
-                                              .quicksandMedium5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
+
+
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount:  createAuditionProvider.talentDataResponseModelNew?.data?.bodyDetail?.length ?? 0,
+                                    itemBuilder: (context,index){
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      SizedBox(height: 20.h),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                          //  context.loc.titleEyeColor,
+                                      createAuditionProvider.talentDataResponseModelNew?.data?.bodyDetail?[index].name ?? "",
+                                            style: StyleUtility
+                                                .quicksandSemiBold5457BETextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize16.sp),
+                                          ),
+                                          GestureDetector(
+                                            behavior: HitTestBehavior.opaque,
+                                            onTap: () {
+                                              for (var item in createAuditionProvider.talentDataResponseModelNew!.data!.bodyDetail![index].bodyData!) {
+                                                item.isSelect = true;
+                                                createAuditionProvider.updateUi();
+                                              }
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.all(2.w),
+                                              child: Text(
+                                                "Select All",
+                                                style: StyleUtility
+                                                    .quicksandMedium5457BETextStyle
+                                                    .copyWith(
+                                                        fontSize: TextSizeUtility
+                                                            .textSize14.sp),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Wrap(
-                                  children: [
-                                    // for (var item in eyeColorModel!)
-                                    for (var item in createAuditionProvider
-                                        .eyeColorModel!)
-                                      GestureDetector(
-                                        onTap: () {
-                                          item.isSelect = !item.isSelect;
-                                          createAuditionProvider.updateUi();
-                                        },
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                                right: 9.w, bottom: 13.h),
-                                            padding: EdgeInsets.only(
-                                                left: 15.sp,
-                                                right: 20.sp,
-                                                top: 9.sp,
-                                                bottom: 9.sp),
-                                            decoration: BoxDecoration(
-                                                color: item.isSelect == false
-                                                    ? ColorUtility.colorWhite
-                                                    : ColorUtility.colorEFF2F4,
-                                                borderRadius:
-                                                    BorderRadius.circular(30.r),
-                                                border: Border.all(
-                                                    color: ColorUtility
-                                                        .colorD3D6D6)),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  item.isSelect == false
-                                                      ? ImageUtility.plusIcon
-                                                      : ImageUtility
-                                                          .crossSelectIcon,
-                                                  width: 5.w,
-                                                  height: 5.w,
-                                                ),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text(
-                                                  item.name ?? "",
-                                                  style: StyleUtility
-                                                      .quicksandRegularBlackTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize14
-                                                                  .sp),
-                                                ),
-                                              ],
-                                            )),
-                                      )
-                                  ],
-                                ),
-                                SizedBox(height: 20.h),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.loc.titleHairColor,
-                                      style: StyleUtility
-                                          .quicksandSemiBold5457BETextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize16.sp),
-                                    ),
-                                    GestureDetector(
-                                      behavior: HitTestBehavior.opaque,
-                                      onTap: () {
-                                        for (var item in createAuditionProvider
-                                            .hairColorModel!) {
-                                          item.isSelect = true;
-                                          createAuditionProvider.updateUi();
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(2.w),
-                                        child: Text(
-                                          "Select All",
-                                          style: StyleUtility
-                                              .quicksandMedium5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
+                                      SizedBox(
+                                        height: 16.h,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Wrap(
-                                  children: [
-                                    for (var item in createAuditionProvider
-                                        .hairColorModel!)
-                                      SelectUnselectWidget(
-                                          onTap: () {
-                                            item.isSelect = !item.isSelect;
-                                            createAuditionProvider.updateUi();
-                                          },
-                                          item: item),
-                                  ],
-                                ),
-                                SizedBox(height: 20.h),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.loc.titlePansSize,
-                                      style: StyleUtility
-                                          .quicksandSemiBold5457BETextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize16.sp),
-                                    ),
-                                    GestureDetector(
-                                      behavior: HitTestBehavior.opaque,
-                                      onTap: () {
-                                        for (var item in createAuditionProvider
-                                            .painsSizeModel!) {
-                                          item.isSelect = true;
-                                          createAuditionProvider.updateUi();
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(2.w),
-                                        child: Text(
-                                          "Select All",
-                                          style: StyleUtility
-                                              .quicksandMedium5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
+                                      Wrap(
+                                        children: [
+                                          // for (var item in eyeColorModel!)
+                                          for (var item in createAuditionProvider.talentDataResponseModelNew!.data!.bodyDetail![index].bodyData!)
+                                            GestureDetector(
+                                              onTap: () {
+                                                item.isSelect = !item.isSelect;
+                                                createAuditionProvider.updateUi();
+                                              },
+                                              child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      right: 9.w, bottom: 13.h),
+                                                  padding: EdgeInsets.only(
+                                                      left: 15.sp,
+                                                      right: 20.sp,
+                                                      top: 9.sp,
+                                                      bottom: 9.sp),
+                                                  decoration: BoxDecoration(
+                                                      color: item.isSelect == false
+                                                          ? ColorUtility.colorWhite
+                                                          : ColorUtility.colorEFF2F4,
+                                                      borderRadius:
+                                                          BorderRadius.circular(30.r),
+                                                      border: Border.all(
+                                                          color: ColorUtility
+                                                              .colorD3D6D6)),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                    children: [
+                                                      Image.asset(
+                                                        item.isSelect == false
+                                                            ? ImageUtility.plusIcon
+                                                            : ImageUtility
+                                                                .crossSelectIcon,
+                                                        width: 5.w,
+                                                        height: 5.w,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5.w,
+                                                      ),
+                                                      Text(
+                                                        item.name ?? "",
+                                                        style: StyleUtility
+                                                            .quicksandRegularBlackTextStyle
+                                                            .copyWith(
+                                                                fontSize:
+                                                                    TextSizeUtility
+                                                                        .textSize14
+                                                                        .sp),
+                                                      ),
+                                                    ],
+                                                  )),
+                                            )
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Wrap(
-                                  children: [
-                                    for (var item in createAuditionProvider
-                                        .painsSizeModel!)
-                                      SelectUnselectWidget(
-                                          onTap: () {
-                                            item.isSelect = !item.isSelect;
-                                            createAuditionProvider.updateUi();
-                                          },
-                                          item: item),
-                                  ],
-                                ),
-                                SizedBox(height: 20.h),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.loc.titleShirtSize,
-                                      style: StyleUtility
-                                          .quicksandSemiBold5457BETextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize16.sp),
-                                    ),
-                                    GestureDetector(
-                                      behavior: HitTestBehavior.opaque,
-                                      onTap: () {
-                                        for (var item in createAuditionProvider
-                                            .shirtSizeModel!) {
-                                          item.isSelect = true;
-                                          createAuditionProvider.updateUi();
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(2.w),
-                                        child: Text(
-                                          "Select All",
-                                          style: StyleUtility
-                                              .quicksandMedium5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Wrap(
-                                  children: [
-                                    for (var item in createAuditionProvider
-                                        .shirtSizeModel!)
-                                      SelectUnselectWidget(
-                                          onTap: () {
-                                            item.isSelect = !item.isSelect;
-                                            createAuditionProvider.updateUi();
-                                          },
-                                          item: item),
-                                  ],
-                                ),
-                                SizedBox(height: 20.h),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      context.loc.titleShoeSize,
-                                      style: StyleUtility
-                                          .quicksandSemiBold5457BETextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize16.sp),
-                                    ),
-                                    GestureDetector(
-                                      behavior: HitTestBehavior.opaque,
-                                      onTap: () {
-                                        for (var item in createAuditionProvider
-                                            .shoeSizeModel!) {
-                                          item.isSelect = true;
-                                          createAuditionProvider.updateUi();
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(2.w),
-                                        child: Text(
-                                          "Select All",
-                                          style: StyleUtility
-                                              .quicksandMedium5457BETextStyle
-                                              .copyWith(
-                                                  fontSize: TextSizeUtility
-                                                      .textSize14.sp),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Wrap(
-                                  children: [
-                                    for (var item in createAuditionProvider
-                                        .shoeSizeModel!)
-                                      SelectUnselectWidget(
-                                          onTap: () {
-                                            item.isSelect = !item.isSelect;
-                                            createAuditionProvider.updateUi();
-                                          },
-                                          item: item),
-                                  ],
-                                ),
+                                    ],
+                                  );
+                                }),
+
+                                // SizedBox(height: 20.h),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text(
+                                //       context.loc.titleEyeColor,
+                                //       style: StyleUtility
+                                //           .quicksandSemiBold5457BETextStyle
+                                //           .copyWith(
+                                //               fontSize: TextSizeUtility
+                                //                   .textSize16.sp),
+                                //     ),
+                                //     GestureDetector(
+                                //       behavior: HitTestBehavior.opaque,
+                                //       onTap: () {
+                                //         for (var item in createAuditionProvider
+                                //             .eyeColorModel!) {
+                                //           item.isSelect = true;
+                                //           createAuditionProvider.updateUi();
+                                //         }
+                                //       },
+                                //       child: Padding(
+                                //         padding: EdgeInsets.all(2.w),
+                                //         child: Text(
+                                //           "Select All",
+                                //           style: StyleUtility
+                                //               .quicksandMedium5457BETextStyle
+                                //               .copyWith(
+                                //                   fontSize: TextSizeUtility
+                                //                       .textSize14.sp),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 16.h,
+                                // ),
+                                // Wrap(
+                                //   children: [
+                                //     // for (var item in eyeColorModel!)
+                                //     for (var item in createAuditionProvider
+                                //         .eyeColorModel!)
+                                //       GestureDetector(
+                                //         onTap: () {
+                                //           item.isSelect = !item.isSelect;
+                                //           createAuditionProvider.updateUi();
+                                //         },
+                                //         child: Container(
+                                //             margin: EdgeInsets.only(
+                                //                 right: 9.w, bottom: 13.h),
+                                //             padding: EdgeInsets.only(
+                                //                 left: 15.sp,
+                                //                 right: 20.sp,
+                                //                 top: 9.sp,
+                                //                 bottom: 9.sp),
+                                //             decoration: BoxDecoration(
+                                //                 color: item.isSelect == false
+                                //                     ? ColorUtility.colorWhite
+                                //                     : ColorUtility.colorEFF2F4,
+                                //                 borderRadius:
+                                //                     BorderRadius.circular(30.r),
+                                //                 border: Border.all(
+                                //                     color: ColorUtility
+                                //                         .colorD3D6D6)),
+                                //             child: Row(
+                                //               mainAxisSize: MainAxisSize.min,
+                                //               crossAxisAlignment:
+                                //                   CrossAxisAlignment.center,
+                                //               children: [
+                                //                 Image.asset(
+                                //                   item.isSelect == false
+                                //                       ? ImageUtility.plusIcon
+                                //                       : ImageUtility
+                                //                           .crossSelectIcon,
+                                //                   width: 5.w,
+                                //                   height: 5.w,
+                                //                 ),
+                                //                 SizedBox(
+                                //                   width: 5.w,
+                                //                 ),
+                                //                 Text(
+                                //                   item.name ?? "",
+                                //                   style: StyleUtility
+                                //                       .quicksandRegularBlackTextStyle
+                                //                       .copyWith(
+                                //                           fontSize:
+                                //                               TextSizeUtility
+                                //                                   .textSize14
+                                //                                   .sp),
+                                //                 ),
+                                //               ],
+                                //             )),
+                                //       )
+                                //   ],
+                                // ),
+                                // SizedBox(height: 20.h),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text(
+                                //       context.loc.titleHairColor,
+                                //       style: StyleUtility
+                                //           .quicksandSemiBold5457BETextStyle
+                                //           .copyWith(
+                                //               fontSize: TextSizeUtility
+                                //                   .textSize16.sp),
+                                //     ),
+                                //     GestureDetector(
+                                //       behavior: HitTestBehavior.opaque,
+                                //       onTap: () {
+                                //         for (var item in createAuditionProvider
+                                //             .hairColorModel!) {
+                                //           item.isSelect = true;
+                                //           createAuditionProvider.updateUi();
+                                //         }
+                                //       },
+                                //       child: Padding(
+                                //         padding: EdgeInsets.all(2.w),
+                                //         child: Text(
+                                //           "Select All",
+                                //           style: StyleUtility
+                                //               .quicksandMedium5457BETextStyle
+                                //               .copyWith(
+                                //                   fontSize: TextSizeUtility
+                                //                       .textSize14.sp),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 16.h,
+                                // ),
+                                // Wrap(
+                                //   children: [
+                                //     for (var item in createAuditionProvider
+                                //         .hairColorModel!)
+                                //       SelectUnselectWidget(
+                                //           onTap: () {
+                                //             item.isSelect = !item.isSelect;
+                                //             createAuditionProvider.updateUi();
+                                //           },
+                                //           item: item),
+                                //   ],
+                                // ),
+                                // SizedBox(height: 20.h),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text(
+                                //       context.loc.titlePansSize,
+                                //       style: StyleUtility
+                                //           .quicksandSemiBold5457BETextStyle
+                                //           .copyWith(
+                                //               fontSize: TextSizeUtility
+                                //                   .textSize16.sp),
+                                //     ),
+                                //     GestureDetector(
+                                //       behavior: HitTestBehavior.opaque,
+                                //       onTap: () {
+                                //         for (var item in createAuditionProvider
+                                //             .painsSizeModel!) {
+                                //           item.isSelect = true;
+                                //           createAuditionProvider.updateUi();
+                                //         }
+                                //       },
+                                //       child: Padding(
+                                //         padding: EdgeInsets.all(2.w),
+                                //         child: Text(
+                                //           "Select All",
+                                //           style: StyleUtility
+                                //               .quicksandMedium5457BETextStyle
+                                //               .copyWith(
+                                //                   fontSize: TextSizeUtility
+                                //                       .textSize14.sp),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 16.h,
+                                // ),
+                                // Wrap(
+                                //   children: [
+                                //     for (var item in createAuditionProvider
+                                //         .painsSizeModel!)
+                                //       SelectUnselectWidget(
+                                //           onTap: () {
+                                //             item.isSelect = !item.isSelect;
+                                //             createAuditionProvider.updateUi();
+                                //           },
+                                //           item: item),
+                                //   ],
+                                // ),
+                                // SizedBox(height: 20.h),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text(
+                                //       context.loc.titleShirtSize,
+                                //       style: StyleUtility
+                                //           .quicksandSemiBold5457BETextStyle
+                                //           .copyWith(
+                                //               fontSize: TextSizeUtility
+                                //                   .textSize16.sp),
+                                //     ),
+                                //     GestureDetector(
+                                //       behavior: HitTestBehavior.opaque,
+                                //       onTap: () {
+                                //         for (var item in createAuditionProvider
+                                //             .shirtSizeModel!) {
+                                //           item.isSelect = true;
+                                //           createAuditionProvider.updateUi();
+                                //         }
+                                //       },
+                                //       child: Padding(
+                                //         padding: EdgeInsets.all(2.w),
+                                //         child: Text(
+                                //           "Select All",
+                                //           style: StyleUtility
+                                //               .quicksandMedium5457BETextStyle
+                                //               .copyWith(
+                                //                   fontSize: TextSizeUtility
+                                //                       .textSize14.sp),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 16.h,
+                                // ),
+                                // Wrap(
+                                //   children: [
+                                //     for (var item in createAuditionProvider
+                                //         .shirtSizeModel!)
+                                //       SelectUnselectWidget(
+                                //           onTap: () {
+                                //             item.isSelect = !item.isSelect;
+                                //             createAuditionProvider.updateUi();
+                                //           },
+                                //           item: item),
+                                //   ],
+                                // ),
+                                // SizedBox(height: 20.h),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Text(
+                                //       context.loc.titleShoeSize,
+                                //       style: StyleUtility
+                                //           .quicksandSemiBold5457BETextStyle
+                                //           .copyWith(
+                                //               fontSize: TextSizeUtility
+                                //                   .textSize16.sp),
+                                //     ),
+                                //     GestureDetector(
+                                //       behavior: HitTestBehavior.opaque,
+                                //       onTap: () {
+                                //         for (var item in createAuditionProvider
+                                //             .shoeSizeModel!) {
+                                //           item.isSelect = true;
+                                //           createAuditionProvider.updateUi();
+                                //         }
+                                //       },
+                                //       child: Padding(
+                                //         padding: EdgeInsets.all(2.w),
+                                //         child: Text(
+                                //           "Select All",
+                                //           style: StyleUtility
+                                //               .quicksandMedium5457BETextStyle
+                                //               .copyWith(
+                                //                   fontSize: TextSizeUtility
+                                //                       .textSize14.sp),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 16.h,
+                                // ),
+                                // Wrap(
+                                //   children: [
+                                //     for (var item in createAuditionProvider
+                                //         .shoeSizeModel!)
+                                //       SelectUnselectWidget(
+                                //           onTap: () {
+                                //             item.isSelect = !item.isSelect;
+                                //             createAuditionProvider.updateUi();
+                                //           },
+                                //           item: item),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 38.h,
+                                // ),
+                                //
+                                //
+
+
+
+
                                 SizedBox(
                                   height: 38.h,
                                 ),
+
                                 Row(
                                   children: [
                                     Expanded(

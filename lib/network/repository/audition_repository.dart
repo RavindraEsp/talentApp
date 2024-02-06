@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:talent_app/modules/casting/createAudition/models/talentdata_response_model_new.dart';
 import 'package:talent_app/modules/casting/editAudition/model/adition_details_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/manage_audition_created_screen_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
@@ -22,6 +23,14 @@ class   AuditionRepository {
     return dioHttpService
         .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getTalentData)
         .then((value) => TalentDataResponseModel.fromJson(value));
+  }
+
+
+  Future<TalentDataResponseModelNew> getTalentDataForCreateAuditionNew(
+      {Map<String, dynamic>? queryParameters}) {
+    return dioHttpService
+        .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getdynamictalentData)
+        .then((value) => TalentDataResponseModelNew.fromJson(value));
   }
 
   Future<BasicResponse> createAudition(Map<String, dynamic>? request) {
