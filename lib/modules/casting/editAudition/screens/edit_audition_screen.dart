@@ -3,11 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
-import 'package:talent_app/modules/casting/createAudition/screens/create_audition_screen.dart';
-import 'package:talent_app/modules/casting/createAudition/widgets/select_unselect_widget.dart';
 import 'package:talent_app/modules/casting/createAudition/widgets/yes_no_checkbox.dart';
 import 'package:talent_app/modules/casting/editAudition/provider/edit_audition_screen_provider.dart';
+import 'package:talent_app/modules/casting/editAudition/widgets/looking_for_edit_widget.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
@@ -43,7 +41,11 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
 
     Provider.of<EditAuditionScreenProvider>(context, listen: false)
         .getAuditionDetailById(widget.auditionId, onFailure: (message) {
-      Common.showErrorSnackBar(context, message);
+          if(Navigator.canPop(context)){
+            Navigator.pop(context);
+          }
+
+      Common.showErrorToast(context, message);
     });
   }
 
@@ -158,7 +160,7 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                   Wrap(
                                     children: [
                                       for (var item in provider.lookingForModel)
-                                        SelectUnselectWidgetEdit(
+                                        LookingForEditWidget(
                                             onTap: () {
                                               item.isSelect = !item.isSelect;
                                               setState(() {});
@@ -446,261 +448,383 @@ class _EditAuditionScreenState extends State<EditAuditionScreen> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 20.h),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        context.loc.titleEyeColor,
-                                        style: StyleUtility
-                                            .quicksandSemiBold5457BETextStyle
-                                            .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize16.sp),
-                                      ),
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.opaque,
-                                        onTap: () {
-                                          for (var item
-                                              in provider.eyeColorModelList) {
-                                            provider.selectAll(item);
-                                          }
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.w),
-                                          child: Text(
-                                            "Select All",
-                                            style: StyleUtility
-                                                .quicksandMedium5457BETextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 16.h,
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      for (var item
-                                          in provider.eyeColorModelList)
-                                        SelectUnselectWidgetEdit(
-                                            onTap: () {
-                                              item.isSelect = !item.isSelect;
-                                              setState(() {});
-                                            },
-                                            item: item),
-                                    ],
-                                  ),
-                                  SizedBox(height: 20.h),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        context.loc.titleHairColor,
-                                        style: StyleUtility
-                                            .quicksandSemiBold5457BETextStyle
-                                            .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize16.sp),
-                                      ),
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.opaque,
-                                        onTap: () {
-                                          for (var item
-                                              in provider.hairColorModelList) {
-                                            // item.isSelect = true;
-                                            // setState(() {});
-                                            provider.selectAll(item);
-                                          }
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.w),
-                                          child: Text(
-                                            "Select All",
-                                            style: StyleUtility
-                                                .quicksandMedium5457BETextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 16.h,
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      for (var item
-                                          in provider.hairColorModelList)
-                                        SelectUnselectWidgetEdit(
-                                            onTap: () {
-                                              item.isSelect = !item.isSelect;
-                                              setState(() {});
-                                            },
-                                            item: item),
-                                    ],
-                                  ),
-                                  SizedBox(height: 20.h),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        context.loc.titlePansSize,
-                                        style: StyleUtility
-                                            .quicksandSemiBold5457BETextStyle
-                                            .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize16.sp),
-                                      ),
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.opaque,
-                                        onTap: () {
-                                          for (var item
-                                              in provider.painsSizeModelList) {
-                                            item.isSelect = true;
-                                            setState(() {});
-                                          }
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.w),
-                                          child: Text(
-                                            "Select All",
-                                            style: StyleUtility
-                                                .quicksandMedium5457BETextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 16.h,
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      for (var item
-                                          in provider.painsSizeModelList)
-                                        SelectUnselectWidgetEdit(
-                                            onTap: () {
-                                              item.isSelect = !item.isSelect;
-                                              setState(() {});
-                                            },
-                                            item: item),
-                                    ],
-                                  ),
-                                  SizedBox(height: 20.h),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        context.loc.titleShirtSize,
-                                        style: StyleUtility
-                                            .quicksandSemiBold5457BETextStyle
-                                            .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize16.sp),
-                                      ),
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.opaque,
-                                        onTap: () {
-                                          for (var item
-                                              in provider.shirtSizeModelList) {
-                                            item.isSelect = true;
-                                            setState(() {});
-                                          }
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.w),
-                                          child: Text(
-                                            "Select All",
-                                            style: StyleUtility
-                                                .quicksandMedium5457BETextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 16.h,
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      for (var item
-                                          in provider.shirtSizeModelList)
-                                        SelectUnselectWidgetEdit(
-                                            onTap: () {
-                                              item.isSelect = !item.isSelect;
-                                              setState(() {});
-                                            },
-                                            item: item),
-                                    ],
-                                  ),
-                                  SizedBox(height: 20.h),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        context.loc.titleShoeSize,
-                                        style: StyleUtility
-                                            .quicksandSemiBold5457BETextStyle
-                                            .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize16.sp),
-                                      ),
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.opaque,
-                                        onTap: () {
-                                          for (var item
-                                              in provider.shoeSizeModelList) {
-                                            item.isSelect = true;
-                                            setState(() {});
-                                          }
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2.w),
-                                          child: Text(
-                                            "Select All",
-                                            style: StyleUtility
-                                                .quicksandMedium5457BETextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 16.h,
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      for (var item
-                                          in provider.shoeSizeModelList)
-                                        SelectUnselectWidgetEdit(
-                                            onTap: () {
-                                              item.isSelect = !item.isSelect;
-                                              setState(() {});
-                                            },
-                                            item: item),
-                                    ],
-                                  ),
+                                  // SizedBox(height: 20.h),
+
+
+
+                                  ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount:  provider.auditionDetailsModel.data?.bodyDetail?.length ?? 0,
+                                      itemBuilder: (context,index){
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+
+                                            SizedBox(height: 20.h),
+                                            Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  //  context.loc.titleEyeColor,
+                                                  provider.auditionDetailsModel.data?.bodyDetail?[index].name ?? "",
+                                                  style: StyleUtility
+                                                      .quicksandSemiBold5457BETextStyle
+                                                      .copyWith(
+                                                      fontSize: TextSizeUtility
+                                                          .textSize16.sp),
+                                                ),
+                                                GestureDetector(
+                                                  behavior: HitTestBehavior.opaque,
+                                                  onTap: () {
+                                                    for (var item in provider.auditionDetailsModel.data!.bodyDetail![index].bodyData!) {
+
+                                                      item.isSelected = "1";
+                                                      provider.updateUi();
+
+                                                    }
+                                                  },
+                                                  child: Padding(
+                                                    padding: EdgeInsets.all(2.w),
+                                                    child: Text(
+                                                      "Select All",
+                                                      style: StyleUtility
+                                                          .quicksandMedium5457BETextStyle
+                                                          .copyWith(
+                                                          fontSize: TextSizeUtility
+                                                              .textSize14.sp),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 16.h,
+                                            ),
+                                            Wrap(
+                                              children: [
+                                                for (var item in provider.auditionDetailsModel.data!.bodyDetail![index].bodyData!)
+                                                  GestureDetector(
+                                                    onTap: () {
+
+                                                      if(item.isSelected == "0"){
+                                                        item.isSelected = "1";
+                                                      }else{
+                                                        item.isSelected = "0";
+                                                      }
+
+                                                      provider.updateUi();
+                                                    },
+                                                    child: Container(
+                                                        margin: EdgeInsets.only(
+                                                            right: 9.w, bottom: 13.h),
+                                                        padding: EdgeInsets.only(
+                                                            left: 15.sp,
+                                                            right: 20.sp,
+                                                            top: 9.sp,
+                                                            bottom: 9.sp),
+                                                        decoration: BoxDecoration(
+                                                            color: item.isSelected == "0"
+                                                                ? ColorUtility.colorWhite
+                                                                : ColorUtility.colorEFF2F4,
+                                                            borderRadius:
+                                                            BorderRadius.circular(30.r),
+                                                            border: Border.all(
+                                                                color: ColorUtility
+                                                                    .colorD3D6D6)),
+                                                        child: Row(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment.center,
+                                                          children: [
+                                                            Image.asset(
+                                                              item.isSelected == "0"
+                                                                  ? ImageUtility.plusIcon
+                                                                  : ImageUtility
+                                                                  .crossSelectIcon,
+                                                              width: 5.w,
+                                                              height: 5.w,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 5.w,
+                                                            ),
+                                                            Text(
+                                                              item.name ?? "",
+                                                              style: StyleUtility
+                                                                  .quicksandRegularBlackTextStyle
+                                                                  .copyWith(
+                                                                  fontSize:
+                                                                  TextSizeUtility
+                                                                      .textSize14
+                                                                      .sp),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                  )
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      }),
+
+
+
+
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       context.loc.titleEyeColor,
+                                  //       style: StyleUtility
+                                  //           .quicksandSemiBold5457BETextStyle
+                                  //           .copyWith(
+                                  //               fontSize: TextSizeUtility
+                                  //                   .textSize16.sp),
+                                  //     ),
+                                  //     GestureDetector(
+                                  //       behavior: HitTestBehavior.opaque,
+                                  //       onTap: () {
+                                  //         for (var item
+                                  //             in provider.eyeColorModelList) {
+                                  //           provider.selectAll(item);
+                                  //         }
+                                  //       },
+                                  //       child: Padding(
+                                  //         padding: EdgeInsets.all(2.w),
+                                  //         child: Text(
+                                  //           "Select All",
+                                  //           style: StyleUtility
+                                  //               .quicksandMedium5457BETextStyle
+                                  //               .copyWith(
+                                  //                   fontSize: TextSizeUtility
+                                  //                       .textSize14.sp),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 16.h,
+                                  // ),
+                                  // Wrap(
+                                  //   children: [
+                                  //     for (var item
+                                  //         in provider.eyeColorModelList)
+                                  //       SelectUnselectWidgetEdit(
+                                  //           onTap: () {
+                                  //             item.isSelect = !item.isSelect;
+                                  //             setState(() {});
+                                  //           },
+                                  //           item: item),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(height: 20.h),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       context.loc.titleHairColor,
+                                  //       style: StyleUtility
+                                  //           .quicksandSemiBold5457BETextStyle
+                                  //           .copyWith(
+                                  //               fontSize: TextSizeUtility
+                                  //                   .textSize16.sp),
+                                  //     ),
+                                  //     GestureDetector(
+                                  //       behavior: HitTestBehavior.opaque,
+                                  //       onTap: () {
+                                  //         for (var item
+                                  //             in provider.hairColorModelList) {
+                                  //           // item.isSelect = true;
+                                  //           // setState(() {});
+                                  //           provider.selectAll(item);
+                                  //         }
+                                  //       },
+                                  //       child: Padding(
+                                  //         padding: EdgeInsets.all(2.w),
+                                  //         child: Text(
+                                  //           "Select All",
+                                  //           style: StyleUtility
+                                  //               .quicksandMedium5457BETextStyle
+                                  //               .copyWith(
+                                  //                   fontSize: TextSizeUtility
+                                  //                       .textSize14.sp),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 16.h,
+                                  // ),
+                                  // Wrap(
+                                  //   children: [
+                                  //     for (var item
+                                  //         in provider.hairColorModelList)
+                                  //       SelectUnselectWidgetEdit(
+                                  //           onTap: () {
+                                  //             item.isSelect = !item.isSelect;
+                                  //             setState(() {});
+                                  //           },
+                                  //           item: item),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(height: 20.h),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       context.loc.titlePansSize,
+                                  //       style: StyleUtility
+                                  //           .quicksandSemiBold5457BETextStyle
+                                  //           .copyWith(
+                                  //               fontSize: TextSizeUtility
+                                  //                   .textSize16.sp),
+                                  //     ),
+                                  //     GestureDetector(
+                                  //       behavior: HitTestBehavior.opaque,
+                                  //       onTap: () {
+                                  //         for (var item
+                                  //             in provider.painsSizeModelList) {
+                                  //           item.isSelect = true;
+                                  //           setState(() {});
+                                  //         }
+                                  //       },
+                                  //       child: Padding(
+                                  //         padding: EdgeInsets.all(2.w),
+                                  //         child: Text(
+                                  //           "Select All",
+                                  //           style: StyleUtility
+                                  //               .quicksandMedium5457BETextStyle
+                                  //               .copyWith(
+                                  //                   fontSize: TextSizeUtility
+                                  //                       .textSize14.sp),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 16.h,
+                                  // ),
+                                  // Wrap(
+                                  //   children: [
+                                  //     for (var item
+                                  //         in provider.painsSizeModelList)
+                                  //       SelectUnselectWidgetEdit(
+                                  //           onTap: () {
+                                  //             item.isSelect = !item.isSelect;
+                                  //             setState(() {});
+                                  //           },
+                                  //           item: item),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(height: 20.h),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       context.loc.titleShirtSize,
+                                  //       style: StyleUtility
+                                  //           .quicksandSemiBold5457BETextStyle
+                                  //           .copyWith(
+                                  //               fontSize: TextSizeUtility
+                                  //                   .textSize16.sp),
+                                  //     ),
+                                  //     GestureDetector(
+                                  //       behavior: HitTestBehavior.opaque,
+                                  //       onTap: () {
+                                  //         for (var item
+                                  //             in provider.shirtSizeModelList) {
+                                  //           item.isSelect = true;
+                                  //           setState(() {});
+                                  //         }
+                                  //       },
+                                  //       child: Padding(
+                                  //         padding: EdgeInsets.all(2.w),
+                                  //         child: Text(
+                                  //           "Select All",
+                                  //           style: StyleUtility
+                                  //               .quicksandMedium5457BETextStyle
+                                  //               .copyWith(
+                                  //                   fontSize: TextSizeUtility
+                                  //                       .textSize14.sp),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 16.h,
+                                  // ),
+                                  // Wrap(
+                                  //   children: [
+                                  //     for (var item
+                                  //         in provider.shirtSizeModelList)
+                                  //       SelectUnselectWidgetEdit(
+                                  //           onTap: () {
+                                  //             item.isSelect = !item.isSelect;
+                                  //             setState(() {});
+                                  //           },
+                                  //           item: item),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(height: 20.h),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       context.loc.titleShoeSize,
+                                  //       style: StyleUtility
+                                  //           .quicksandSemiBold5457BETextStyle
+                                  //           .copyWith(
+                                  //               fontSize: TextSizeUtility
+                                  //                   .textSize16.sp),
+                                  //     ),
+                                  //     GestureDetector(
+                                  //       behavior: HitTestBehavior.opaque,
+                                  //       onTap: () {
+                                  //         for (var item
+                                  //             in provider.shoeSizeModelList) {
+                                  //           item.isSelect = true;
+                                  //           setState(() {});
+                                  //         }
+                                  //       },
+                                  //       child: Padding(
+                                  //         padding: EdgeInsets.all(2.w),
+                                  //         child: Text(
+                                  //           "Select All",
+                                  //           style: StyleUtility
+                                  //               .quicksandMedium5457BETextStyle
+                                  //               .copyWith(
+                                  //                   fontSize: TextSizeUtility
+                                  //                       .textSize14.sp),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 16.h,
+                                  // ),
+                                  // Wrap(
+                                  //   children: [
+                                  //     for (var item
+                                  //         in provider.shoeSizeModelList)
+                                  //       SelectUnselectWidgetEdit(
+                                  //           onTap: () {
+                                  //             item.isSelect = !item.isSelect;
+                                  //             setState(() {});
+                                  //           },
+                                  //           item: item),
+                                  //   ],
+                                  // ),
                                   SizedBox(
                                     height: 38.h,
                                   ),

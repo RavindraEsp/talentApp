@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:talent_app/modules/casting/createAudition/models/talentdata_response_model_new.dart';
 import 'package:talent_app/modules/casting/editAudition/model/adition_details_model.dart';
+import 'package:talent_app/modules/casting/editAudition/model/edit_audition_detail_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/manage_audition_created_screen_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/modules/casting/manageAudition/managefinishedAudition/model/manage_finish_data_response_model.dart';
@@ -76,6 +77,14 @@ class   AuditionRepository {
             data: jsonEncode(request))
         .then((value) => AuditionDetailsModel.fromJson(value));
   }
+
+  Future<EditAuditionDetailModel> getEditAuditionDetailById(Map<String, dynamic>? request) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.getAuditionDetailByIdnew,
+        data: jsonEncode(request))
+        .then((value) => EditAuditionDetailModel.fromJson(value));
+  }
+
 
   Future<BasicResponse> updateAudition(Map<String, dynamic>? request) {
     return dioHttpService

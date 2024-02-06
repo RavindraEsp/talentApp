@@ -7,13 +7,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
 import 'package:talent_app/modules/casting/createAudition/models/date_time_model.dart';
-import 'package:talent_app/modules/casting/createAudition/screens/create_audition_place_time_screen.dart';
-import 'package:talent_app/modules/casting/editAudition/model/adition_details_model.dart';
+import 'package:talent_app/modules/casting/editAudition/model/edit_audition_detail_model.dart';
 import 'package:talent_app/modules/casting/editAudition/model/edit_audition_sceen1_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:talent_app/utilities/common.dart';
-
 import 'package:google_maps_webservice/places.dart';
+
+
 class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
   final AuditionRepository auditionRepository = AuditionRepository();
   bool isLoading = false;
@@ -41,9 +41,7 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
   }
 
   Future<void> intializeScreen2Variable() async {
-    // auditionLocationController.text = editAuditionScreen1DataModel
-    //         .auditionDetailsModelInitialData.data?.location ??
-    //     "";
+
     location = editAuditionScreen1DataModel
             .auditionDetailsModelInitialData.data?.location ?? "";
 
@@ -179,47 +177,14 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> datetimespotRowValueAdd() async {
-  //   if (dateController.text.isNotEmpty &&
-  //       timeController.text.isNotEmpty &&
-  //       spotsController.text.isNotEmpty) {
-  //     dateTimeList.add(DateTimeModel(
-  //         dateController.text, timeController.text, spotsController.text));
-  //
-  //     dateController.clear();
-  //     timeController.clear();
-  //     spotsController.clear();
-  //   }
-  //   notifyListeners();
-  // }
+
 
   Future<void> updateBtnClick({required BuildContext context,
     required ValueChanged<String> onSuccess,
     required ValueChanged<String> onFailure,}) async {
- //   await datetimespotRowValueAdd();
+
     Map<String, dynamic> request = {
-      // "id": "3",
-      // "description": "Hello first autdition update",
-      // "careerTag": ["2"],
-      // "workExperience": "1",
-      // "professionalTraining": "0",
-      // "candidateRepresentation": "1",
-      // "ageRangeMin": "10",
-      // "ageRangeMax": "40",
-      // "weightRangeMin": "20",
-      // "weightRangeMax": "50",
-      // "heightRangeMin": "10",
-      // "heightRangeMax": "20",
-      // "eyeColor": ["1", "2"],
-      // "hairColor": ["2"],
-      // "pantSize": ["2"],
-      // "shirtSize": ["2"],
-      // "shoeSize": [1],
-      // "location": "indore",
-      // "auditionTalentdata": [3],
-      // "auditionDates": [
-      //   {"date": "10-04-2023", "time": "07:14:52", "spot": "2"}
-      // ]
+
       "id":
           editAuditionScreen1DataModel.auditionDetailsModelInitialData.data?.id,
       "description": editAuditionScreen1DataModel.description,
@@ -237,32 +202,16 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
       "weightRangeMax": editAuditionScreen1DataModel.maxWeight,
       "heightRangeMin": editAuditionScreen1DataModel.minHeight,
       "heightRangeMax": editAuditionScreen1DataModel.maxHeight,
-      "eyeColor": ganareteIdListFromModel(
-          editAuditionScreen1DataModel.eyeColorModelList), // ["1", "2"],
-      "hairColor": ganareteIdListFromModel(
-          editAuditionScreen1DataModel.hairColorModelList), // ["2"],
-      "pantSize": ganareteIdListFromModel(
-          editAuditionScreen1DataModel.painsSizeModelList), // ["2"],
-      "shirtSize": ganareteIdListFromModel(
-          editAuditionScreen1DataModel.shirtSizeModelList), //["2"],
-      "shoeSize": ganareteIdListFromModel(
-          editAuditionScreen1DataModel.shirtSizeModelList), // [1],
-     // "location": auditionLocationController.text,
+
+
+
       "location": location,
 
       "latitude": lat,
       "longitude": lng,
 
-      "auditionTalentdata": ganareteIdListFromModel(
-              editAuditionScreen1DataModel.eyeColorModelList) +
-          ganareteIdListFromModel(
-              editAuditionScreen1DataModel.hairColorModelList) +
-          ganareteIdListFromModel(
-              editAuditionScreen1DataModel.painsSizeModelList) +
-          ganareteIdListFromModel(
-              editAuditionScreen1DataModel.shirtSizeModelList) +
-          ganareteIdListFromModel(editAuditionScreen1DataModel
-              .shoeSizeModelList), // [  3 ],       // selectedEyeIds ,selectedHairColorIds ,selectedPansSizeIds ,selectedShirtSizeIds ,selectedShoeSizeIds
+      "auditionTalentdata": editAuditionScreen1DataModel.auditionTalentAllData,
+
       "auditionDates": ganareteAuditionDateTimeSpotsList(
           dateTimeList), // [    {"date": "10-04-2023", "time": "07:14:52", "spot": "2"}]
     };
@@ -272,10 +221,7 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
         'date time perms auditionDates---->${ganareteAuditionDateTimeSpotsList(dateTimeList)}');
     await auditionRepository.updateAudition(request).then((value) async {
       if (value.success == true) {
-        onSuccess.call("");
-        // Navigator.pop(context);
-        // Navigator.pop(context);
-        // await showAuditionAuditionCreateSuccessDialog(context: context);
+        onSuccess.call(value.msg ?? "");
       } else {
         Common.showErrorSnackBar(context, value.msg ?? "");
         onFailure.call(value.msg ?? "");
@@ -287,14 +233,14 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
   }
 
   List<int> ganareteIdListFromModel(List<AuditionPropertyModel> listCome) {
-    List<int> eyeList = [];
+    List<int> lookingForModel = [];
     for (AuditionPropertyModel element in listCome) {
       if (element.isSelect) {
-        eyeList.add(element.id ?? 0);
+        lookingForModel.add(element.id ?? 0);
       }
     }
 
-    return eyeList;
+    return lookingForModel;
   }
 
   List<Map<String, dynamic>> ganareteAuditionDateTimeSpotsList(

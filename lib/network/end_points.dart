@@ -33,6 +33,9 @@ class ApiEndPoints {
   String get getcreatedAuditionmanage => "get/getcreatedAuditionmanage";
 
   String get getAuditionDetailById => "auth/getAuditionDetailById";
+
+  String get getAuditionDetailByIdnew => "auth/getAuditionDetailByIdnew";
+
   String get cancelAudition => "auth/cancelAudition";
   String get closeRegistration => "auth/closeRegistration";
 

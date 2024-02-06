@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/createAudition/models/audition_property_model.dart';
-import 'package:talent_app/modules/casting/editAudition/model/adition_details_model.dart';
+import 'package:talent_app/modules/casting/editAudition/model/edit_audition_detail_model.dart';
 import 'package:talent_app/modules/casting/editAudition/model/edit_audition_sceen1_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:talent_app/routes/route_name.dart';
@@ -12,7 +12,8 @@ class EditAuditionScreenProvider extends ChangeNotifier {
 
   bool isLoading = false;
 
-  AuditionDetailsModel auditionDetailsModel = AuditionDetailsModel();
+ // AuditionDetailsModel auditionDetailsModel = AuditionDetailsModel();
+  EditAuditionDetailModel auditionDetailsModel = EditAuditionDetailModel();
 
   // ---------- screen 1 variables --------
   final formKey = GlobalKey<FormState>();
@@ -47,7 +48,7 @@ class EditAuditionScreenProvider extends ChangeNotifier {
     required ValueChanged<String> onFailure,
   }) {
     isLoading = true;
-    auditionRepository.getAuditionDetailById({'id': auditionId}).then((value) {
+    auditionRepository.getEditAuditionDetailById({'id': auditionId}).then((value) {
       if (value.success == true) {
         auditionDetailsModel = value;
         isLoading = false;
@@ -59,8 +60,8 @@ class EditAuditionScreenProvider extends ChangeNotifier {
         notifyListeners();
       }
     }).onError((error, stackTrace) {
-      AppLogger.logD("error $error");
-      onFailure.call("Server Error");
+      AppLogger.logD("Error $error");
+      onFailure.call(error.toString());
       isLoading = false;
       notifyListeners();
     });
@@ -93,32 +94,32 @@ class EditAuditionScreenProvider extends ChangeNotifier {
     maxHeightController.text =
         '${auditionDetailsModel.data?.heightRangeMax ?? 0}';
 
-    for (NameSelectedAttrButeModel item
-        in auditionDetailsModel.data?.eyeColor ?? []) {
-      eyeColorModelList.add(AuditionPropertyModel(
-          id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    }
-    for (NameSelectedAttrButeModel item
-        in auditionDetailsModel.data?.hairColor ?? []) {
-      hairColorModelList.add(AuditionPropertyModel(
-          item.name ?? "", item.isSelected == "1" ? true : false,
-          id: item.id));
-    }
-    for (NameSelectedAttrButeModel item
-        in auditionDetailsModel.data?.pantSize ?? []) {
-      painsSizeModelList.add(AuditionPropertyModel(
-          id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    }
-    for (NameSelectedAttrButeModel item
-        in auditionDetailsModel.data?.shirtSize ?? []) {
-      shirtSizeModelList.add(AuditionPropertyModel(
-          id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    }
-    for (NameSelectedAttrButeModel item
-        in auditionDetailsModel.data?.shoeSize ?? []) {
-      shoeSizeModelList.add(AuditionPropertyModel(
-          id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
-    }
+    // for (NameSelectedAttrButeModel item
+    //     in auditionDetailsModel.data?.eyeColor ?? []) {
+    //   eyeColorModelList.add(AuditionPropertyModel(
+    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
+    // }
+    // for (NameSelectedAttrButeModel item
+    //     in auditionDetailsModel.data?.hairColor ?? []) {
+    //   hairColorModelList.add(AuditionPropertyModel(
+    //       item.name ?? "", item.isSelected == "1" ? true : false,
+    //       id: item.id));
+    // }
+    // for (NameSelectedAttrButeModel item
+    //     in auditionDetailsModel.data?.pantSize ?? []) {
+    //   painsSizeModelList.add(AuditionPropertyModel(
+    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
+    // }
+    // for (NameSelectedAttrButeModel item
+    //     in auditionDetailsModel.data?.shirtSize ?? []) {
+    //   shirtSizeModelList.add(AuditionPropertyModel(
+    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
+    // }
+    // for (NameSelectedAttrButeModel item
+    //     in auditionDetailsModel.data?.shoeSize ?? []) {
+    //   shoeSizeModelList.add(AuditionPropertyModel(
+    //       id: item.id, item.name ?? "", item.isSelected == "1" ? true : false));
+    // }
 
     notifyListeners();
   }
@@ -145,6 +146,35 @@ class EditAuditionScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<int> auditionTalentAllData = [];
+  bool getAllValue() {
+    auditionTalentAllData = [];
+
+    for (var i = 0; i <
+        auditionDetailsModel!.data!.bodyDetail!.length; i++) {
+      // for(var j = 0;j< talentDataResponseModelNew!.data!.body![i].bodyData!.length; i++){
+
+
+      List<BodyData>? selectedBodyData =
+      auditionDetailsModel.data!.bodyDetail![i].bodyData?.where((
+          bodyData) => bodyData.isSelected == "1").toList();
+
+
+      List<int>? selectedEyeIds =
+      selectedBodyData?.map((bodyData) => bodyData.id ?? 0).toList();
+
+      auditionTalentAllData.addAll(selectedEyeIds ?? []);
+
+      //  }
+
+
+    }
+
+    AppLogger.logD("Talent body $auditionTalentAllData");
+    return true;
+  }
+
+
   // --- page 1 next btn click     ----
 
   Future<void> nextBtnClick(BuildContext context) async {
@@ -153,6 +183,13 @@ class EditAuditionScreenProvider extends ChangeNotifier {
     // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList.length}");
     // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList[0].id}");
     // AppLogger.logD("provider.shoeSizeModelList ${shoeSizeModelList[1].id}");
+
+
+
+
+    getAllValue();
+
+
     Navigator.pushNamed(context, RouteName.editAuditionPlaceTimeScreen,
         arguments: {
           "editAuditionScreen1DataModel": EditAuditionScreen1DataModel(
@@ -167,11 +204,12 @@ class EditAuditionScreenProvider extends ChangeNotifier {
               maxWeight: maxWeightController.text,
               minHeight: minHeightController.text,
               maxHeight: maxHeightController.text,
-              eyeColorModelList: eyeColorModelList,
-              hairColorModelList: hairColorModelList,
-              painsSizeModelList: painsSizeModelList,
-              shirtSizeModelList: shirtSizeModelList,
-              shoeSizeModelList: shoeSizeModelList,
+              auditionTalentAllData: auditionTalentAllData,
+              // eyeColorModelList: eyeColorModelList,
+              // hairColorModelList: hairColorModelList,
+              // painsSizeModelList: painsSizeModelList,
+              // shirtSizeModelList: shirtSizeModelList,
+              // shoeSizeModelList: shoeSizeModelList,
               auditionDetailsModelInitialData: auditionDetailsModel
           ),
         });
@@ -200,6 +238,10 @@ class EditAuditionScreenProvider extends ChangeNotifier {
       onFailure.call("Server error");
     });
 
+    notifyListeners();
+  }
+
+  updateUi(){
     notifyListeners();
   }
 }
