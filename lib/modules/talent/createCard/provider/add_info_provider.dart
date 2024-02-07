@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talent_app/logger/app_logger.dart';
+import 'package:talent_app/modules/casting/createAudition/models/talentdata_response_model_new.dart';
 import 'package:talent_app/modules/talent/createCard/models/talent_create_card_model.dart';
-import 'package:talent_app/network/model/response/casterAudition/talent_data_response_model.dart';
+//import 'package:talent_app/network/model/response/casterAudition/talent_data_response_model.dart';
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:talent_app/network/repository/auth_repository.dart';
@@ -12,7 +13,7 @@ class AddInfoProvider extends ChangeNotifier {
 
   final AuthRepository authRepository = AuthRepository();
 
-  TalentDataResponseModel? talentDataResponseModel;
+  TalentDataResponseModelNew? talentDataResponseModel;
 
   List<LookingFor>? lookingForModel;
 
@@ -23,7 +24,7 @@ class AddInfoProvider extends ChangeNotifier {
   getTalentData({
     required ValueChanged<String> onFailure,
   }) {
-    auditionRepository.getTalentDataForCreateAudition().then((value) {
+    auditionRepository.getTalentDataForCreateAuditionNew().then((value) {
       if (value.success == true) {
         talentDataResponseModel = value;
 
@@ -32,13 +33,13 @@ class AddInfoProvider extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
       } else {
-        onFailure.call(value.message ?? "");
+        onFailure.call(value.msg ?? "");
         isLoading = false;
         notifyListeners();
       }
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
-      onFailure.call("Server Error");
+      onFailure.call(error.toString());
       isLoading = false;
       notifyListeners();
     });

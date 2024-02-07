@@ -610,3 +610,32 @@ class _EducationListScreenState extends State<EducationListScreen> {
         }).then((value) {});
   }
 }
+
+class EyeColor {
+  int? id;
+  int? talentId;
+  String? name;
+  String? datetime;
+  String? talentName;
+  bool isSelect = false;
+
+  EyeColor({this.id, this.talentId, this.name, this.datetime, this.talentName,required this.isSelect});
+
+  EyeColor.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    talentId = json['talentId'];
+    name = json['name'];
+    datetime = json['datetime'];
+    talentName = json['talentName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['talentId'] = this.talentId;
+    data['name'] = this.name;
+    data['datetime'] = this.datetime;
+    data['talentName'] = this.talentName;
+    return data;
+  }
+}

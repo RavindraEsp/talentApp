@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
 import 'package:talent_app/modules/talent/profile/model/talent_body_response_model.dart';
+import 'package:talent_app/modules/talent/profile/model/talent_body_edit_response_model.dart';
 import 'package:talent_app/modules/talent/profile/model/talent_category_response_model.dart';
 import 'package:talent_app/network/client/dio_http_service.dart';
 import 'package:talent_app/network/end_points.dart';
@@ -116,12 +117,20 @@ class AuthRepository {
         .then((value) => TalentCategoryResponseModel.fromJson(value));
   }
 
-  Future<TalentBodyResponseModel> getTalentBody(
+  // Future<TalentBodyResponseModel> getTalentBody(
+  //     {Map<String, dynamic>? queryParameters}) {
+  //   return dioHttpService
+  //       .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getEditTalentBody,
+  //           queryParameters: queryParameters)
+  //       .then((value) => TalentBodyResponseModel.fromJson(value));
+  // }  // OLDAPI
+
+  Future<TalentBodyEditResponseMode> getTalentBodyDynamic(
       {Map<String, dynamic>? queryParameters}) {
     return dioHttpService
-        .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getEditTalentBody,
-            queryParameters: queryParameters)
-        .then((value) => TalentBodyResponseModel.fromJson(value));
+        .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getEditTalentBodyNew,
+        queryParameters: queryParameters)
+        .then((value) => TalentBodyEditResponseMode.fromJson(value));
   }
 
   Future<BasicResponse> deleteTalentFile(Map request) {

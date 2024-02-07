@@ -1,13 +1,11 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:talent_app/modules/talent/profile/model/talent_body_response_model.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/modules/talent/profile/model/talent_body_edit_response_model.dart';
+
 
 class TalentEditBodyDropDownWidget extends StatelessWidget {
   const TalentEditBodyDropDownWidget({
@@ -18,10 +16,9 @@ class TalentEditBodyDropDownWidget extends StatelessWidget {
     required this.hintText,
   });
 
-  final ValueChanged<EyeColorArr> ovValueChange;
-
-  final List<EyeColorArr>? dropDownList;
-  final EyeColorArr? selectItem;
+  final ValueChanged<BodyData> ovValueChange;
+  final List<BodyData>? dropDownList;
+  final BodyData? selectItem;
   final String hintText;
 
   @override
@@ -37,13 +34,13 @@ class TalentEditBodyDropDownWidget extends StatelessWidget {
         ),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<EyeColorArr>(
+        child: DropdownButton<BodyData>(
           value: selectItem,
-          items: dropDownList?.map((EyeColorArr items) {
+          items: dropDownList?.map((BodyData items) {
             return DropdownMenuItem(
               value: items,
               child: Text(
-                items.option ?? "",
+                items.name ?? "",
                 style: StyleUtility.inputTextStyle
                     .copyWith(fontSize: TextSizeUtility.textSize15.sp),
               ),
@@ -62,8 +59,7 @@ class TalentEditBodyDropDownWidget extends StatelessWidget {
             style: StyleUtility.hintTextStyle
                 .copyWith(fontSize: TextSizeUtility.textSize15.sp),
           ),
-          onChanged: (EyeColorArr? value) {
-
+          onChanged: (BodyData? value) {
             ovValueChange.call(value!);
           },
         ),

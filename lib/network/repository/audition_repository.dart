@@ -19,12 +19,13 @@ class   AuditionRepository {
 
 
   ///Caster Module APi
-  Future<TalentDataResponseModel> getTalentDataForCreateAudition(
-      {Map<String, dynamic>? queryParameters}) {
-    return dioHttpService
-        .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getTalentData)
-        .then((value) => TalentDataResponseModel.fromJson(value));
-  }
+  ///
+  // Future<TalentDataResponseModel> getTalentDataForCreateAudition(
+  //     {Map<String, dynamic>? queryParameters}) {
+  //   return dioHttpService
+  //       .get(Endpoints.baseUrl + Endpoints.apiEndPoints.getTalentData)
+  //       .then((value) => TalentDataResponseModel.fromJson(value));
+  // } // OLDAPI
 
 
   Future<TalentDataResponseModelNew> getTalentDataForCreateAuditionNew(
@@ -71,12 +72,12 @@ class   AuditionRepository {
             ));
   }
 
-  Future<AuditionDetailsModel> getAuditionDetailById(Map<String, dynamic>? request) {
-    return dioHttpService
-        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.getAuditionDetailById,
-            data: jsonEncode(request))
-        .then((value) => AuditionDetailsModel.fromJson(value));
-  }
+  // Future<AuditionDetailsModel> getAuditionDetailById(Map<String, dynamic>? request) {
+  //   return dioHttpService
+  //       .post(Endpoints.baseUrl + Endpoints.apiEndPoints.getAuditionDetailById,
+  //           data: jsonEncode(request))
+  //       .then((value) => AuditionDetailsModel.fromJson(value));
+  // }   // OLDAPI
 
   Future<EditAuditionDetailModel> getEditAuditionDetailById(Map<String, dynamic>? request) {
     return dioHttpService
@@ -195,6 +196,7 @@ Future<TalentHomeResponseModel> getHomeDataForTalent() {
             Endpoints.apiEndPoints.deleteDeniedAudition,
         data: request)
         .then((value) => BasicResponse.fromJson(value));
+
   }
 
 

@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/talent/profile/model/talent_body_response_model.dart';
+import 'package:talent_app/modules/talent/profile/model/talent_body_edit_response_model.dart';
 import 'package:talent_app/network/repository/auth_repository.dart';
 
 class EditTalentBodyScreenProvider extends ChangeNotifier {
   final AuthRepository authRepository = AuthRepository();
 
-  TalentBodyResponseModel talentBodyResponseModel =
-  TalentBodyResponseModel();
+ // TalentBodyResponseModel talentBodyResponseModel = TalentBodyResponseModel();
+  TalentBodyEditResponseMode talentBodyEditResponseModel = TalentBodyEditResponseMode();
 
-  EyeColorArr? selectEyeColor;
-  EyeColorArr? selectHairColor;
-
-  EyeColorArr? selectShirtSize;
-  EyeColorArr? selectPansSize;
-  EyeColorArr? selectShoeSize;
+  // EyeColorArr? selectEyeColor;
+  // EyeColorArr? selectHairColor;
+  //
+  // EyeColorArr? selectShirtSize;
+  // EyeColorArr? selectPansSize;
+  // EyeColorArr? selectShoeSize;
 
 
   bool isLoading = true;
@@ -22,15 +23,15 @@ class EditTalentBodyScreenProvider extends ChangeNotifier {
   List<int> talentBodyData = [];
 
   fetchTalentBody({
-    required ValueChanged<TalentBodyResponseModel> onSuccess,
+    required ValueChanged<TalentBodyEditResponseMode> onSuccess,
     required ValueChanged<String> onFailure,
   }) async {
-    await authRepository.getTalentBody().then((value) {
+    await authRepository.getTalentBodyDynamic().then((value) {
       isLoading = true;
       if (value.success == true) {
-        talentBodyResponseModel = value;
+        talentBodyEditResponseModel = value;
         setAutofillValue();
-        onSuccess.call(talentBodyResponseModel);
+        onSuccess.call(talentBodyEditResponseModel);
       } else {
         onFailure.call(value.msg ?? "");
       }
@@ -45,40 +46,52 @@ class EditTalentBodyScreenProvider extends ChangeNotifier {
 
   setAutofillValue(){
 
-    //set eye color
-    talentBodyResponseModel.data!.eyeColorArr?.forEach((element) {
-      if(element.value == true){
-        selectEyeColor = element;
-      }
+
+    talentBodyEditResponseModel.data!.bodyDetail?.forEach((bodyDetail) {
+
+      bodyDetail.bodyData?.forEach((bodyData) {
+        if(bodyData.value == true){
+          bodyDetail.selectDropDown = bodyData;
+        }
+      });
     });
 
-    //set hair color
-    talentBodyResponseModel.data!.hairColorArr?.forEach((element) {
-      if(element.value == true){
-        selectHairColor = element;
-      }
-    });
 
-    //set shirt size
-    talentBodyResponseModel.data!.shirtSizeArr?.forEach((element) {
-      if(element.value == true){
-        selectShirtSize = element;
-      }
-    });
 
-    //set Paints size
-    talentBodyResponseModel.data!.pantSizeArr?.forEach((element) {
-      if(element.value == true){
-        selectPansSize = element;
-      }
-    });
-
-    //set Shoe size
-    talentBodyResponseModel.data!.shoeSizeArr?.forEach((element) {
-      if(element.value == true){
-        selectShoeSize = element;
-      }
-    });
+    // //set eye color
+    // talentBodyResponseModel.data!.eyeColorArr?.forEach((element) {
+    //   if(element.value == true){
+    //     selectEyeColor = element;
+    //   }
+    // });
+    //
+    // //set hair color
+    // talentBodyResponseModel.data!.hairColorArr?.forEach((element) {
+    //   if(element.value == true){
+    //     selectHairColor = element;
+    //   }
+    // });
+    //
+    // //set shirt size
+    // talentBodyResponseModel.data!.shirtSizeArr?.forEach((element) {
+    //   if(element.value == true){
+    //     selectShirtSize = element;
+    //   }
+    // });
+    //
+    // //set Paints size
+    // talentBodyResponseModel.data!.pantSizeArr?.forEach((element) {
+    //   if(element.value == true){
+    //     selectPansSize = element;
+    //   }
+    // });
+    //
+    // //set Shoe size
+    // talentBodyResponseModel.data!.shoeSizeArr?.forEach((element) {
+    //   if(element.value == true){
+    //     selectShoeSize = element;
+    //   }
+    // });
 
   }
 
@@ -87,23 +100,31 @@ class EditTalentBodyScreenProvider extends ChangeNotifier {
   bool setTalentBodyArrayData() {
 
     talentBodyData = [];
+    talentBodyEditResponseModel.data!.bodyDetail?.forEach((bodyDetail) {
+      if(bodyDetail.selectDropDown != null){
+        talentBodyData.add(bodyDetail.selectDropDown?.id ?? 0);
+      }
 
-    if(selectEyeColor != null){
-      talentBodyData.add(selectEyeColor?.id ?? 0);
-    }
-    if(selectHairColor != null){
-      talentBodyData.add(selectHairColor?.id ?? 0);
-    }
+    });
 
-    if(selectPansSize != null){
-      talentBodyData.add(selectPansSize?.id ?? 0);
-    }
-    if(selectShirtSize != null){
-      talentBodyData.add(selectShirtSize?.id ?? 0);
-    }
-    if(selectShoeSize != null){
-      talentBodyData.add(selectShoeSize?.id ?? 0);
-    }
+
+
+    // if(selectEyeColor != null){
+    //   talentBodyData.add(selectEyeColor?.id ?? 0);
+    // }
+    // if(selectHairColor != null){
+    //   talentBodyData.add(selectHairColor?.id ?? 0);
+    // }
+    //
+    // if(selectPansSize != null){
+    //   talentBodyData.add(selectPansSize?.id ?? 0);
+    // }
+    // if(selectShirtSize != null){
+    //   talentBodyData.add(selectShirtSize?.id ?? 0);
+    // }
+    // if(selectShoeSize != null){
+    //   talentBodyData.add(selectShoeSize?.id ?? 0);
+    // }
     AppLogger.logD("Body data $talentBodyData");
     return true;
 
