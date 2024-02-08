@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +72,6 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           children: [
                             const SettingButtonWidget(),
                             Text(
-                              //  "Hello, Michal",
                               "${context.loc.helloUserName} ${Preference().getUserName()}",
                               style: StyleUtility.kantumruyProSMedium18TextStyle
                                   .copyWith(

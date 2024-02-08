@@ -97,8 +97,12 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
     youtubeLinkController.text = talentProfile?.youtubelink ?? "";
     birthdayController.text = talentProfile?.dateofbirth ?? "";
 
-    selectGender = genderList.firstWhere((gender) =>
+    try{
+      selectGender = genderList.firstWhere((gender) =>
         gender.value.toString() == talentProfile?.gender.toString());
+    }catch(e){
+        AppLogger.logD(e.toString());
+    }
 
     for (String item in talentProfile?.lookingFor ?? []) {
       genreModel.add(item);

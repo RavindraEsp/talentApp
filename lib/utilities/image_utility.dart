@@ -16,6 +16,7 @@ class ImageUtility {
   static const String helloTalentBgImage = 'assets/images/hello_talent_bg.png';
 
   static const String dummyProfileImage = 'assets/images/dummy_profile.png';
+  static const String dummyUserImage = 'assets/images/dummy_user.png';
   static const String dummyAppliedUserImage =
       'assets/images/dummy_applied_user_image.png';
   static const String dummyAppliedUserImage2 =

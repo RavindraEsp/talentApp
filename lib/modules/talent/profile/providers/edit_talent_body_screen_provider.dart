@@ -57,42 +57,6 @@ class EditTalentBodyScreenProvider extends ChangeNotifier {
     });
 
 
-
-    // //set eye color
-    // talentBodyResponseModel.data!.eyeColorArr?.forEach((element) {
-    //   if(element.value == true){
-    //     selectEyeColor = element;
-    //   }
-    // });
-    //
-    // //set hair color
-    // talentBodyResponseModel.data!.hairColorArr?.forEach((element) {
-    //   if(element.value == true){
-    //     selectHairColor = element;
-    //   }
-    // });
-    //
-    // //set shirt size
-    // talentBodyResponseModel.data!.shirtSizeArr?.forEach((element) {
-    //   if(element.value == true){
-    //     selectShirtSize = element;
-    //   }
-    // });
-    //
-    // //set Paints size
-    // talentBodyResponseModel.data!.pantSizeArr?.forEach((element) {
-    //   if(element.value == true){
-    //     selectPansSize = element;
-    //   }
-    // });
-    //
-    // //set Shoe size
-    // talentBodyResponseModel.data!.shoeSizeArr?.forEach((element) {
-    //   if(element.value == true){
-    //     selectShoeSize = element;
-    //   }
-    // });
-
   }
 
 
@@ -107,24 +71,6 @@ class EditTalentBodyScreenProvider extends ChangeNotifier {
 
     });
 
-
-
-    // if(selectEyeColor != null){
-    //   talentBodyData.add(selectEyeColor?.id ?? 0);
-    // }
-    // if(selectHairColor != null){
-    //   talentBodyData.add(selectHairColor?.id ?? 0);
-    // }
-    //
-    // if(selectPansSize != null){
-    //   talentBodyData.add(selectPansSize?.id ?? 0);
-    // }
-    // if(selectShirtSize != null){
-    //   talentBodyData.add(selectShirtSize?.id ?? 0);
-    // }
-    // if(selectShoeSize != null){
-    //   talentBodyData.add(selectShoeSize?.id ?? 0);
-    // }
     AppLogger.logD("Body data $talentBodyData");
     return true;
 

@@ -135,7 +135,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Image.asset(
-                                        ImageUtility.dummyProfileImage,
+                                        ImageUtility.dummyUserImage,
                                         width: 43.w,
                                         height: 43.w,
                                       ),
