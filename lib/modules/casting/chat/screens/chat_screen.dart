@@ -58,10 +58,7 @@ class ChatScreenState extends State<ChatScreen> {
     // TODO: implement initState
     super.initState();
     AppLogger.logD('Init called');
-
-
     //dummy
-
 
     final Map<String, dynamic> data = {
       "ticket_id": 1,
@@ -76,10 +73,6 @@ class ChatScreenState extends State<ChatScreen> {
     AppLogger.logD("data is encode => ");
     AppLogger.logD(jsonEncode(data));
     //
-
-
-
-  //  jsonDecode("data");
 
     try {
       socket = IO.io(

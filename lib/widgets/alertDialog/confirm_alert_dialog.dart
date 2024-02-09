@@ -19,7 +19,8 @@ class ConfirmAlertDialog extends StatelessWidget {
     super.key,
     required this.onYesTap,
     this.title,
-    this.buttonText, this.userType,
+    this.buttonText,
+    this.userType,
   });
 
   @override
@@ -74,7 +75,7 @@ class ConfirmAlertDialog extends StatelessWidget {
                   children: [
                     Expanded(
                         child: CustomOutlineButton(
-                          //  buttonText: "No",
+                            //  buttonText: "No",
                             buttonText: context.loc.buttonNo,
                             onTap: () {
                               Navigator.pop(context);
@@ -83,12 +84,13 @@ class ConfirmAlertDialog extends StatelessWidget {
                     SizedBox(
                       width: 12.w,
                     ),
-
                     Expanded(
                       child: CustomButton(
                           buttonText: context.loc.buttonYes,
-                        //  buttonType: ButtonType.yellow,
-                          buttonType:  userType == UserType.talent ? ButtonType.blue: ButtonType.yellow,
+                          //  buttonType: ButtonType.yellow,
+                          buttonType: userType == UserType.talent
+                              ? ButtonType.blue
+                              : ButtonType.yellow,
                           onTap: () {
                             Navigator.pop(context);
                             onYesTap();

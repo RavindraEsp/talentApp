@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,7 +90,6 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                 //   fit: BoxFit.fill,
                 // )
 
-
                 ClipOval(
                   child: CachedNetworkImage(
                       width: 100.sp,
@@ -111,47 +109,51 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
                 ),
 
-
                 // Positioned(
                 //   bottom: 10.sp,
                 //   left: 187.w,
-                //   child: Container(
-                //    //margin: EdgeInsets.only(bottom:10.sp,left: 100.sp),
-                //     padding: EdgeInsets.only(right:15.sp,left: 65.sp),
+                //   child: GestureDetector(
+                //     onTap: (){
+                //       boastBottomSheet();
+                //     },
+                //     child: Container(
+                //      //margin: EdgeInsets.only(bottom:10.sp,left: 100.sp),
+                //       padding: EdgeInsets.only(right:15.sp,left: 65.sp),
                 //
-                //     decoration: BoxDecoration(
-                //       gradient: const LinearGradient(
-                //           colors:[
-                //             ColorUtility.colorFAD175,
-                //             ColorUtility.colorDD4F4F,
-                //             ColorUtility.colorE24848,
+                //       decoration: BoxDecoration(
+                //         gradient: const LinearGradient(
+                //             colors:[
+                //               ColorUtility.colorFAD175,
+                //               ColorUtility.colorDD4F4F,
+                //               ColorUtility.colorE24848,
                 //
-                //           ]
-                //              ),
-                //       borderRadius: BorderRadius.only(
-                //           topRight: Radius.circular(30.r),
-                //           bottomRight: Radius.circular(30.r),
-                //       )
-                //     ),
-                //     height: 32.sp,
-                //     child: Row(
-                //       mainAxisSize: MainAxisSize.min,
-                //       children: [
-                //         Icon(Icons.ac_unit,color: Colors.white,
-                //         size: 20.sp,),
-                //
-                //         Padding(
-                //           padding:  EdgeInsets.only(left: 7.w),
-                //           child: Text("5/20",style: StyleUtility.buttonTextStyle.copyWith(
-                //             fontSize: TextSizeUtility.textSize14.sp
-                //           ),),
+                //             ]
+                //                ),
+                //         borderRadius: BorderRadius.only(
+                //             topRight: Radius.circular(30.r),
+                //             bottomRight: Radius.circular(30.r),
                 //         )
-                //       ],
+                //       ),
+                //       height: 32.sp,
+                //       child: Row(
+                //         mainAxisSize: MainAxisSize.min,
+                //         children: [
+                //           Icon(Icons.ac_unit,color: Colors.white,
+                //           size: 20.sp,),
+                //
+                //           Padding(
+                //             padding:  EdgeInsets.only(left: 7.w),
+                //             child: Text(
+                //               "5/20",
+                //               style: StyleUtility.buttonTextStyle.copyWith(
+                //               fontSize: TextSizeUtility.textSize14.sp
+                //             ),),
+                //           )
+                //         ],
+                //       ),
                 //     ),
                 //   ),
                 // ),
-
-
               ],
             ),
             SizedBox(
@@ -224,7 +226,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
     );
   }
 
-  showBottomSheet() {
+  boastBottomSheet() {
     showModalBottomSheet<void>(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
@@ -244,7 +246,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                   Container(
                       alignment: Alignment.centerLeft,
                       child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pop(context);
                         },
                         child: Image.asset(

@@ -593,9 +593,9 @@ class _EducationListScreenState extends State<EducationListScreen> {
                           height: 35.h,
                         ),
                         CustomButton(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
                             buttonText: "Apply"),
                         SizedBox(
                           height: 20.h,
@@ -619,7 +619,13 @@ class EyeColor {
   String? talentName;
   bool isSelect = false;
 
-  EyeColor({this.id, this.talentId, this.name, this.datetime, this.talentName,required this.isSelect});
+  EyeColor(
+      {this.id,
+      this.talentId,
+      this.name,
+      this.datetime,
+      this.talentName,
+      required this.isSelect});
 
   EyeColor.fromJson(Map<String, dynamic> json) {
     id = json['id'];
