@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    prefcall();
+    prefCall();
   }
 
   Locale _appLocale = const Locale('en'); // Default to English
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  prefcall() async {
+  prefCall() async {
     await Preference().instance();
 
   }

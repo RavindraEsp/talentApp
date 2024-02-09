@@ -79,7 +79,8 @@ class ChatScreenState extends State<ChatScreen> {
 
 
 
-    jsonDecode("data");
+  //  jsonDecode("data");
+
     try {
       socket = IO.io(
           'https://fusiongrid.dev:8010',
