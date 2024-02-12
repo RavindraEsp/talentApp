@@ -94,43 +94,11 @@ class CreateAuditionProvider extends ChangeNotifier {
 
 
 
-    // List<EyeColor>? selectedEyeColors =
-    //     eyeColorModel?.where((eyeColor) => eyeColor.isSelect == true).toList();
-    // List<EyeColor>? selectedHairColor = hairColorModel
-    //     ?.where((hairColor) => hairColor.isSelect == true)
-    //     .toList();
-    // List<EyeColor>? selectedPansSize =
-    //     painsSizeModel?.where((pansSize) => pansSize.isSelect == true).toList();
-    // List<EyeColor>? selectedShirtSize = shirtSizeModel
-    //     ?.where((shirtSize) => shirtSize.isSelect == true)
-    //     .toList();
-    // List<EyeColor>? selectedShoeSize =
-    //     shoeSizeModel?.where((shoeSize) => shoeSize.isSelect == true).toList();
-    //
-    // // Get a list of ids from selectedEyeColors
-    //
-    // List<int>? selectedEyeIds =
-    //     selectedEyeColors?.map((eyeColor) => eyeColor.id ?? 0).toList();
-    // List<int>? selectedHairColorIds =
-    //     selectedHairColor?.map((hairColor) => hairColor.id ?? 0).toList();
-    // List<int>? selectedPansSizeIds =
-    //     selectedPansSize?.map((pansSize) => pansSize.id ?? 0).toList();
-    // List<int>? selectedShirtSizeIds =
-    //     selectedShirtSize?.map((shirtSize) => shirtSize.id ?? 0).toList();
-    // List<int>? selectedShoeSizeIds =
-    //     selectedShoeSize?.map((shoeSize) => shoeSize.id ?? 0).toList();
-    //
-    // // Add each list to the mergedList using addAll or the + operator
-    //
-    // auditionTalentAllData = [];
+
     selectedLookingForIds = [];
 
 
-    // auditionTalentAllData.addAll(selectedEyeIds ?? []);
-    // auditionTalentAllData.addAll(selectedHairColorIds ?? []);
-    // auditionTalentAllData.addAll(selectedPansSizeIds ?? []);
-    // auditionTalentAllData.addAll(selectedShirtSizeIds ?? []);
-    // auditionTalentAllData.addAll(selectedShoeSizeIds ?? []);
+
 
     List<LookingFor>? selectedLookingFor = lookingForModel
         ?.where((lookingFor) => lookingFor.isSelect == true)
@@ -139,11 +107,6 @@ class CreateAuditionProvider extends ChangeNotifier {
     selectedLookingForIds =
         selectedLookingFor?.map((lookingFo) => lookingFo.id ?? 0).toList();
 
-
-
-   // List<int>? ids = lookingForModel
-   //     ?.where((lookingFor) => lookingFor.isSelect == true).map((e) => e.id)
-   //     .toList();
 
 
 

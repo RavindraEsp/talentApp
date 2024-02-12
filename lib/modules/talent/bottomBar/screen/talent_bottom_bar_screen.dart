@@ -9,6 +9,8 @@ import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
 import 'package:talent_app/modules/casting/notification/notification_provider.dart';
 import 'package:talent_app/modules/casting/notification/notification_screen.dart';
 import 'package:talent_app/modules/casting/profile/cast_profile_screen.dart';
+import 'package:talent_app/modules/talent/education/providers/education_list_screen_provider.dart';
+import 'package:talent_app/modules/talent/education/screens/education_list_screen.dart';
 import 'package:talent_app/modules/talent/home/providers/talent_home_screen_provider.dart';
 import 'package:talent_app/modules/talent/home/screen/talent_home_screen.dart';
 import 'package:talent_app/modules/talent/profile/providers/talent_profile_screen_provider.dart';
@@ -29,20 +31,14 @@ class TalentBottomBarScreen extends StatefulWidget {
 //class _BottomBarScreenState extends State<BottomBarScreen> {
 class _TalentBottomBarScreenState extends State {
   final List<Widget> _children = [
-    // const CastHomeScreen(),
-    // const NotificationScreen(),
-    // const ChatUserListScreen(),
-    // const CastProfileScreen(),
+
 
     ChangeNotifierProvider(
       create: (context) => TalentHomeScreenProvider(),
       child: const TalentHomeScreen(),
     ),
 
-    // Center(
-    //   child: Text("Home"),
-    // ),
-    //  const NotificationScreen(userType: UserType.talent),
+
 
     ChangeNotifierProvider(
       create: (context) => NotificationProvider(),
@@ -53,14 +49,15 @@ class _TalentBottomBarScreenState extends State {
 
     const ChatUserListScreen(userType: UserType.talent),
 
-    // Center(
-    //   child: Text("Home"),
-    // )
-
     ChangeNotifierProvider(
       create: (context) => TalentProfileScreenProvider(),
       child: const TalentProfileScreen(),
     ),
+
+    // ChangeNotifierProvider(
+    //   create: (context) => EducationListScreenProvider(),
+    //   child: const EducationListScreen(),
+    // ),
 
 
   ];

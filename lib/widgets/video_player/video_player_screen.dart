@@ -85,8 +85,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       color: Colors.white,
                     ),
                     Text(
-                     // context.loc.headerAudioPlayer,
-                      "Video Player",
+                      context.loc.headerVideoPlayer,
                       style: StyleUtility.kantumruyProSMedium18TextStyle
                           .copyWith(fontSize: TextSizeUtility.textSize18.sp),
                     ),

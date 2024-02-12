@@ -1,14 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
+import 'package:talent_app/modules/talent/education/model/fliter_list_response_model.dart';
+import 'package:talent_app/modules/talent/education/providers/education_list_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
-import 'package:talent_app/network/model/response/casterAudition/talent_data_response_model.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
-import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
+import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
+import 'package:talent_app/widgets/no_data_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/search_text_field.dart';
 
@@ -22,102 +29,23 @@ class EducationListScreen extends StatefulWidget {
 class _EducationListScreenState extends State<EducationListScreen> {
   TextEditingController searchController = TextEditingController();
 
-  List<EyeColor>? eyeColorModel = [
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "dancing",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Acting",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Infront of camera",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Reading",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Auditions",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Best practice",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    )
-  ];
+  @override
+  void initState() {
+    super.initState();
 
-  List<EyeColor>? levelModel = [
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Novice",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Advanced",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Experts",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-  ];
+    Provider.of<EducationListScreenProvider>(context, listen: false)
+        .getEducationList(onFailure: (message) {
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+      Common.showErrorToast(context, message);
+    });
 
-  List<EyeColor>? filterByModel = [
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Popular",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    ),
-    EyeColor(
-      id: 1,
-      talentId: 1,
-      name: "Recently added",
-      datetime: "date",
-      talentName: "sfsd",
-      isSelect: false,
-    )
-  ];
+    Provider.of<EducationListScreenProvider>(context, listen: false).filterList(
+        onFailure: (message) {
+      Common.showErrorToast(context, message);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +79,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                         //   color: Colors.white,
                         // ),
                         Text(
-                          'Education',
+                          context.loc.headerEducation,
                           style: StyleUtility.kantumruyProSMedium18TextStyle
                               .copyWith(
                                   fontSize: TextSizeUtility.textSize18.sp),
@@ -164,147 +92,257 @@ class _EducationListScreenState extends State<EducationListScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-            child: Row(
-              children: [
-                Expanded(
-                  child: SearchTextField(
-                      controller: searchController, hintText: "Search Courses"),
-                ),
-                SizedBox(
-                  width: 15.w,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    filterDialog(context: context);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: Colors.white,
-                    ),
-                    child: const Icon(
-                      Icons.filter,
-                      size: 22,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-                padding: EdgeInsets.only(bottom: 20.h, top: 15.h),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          left: 20.w, right: 20.w, bottom: 15.h),
-                      padding: EdgeInsets.all(10.w),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(
-                            width: 120.w,
-                            height: 100.w,
-                            child: Image.asset(
-                              ImageUtility.dummyAppliedUserImage,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "How to pass an audition  successfully",
-                                  style: StyleUtility
-                                      .quicksandRegularBlackTextStyle
-                                      .copyWith(
-                                    fontSize: TextSizeUtility.textSize16.sp,
+          Consumer<EducationListScreenProvider>(
+              builder: (context, educationListScreenProvider, child) {
+            return Expanded(
+              child: educationListScreenProvider.isLoading == true
+                  ? const Center(
+                      child: CustomCircularLoaderWidget(),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 20.w, right: 20.w, top: 20.h),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: SearchTextField(
+                                    controller: searchController,
+                                    hintText: context.loc.hintSearchCourses),
+                              ),
+                              SizedBox(
+                                width: 15.w,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (educationListScreenProvider
+                                          .filterLoading ==
+                                      false) {
+                                    filterDialog(
+                                        context: context,
+                                        filterData: educationListScreenProvider
+                                            .filterListResponseModel?.data,
+                                    educationListScreenProvider: educationListScreenProvider,
+
+                                    onApply: (){
+
+                                      educationListScreenProvider.isLoading = true;
+                                      educationListScreenProvider.notifyListeners();
+                                          AppLogger.logD("On Apply call");
+
+                                          educationListScreenProvider.getEducationList(onFailure: (message){
+
+                                            Common.showErrorSnackBar(context, message);
+
+                                          });
+                                    });
+                                  } else {
+                                    Common.showErrorSnackBar(
+                                        context, "Filter list not loaded");
+                                  }
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    color: Colors.white,
                                   ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                  child: const Icon(
+                                    Icons.filter,
+                                    size: 22,
+                                  ),
                                 ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageUtility.calenderVerifiedIcon,
-                                      width: 14.w,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      "Uploaded on 18/8/2023",
-                                      style: StyleUtility
-                                          .quicksandRegular8B8B8BTextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize13.sp),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      ImageUtility.clockIcon,
-                                      width: 14.w,
-                                      color: ColorUtility.color4FCC48,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(
-                                      width: 5.w,
-                                    ),
-                                    Text(
-                                      "09:00",
-                                      style: StyleUtility
-                                          .quicksandRegular8B8B8BTextStyle
-                                          .copyWith(
-                                              fontSize: TextSizeUtility
-                                                  .textSize13.sp),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        Expanded(
+                            child: (educationListScreenProvider
+                                            .educationListResponseModel
+                                            ?.data
+                                            ?.length ??
+                                        0) >
+                                    0
+                                ? ListView.builder(
+                                    padding: EdgeInsets.only(
+                                        bottom: 20.h, top: 15.h),
+                                    itemCount: educationListScreenProvider
+                                            .educationListResponseModel
+                                            ?.data
+                                            ?.length ??
+                                        0,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              left: 20.w,
+                                              right: 20.w,
+                                              bottom: 15.h),
+                                          padding: EdgeInsets.all(10.w),
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10.r),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              // SizedBox(
+                                              //   width: 120.w,
+                                              //   height: 100.w,
+                                              //   child: Image.asset(
+                                              //     ImageUtility.dummyAppliedUserImage,
+                                              //     fit: BoxFit.cover,
+                                              //   ),
+                                              // ),
+
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
+                                                child: CachedNetworkImage(
+                                                    width: 120.w,
+                                                    height: 100.w,
+                                                    fit: BoxFit.cover,
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        const Center(
+                                                            child:
+                                                                CircularProgressIndicator()),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        Container(
+                                                            color: Colors.grey,
+                                                            child: Center(
+                                                                child: Icon(
+                                                              Icons.error,
+                                                              size: 25.sp,
+                                                            ))),
+                                                    imageUrl:
+                                                        "${Endpoints.imageBaseUrl}${educationListScreenProvider.educationListResponseModel?.data?[index].thumbnailImage ?? ""}"),
+                                              ),
+
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      // "How to pass an audition  successfully",
+                                                      educationListScreenProvider
+                                                              .educationListResponseModel
+                                                              ?.data?[index]
+                                                              .title ??
+                                                          "",
+                                                      style: StyleUtility
+                                                          .quicksandRegularBlackTextStyle
+                                                          .copyWith(
+                                                        fontSize:
+                                                            TextSizeUtility
+                                                                .textSize16.sp,
+                                                      ),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Image.asset(
+                                                          ImageUtility
+                                                              .calenderVerifiedIcon,
+                                                          width: 14.w,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5.w,
+                                                        ),
+                                                        Text(
+                                                          // "Uploaded on 18/8/2023",
+                                                          "${context.loc.uploadedOn} ${educationListScreenProvider.educationListResponseModel?.data?[index].date ?? ""}",
+                                                          style: StyleUtility
+                                                              .quicksandRegular8B8B8BTextStyle
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      TextSizeUtility
+                                                                          .textSize13
+                                                                          .sp),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Image.asset(
+                                                          ImageUtility
+                                                              .clockIcon,
+                                                          width: 14.w,
+                                                          color: ColorUtility
+                                                              .color4FCC48,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5.w,
+                                                        ),
+                                                        Text(
+                                                          //"09:00",
+                                                          educationListScreenProvider
+                                                                  .educationListResponseModel
+                                                                  ?.data?[index]
+                                                                  .time ??
+                                                              "",
+
+                                                          style: StyleUtility
+                                                              .quicksandRegular8B8B8BTextStyle
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      TextSizeUtility
+                                                                          .textSize13
+                                                                          .sp),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    })
+                                : const NoDataWidget())
+                      ],
                     ),
-                  );
-                }),
-          )
+            );
+          }),
         ],
       ),
     );
   }
 
-  Future<dynamic> filterDialog({
-    required BuildContext context,
-  }) {
+  Future<dynamic> filterDialog(
+      {required BuildContext context, required Data? filterData,
+        required VoidCallback onApply,
+        required EducationListScreenProvider educationListScreenProvider
+      }) {
     return showDialog(
         context: context,
         builder: (
@@ -319,8 +357,6 @@ class _EducationListScreenState extends State<EducationListScreen> {
               clipBehavior: Clip.antiAliasWithSaveLayer,
               elevation: 0,
               backgroundColor: Colors.white,
-              // shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.all(Radius.circular(20.r))),
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
@@ -354,7 +390,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                             Container(
                               alignment: Alignment.center,
                               child: Text(
-                                "Filter",
+                                context.loc.titleFilter,
                                 textAlign: TextAlign.center,
                                 style: StyleUtility
                                     .quicksandRegularBlackTextStyle
@@ -383,7 +419,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
                           child: Text(
-                            "Subjects",
+                            context.loc.titleSubjects,
                             textAlign: TextAlign.center,
                             style: StyleUtility.quicksandSemiBold5457BETextStyle
                                 .copyWith(
@@ -393,67 +429,72 @@ class _EducationListScreenState extends State<EducationListScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          child: Wrap(
-                            children: [
-                              // for (var item in eyeColorModel!)
-                              for (var item in eyeColorModel!)
-                                GestureDetector(
-                                  onTap: () {
-                                    item.isSelect = !item.isSelect;
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                      margin: EdgeInsets.only(
-                                          right: 9.w, bottom: 13.h),
-                                      padding: EdgeInsets.only(
-                                          left: 15.sp,
-                                          right: 20.sp,
-                                          top: 9.sp,
-                                          bottom: 9.sp),
-                                      decoration: BoxDecoration(
-                                          color: item.isSelect == false
-                                              ? ColorUtility.colorWhite
-                                              : ColorUtility.colorEFF2F4,
-                                          borderRadius:
-                                              BorderRadius.circular(30.r),
-                                          border: Border.all(
-                                              color: ColorUtility.colorD3D6D6)),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            item.isSelect == false
-                                                ? ImageUtility.plusIcon
-                                                : ImageUtility.crossSelectIcon,
-                                            width: 5.w,
-                                            height: 5.w,
-                                          ),
-                                          SizedBox(
-                                            width: 5.w,
-                                          ),
-                                          Text(
-                                            item.name ?? "",
-                                            style: StyleUtility
-                                                .quicksandRegularBlackTextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ],
-                                      )),
-                                )
-                            ],
-                          ),
-                        ),
+                        (filterData!.subjects?.length ?? 0) > 0
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Wrap(
+                                  children: [
+                                    for (var item in filterData.subjects!)
+                                      GestureDetector(
+                                        onTap: () {
+                                          item.isSelect = !item.isSelect;
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                            margin: EdgeInsets.only(
+                                                right: 9.w, bottom: 13.h),
+                                            padding: EdgeInsets.only(
+                                                left: 15.sp,
+                                                right: 20.sp,
+                                                top: 9.sp,
+                                                bottom: 9.sp),
+                                            decoration: BoxDecoration(
+                                                color: item.isSelect == false
+                                                    ? ColorUtility.colorWhite
+                                                    : ColorUtility.colorEFF2F4,
+                                                borderRadius:
+                                                    BorderRadius.circular(30.r),
+                                                border: Border.all(
+                                                    color: ColorUtility
+                                                        .colorD3D6D6)),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  item.isSelect == false
+                                                      ? ImageUtility.plusIcon
+                                                      : ImageUtility
+                                                          .crossSelectIcon,
+                                                  width: 5.w,
+                                                  height: 5.w,
+                                                ),
+                                                SizedBox(
+                                                  width: 5.w,
+                                                ),
+                                                Text(
+                                                  item.name ?? "",
+                                                  style: StyleUtility
+                                                      .quicksandRegularBlackTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize14
+                                                                  .sp),
+                                                ),
+                                              ],
+                                            )),
+                                      )
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
                         SizedBox(height: 20.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
                           child: Text(
-                            "Levels",
+                            context.loc.titleLevels,
                             textAlign: TextAlign.center,
                             style: StyleUtility.quicksandSemiBold5457BETextStyle
                                 .copyWith(
@@ -463,67 +504,72 @@ class _EducationListScreenState extends State<EducationListScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          child: Wrap(
-                            children: [
-                              // for (var item in eyeColorModel!)
-                              for (var item in levelModel!)
-                                GestureDetector(
-                                  onTap: () {
-                                    item.isSelect = !item.isSelect;
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                      margin: EdgeInsets.only(
-                                          right: 9.w, bottom: 13.h),
-                                      padding: EdgeInsets.only(
-                                          left: 15.sp,
-                                          right: 20.sp,
-                                          top: 9.sp,
-                                          bottom: 9.sp),
-                                      decoration: BoxDecoration(
-                                          color: item.isSelect == false
-                                              ? ColorUtility.colorWhite
-                                              : ColorUtility.colorEFF2F4,
-                                          borderRadius:
-                                              BorderRadius.circular(30.r),
-                                          border: Border.all(
-                                              color: ColorUtility.colorD3D6D6)),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            item.isSelect == false
-                                                ? ImageUtility.plusIcon
-                                                : ImageUtility.crossSelectIcon,
-                                            width: 5.w,
-                                            height: 5.w,
-                                          ),
-                                          SizedBox(
-                                            width: 5.w,
-                                          ),
-                                          Text(
-                                            item.name ?? "",
-                                            style: StyleUtility
-                                                .quicksandRegularBlackTextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ],
-                                      )),
-                                )
-                            ],
-                          ),
-                        ),
+                        (filterData.levels?.length ?? 0) > 0
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Wrap(
+                                  children: [
+                                    for (var item in filterData.levels!)
+                                      GestureDetector(
+                                        onTap: () {
+                                          item.isSelect = !item.isSelect;
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                            margin: EdgeInsets.only(
+                                                right: 9.w, bottom: 13.h),
+                                            padding: EdgeInsets.only(
+                                                left: 15.sp,
+                                                right: 20.sp,
+                                                top: 9.sp,
+                                                bottom: 9.sp),
+                                            decoration: BoxDecoration(
+                                                color: item.isSelect == false
+                                                    ? ColorUtility.colorWhite
+                                                    : ColorUtility.colorEFF2F4,
+                                                borderRadius:
+                                                    BorderRadius.circular(30.r),
+                                                border: Border.all(
+                                                    color: ColorUtility
+                                                        .colorD3D6D6)),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  item.isSelect == false
+                                                      ? ImageUtility.plusIcon
+                                                      : ImageUtility
+                                                          .crossSelectIcon,
+                                                  width: 5.w,
+                                                  height: 5.w,
+                                                ),
+                                                SizedBox(
+                                                  width: 5.w,
+                                                ),
+                                                Text(
+                                                  item.name ?? "",
+                                                  style: StyleUtility
+                                                      .quicksandRegularBlackTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize14
+                                                                  .sp),
+                                                ),
+                                              ],
+                                            )),
+                                      )
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
                         SizedBox(height: 20.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
                           child: Text(
-                            "Filter by",
+                            context.loc.titleFilterBy,
                             textAlign: TextAlign.center,
                             style: StyleUtility.quicksandSemiBold5457BETextStyle
                                 .copyWith(
@@ -533,70 +579,85 @@ class _EducationListScreenState extends State<EducationListScreen> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          child: Wrap(
-                            children: [
-                              // for (var item in eyeColorModel!)
-                              for (var item in filterByModel!)
-                                GestureDetector(
-                                  onTap: () {
-                                    item.isSelect = !item.isSelect;
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                      margin: EdgeInsets.only(
-                                          right: 9.w, bottom: 13.h),
-                                      padding: EdgeInsets.only(
-                                          left: 15.sp,
-                                          right: 20.sp,
-                                          top: 9.sp,
-                                          bottom: 9.sp),
-                                      decoration: BoxDecoration(
-                                          color: item.isSelect == false
-                                              ? ColorUtility.colorWhite
-                                              : ColorUtility.colorEFF2F4,
-                                          borderRadius:
-                                              BorderRadius.circular(30.r),
-                                          border: Border.all(
-                                              color: ColorUtility.colorD3D6D6)),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            item.isSelect == false
-                                                ? ImageUtility.plusIcon
-                                                : ImageUtility.crossSelectIcon,
-                                            width: 5.w,
-                                            height: 5.w,
-                                          ),
-                                          SizedBox(
-                                            width: 5.w,
-                                          ),
-                                          Text(
-                                            item.name ?? "",
-                                            style: StyleUtility
-                                                .quicksandRegularBlackTextStyle
-                                                .copyWith(
-                                                    fontSize: TextSizeUtility
-                                                        .textSize14.sp),
-                                          ),
-                                        ],
-                                      )),
-                                )
-                            ],
-                          ),
-                        ),
+                        (filterData.filterby?.length ?? 0) > 0
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Wrap(
+                                  children: [
+                                    for (var item in filterData.filterby!)
+                                      GestureDetector(
+                                        onTap: () {
+                                          item.isSelect = !item.isSelect;
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                            margin: EdgeInsets.only(
+                                                right: 9.w, bottom: 13.h),
+                                            padding: EdgeInsets.only(
+                                                left: 15.sp,
+                                                right: 20.sp,
+                                                top: 9.sp,
+                                                bottom: 9.sp),
+                                            decoration: BoxDecoration(
+                                                color: item.isSelect == false
+                                                    ? ColorUtility.colorWhite
+                                                    : ColorUtility.colorEFF2F4,
+                                                borderRadius:
+                                                    BorderRadius.circular(30.r),
+                                                border: Border.all(
+                                                    color: ColorUtility
+                                                        .colorD3D6D6)),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  item.isSelect == false
+                                                      ? ImageUtility.plusIcon
+                                                      : ImageUtility
+                                                          .crossSelectIcon,
+                                                  width: 5.w,
+                                                  height: 5.w,
+                                                ),
+                                                SizedBox(
+                                                  width: 5.w,
+                                                ),
+                                                Text(
+                                                  item.name ?? "",
+                                                  style: StyleUtility
+                                                      .quicksandRegularBlackTextStyle
+                                                      .copyWith(
+                                                          fontSize:
+                                                              TextSizeUtility
+                                                                  .textSize14
+                                                                  .sp),
+                                                ),
+                                              ],
+                                            )),
+                                      )
+                                  ],
+                                ),
+                              )
+                            : const SizedBox(),
                         SizedBox(
                           height: 35.h,
                         ),
                         CustomButton(
                             onTap: () {
+
+                              educationListScreenProvider.getIds();
+                              // if(educationListScreenProvider.subjectsIds.isNotEmpty ||
+                              //     educationListScreenProvider.levelsIds.isNotEmpty ||
+                              //     educationListScreenProvider.filterIds.isNotEmpty){
+                              //   Navigator.pop(context);
+                              //   onApply.call();
+                              // }
                               Navigator.pop(context);
+                                 onApply.call();
+
                             },
-                            buttonText: "Apply"),
+                            buttonText: context.loc.buttonApply),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -608,40 +669,5 @@ class _EducationListScreenState extends State<EducationListScreen> {
             );
           });
         }).then((value) {});
-  }
-}
-
-class EyeColor {
-  int? id;
-  int? talentId;
-  String? name;
-  String? datetime;
-  String? talentName;
-  bool isSelect = false;
-
-  EyeColor(
-      {this.id,
-      this.talentId,
-      this.name,
-      this.datetime,
-      this.talentName,
-      required this.isSelect});
-
-  EyeColor.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    talentId = json['talentId'];
-    name = json['name'];
-    datetime = json['datetime'];
-    talentName = json['talentName'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['talentId'] = this.talentId;
-    data['name'] = this.name;
-    data['datetime'] = this.datetime;
-    data['talentName'] = this.talentName;
-    return data;
   }
 }

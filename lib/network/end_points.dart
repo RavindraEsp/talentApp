@@ -59,4 +59,7 @@ class ApiEndPoints {
   String get  getEditTalentBodyNew => "get/getEditTalentBodyNew";
   String get  deleteProfileFiles => "auth/deleteProfilefiles";
   String get  deleteDeniedAudition => "auth/deletedeniedAudition";
+  String get  getEducationContent => "auth/getEducationContent";
+
+  String get  getEducationFilters => "get/getEducationFilters";
 }

@@ -140,11 +140,6 @@ class EditAuditionScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // -- select all btn click
-  selectAll(item) {
-    item.isSelect = true;
-    notifyListeners();
-  }
 
   List<int> auditionTalentAllData = [];
   bool getAllValue() {

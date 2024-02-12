@@ -83,6 +83,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                     ),
                   ),
                 ),
+
                 // Image.asset(
                 //   ImageUtility.dummyProfileImage,
                 //   width: 100.sp,
@@ -104,8 +105,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                             Icons.error,
                             size: 25.sp,
                           ))),
-                      // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                      imageUrl:
+                    imageUrl:
                           "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
                 ),
 
