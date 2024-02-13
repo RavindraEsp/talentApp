@@ -14,6 +14,7 @@ import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/constants.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/chat_button.dart';
@@ -218,7 +219,10 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                       Navigator.pushNamed(
                                           context, RouteName.chatScreen,
                                           arguments: {
-                                            "userType": UserType.cast
+                                            "userType": UserType.cast,
+                                            "receiverId":widget.telentUserId,
+                                            "roomId":"${Preference().getUserId()}${widget.telentUserId}",
+                                            "title":provider.talantUserProfileModel?.data?.first.name ?? ""
                                           });
                                     }),
                                 SizedBox(

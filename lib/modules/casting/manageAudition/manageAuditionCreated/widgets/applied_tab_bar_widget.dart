@@ -10,6 +10,7 @@ import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/chat_button.dart';
@@ -267,7 +268,14 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                                               icon: ImageUtility.messageNavIcon,
                                               onTap: () {
                                                 Navigator.pushNamed(context,
-                                                    RouteName.chatScreen);
+                                                    RouteName.chatScreen,
+                                                  arguments: {
+                                                    "userType": UserType.cast,
+                                                    "receiverId":provider.appliedUser?.talentUserId,
+                                                    "roomId":"${Preference().getUserId()}${provider.appliedUser?.talentUserId}",
+                                                    "title":provider.appliedUser?.username ?? ""
+                                                  }
+                                                );
                                               }),
                                           SizedBox(
                                             height: 35.h,

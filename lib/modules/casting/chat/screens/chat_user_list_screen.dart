@@ -101,7 +101,20 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                       Navigator.pushNamed(context,
                           RouteName.chatScreen,
                       arguments: {
-                        "userType":widget.userType
+                        // "userType":widget.userType,
+                        // "receiverId":0,
+                        // "roomCasterId":0,
+                        // "title":"List user",
+
+                        "userType":widget.userType,
+                        "receiverId":22,
+                        "roomId":"2242",
+                        "title":"List user",
+
+
+
+                      //  {receiverId: 42, senderId: 22, roomCasterId: 22}
+
                       });
                     },
                     child: Padding(

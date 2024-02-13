@@ -16,6 +16,7 @@ class Preference {
   }
 
   static const String userName = "userName";
+  static const String userId = "userId";
   static const String _accessToken = "accessToken";
   static const String _profileImage = "profileImage";
   static const String _userLogin = "userLogin";
@@ -28,6 +29,15 @@ class Preference {
   String getUserName() {
     return _pref?.getString(userName) ?? "";
   }
+
+  static setUserId(int value) async {
+    _pref?.setInt(userId, value);
+  }
+  int getUserId() {
+    return _pref?.getInt(userId) ?? 0;
+  }
+
+
   static setUserLogin(bool value) async {
     _pref?.setBool(_userLogin, value);
   }

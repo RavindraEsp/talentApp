@@ -2,116 +2,60 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
+import 'package:talent_app/modules/casting/chat/model/chat_msg_response_model.dart';
+import 'package:talent_app/modules/casting/chat/provider/chat_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-
 class ChatScreen extends StatefulWidget {
   final UserType userType;
+  final int receiverId;
+  final String roomId;
+  final String title;
 
-  const ChatScreen({Key? key, required this.userType}) : super(key: key);
+  const ChatScreen(
+      {Key? key,
+      required this.userType,
+      required this.receiverId,
+      required this.roomId,
+      required this.title})
+      : super(key: key);
 
   @override
   ChatScreenState createState() => ChatScreenState();
 }
 
 class ChatScreenState extends State<ChatScreen> {
-  TextEditingController textEditingController = TextEditingController();
-  late String senderMessage, receiverMessage;
-  ScrollController scrollController = ScrollController();
-
-  Future<void> scrollAnimation() async {
-    return await Future.delayed(
-        const Duration(milliseconds: 100),
-        () => scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.linear));
-  }
-
-  List<MessageData> messageList = [
-    MessageData(true, "Hello 1"),
-    MessageData(true, "Hello How are You "),
-    MessageData(false, "I am fine.Thank you"),
-    MessageData(true, "Ok Good"),
-  ];
-
-  IO.Socket? socket;
-
-  @override
-  void dispose() {
-    socket?.disconnect();
-    super.dispose();
-  }
+  ChatScreenProvider? chatScreenProvider;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    AppLogger.logD('Init called');
-    //dummy
+    AppLogger.logD('Receiver id  ${widget.receiverId}');
+    AppLogger.logD('user id  ${Preference().getUserId()}');
+    AppLogger.logD('roomCasterId   ${widget.roomId}');
 
-    final Map<String, dynamic> data = {
-      "ticket_id": 1,
-      "sender": 2,
-      "receiver": 0,
-      "message": "msg",
-    };
+    chatScreenProvider = Provider.of(context, listen: false);
 
-    AppLogger.logD("data is => ");
-    AppLogger.logD(data);
+    chatScreenProvider?.connectAndListenChatSocket(
+        receiverId: widget.receiverId, roomId: widget.roomId);
+  }
 
-    AppLogger.logD("data is encode => ");
-    AppLogger.logD(jsonEncode(data));
-    //
-
-    try {
-      socket = IO.io(
-          'https://fusiongrid.dev:8010',
-          IO.OptionBuilder()
-              .setTransports(['websocket'])
-              .enableAutoConnect()
-              .enableForceNewConnection()
-              .enableReconnection()
-              .build());
-
-      socket?.onConnect((_) {
-        AppLogger.logD('connect');
-        socket?.emit('msg', 'test');
-      });
-      socket?.on('event', (data) => AppLogger.logD(data));
-      socket?.onDisconnect((_) => AppLogger.logD('disconnect'));
-      socket?.on('fromServer', (_) => AppLogger.logD(_));
-
-      socket?.onConnectError((data) {
-        AppLogger.logD("Error 1 onConnectError");
-        AppLogger.logD("data is  2 $data");
-      });
-
-      socket?.onConnectTimeout((data) {
-        AppLogger.logD("Error 2 onConnectTimeout");
-      });
-
-      socket?.onConnecting((data) {
-        AppLogger.logD("Error 3 onConnecting");
-      });
-
-      socket?.onError((data) {
-        AppLogger.logD("Error 4 onError");
-        AppLogger.logD("data is 4 $data");
-      });
-    } catch (e) {
-      AppLogger.logD(e.toString());
-    }
+  @override
+  void dispose() {
+    chatScreenProvider?.socket?.disconnect();
+    super.dispose();
   }
 
   @override
@@ -147,20 +91,34 @@ class ChatScreenState extends State<ChatScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SettingButtonWidget(),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const BackButton(
-                          color: Colors.white,
-                        ),
-                        Text(
-                          "Nichaela Cohoen",
-                          overflow: TextOverflow.ellipsis,
-                          style: StyleUtility.kantumruyProSMedium18TextStyle
-                              .copyWith(
-                                  fontSize: TextSizeUtility.textSize18.sp),
-                        ),
-                      ],
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+
+                        mainAxisAlignment: MainAxisAlignment.center, // Center the elements in the Row
+
+
+
+                        children: [
+                          const BackButton(
+                            color: Colors.white,
+                          ),
+                          Container(
+                            constraints: BoxConstraints(
+                              maxWidth: 180.w
+                            ),
+                            child: Text(
+                              widget.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: StyleUtility.kantumruyProSMedium18TextStyle
+                                  .copyWith(
+                                      fontSize: TextSizeUtility.textSize18.sp),
+                             // textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     widget.userType == UserType.cast
                         ? const MenuButtonWidget()
@@ -171,116 +129,106 @@ class ChatScreenState extends State<ChatScreen> {
             ),
           ),
           Expanded(
-              child: ChatListView(
-            scrollController: scrollController,
-            messageList: messageList,
-          )),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: ColorUtility.colorWhite,
-                borderRadius: BorderRadius.all(Radius.circular(10.r))),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: 10.w,
-                ),
-                Expanded(
-                  child: TextFormField(
-                    controller: textEditingController,
-                    cursorColor: Colors.white,
-                    keyboardType: TextInputType.multiline,
-                    minLines: 1,
-                    maxLines: 6,
-                    style: StyleUtility.inputTextStyle
-                        .copyWith(fontSize: TextSizeUtility.textSize14.sp),
-                    decoration: InputDecoration(
-                      hintText: context.loc.hintSentAMessage,
-                      hintStyle: StyleUtility.hintTextStyle
-                          .copyWith(fontSize: TextSizeUtility.textSize14.sp),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
+            child: Consumer<ChatScreenProvider>(
+                builder: (context, provider, child) {
+              return provider.loading == true
+                  ? const CustomCircularLoaderWidget()
+                  : Column(
+                      children: [
+                        Expanded(
+                            child: ChatListView(
+                          scrollController: provider.scrollController,
+                          //  messageList: messageList,
+                          messageList:
+                              provider.chatMsgResponseModel?.chatHistory,
+                        )),
+                        Container(
+                          height: 50,
+                          margin: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: ColorUtility.colorWhite,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.r))),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: provider.textEditingController,
+                                  cursorColor: Colors.white,
+                                  keyboardType: TextInputType.multiline,
+                                  minLines: 1,
+                                  maxLines: 6,
+                                  style: StyleUtility.inputTextStyle.copyWith(
+                                      fontSize: TextSizeUtility.textSize14.sp),
+                                  decoration: InputDecoration(
+                                    hintText: context.loc.hintSentAMessage,
+                                    hintStyle: StyleUtility.hintTextStyle
+                                        .copyWith(
+                                            fontSize:
+                                                TextSizeUtility.textSize14.sp),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
 
-                Container(
-                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                  child: Center(
-                    child: SizedBox(
-                      width: 21.w,
-                      child: Image.asset(ImageUtility.cameraIcon),
-                    ),
-                  ),
-                ),
+                              // Container(
+                              //   padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                              //   child: Center(
+                              //     child: SizedBox(
+                              //       width: 21.w,
+                              //       child: Image.asset(ImageUtility.cameraIcon),
+                              //     ),
+                              //   ),
+                              // ),
+                              //
+                              // Padding(
+                              //   padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                              //   child: Center(
+                              //     child: SizedBox(
+                              //       width: 13.w,
+                              //       child: Image.asset(ImageUtility.micIcon),
+                              //     ),
+                              //   ),
+                              // ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (provider
+                                      .textEditingController.text.isNotEmpty) {
+                                    provider.sendMessage(provider
+                                        .textEditingController.text
+                                        .trim());
 
-                Padding(
-                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                  child: Center(
-                    child: SizedBox(
-                      width: 13.w,
-                      child: Image.asset(ImageUtility.micIcon),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      messageList
-                          .add(MessageData(true, textEditingController.text));
-                      textEditingController.clear();
-                      scrollAnimation();
-                    });
-                  },
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: ColorUtility.color5457BE,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.r))),
-                      child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 5.sp, bottom: 5.sp, left: 10, right: 10),
-                          child: Image.asset(ImageUtility.sendMsgIcon))),
-                ),
+                                      provider.textEditingController.clear();
+                                      provider.scrollAnimation();
 
-                //
-                // Container(
-                //   margin: const EdgeInsets.only(
-                //       left: 8.0, right: 8.0, bottom: 11.0),
-                //   child: Container(
-                //     color: Colors.grey,
-                //     child: Padding(
-                //       padding: const EdgeInsets.only(bottom: 5.0),
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           setState(() {
-                //             messageList.add(
-                //                 MessageData(true, textEditingController.text));
-                //             textEditingController.clear();
-                //             scrollAnimation();
-                //           });
-                //         },
-                //         onLongPress: () {
-                //           setState(() {
-                //             messageList.add(
-                //                 MessageData(false, textEditingController.text));
-                //             textEditingController.clear();
-                //             scrollAnimation();
-                //           });
-                //         },
-                //         child: const Icon(
-                //           Icons.send,
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
-          ),
+                                  }
+                                },
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        color: ColorUtility.color5457BE,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.r))),
+                                    child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 5.sp,
+                                            bottom: 5.sp,
+                                            left: 10,
+                                            right: 10),
+                                        child: Image.asset(
+                                            ImageUtility.sendMsgIcon))),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+            }),
+          )
         ],
       ),
     );
@@ -288,7 +236,8 @@ class ChatScreenState extends State<ChatScreen> {
 }
 
 class ChatListView extends StatelessWidget {
-  List<MessageData> messageList;
+  // List<MessageData> messageList;
+  List<ChatHistory>? messageList;
 
   ScrollController scrollController;
 
@@ -301,13 +250,15 @@ class ChatListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      controller: scrollController,
-      itemCount: messageList.length,
-      itemBuilder: (context, index) => (messageList[index].isSender)
-          ? SenderRowView(senderMessage: messageList[index].message)
-          : ReceiverRowView(receiverMessage: messageList[index].message),
-    );
+        physics: const BouncingScrollPhysics(),
+        controller: scrollController,
+        itemCount: messageList?.length ?? 0,
+        itemBuilder: (context, index) {
+          return (messageList?[index].senderId == Preference().getUserId())
+              ? SenderRowView(senderMessage: messageList?[index].message ?? "")
+              : ReceiverRowView(
+                  receiverMessage: messageList?[index].message ?? "");
+        });
   }
 }
 

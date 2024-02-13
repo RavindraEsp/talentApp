@@ -21,6 +21,7 @@ class CastLoginProvider extends ChangeNotifier {
         Preference.setProfileImage(value.data?.profilePic ?? "");
         Preference.setAccessToken(value.data?.jwtToken ?? "");
         Preference.setUserName(value.data?.userName ?? "");
+        Preference.setUserId(value.data?.id ?? 0);
 
         if (userType == UserType.cast) {
           Preference.setUserType(2);
