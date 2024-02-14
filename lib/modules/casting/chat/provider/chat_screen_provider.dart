@@ -121,6 +121,13 @@ class ChatScreenProvider extends ChangeNotifier{
 
       socket?.on("message", (data) {
         AppLogger.logD("on message =>");
+
+        final Map mapData = data as Map;
+
+
+        AppLogger.logD("message is ${data["text"]["message"].toString()}");
+        AppLogger.logD("message data is  ${mapData}");
+
         chatMsgResponseModel?.chatHistory?.add(ChatHistory(
             id: data["text"]["id"],
             auditionId: data["text"]["auditionId"],
@@ -131,12 +138,6 @@ class ChatScreenProvider extends ChangeNotifier{
             datetime: data["text"]["datetime"]));
 
         scrollAnimation();
-
-        final Map mapData = data as Map;
-
-
-        AppLogger.logD("message is ${data["text"]["message"]}");
-        AppLogger.logD("message data is  ${mapData}");
 
         notifyListeners();
       });

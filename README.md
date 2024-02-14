@@ -46,5 +46,5 @@ careerModel => category [1,2,3]
 
 socket_io_client: ^2.0.3+1
 
-
+chat from caster app detail screen then roomId = castId+talentId
 
