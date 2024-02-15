@@ -253,8 +253,8 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                                               Navigator.pushNamed(context,
                                                   RouteName.seeUserProfileScreen,
                                                   arguments: {
-                                                    "telentUserId":
-                                                    provider.appliedUser?.talentUserId
+                                                    "telentUserId": provider.appliedUser?.talentUserId,
+                                                    "roomId": provider.appliedUser?.roomId,
                                                   });
                                             },
                                             buttonColor: ColorUtility.color5457BE,
@@ -272,7 +272,8 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                                                   arguments: {
                                                     "userType": UserType.cast,
                                                     "receiverId":provider.appliedUser?.talentUserId,
-                                                    "roomId":"${Preference().getUserId()}${provider.appliedUser?.talentUserId}",
+                                                  //  "roomId":"${Preference().getUserId()}${provider.appliedUser?.talentUserId}",
+                                                    "roomId":provider.appliedUser?.roomId,
                                                     "title":provider.appliedUser?.username ?? ""
                                                   }
                                                 );

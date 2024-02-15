@@ -59,7 +59,7 @@ class CastProfileProvider extends ChangeNotifier {
     })
         .onError((error, stackTrace) {
       AppLogger.logD("error $error");
-      onFailure.call("Server Error");
+      onFailure.call(error.toString());
       isLoading = false;
       notifyListeners();
 
@@ -178,7 +178,7 @@ if(logoImage !=null){
       }
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
-      onFailure.call("Server Error");
+      onFailure.call(error.toString());
     });
 
 

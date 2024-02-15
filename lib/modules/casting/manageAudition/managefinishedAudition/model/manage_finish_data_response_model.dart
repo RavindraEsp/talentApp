@@ -66,12 +66,14 @@ class Candidates {
   int? status;
   int? viewapplystatus;
   String? username;
+  String? fullname;
   String? height;
-  String? weight;
+  var weight;
   String? profilePic;
-  String? gender;
+  int? gender;
   String? address;
   String? age;
+  String? roomId;
   bool? entant;
   bool? accepted;
 
@@ -83,12 +85,14 @@ class Candidates {
       this.status,
       this.viewapplystatus,
       this.username,
+      this.fullname,
       this.height,
       this.weight,
       this.profilePic,
       this.gender,
       this.address,
       this.age,
+      this.roomId,
       this.entant,
       this.accepted});
 
@@ -100,12 +104,14 @@ class Candidates {
     status = json['status'];
     viewapplystatus = json['viewapplystatus'];
     username = json['username'];
+    fullname = json['fullname'];
     height = json['Height'];
     weight = json['Weight'];
     profilePic = json['profilePic'];
     gender = json['Gender'];
     address = json['Address'];
     age = json['Age'];
+    roomId = json['roomId'];
     entant = json['entant'];
     accepted = json['accepted'];
   }
@@ -119,12 +125,14 @@ class Candidates {
     data['status'] = this.status;
     data['viewapplystatus'] = this.viewapplystatus;
     data['username'] = this.username;
+    data['fullname'] = this.fullname;
     data['Height'] = this.height;
     data['Weight'] = this.weight;
     data['profilePic'] = this.profilePic;
     data['Gender'] = this.gender;
     data['Address'] = this.address;
     data['Age'] = this.age;
+    data['roomId'] = this.roomId;
     data['entant'] = this.entant;
     data['accepted'] = this.accepted;
     return data;

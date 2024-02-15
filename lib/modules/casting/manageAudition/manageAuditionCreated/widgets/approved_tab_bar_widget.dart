@@ -184,7 +184,9 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                           arguments: {
                                                             "telentUserId":
                                                                 userList
-                                                                    ?.talentUserId
+                                                                    ?.talentUserId,
+                                                            "roomId":userList
+                                                                ?.roomId,
                                                           });
                                                     },
                                                     child: Row(
@@ -254,7 +256,7 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                                                         .start,
                                                                 children: [
                                                                   Text(
-                                                                    userList?.username ??
+                                                                    userList?.fullname ??
                                                                         "",
                                                                     style: StyleUtility
                                                                         .quicksandSemiBoldBlackTextStyle
@@ -341,11 +343,11 @@ class ApprovedTabBarWidget extends StatelessWidget {
 
                                                                     userList?.gender ==
                                                                             1
-                                                                        ? "Male"
+                                                                        ? context.loc.male
                                                                         : userList?.gender ==
                                                                                 2
-                                                                            ? "Female"
-                                                                            : "Other",
+                                                                            ? context.loc.female
+                                                                            : context.loc.other,
                                                                     maxLines: 1,
                                                                     style: StyleUtility
                                                                         .quicksandRegular8B8B8BTextStyle

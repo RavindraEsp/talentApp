@@ -55,6 +55,7 @@ class Data {
   String? name;
   String? firstName;
   String? lastName;
+  String? username;
   var govtId;
   String? age;
   List<String>? lookingFor;
@@ -85,6 +86,7 @@ class Data {
       this.name,
       this.firstName,
       this.lastName,
+      this.username,
       this.govtId,
       this.age,
       this.lookingFor,
@@ -130,6 +132,7 @@ class Data {
     name = json['name'];
     firstName = json['firstName'];
     lastName = json['lastName'];
+    username = json['username'];
     govtId = json['GovtId'];
     age = json['Age'];
     lookingFor = json['lookingFor'].cast<String>();
@@ -168,6 +171,7 @@ class Data {
     data['name'] = this.name;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
+    data['username'] = this.username;
     data['GovtId'] = this.govtId;
     data['Age'] = this.age;
     data['lookingFor'] = this.lookingFor;

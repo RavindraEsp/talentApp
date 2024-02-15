@@ -266,7 +266,8 @@ class CandidateListWidget extends StatelessWidget {
                                     Navigator.pushNamed(context,
                                         RouteName.seeUserProfileScreen,
                                         arguments: {
-                                          "telentUserId": data?.talentUserId
+                                          "telentUserId": data?.talentUserId,
+                                          "roomId": data?.roomId,
                                         });
                                   },
                                   child: Row(
@@ -295,8 +296,7 @@ class CandidateListWidget extends StatelessWidget {
                                                           Icons.error,
                                                           size: 25.sp,
                                                         ))),
-                                            // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                                            imageUrl:
+                                             imageUrl:
                                                 "${Endpoints.imageBaseUrl}${data?.profilePic}"),
                                       ),
                                       SizedBox(
@@ -311,7 +311,7 @@ class CandidateListWidget extends StatelessWidget {
                                               alignment: WrapAlignment.start,
                                               children: [
                                                 Text(
-                                                  data?.username ?? "",
+                                                  data?.fullname ?? "",
                                                   style: StyleUtility
                                                       .quicksandSemiBoldBlackTextStyle
                                                       .copyWith(
@@ -380,7 +380,11 @@ class CandidateListWidget extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Text(
-                                                  data?.gender ?? "",
+                                                 // data?.gender == 1 ? "Male" : data?.gender == 2 ? "Female" : "Other",
+                                                  data?.gender == 1 ? context.loc.male : data?.gender == 2 ? context.loc.female
+                                                      : context.loc.other,
+
+
                                                   maxLines: 1,
                                                   style: StyleUtility
                                                       .quicksandRegular8B8B8BTextStyle

@@ -116,7 +116,7 @@ class _AppliedViewPagerWidgetState extends State<AppliedViewPagerWidget> {
                                                 padding:
                                                     EdgeInsets.only(left: 4.w),
                                                 child: Text(
-                                                  "${widget.appliedUsers.username ?? ""} ${widget.appliedUsers.age ?? ""}",
+                                                  "${widget.appliedUsers.fullname ?? ""} ${widget.appliedUsers.age ?? ""}",
                                                   style: StyleUtility
                                                       .quicksandBoldWhiteTextStyle
                                                       .copyWith(

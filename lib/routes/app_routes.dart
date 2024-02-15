@@ -258,6 +258,7 @@ class AppRoute {
               create: (context) => SeeTelentUserProfileScreenProvider(),
               child: SeeUserProfileScreen(
                 telentUserId: arg["telentUserId"],
+                roomId: arg["roomId"] ?? "",
               )),
         );
 

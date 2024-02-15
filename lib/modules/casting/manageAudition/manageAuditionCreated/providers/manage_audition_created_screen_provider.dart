@@ -38,13 +38,13 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
         notifyListeners();
       }
     })
-        //     .onError((error, stackTrace) {
-        //   AppLogger.logD("error $error");
-        //   onFailure.call("Server Error");
-        //   isLoading = false;
-        //   notifyListeners();
-        // }
-        // )
+            .onError((error, stackTrace) {
+          AppLogger.logD("error $error");
+          onFailure.call(error.toString());
+          isLoading = false;
+          notifyListeners();
+        }
+        )
         ;
   }
 
@@ -128,7 +128,7 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
       AppLogger.logD("error $error");
 
       notifyListeners();
-      onFailure.call("Server error");
+      onFailure.call(error.toString());
     });
 
     notifyListeners();
@@ -151,7 +151,7 @@ class ManageAuditionCreatedScreenProvider extends ChangeNotifier {
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
       notifyListeners();
-      onFailure.call("Server error");
+      onFailure.call(error.toString());
     });
 
     notifyListeners();

@@ -230,7 +230,7 @@ class EditAuditionScreenProvider extends ChangeNotifier {
       AppLogger.logD("error $error");
 
       notifyListeners();
-      onFailure.call("Server error");
+      onFailure.call(error.toString());
     });
 
     notifyListeners();

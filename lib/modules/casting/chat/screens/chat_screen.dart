@@ -1,5 +1,5 @@
-import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,9 @@ import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/chat/model/chat_msg_response_model.dart';
 import 'package:talent_app/modules/casting/chat/provider/chat_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
@@ -46,10 +48,16 @@ class ChatScreenState extends State<ChatScreen> {
     AppLogger.logD('user id  ${Preference().getUserId()}');
     AppLogger.logD('roomCasterId   ${widget.roomId}');
 
-    chatScreenProvider = Provider.of(context, listen: false);
 
-    chatScreenProvider?.connectAndListenChatSocket(
-        receiverId: widget.receiverId, roomId: widget.roomId);
+
+      chatScreenProvider = Provider.of(context, listen: false);
+
+      chatScreenProvider?.connectAndListenChatSocket(
+          receiverId: widget.receiverId, roomId: widget.roomId);
+
+
+
+
   }
 
   @override
@@ -94,7 +102,6 @@ class ChatScreenState extends State<ChatScreen> {
                     Expanded(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-
                         mainAxisAlignment: MainAxisAlignment.center, // Center the elements in the Row
 
 
@@ -198,7 +205,7 @@ class ChatScreenState extends State<ChatScreen> {
                               GestureDetector(
                                 onTap: () {
                                   if (provider
-                                      .textEditingController.text.isNotEmpty) {
+                                      .textEditingController.text.trim().isNotEmpty) {
                                     provider.sendMessage(provider
                                         .textEditingController.text
                                         .trim());
@@ -236,9 +243,8 @@ class ChatScreenState extends State<ChatScreen> {
 }
 
 class ChatListView extends StatelessWidget {
-  // List<MessageData> messageList;
-  List<ChatHistory>? messageList;
 
+  List<ChatHistory>? messageList;
   ScrollController scrollController;
 
   ChatListView({
@@ -255,18 +261,22 @@ class ChatListView extends StatelessWidget {
         itemCount: messageList?.length ?? 0,
         itemBuilder: (context, index) {
           return (messageList?[index].senderId == Preference().getUserId())
-              ? SenderRowView(senderMessage: messageList?[index].message ?? "")
+              ? SenderRowView(chatHistory: messageList?[index],)
               : ReceiverRowView(
-                  receiverMessage: messageList?[index].message ?? "");
+            chatHistory: messageList?[index],
+          );
         });
   }
 }
 
 class ReceiverRowView extends StatelessWidget {
-  const ReceiverRowView({Key? key, required this.receiverMessage})
+  const ReceiverRowView({Key? key,
+    required this.chatHistory
+  })
       : super(key: key);
 
-  final String receiverMessage;
+
+  final ChatHistory? chatHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -276,11 +286,27 @@ class ReceiverRowView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SizedBox(
-            width: 40.w,
-            height: 40.w,
-            child: Image.asset(ImageUtility.dummyProfileImage),
+
+
+          ClipOval(
+            child: CachedNetworkImage(
+                width: 40.w,
+                height: 40.w,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Container(
+                    color: Colors.grey,
+                    child: Center(
+                        child: Icon(
+                          Icons.error,
+                          size: 25.sp,
+                        ))),
+                imageUrl:
+                "${Endpoints.imageBaseUrl}${chatHistory?.profilePic ?? ""}"),
           ),
+
+
           SizedBox(
             width: 4.w,
           ),
@@ -294,11 +320,13 @@ class ReceiverRowView extends StatelessWidget {
                     color: ColorUtility.colorWhite,
                     borderRadius: BorderRadius.all(Radius.circular(10.r))),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                //  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      receiverMessage,
+
+                  chatHistory?.message ?? "",
                       style: StyleUtility.quicksandRegularBlackTextStyle
                           .copyWith(fontSize: TextSizeUtility.textSize14.sp),
                       textAlign: TextAlign.left,
@@ -306,7 +334,9 @@ class ReceiverRowView extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    Text('8:55',
+                    Text(
+                       // '8:55',
+                        CommonMethod.getTime(chatHistory?.datetime ?? ""),
                         style: StyleUtility.mulishRegularBlackTextStyle
                             .copyWith(fontSize: TextSizeUtility.textSize10.sp)),
                   ],
@@ -314,6 +344,7 @@ class ReceiverRowView extends StatelessWidget {
               ),
             ),
           )
+
         ],
       ),
     );
@@ -321,10 +352,10 @@ class ReceiverRowView extends StatelessWidget {
 }
 
 class SenderRowView extends StatelessWidget {
-  const SenderRowView({Key? key, required this.senderMessage})
+  const SenderRowView({Key? key, required this.chatHistory})
       : super(key: key);
 
-  final String senderMessage;
+  final ChatHistory? chatHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -342,7 +373,7 @@ class SenderRowView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                senderMessage,
+                chatHistory?.message ?? "",
                 style: StyleUtility.quicksandRegularBlackTextStyle
                     .copyWith(fontSize: TextSizeUtility.textSize14.sp),
                 textAlign: TextAlign.left,
@@ -350,7 +381,10 @@ class SenderRowView extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              Text('8:55',
+              Text(
+                //  '8:55',
+
+                CommonMethod.getTime(chatHistory?.datetime ?? ""),
                   style: StyleUtility.mulishRegularBlackTextStyle
                       .copyWith(fontSize: TextSizeUtility.textSize10.sp)),
             ],

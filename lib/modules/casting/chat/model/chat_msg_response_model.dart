@@ -42,6 +42,7 @@ class ChatHistory {
   String? message;
   int? isRead;
   String? datetime;
+  String? profilePic;
 
   ChatHistory(
       {this.id,
@@ -50,7 +51,9 @@ class ChatHistory {
         this.receiverId,
         this.message,
         this.isRead,
-        this.datetime});
+        this.datetime,
+        this.profilePic
+      });
 
   ChatHistory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,6 +63,7 @@ class ChatHistory {
     message = json['message'];
     isRead = json['isRead'];
     datetime = json['datetime'];
+    profilePic = json['profilePic'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +75,7 @@ class ChatHistory {
     data['message'] = this.message;
     data['isRead'] = this.isRead;
     data['datetime'] = this.datetime;
+    data['profilePic'] = this.profilePic;
     return data;
   }
 }

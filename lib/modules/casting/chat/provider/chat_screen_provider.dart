@@ -5,47 +5,42 @@ import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/chat/model/chat_msg_response_model.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 
-class ChatScreenProvider extends ChangeNotifier{
-
+class ChatScreenProvider extends ChangeNotifier {
   TextEditingController textEditingController = TextEditingController();
   ScrollController scrollController = ScrollController();
-
-  Future<void> scrollAnimation() async {
-    return await Future.delayed(
-        const Duration(milliseconds: 100),
-            () => scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.linear));
-  }
-
-
-  Future<void> startScrollAnimation() async {
-    return await Future.delayed(
-        const Duration(milliseconds: 100),
-            () => scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 1),
-            curve: Curves.linear));
-  }
-
 
   IO.Socket? socket;
 
   late int userId;
 
-
   ChatMsgResponseModel? chatMsgResponseModel;
-
 
   bool loading = true;
 
   late final int receiverId;
   late final String roomId;
 
+  Future<void> scrollAnimation() async {
+    return await Future.delayed(
+        const Duration(milliseconds: 100),
+        () => scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.linear));
+  }
 
-  connectAndListenChatSocket({required int receiverId,required String roomId}) {
+  Future<void> startScrollAnimation() async {
+    return await Future.delayed(
+        const Duration(milliseconds: 100),
+            () => scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
 
+            duration: const Duration(milliseconds: 1),
+            curve: Curves.linear));
+  }
+
+  connectAndListenChatSocket(
+      {required int receiverId, required String roomId}) {
     this.receiverId = receiverId;
     this.roomId = roomId;
 
@@ -81,7 +76,6 @@ class ChatScreenProvider extends ChangeNotifier{
       socket?.onConnect((_) {
         AppLogger.logD('connect');
 
-
         final Map<String, dynamic> data = {
           "receiverId": receiverId,
           "senderId": userId,
@@ -106,24 +100,25 @@ class ChatScreenProvider extends ChangeNotifier{
         loading = false;
 
         startScrollAnimation();
+
+
+        Future.delayed(const Duration(milliseconds: 100)).then((value) => startScrollAnimation());
+
+
         AppLogger.logD(
             "chat msg length   ${chatMsgResponseModel?.chatHistory?.length}");
 
         final Map mapData = data as Map;
 
-
         AppLogger.logD("roomUsers data is in start $mapData");
 
-       notifyListeners();
-
+        notifyListeners();
       });
-
 
       socket?.on("message", (data) {
         AppLogger.logD("on message =>");
 
         final Map mapData = data as Map;
-
 
         AppLogger.logD("message is ${data["text"]["message"].toString()}");
         AppLogger.logD("message data is  ${mapData}");
@@ -135,7 +130,9 @@ class ChatScreenProvider extends ChangeNotifier{
             receiverId: data["text"]["receiverId"],
             message: data["text"]["message"],
             isRead: data["text"]["isRead"],
-            datetime: data["text"]["datetime"]));
+            datetime: data["text"]["datetime"],
+            profilePic: data["text"]["profilePic"]
+        ));
 
         scrollAnimation();
 
@@ -168,17 +165,9 @@ class ChatScreenProvider extends ChangeNotifier{
   }
 
   sendMessage(String msg) {
-    var data = jsonEncode({
-      "senderId": userId,
-      "receiverId": receiverId,
-      "message": msg
-    });
+    var data = jsonEncode(
+        {"senderId": userId, "receiverId": receiverId, "message": msg});
     AppLogger.logD("chatSingleMessage sent $data");
-    socket?.emit(
-        'chatSingleMessage',
-        data);
-
+    socket?.emit('chatSingleMessage', data);
   }
-
-
 }

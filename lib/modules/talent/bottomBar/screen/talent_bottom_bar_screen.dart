@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/casting/bottomBar/provider/bottom_bar_provider.dart';
+import 'package:talent_app/modules/casting/chat/provider/chat_user_list_screen_provider.dart';
 import 'package:talent_app/modules/casting/chat/screens/chat_user_list_screen.dart';
 import 'package:talent_app/modules/casting/home/screens/cast_home_screen.dart';
 import 'package:talent_app/modules/casting/notification/notification_provider.dart';
@@ -47,7 +48,14 @@ class _TalentBottomBarScreenState extends State {
       ),
     ),
 
-    const ChatUserListScreen(userType: UserType.talent),
+  //  const ChatUserListScreen(userType: UserType.talent),
+
+
+    ChangeNotifierProvider(
+      create: (context) => ChatUserListScreenProvider(),
+      child: const   ChatUserListScreen(userType: UserType.talent),
+    ),
+
 
     ChangeNotifierProvider(
       create: (context) => TalentProfileScreenProvider(),

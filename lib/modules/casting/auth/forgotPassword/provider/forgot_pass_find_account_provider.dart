@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/network/repository/auth_repository.dart';
@@ -22,7 +20,7 @@ class ForgotPassFindAccountProvider with ChangeNotifier{
     }).onError((error, stackTrace) {
       AppLogger.logD("error $error");
 
-      onFailure.call("Server Error");
+      onFailure.call(error.toString());
     });
   }
 

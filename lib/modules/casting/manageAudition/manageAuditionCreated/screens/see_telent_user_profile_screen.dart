@@ -25,8 +25,9 @@ import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class SeeUserProfileScreen extends StatefulWidget {
   final int telentUserId;
+  final String roomId;
 
-  const SeeUserProfileScreen({super.key, required this.telentUserId});
+  const SeeUserProfileScreen({super.key, required this.telentUserId, required this.roomId});
 
   @override
   State<SeeUserProfileScreen> createState() => _SeeUserProfileScreenState();
@@ -40,6 +41,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
     super.initState();
 
     AppLogger.logD("telentUserId ${widget.telentUserId}");
+    AppLogger.logD("roomId ${widget.roomId}");
 
     Provider.of<SeeTelentUserProfileScreenProvider>(context, listen: false)
         .getTalentUserProfile(widget.telentUserId, onFailure: (message) {});
@@ -125,12 +127,8 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                 Expanded(
                                   child: Text(
                                     "${provider.talantUserProfileModel?.data?.first.name ?? ""} |"
-                                    " ${provider.talantUserProfileModel?.data?.first.gender == 1 ? "Male" : provider.talantUserProfileModel?.data?.first.gender == 2 ? "Female" : "Other"}",
+                                    " ${provider.talantUserProfileModel?.data?.first.gender == 1 ? context.loc.male : provider.talantUserProfileModel?.data?.first.gender == 2 ? context.loc.female : context.loc.other}",
 
-                                    //  provider.talantUserProfileModel?.data?.first.gender == 1 ? "Male" :  provider.talantUserProfileModel?.data?.first.gender == 2 ? "Female":"Other",
-
-                                    // "${provider.talantUserProfileModel?.data?.first.name ?? ""} |"
-                                    //     " ${provider.talantUserProfileModel?.data?.first.gender ?? ""}",
                                     style: StyleUtility
                                         .quicksandRegularBlackTextStyle
                                         .copyWith(
@@ -213,7 +211,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                               children: [
                                 ChatButton(
                                     buttonText:
-                                        "${context.loc.buttonChatWith} ${provider.talantUserProfileModel?.data?.first.name ?? ""}",
+                                        "${context.loc.buttonChatWith} ${provider.talantUserProfileModel?.data?.first.username ?? ""}",
                                     icon: ImageUtility.messageNavIcon,
                                     onTap: () {
                                       Navigator.pushNamed(
@@ -221,8 +219,9 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                           arguments: {
                                             "userType": UserType.cast,
                                             "receiverId":widget.telentUserId,
-                                            "roomId":"${Preference().getUserId()}${widget.telentUserId}",
-                                            "title":provider.talantUserProfileModel?.data?.first.name ?? ""
+                                           // "roomId":"${Preference().getUserId()}${widget.telentUserId}",
+                                            "roomId":widget.roomId,
+                                            "title":provider.talantUserProfileModel?.data?.first.username ?? ""
                                           });
                                     }),
                                 SizedBox(
