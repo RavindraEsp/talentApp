@@ -2,17 +2,15 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/casting/chat/model/chat_msg_response_model.dart';
 import 'package:talent_app/modules/casting/chat/model/chat_user_list_resposne_model.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 
 class ChatUserListScreenProvider extends ChangeNotifier {
   TextEditingController searchController = TextEditingController();
 
   IO.Socket? socket;
-
   bool loading = true;
-
   ChatUserListResponseModel? chatUserListResponseModel;
 
   connectAndListenChatSocket() {
@@ -21,7 +19,8 @@ class ChatUserListScreenProvider extends ChangeNotifier {
     AppLogger.logD("User id $userId");
     try {
       socket = IO.io(
-          'https://espsofttech.in:7272',
+         // 'https://espsofttech.in:7272',
+          Endpoints.socketUrl,
           IO.OptionBuilder()
               .setTransports(['websocket'])
               .enableAutoConnect()

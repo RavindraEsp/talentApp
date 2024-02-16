@@ -5,6 +5,8 @@ class Endpoints {
   static ApiEndPoints apiEndPoints = ApiEndPoints();
 
   static const imageBaseUrl = "https://espsofttech.in:7272/api/auth/uploads/";
+
+  static const socketUrl = "https://espsofttech.in:7272";
 }
 
 class ApiEndPoints {

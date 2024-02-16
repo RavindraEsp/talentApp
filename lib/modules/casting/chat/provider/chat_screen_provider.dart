@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/chat/model/chat_msg_response_model.dart';
+import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 
 class ChatScreenProvider extends ChangeNotifier {
@@ -65,7 +66,8 @@ class ChatScreenProvider extends ChangeNotifier {
       // socket?.on('fromServer', (_) => AppLogger.logD(_));
 
       socket = IO.io(
-          'https://espsofttech.in:7272',
+         // 'https://espsofttech.in:7272',
+          Endpoints.socketUrl,
           IO.OptionBuilder()
               .setTransports(['websocket'])
               .enableAutoConnect()

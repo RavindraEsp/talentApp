@@ -106,7 +106,6 @@ class _CastHomeScreenState extends State<CastHomeScreen> {
                             Icons.error,
                             size: 25.sp,
                           ))),
-                      // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
                       imageUrl:
                           "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
                 )

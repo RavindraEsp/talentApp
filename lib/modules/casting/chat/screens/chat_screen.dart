@@ -145,7 +145,6 @@ class ChatScreenState extends State<ChatScreen> {
                         Expanded(
                             child: ChatListView(
                           scrollController: provider.scrollController,
-                          //  messageList: messageList,
                           messageList:
                               provider.chatMsgResponseModel?.chatHistory,
                         )),

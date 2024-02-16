@@ -346,8 +346,7 @@ class _CastProfileScreenState extends State<CastProfileScreen> {
                                     Icons.error,
                                     size: 25.sp,
                                   ))),
-                              // imageUrl: "https://espsofttech.in:7272/api/auth/uploads/image-1696339902307.jpg"),
-                              imageUrl:
+                               imageUrl:
                                   "${Endpoints.imageBaseUrl}$networkImageUrl"),
                         ),
                       ),

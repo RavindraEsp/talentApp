@@ -17,6 +17,7 @@ import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/menu_button_widget.dart';
+import 'package:talent_app/widgets/no_data_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 import 'package:talent_app/widgets/textField/search_text_field.dart';
 
@@ -35,10 +36,9 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
   ChatUserListScreenProvider? chatUserListScreenProvider;
 
 
-
-
   @override
   void initState() {
+
 
     chatUserListScreenProvider = Provider.of<ChatUserListScreenProvider>(context,listen: false);
     chatUserListScreenProvider?.connectAndListenChatSocket();
@@ -105,7 +105,11 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
           Consumer<ChatUserListScreenProvider>(
             builder: (context, provider,child) {
               return Expanded(
-                child: provider.loading == true ? const CustomCircularLoaderWidget():Column(
+                child: provider.loading == true ? const CustomCircularLoaderWidget():
+
+
+                (provider.chatUserListResponseModel?.userList?.length ?? 0) != 0 ?
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
@@ -247,7 +251,9 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                                                           overflow: TextOverflow.ellipsis,
                                                         ),
                                                       ),
-                                                      (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != "" ?
+                                                      (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != ""
+                                                        //  && (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != "0"
+                                                          ?
                                                       Container(
                                                         padding: EdgeInsets.all(10.sp),
 
@@ -256,7 +262,6 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                                                           color: ColorUtility.color5457BE
                                                         ),
                                                         child: Center(child:Text(
-                                                          // "Hi, I’m glad you applied to the audition See you there",
                                                           provider.chatUserListResponseModel?.userList?[index].msgCount ?? "",
                                                           style: StyleUtility
                                                               .quicksandMediumWhiteTextStyle.copyWith(
@@ -287,6 +292,7 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                           }),
                     )
                   ],
+                ):const NoDataWidget(
                 ),
               );
             }
