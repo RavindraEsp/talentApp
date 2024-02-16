@@ -59,6 +59,12 @@ class StyleUtility {
   static TextStyle quicksandRegular787E84TextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400, color: ColorUtility.color787E84);
 
+  static TextStyle quicksandRegular858686TextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w400, color: ColorUtility.color858686);
+
+
+
+
 
 
 

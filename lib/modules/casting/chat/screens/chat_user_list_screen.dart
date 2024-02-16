@@ -252,7 +252,7 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                                                         ),
                                                       ),
                                                       (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != ""
-                                                        //  && (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != "0"
+                                                          && (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != "0"
                                                           ?
                                                       Container(
                                                         padding: EdgeInsets.all(10.sp),

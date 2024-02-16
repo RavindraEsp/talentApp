@@ -48,7 +48,6 @@ class _TalentBottomBarScreenState extends State {
       ),
     ),
 
-  //  const ChatUserListScreen(userType: UserType.talent),
 
 
     ChangeNotifierProvider(

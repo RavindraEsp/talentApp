@@ -50,7 +50,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorUtility.colorD6D6D8,
+      backgroundColor: ColorUtility.colorF4F4F4,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -104,16 +104,17 @@ class _EducationListScreenState extends State<EducationListScreen> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
-                              left: 20.w, right: 20.w, top: 20.h),
+                              left: 20.w, right: 20.w, top: 24.h),
                           child: Row(
                             children: [
                               Expanded(
                                 child: SearchTextField(
                                     controller: searchController,
-                                    hintText: context.loc.hintSearchCourses),
+                                    hintText: context.loc.hintSearchCourses,
+                                ),
                               ),
                               SizedBox(
-                                width: 15.w,
+                                width: 10.w,
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -143,15 +144,14 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                         context, "Filter list not loaded");
                                   }
                                 },
-                                child: Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    color: Colors.white,
-                                  ),
-                                  child: const Icon(
-                                    Icons.filter,
-                                    size: 22,
+                                child: IntrinsicHeight(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      color: Colors.white,
+                                    ),
+                                    child: Image.asset(ImageUtility.filterIcon,width: 18.w,)
                                   ),
                                 ),
                               )
@@ -167,7 +167,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                     0
                                 ? ListView.builder(
                                     padding: EdgeInsets.only(
-                                        bottom: 20.h, top: 15.h),
+                                        bottom: 20.h, top: 22.h),
                                     itemCount: educationListScreenProvider
                                             .educationListResponseModel
                                             ?.data
@@ -180,8 +180,8 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                           margin: EdgeInsets.only(
                                               left: 20.w,
                                               right: 20.w,
-                                              bottom: 15.h),
-                                          padding: EdgeInsets.all(10.w),
+                                              bottom: 12.h),
+                                          padding: EdgeInsets.only(top: 9.w,left: 9.w,right: 9.w,bottom: 11.w),
                                           width: double.infinity,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -191,21 +191,15 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              // SizedBox(
-                                              //   width: 120.w,
-                                              //   height: 100.w,
-                                              //   child: Image.asset(
-                                              //     ImageUtility.dummyAppliedUserImage,
-                                              //     fit: BoxFit.cover,
-                                              //   ),
-                                              // ),
 
                                               ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.r),
+                                                    BorderRadius.circular(7.r),
                                                 child: CachedNetworkImage(
-                                                    width: 120.w,
-                                                    height: 100.w,
+                                                    // width: 117.w,
+                                                    // height: 90.w,
+                                                    width: 117.h,
+                                                    height: 90.h,
                                                     fit: BoxFit.cover,
                                                     placeholder: (context,
                                                             url) =>
@@ -226,7 +220,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                               ),
 
                                               SizedBox(
-                                                width: 10.w,
+                                                width: 8.w,
                                               ),
                                               Expanded(
                                                 child: Column(
@@ -243,18 +237,18 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                               .title ??
                                                           "",
                                                       style: StyleUtility
-                                                          .quicksandRegularBlackTextStyle
+                                                          .quicksandSemiBoldBlackTextStyle
                                                           .copyWith(
                                                         fontSize:
                                                             TextSizeUtility
-                                                                .textSize16.sp,
+                                                                .textSize14.sp,
                                                       ),
                                                       maxLines: 2,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
                                                     SizedBox(
-                                                      height: 10.h,
+                                                      height: 12.h,
                                                     ),
                                                     Row(
                                                       crossAxisAlignment:
@@ -266,6 +260,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                               .calenderVerifiedIcon,
                                                           width: 14.w,
                                                           fit: BoxFit.fill,
+                                                          color: ColorUtility.color5457BE,
                                                         ),
                                                         SizedBox(
                                                           width: 5.w,
@@ -274,17 +269,17 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                           // "Uploaded on 18/8/2023",
                                                           "${context.loc.uploadedOn} ${educationListScreenProvider.educationListResponseModel?.data?[index].date ?? ""}",
                                                           style: StyleUtility
-                                                              .quicksandRegular8B8B8BTextStyle
+                                                              .quicksandRegular858686TextStyle
                                                               .copyWith(
                                                                   fontSize:
                                                                       TextSizeUtility
-                                                                          .textSize13
+                                                                          .textSize12
                                                                           .sp),
                                                         ),
                                                       ],
                                                     ),
                                                     SizedBox(
-                                                      height: 10.h,
+                                                      height: 8.h,
                                                     ),
                                                     Row(
                                                       crossAxisAlignment:
@@ -296,7 +291,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                               .clockIcon,
                                                           width: 14.w,
                                                           color: ColorUtility
-                                                              .color4FCC48,
+                                                              .color5457BE,
                                                           fit: BoxFit.fill,
                                                         ),
                                                         SizedBox(
@@ -311,11 +306,11 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                               "",
 
                                                           style: StyleUtility
-                                                              .quicksandRegular8B8B8BTextStyle
+                                                              .quicksandRegular787E84TextStyle
                                                               .copyWith(
                                                                   fontSize:
                                                                       TextSizeUtility
-                                                                          .textSize13
+                                                                          .textSize12
                                                                           .sp),
                                                         ),
                                                       ],

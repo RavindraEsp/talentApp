@@ -115,5 +115,6 @@ class ImageUtility {
   static const String unSelectRadioIcon = 'assets/icons/unselect_radio_icon.png';
   static const String talentTeamIcon = 'assets/icons/talent_team_icon.png';
   static const String awaitingIcon = 'assets/icons/awaiting_icon.png';
+  static const String filterIcon = 'assets/icons/filter_icon.png';
 
 }
