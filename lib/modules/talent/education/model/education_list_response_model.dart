@@ -32,6 +32,7 @@ class Data {
   String? title;
   String? description;
   String? thumbnailImage;
+  String? videolink;
   int? duration;
   int? eduSubId;
   int? eduFilterId;
@@ -45,6 +46,7 @@ class Data {
         this.title,
         this.description,
         this.thumbnailImage,
+        this.videolink,
         this.duration,
         this.eduSubId,
         this.eduFilterId,
@@ -58,6 +60,7 @@ class Data {
     title = json['title'];
     description = json['description'];
     thumbnailImage = json['thumbnailImage'];
+    videolink = json['videolink'];
     duration = json['duration'];
     eduSubId = json['eduSubId'];
     eduFilterId = json['eduFilterId'];
@@ -73,6 +76,7 @@ class Data {
     data['title'] = this.title;
     data['description'] = this.description;
     data['thumbnailImage'] = this.thumbnailImage;
+    data['videolink'] = this.videolink;
     data['duration'] = this.duration;
     data['eduSubId'] = this.eduSubId;
     data['eduFilterId'] = this.eduFilterId;

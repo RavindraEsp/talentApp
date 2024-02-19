@@ -162,6 +162,7 @@
   "tabNotification": "Notification",
   "tabChat": "Chat",
   "tabProfile": "Profile",
+  "tabEducation": "Education",
   "tabAuditionsCreated": "Auditions Created",
   "tabFinishedAuditions": "Finished Auditions",
   "tabApplied": "Applied",
@@ -273,6 +274,7 @@
   "noAnyNotification": "No Any Notification",
   "dateTimeAddValidation": "Please Fill All field.",
   "applied": "Applied",
-  "auditionDate": "Audition date"
+  "auditionDate": "Audition date",
+  "done": "Done"
 }
 

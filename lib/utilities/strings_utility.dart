@@ -9,5 +9,7 @@ class StringsUtility {
   static const String selectAuditionDate = 'Please select audition date.';
   static const String validationLocation = 'Please fill Location.';
   static const String validationAddDAteTime = 'Please Add Date,Time and Spots';
+  static const String filterListNotLoaded = 'Filter list not loaded';
+  static const String videoNotAvailable = 'Video not available';
 
 }

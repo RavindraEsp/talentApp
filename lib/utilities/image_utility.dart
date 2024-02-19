@@ -48,8 +48,12 @@ class ImageUtility {
   static const String profileNavSelectIcon =
       'assets/icons/profile_nav_select_icon.png';
   static const String messageNavIcon = 'assets/icons/message_nav_icon.png';
-  static const String messageNavSelectIcon =
-      'assets/icons/message_nav_select_icon.png';
+  static const String messageNavSelectIcon = 'assets/icons/message_nav_select_icon.png';
+
+  static const String educationNavSelectIcon = 'assets/icons/education_nav_select_icon.png';
+  static const String educationNavIcon = 'assets/icons/education_nav_icon.png';
+
+
   static const String editIcon = 'assets/icons/edit_icon.png';
   static const String calenderIcon = 'assets/icons/calender_icon.png';
   static const String settingIcon = 'assets/icons/setting_icon.png';
@@ -116,5 +120,6 @@ class ImageUtility {
   static const String talentTeamIcon = 'assets/icons/talent_team_icon.png';
   static const String awaitingIcon = 'assets/icons/awaiting_icon.png';
   static const String filterIcon = 'assets/icons/filter_icon.png';
+  static const String boostIcon = 'assets/icons/boost_icon.png';
 
 }

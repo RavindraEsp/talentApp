@@ -56,15 +56,17 @@ class _TalentBottomBarScreenState extends State {
     ),
 
 
+
+
+    ChangeNotifierProvider(
+      create: (context) => EducationListScreenProvider(),
+      child: const EducationListScreen(),
+    ),
+
     ChangeNotifierProvider(
       create: (context) => TalentProfileScreenProvider(),
       child: const TalentProfileScreen(),
     ),
-
-    // ChangeNotifierProvider(
-    //   create: (context) => EducationListScreenProvider(),
-    //   child: const EducationListScreen(),
-    // ),
 
 
   ];
@@ -131,6 +133,20 @@ class _TalentBottomBarScreenState extends State {
                 labelStyle: StyleUtility.bottomBarLabelTextStyle,
                 child: selectIndex == 3
                     ? Image.asset(
+                  ImageUtility.educationNavSelectIcon,
+                  width: 47,
+                )
+                    : Image.asset(
+                  ImageUtility.educationNavIcon,
+                  width: 44,
+                ),
+                label: selectIndex == 3 ? context.loc.tabEducation : "",
+              ),
+
+              CurvedNavigationBarItem(
+                labelStyle: StyleUtility.bottomBarLabelTextStyle,
+                child: selectIndex == 4
+                    ? Image.asset(
                         ImageUtility.profileNavSelectIcon,
                         width: 47,
                       )
@@ -138,7 +154,7 @@ class _TalentBottomBarScreenState extends State {
                         ImageUtility.profileNavIcon,
                         width: 22,
                       ),
-                label: selectIndex == 3 ? context.loc.tabProfile : "",
+                label: selectIndex == 4 ? context.loc.tabProfile : "",
               ),
             ],
             onTap: (index) {

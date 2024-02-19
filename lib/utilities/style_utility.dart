@@ -182,6 +182,23 @@ class StyleUtility {
           // fontSize: TextSizeUtility.textSize26,
           color: ColorUtility.color5457BE);
 
+  static TextStyle kantumruyProSemiBoldWhiteTextStyle =
+  GoogleFonts.kantumruyPro(
+      fontWeight: FontWeight.w600,
+      color: ColorUtility.colorWhite);
+
+  static TextStyle kantumruyProMediumWhiteTextStyle =
+  GoogleFonts.kantumruyPro(
+      fontWeight: FontWeight.w500,
+      color: ColorUtility.colorWhite);
+
+
+  static TextStyle kantumruyProBoldBlackTextStyle =
+  GoogleFonts.kantumruyPro(
+      fontWeight: FontWeight.w700,
+      // fontSize: TextSizeUtility.textSize26,
+      color: Colors.black);
+
   static TextStyle kantumruyProSemiBoldE03939TextStyle =
   GoogleFonts.kantumruyPro(
       fontWeight: FontWeight.w600,

@@ -8,9 +8,12 @@ import 'package:talent_app/modules/talent/education/model/fliter_list_response_m
 import 'package:talent_app/modules/talent/education/providers/education_list_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/network/end_points.dart';
+import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/custom_button.dart';
@@ -105,57 +108,67 @@ class _EducationListScreenState extends State<EducationListScreen> {
                         Padding(
                           padding: EdgeInsets.only(
                               left: 20.w, right: 20.w, top: 24.h),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: SearchTextField(
+                          child: IntrinsicHeight(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Expanded(
+                                  child: SearchTextField(
                                     controller: searchController,
                                     hintText: context.loc.hintSearchCourses,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  if (educationListScreenProvider
-                                          .filterLoading ==
-                                      false) {
-                                    filterDialog(
-                                        context: context,
-                                        filterData: educationListScreenProvider
-                                            .filterListResponseModel?.data,
-                                    educationListScreenProvider: educationListScreenProvider,
-
-                                    onApply: (){
-
-                                      educationListScreenProvider.isLoading = true;
-                                      educationListScreenProvider.notifyListeners();
-                                          AppLogger.logD("On Apply call");
-
-                                          educationListScreenProvider.getEducationList(onFailure: (message){
-
-                                            Common.showErrorSnackBar(context, message);
-
-                                          });
-                                    });
-                                  } else {
-                                    Common.showErrorSnackBar(
-                                        context, "Filter list not loaded");
-                                  }
-                                },
-                                child: IntrinsicHeight(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      color: Colors.white,
-                                    ),
-                                    child: Image.asset(ImageUtility.filterIcon,width: 18.w,)
                                   ),
                                 ),
-                              )
-                            ],
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    if (educationListScreenProvider
+                                            .filterLoading ==
+                                        false) {
+                                      filterDialog(
+                                          context: context,
+                                          filterData:
+                                              educationListScreenProvider
+                                                  .filterListResponseModel
+                                                  ?.data,
+                                          educationListScreenProvider:
+                                              educationListScreenProvider,
+                                          onApply: () {
+                                            educationListScreenProvider
+                                                .isLoading = true;
+                                            educationListScreenProvider
+                                                .notifyListeners();
+                                            AppLogger.logD("On Apply call");
+
+                                            educationListScreenProvider
+                                                .getEducationList(
+                                                    onFailure: (message) {
+                                              Common.showErrorSnackBar(
+                                                  context, message);
+                                            });
+                                          });
+                                    } else {
+                                      Common.showErrorSnackBar(context,
+                                          StringsUtility.filterListNotLoaded);
+                                    }
+                                  },
+                                  child: Container(
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        border: Border.all(
+                                            color: ColorUtility.colorD6D6D8),
+                                        color: Colors.white,
+                                      ),
+                                      child: Image.asset(
+                                        ImageUtility.filterIcon,
+                                        width: 18.w,
+                                      )),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Expanded(
@@ -175,13 +188,42 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                         0,
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          if (educationListScreenProvider
+                                                      .educationListResponseModel
+                                                      ?.data?[index]
+                                                      .videolink !=
+                                                  null &&
+                                              educationListScreenProvider
+                                                      .educationListResponseModel
+                                                      ?.data?[index]
+                                                      .videolink !=
+                                                  "") {
+                                            Navigator.pushNamed(context,
+                                                RouteName.videoPlayerScreen,
+                                                arguments: {
+                                                  "videoFromApi":
+                                                      educationListScreenProvider
+                                                          .educationListResponseModel
+                                                          ?.data?[index]
+                                                          .videolink ?? ""
+                                                });
+                                          }else{
+                                            Common.showErrorSnackBar(context,
+                                                StringsUtility.videoNotAvailable);
+
+                                          }
+                                        },
                                         child: Container(
                                           margin: EdgeInsets.only(
                                               left: 20.w,
                                               right: 20.w,
                                               bottom: 12.h),
-                                          padding: EdgeInsets.only(top: 9.w,left: 9.w,right: 9.w,bottom: 11.w),
+                                          padding: EdgeInsets.only(
+                                              top: 9.w,
+                                              left: 9.w,
+                                              right: 9.w,
+                                              bottom: 11.w),
                                           width: double.infinity,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -191,13 +233,10 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-
                                               ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(7.r),
                                                 child: CachedNetworkImage(
-                                                    // width: 117.w,
-                                                    // height: 90.w,
                                                     width: 117.h,
                                                     height: 90.h,
                                                     fit: BoxFit.cover,
@@ -218,7 +257,6 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                     imageUrl:
                                                         "${Endpoints.imageBaseUrl}${educationListScreenProvider.educationListResponseModel?.data?[index].thumbnailImage ?? ""}"),
                                               ),
-
                                               SizedBox(
                                                 width: 8.w,
                                               ),
@@ -260,7 +298,8 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                               .calenderVerifiedIcon,
                                                           width: 14.w,
                                                           fit: BoxFit.fill,
-                                                          color: ColorUtility.color5457BE,
+                                                          color: ColorUtility
+                                                              .color5457BE,
                                                         ),
                                                         SizedBox(
                                                           width: 5.w,
@@ -334,10 +373,10 @@ class _EducationListScreenState extends State<EducationListScreen> {
   }
 
   Future<dynamic> filterDialog(
-      {required BuildContext context, required Data? filterData,
-        required VoidCallback onApply,
-        required EducationListScreenProvider educationListScreenProvider
-      }) {
+      {required BuildContext context,
+      required Data? filterData,
+      required VoidCallback onApply,
+      required EducationListScreenProvider educationListScreenProvider}) {
     return showDialog(
         context: context,
         builder: (
@@ -355,310 +394,367 @@ class _EducationListScreenState extends State<EducationListScreen> {
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        left: 15.w, right: 15.w, top: 14.w, bottom: 18.w),
-                    child: Column(
-                      // mainAxisSize: MainAxisSize.min,
-                      // mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Stack(
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Image.asset(
-                                  ImageUtility.crossIcon,
-                                  color: ColorUtility.color29244C,
-                                  width: 20.w,
-                                  height: 20.w,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                context.loc.titleFilter,
-                                textAlign: TextAlign.center,
-                                style: StyleUtility
-                                    .quicksandRegularBlackTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize18.sp),
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                "Done",
-                                textAlign: TextAlign.center,
-                                style: StyleUtility
-                                    .quicksandRegularBlackTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize18.sp),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 27.h,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.w),
-                          child: Text(
-                            context.loc.titleSubjects,
-                            textAlign: TextAlign.center,
-                            style: StyleUtility.quicksandSemiBold5457BETextStyle
-                                .copyWith(
-                                    fontSize: TextSizeUtility.textSize16.sp),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        (filterData!.subjects?.length ?? 0) > 0
-                            ? Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: Wrap(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              left: 20.w, right: 20.w, top: 10.w, bottom: 18.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(
+                                height: 56.h,
+                                child: Stack(
                                   children: [
-                                    for (var item in filterData.subjects!)
-                                      GestureDetector(
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: InkWell(
                                         onTap: () {
-                                          item.isSelect = !item.isSelect;
-                                          setState(() {});
+                                          Navigator.pop(context);
                                         },
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                                right: 9.w, bottom: 13.h),
-                                            padding: EdgeInsets.only(
-                                                left: 15.sp,
-                                                right: 20.sp,
-                                                top: 9.sp,
-                                                bottom: 9.sp),
-                                            decoration: BoxDecoration(
-                                                color: item.isSelect == false
-                                                    ? ColorUtility.colorWhite
-                                                    : ColorUtility.colorEFF2F4,
-                                                borderRadius:
-                                                    BorderRadius.circular(30.r),
-                                                border: Border.all(
-                                                    color: ColorUtility
-                                                        .colorD3D6D6)),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  item.isSelect == false
-                                                      ? ImageUtility.plusIcon
-                                                      : ImageUtility
-                                                          .crossSelectIcon,
-                                                  width: 5.w,
-                                                  height: 5.w,
-                                                ),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text(
-                                                  item.name ?? "",
-                                                  style: StyleUtility
-                                                      .quicksandRegularBlackTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize14
-                                                                  .sp),
-                                                ),
-                                              ],
-                                            )),
-                                      )
+                                        child: Padding(
+                                          padding: EdgeInsets.all(5.sp),
+                                          child: Image.asset(
+                                            ImageUtility.crossIcon,
+                                            color: ColorUtility.color29244C,
+                                            width: 20.w,
+                                            height: 20.w,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        context.loc.titleFilter,
+                                        textAlign: TextAlign.center,
+                                        style: StyleUtility
+                                            .kantumruyProBoldBlackTextStyle
+                                            .copyWith(
+                                                fontSize: TextSizeUtility
+                                                    .textSize16.sp),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.centerRight,
+                                      child: InkWell(
+                                        onTap: () {
+                                          educationListScreenProvider.getIds();
+                                          Navigator.pop(context);
+                                          onApply.call();
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(5.sp),
+                                          child: Text(
+                                            context.loc.done,
+                                            textAlign: TextAlign.center,
+                                            style: StyleUtility
+                                                .kantumruyProMedium5457BETextStyle
+                                                .copyWith(
+                                                    fontSize: TextSizeUtility
+                                                        .textSize18.sp),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              )
-                            : const SizedBox(),
-                        SizedBox(height: 20.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.w),
-                          child: Text(
-                            context.loc.titleLevels,
-                            textAlign: TextAlign.center,
-                            style: StyleUtility.quicksandSemiBold5457BETextStyle
-                                .copyWith(
-                                    fontSize: TextSizeUtility.textSize16.sp),
+                              ),
+                              SizedBox(
+                                height: 17.h,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 2.w),
+                                child: Text(
+                                  context.loc.titleSubjects,
+                                  textAlign: TextAlign.center,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              (filterData!.subjects?.length ?? 0) > 0
+                                  ? Wrap(
+                                      children: [
+                                        for (var item in filterData.subjects!)
+                                          GestureDetector(
+                                            onTap: () {
+                                              item.isSelect = !item.isSelect;
+                                              setState(() {});
+                                            },
+                                            child: Container(
+                                                margin: EdgeInsets.only(
+                                                    right: 9.w, bottom: 13.h),
+                                                padding: EdgeInsets.only(
+                                                    left: 15.sp,
+                                                    right: 20.sp,
+                                                    top: 9.sp,
+                                                    bottom: 9.sp),
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        item.isSelect == false
+                                                            ? ColorUtility
+                                                                .colorWhite
+                                                            : ColorUtility
+                                                                .colorEFF2F4,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.r),
+                                                    border: Border.all(
+                                                        color: ColorUtility
+                                                            .colorD3D6D6)),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset(
+                                                      item.isSelect == false
+                                                          ? ImageUtility
+                                                              .plusIcon
+                                                          : ImageUtility
+                                                              .crossSelectIcon,
+                                                      width: 5.w,
+                                                      height: 5.w,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5.w,
+                                                    ),
+                                                    Text(
+                                                      item.name ?? "",
+                                                      style: StyleUtility
+                                                          .quicksandRegularBlackTextStyle
+                                                          .copyWith(
+                                                              fontSize:
+                                                                  TextSizeUtility
+                                                                      .textSize14
+                                                                      .sp),
+                                                    ),
+                                                  ],
+                                                )),
+                                          )
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              SizedBox(height: 16.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                child: Text(
+                                  context.loc.titleLevels,
+                                  textAlign: TextAlign.center,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              (filterData.levels?.length ?? 0) > 0
+                                  ? Wrap(
+                                      children: [
+                                        for (var item in filterData.levels!)
+                                          GestureDetector(
+                                            onTap: () {
+                                              item.isSelect = !item.isSelect;
+                                              setState(() {});
+                                            },
+                                            child: Container(
+                                                margin: EdgeInsets.only(
+                                                    right: 9.w, bottom: 13.h),
+                                                padding: EdgeInsets.only(
+                                                    left: 15.sp,
+                                                    right: 20.sp,
+                                                    top: 9.sp,
+                                                    bottom: 9.sp),
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        item.isSelect == false
+                                                            ? ColorUtility
+                                                                .colorWhite
+                                                            : ColorUtility
+                                                                .colorEFF2F4,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.r),
+                                                    border: Border.all(
+                                                        color: ColorUtility
+                                                            .colorD3D6D6)),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset(
+                                                      item.isSelect == false
+                                                          ? ImageUtility
+                                                              .plusIcon
+                                                          : ImageUtility
+                                                              .crossSelectIcon,
+                                                      width: 5.w,
+                                                      height: 5.w,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5.w,
+                                                    ),
+                                                    Text(
+                                                      item.name ?? "",
+                                                      style: StyleUtility
+                                                          .quicksandRegularBlackTextStyle
+                                                          .copyWith(
+                                                              fontSize:
+                                                                  TextSizeUtility
+                                                                      .textSize14
+                                                                      .sp),
+                                                    ),
+                                                  ],
+                                                )),
+                                          )
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              SizedBox(height: 16.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 2.w),
+                                child: Text(
+                                  context.loc.titleFilterBy,
+                                  textAlign: TextAlign.center,
+                                  style: StyleUtility
+                                      .quicksandSemiBold5457BETextStyle
+                                      .copyWith(
+                                          fontSize:
+                                              TextSizeUtility.textSize16.sp),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              (filterData.filterby?.length ?? 0) > 0
+                                  ? Wrap(
+                                      children: [
+                                        for (var item in filterData.filterby!)
+                                          GestureDetector(
+                                            onTap: () {
+                                              item.isSelect = !item.isSelect;
+                                              setState(() {});
+                                            },
+                                            child: Container(
+                                                margin: EdgeInsets.only(
+                                                    right: 9.w, bottom: 13.h),
+                                                padding: EdgeInsets.only(
+                                                    left: 15.sp,
+                                                    right: 20.sp,
+                                                    top: 9.sp,
+                                                    bottom: 9.sp),
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        item.isSelect == false
+                                                            ? ColorUtility
+                                                                .colorWhite
+                                                            : ColorUtility
+                                                                .colorEFF2F4,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.r),
+                                                    border: Border.all(
+                                                        color: ColorUtility
+                                                            .colorD3D6D6)),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset(
+                                                      item.isSelect == false
+                                                          ? ImageUtility
+                                                              .plusIcon
+                                                          : ImageUtility
+                                                              .crossSelectIcon,
+                                                      width: 5.w,
+                                                      height: 5.w,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5.w,
+                                                    ),
+                                                    Text(
+                                                      item.name ?? "",
+                                                      style: StyleUtility
+                                                          .quicksandRegularBlackTextStyle
+                                                          .copyWith(
+                                                              fontSize:
+                                                                  TextSizeUtility
+                                                                      .textSize14
+                                                                      .sp),
+                                                    ),
+                                                  ],
+                                                )),
+                                          )
+                                      ],
+                                    )
+                                  : const SizedBox(),
+                              // SizedBox(
+                              //   height: 35.h,
+                              // ),
+                              // CustomButton(
+                              //     onTap: () {
+                              //
+                              //       educationListScreenProvider.getIds();
+                              //       // if(educationListScreenProvider.subjectsIds.isNotEmpty ||
+                              //       //     educationListScreenProvider.levelsIds.isNotEmpty ||
+                              //       //     educationListScreenProvider.filterIds.isNotEmpty){
+                              //       //   Navigator.pop(context);
+                              //       //   onApply.call();
+                              //       // }
+                              //       Navigator.pop(context);
+                              //          onApply.call();
+                              //
+                              //     },
+                              //     buttonText: context.loc.buttonApply),
+                              // SizedBox(
+                              //   height: 20.h,
+                              // ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        (filterData.levels?.length ?? 0) > 0
-                            ? Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: Wrap(
-                                  children: [
-                                    for (var item in filterData.levels!)
-                                      GestureDetector(
-                                        onTap: () {
-                                          item.isSelect = !item.isSelect;
-                                          setState(() {});
-                                        },
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                                right: 9.w, bottom: 13.h),
-                                            padding: EdgeInsets.only(
-                                                left: 15.sp,
-                                                right: 20.sp,
-                                                top: 9.sp,
-                                                bottom: 9.sp),
-                                            decoration: BoxDecoration(
-                                                color: item.isSelect == false
-                                                    ? ColorUtility.colorWhite
-                                                    : ColorUtility.colorEFF2F4,
-                                                borderRadius:
-                                                    BorderRadius.circular(30.r),
-                                                border: Border.all(
-                                                    color: ColorUtility
-                                                        .colorD3D6D6)),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  item.isSelect == false
-                                                      ? ImageUtility.plusIcon
-                                                      : ImageUtility
-                                                          .crossSelectIcon,
-                                                  width: 5.w,
-                                                  height: 5.w,
-                                                ),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text(
-                                                  item.name ?? "",
-                                                  style: StyleUtility
-                                                      .quicksandRegularBlackTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize14
-                                                                  .sp),
-                                                ),
-                                              ],
-                                            )),
-                                      )
-                                  ],
-                                ),
-                              )
-                            : const SizedBox(),
-                        SizedBox(height: 20.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.w),
-                          child: Text(
-                            context.loc.titleFilterBy,
-                            textAlign: TextAlign.center,
-                            style: StyleUtility.quicksandSemiBold5457BETextStyle
-                                .copyWith(
-                                    fontSize: TextSizeUtility.textSize16.sp),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        (filterData.filterby?.length ?? 0) > 0
-                            ? Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: Wrap(
-                                  children: [
-                                    for (var item in filterData.filterby!)
-                                      GestureDetector(
-                                        onTap: () {
-                                          item.isSelect = !item.isSelect;
-                                          setState(() {});
-                                        },
-                                        child: Container(
-                                            margin: EdgeInsets.only(
-                                                right: 9.w, bottom: 13.h),
-                                            padding: EdgeInsets.only(
-                                                left: 15.sp,
-                                                right: 20.sp,
-                                                top: 9.sp,
-                                                bottom: 9.sp),
-                                            decoration: BoxDecoration(
-                                                color: item.isSelect == false
-                                                    ? ColorUtility.colorWhite
-                                                    : ColorUtility.colorEFF2F4,
-                                                borderRadius:
-                                                    BorderRadius.circular(30.r),
-                                                border: Border.all(
-                                                    color: ColorUtility
-                                                        .colorD3D6D6)),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Image.asset(
-                                                  item.isSelect == false
-                                                      ? ImageUtility.plusIcon
-                                                      : ImageUtility
-                                                          .crossSelectIcon,
-                                                  width: 5.w,
-                                                  height: 5.w,
-                                                ),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text(
-                                                  item.name ?? "",
-                                                  style: StyleUtility
-                                                      .quicksandRegularBlackTextStyle
-                                                      .copyWith(
-                                                          fontSize:
-                                                              TextSizeUtility
-                                                                  .textSize14
-                                                                  .sp),
-                                                ),
-                                              ],
-                                            )),
-                                      )
-                                  ],
-                                ),
-                              )
-                            : const SizedBox(),
-                        SizedBox(
-                          height: 35.h,
-                        ),
-                        CustomButton(
-                            onTap: () {
-
-                              educationListScreenProvider.getIds();
-                              // if(educationListScreenProvider.subjectsIds.isNotEmpty ||
-                              //     educationListScreenProvider.levelsIds.isNotEmpty ||
-                              //     educationListScreenProvider.filterIds.isNotEmpty){
-                              //   Navigator.pop(context);
-                              //   onApply.call();
-                              // }
-                              Navigator.pop(context);
-                                 onApply.call();
-
-                            },
-                            buttonText: context.loc.buttonApply),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 35.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                      child: CustomButton(
+                          onTap: () {
+                            educationListScreenProvider.getIds();
+                            // if(educationListScreenProvider.subjectsIds.isNotEmpty ||
+                            //     educationListScreenProvider.levelsIds.isNotEmpty ||
+                            //     educationListScreenProvider.filterIds.isNotEmpty){
+                            //   Navigator.pop(context);
+                            //   onApply.call();
+                            // }
+                            Navigator.pop(context);
+                            onApply.call();
+                          },
+                          buttonText: context.loc.buttonApply),
+                    ),
+                    SizedBox(
+                      height: 45.h,
+                    ),
+                  ],
                 ),
               ),
             );

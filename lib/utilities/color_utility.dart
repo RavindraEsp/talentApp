@@ -32,6 +32,11 @@ class ColorUtility {
   ];
 
 
+  static const List<Color> boostGradientColor = [
+    ColorUtility.colorFFB62C,
+    ColorUtility.colorE03939,
+
+  ];
 
 
 
@@ -87,4 +92,5 @@ class ColorUtility {
   static const Color color909EAF = Color(0xFF909EAF);
   static const Color colorF4F4F4 = Color(0xFFF4F4F4);
   static const Color color858686 = Color(0xFF858686);
+  static const Color colorFFB62C = Color(0xFFFFB62C);
 }

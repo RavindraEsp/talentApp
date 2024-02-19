@@ -6,14 +6,17 @@ import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/modules/talent/home/providers/talent_home_screen_provider.dart';
 import 'package:talent_app/modules/talent/home/widgets/approved_audition_widget.dart';
 import 'package:talent_app/modules/talent/home/widgets/audition_for_you_widget.dart';
+import 'package:talent_app/modules/talent/home/widgets/promoted_dialog.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
@@ -91,6 +94,46 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                 //   fit: BoxFit.fill,
                 // )
 
+                Positioned(
+                  bottom: 10.sp,
+                  left: 187.w,
+                  child: GestureDetector(
+                    onTap: (){
+                      boastBottomSheet();
+                    //  showPromotedDialog(context: context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(right:15.sp,left: 65.sp),
+                      decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                              colors:ColorUtility.boostGradientColor
+                          ),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30.r),
+                            bottomRight: Radius.circular(30.r),
+                          )
+                      ),
+                      height: 32.sp,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(ImageUtility.boostIcon,
+                            height: 27.sp,),
+
+                          Padding(
+                            padding:  EdgeInsets.only(left: 7.w),
+                            child: Text(
+                              "5/20",
+                              style: StyleUtility.quicksandMediumWhiteTextStyle.copyWith(
+                                  fontSize: TextSizeUtility.textSize16.sp
+                              ),),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
                 ClipOval(
                   child: CachedNetworkImage(
                       width: 100.sp,
@@ -109,51 +152,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           "${Endpoints.imageBaseUrl}${Preference().getProfileImage()}"),
                 ),
 
-                // Positioned(
-                //   bottom: 10.sp,
-                //   left: 187.w,
-                //   child: GestureDetector(
-                //     onTap: (){
-                //       boastBottomSheet();
-                //     },
-                //     child: Container(
-                //      //margin: EdgeInsets.only(bottom:10.sp,left: 100.sp),
-                //       padding: EdgeInsets.only(right:15.sp,left: 65.sp),
-                //
-                //       decoration: BoxDecoration(
-                //         gradient: const LinearGradient(
-                //             colors:[
-                //               ColorUtility.colorFAD175,
-                //               ColorUtility.colorDD4F4F,
-                //               ColorUtility.colorE24848,
-                //
-                //             ]
-                //                ),
-                //         borderRadius: BorderRadius.only(
-                //             topRight: Radius.circular(30.r),
-                //             bottomRight: Radius.circular(30.r),
-                //         )
-                //       ),
-                //       height: 32.sp,
-                //       child: Row(
-                //         mainAxisSize: MainAxisSize.min,
-                //         children: [
-                //           Icon(Icons.ac_unit,color: Colors.white,
-                //           size: 20.sp,),
-                //
-                //           Padding(
-                //             padding:  EdgeInsets.only(left: 7.w),
-                //             child: Text(
-                //               "5/20",
-                //               style: StyleUtility.buttonTextStyle.copyWith(
-                //               fontSize: TextSizeUtility.textSize14.sp
-                //             ),),
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
+
               ],
             ),
             SizedBox(
@@ -163,7 +162,6 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
               labelPadding: const EdgeInsets.all(0),
               unselectedLabelColor: Colors.black,
               labelColor: ColorUtility.color5457BE,
-              // labelStyle: StyleUtility.quicksandRegular16TextStyle
               labelStyle: StyleUtility.unSelectTabTextStyle
                   .copyWith(fontSize: TextSizeUtility.textSize16.sp),
               unselectedLabelStyle: StyleUtility.hintTextStyle,
@@ -257,11 +255,11 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                       )),
                   Text(
                     'Boost Your Profile',
-                    style: StyleUtility.quicksandSemiBold5457BETextStyle
-                        .copyWith(fontSize: TextSizeUtility.textSize20.sp),
+                    style: StyleUtility.kantumruyProSemiBold5457BETextStyle
+                        .copyWith(fontSize: TextSizeUtility.textSize22.sp),
                   ),
                   SizedBox(
-                    height: 15.h,
+                    height: 9.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -275,7 +273,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 15.h,
+                    height: 26.h,
                   ),
                   Row(
                     children: [
@@ -285,16 +283,16 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               border:
-                                  Border.all(color: ColorUtility.color9F9E9E)),
+                                  Border.all(color: ColorUtility.colorD6D6D8)),
                           child: Column(
                             children: [
                               Text(
                                 '10',
                                 style: StyleUtility
-                                    .quicksandSemiBold5457BETextStyle
+                                    .kantumruyProSemiBold5457BETextStyle
                                     .copyWith(
                                         fontSize:
-                                            TextSizeUtility.textSize20.sp),
+                                            TextSizeUtility.textSize22.sp),
                               ),
                               SizedBox(
                                 height: 5.h,
@@ -302,16 +300,16 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                               Text(
                                 'Boost',
                                 style: StyleUtility
-                                    .quicksandSemiBold5457BETextStyle
+                                    .kantumruyProSemiBold5457BETextStyle
                                     .copyWith(
                                         fontSize:
-                                            TextSizeUtility.textSize18.sp),
+                                            TextSizeUtility.textSize16.sp),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 8.h,
                               ),
                               Text(
-                                '180',
+                                '₪180',
                                 style: StyleUtility
                                     .quicksandSemiBoldBlackTextStyle
                                     .copyWith(
@@ -319,7 +317,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                                             TextSizeUtility.textSize16.sp),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 12.h,
                               ),
                               CustomButtonTopToBottomColor(
                                 height: 35,
@@ -328,7 +326,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                                 textStyle: StyleUtility.buttonTextStyle
                                     .copyWith(
                                         fontSize:
-                                            TextSizeUtility.textSize11.sp),
+                                            TextSizeUtility.textSize12.sp),
                               ),
                             ],
                           ),
@@ -341,18 +339,19 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: 10.h),
                           decoration: BoxDecoration(
+                            color: ColorUtility.color5457BE,
                               borderRadius: BorderRadius.circular(10.r),
                               border:
-                                  Border.all(color: ColorUtility.color9F9E9E)),
+                              Border.all(color: ColorUtility.color5457BE)),
                           child: Column(
                             children: [
                               Text(
-                                '5',
+                                '10',
                                 style: StyleUtility
-                                    .quicksandSemiBold5457BETextStyle
+                                    .kantumruyProSemiBoldWhiteTextStyle
                                     .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize20.sp),
+                                    fontSize:
+                                    TextSizeUtility.textSize22.sp),
                               ),
                               SizedBox(
                                 height: 5.h,
@@ -360,34 +359,60 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                               Text(
                                 'Boost',
                                 style: StyleUtility
-                                    .quicksandSemiBold5457BETextStyle
+                                    .kantumruyProSemiBoldWhiteTextStyle
                                     .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize18.sp),
+                                    fontSize:
+                                    TextSizeUtility.textSize16.sp),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 8.h,
                               ),
                               Text(
-                                '105',
+                                '₪180',
                                 style: StyleUtility
-                                    .quicksandSemiBoldBlackTextStyle
+                                    .kantumruyProSemiBoldWhiteTextStyle
                                     .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize16.sp),
+                                    fontSize:
+                                    TextSizeUtility.textSize16.sp),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 12.h,
                               ),
-                              CustomButtonTopToBottomColor(
+                              Container(
                                 height: 35,
-                                buttonText: "Boost Me",
-                                padding: 0.0,
-                                textStyle: StyleUtility.buttonTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize11.sp),
-                              ),
+                                decoration: BoxDecoration(
+                                 color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30.r),
+                                ),
+                                child: ElevatedButton(
+                                    onPressed: (){},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      shadowColor: Colors.transparent.withOpacity(0.1),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(30.r)),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+
+
+                                          Text("Boost Me",
+                                              maxLines: 1,
+                                          style:  StyleUtility
+                                                .kantumruyProSemiBold5457BETextStyle
+                                                .copyWith(
+                                            color: ColorUtility.color5457BE,
+                                                fontSize:
+                                                TextSizeUtility.textSize12.sp),),
+                                        ],
+                                      ),
+                                    )),
+                              )
                             ],
                           ),
                         ),
@@ -401,16 +426,16 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               border:
-                                  Border.all(color: ColorUtility.color9F9E9E)),
+                              Border.all(color: ColorUtility.colorD6D6D8)),
                           child: Column(
                             children: [
                               Text(
                                 '1',
                                 style: StyleUtility
-                                    .quicksandSemiBold5457BETextStyle
+                                    .kantumruyProSemiBold5457BETextStyle
                                     .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize20.sp),
+                                    fontSize:
+                                    TextSizeUtility.textSize22.sp),
                               ),
                               SizedBox(
                                 height: 5.h,
@@ -418,24 +443,24 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                               Text(
                                 'Boost',
                                 style: StyleUtility
-                                    .quicksandSemiBold5457BETextStyle
+                                    .kantumruyProSemiBold5457BETextStyle
                                     .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize18.sp),
+                                    fontSize:
+                                    TextSizeUtility.textSize16.sp),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 8.h,
                               ),
                               Text(
-                                '20',
+                                '₪20',
                                 style: StyleUtility
                                     .quicksandSemiBoldBlackTextStyle
                                     .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize16.sp),
+                                    fontSize:
+                                    TextSizeUtility.textSize16.sp),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 12.h,
                               ),
                               CustomButtonTopToBottomColor(
                                 height: 35,
@@ -443,8 +468,9 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                                 padding: 0.0,
                                 textStyle: StyleUtility.buttonTextStyle
                                     .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize11.sp),
+                                  color: ColorUtility.colorWhite,
+                                    fontSize:
+                                    TextSizeUtility.textSize12.sp),
                               ),
                             ],
                           ),
@@ -458,4 +484,23 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
           );
         });
   }
+
+
+  Future<dynamic> showPromotedDialog({
+    required BuildContext context,
+
+  }) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return const PromotedAlertDialog(
+
+            title: "Your profile has been promoted for this audition"
+          );
+        }).then((value) {});
+  }
+
+
+
+
 }
