@@ -8,10 +8,12 @@ import 'package:talent_app/modules/intro/intro_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
+import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -126,24 +128,28 @@ class _SettingScreenState extends State<SettingScreen> {
                 title: context.loc.settingDeleteAccount,
                 image: ImageUtility.deleteAccountIcon,
                 onTap: () {
-                  Common.showLoadingDialog(context);
-                  settingScreenProvider.deleteAccount(onSuccess: (message) {
-                    Navigator.pop(context);
-                    Preference().clearSharedPreference();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const IntroScreen()),
-                        (route) => false);
 
-
-                    Common.showSuccessToast(context, message);
-                  }, onFailure: (message) {
-                    if (Navigator.canPop(context)) {
+                  showDeleteAccountDialog(context: context,onYesTap: (){
+                    Common.showLoadingDialog(context);
+                    settingScreenProvider.deleteAccount(onSuccess: (message) {
                       Navigator.pop(context);
-                    }
-                    Common.showErrorToast(context, message);
+                      Preference().clearSharedPreference();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const IntroScreen()),
+                              (route) => false);
+
+                      Common.showSuccessToast(context, message);
+                    }, onFailure: (message) {
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
+                      Common.showErrorToast(context, message);
+                    });
+
                   });
+
                 },
               ),
               Container(
@@ -193,6 +199,23 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
   }
+
+  Future<dynamic> showDeleteAccountDialog({
+    required BuildContext context,
+    required VoidCallback onYesTap,
+  }) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return ConfirmAlertDialog(
+            userType: Preference().getUserType() == 1 ? UserType.talent :  UserType.cast,
+            onYesTap: onYesTap,
+            title: context.loc.dialogAreYouSureDeleteAccount,
+          );
+        }).then((value) {});
+  }
+
+
 }
 
 class SettingTileWidget extends StatelessWidget {

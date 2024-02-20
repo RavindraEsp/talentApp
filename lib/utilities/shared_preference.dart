@@ -21,6 +21,7 @@ class Preference {
   static const String _profileImage = "profileImage";
   static const String _userLogin = "userLogin";
   static const String _userType = "userType";
+  static const String _boosterCount = "boosterCount";
 
 
   static setUserName(String value) async {
@@ -36,6 +37,16 @@ class Preference {
   int getUserId() {
     return _pref?.getInt(userId) ?? 0;
   }
+
+
+  static setBoosterCount(int value) async {
+    _pref?.setInt(_boosterCount, value);
+  }
+  int getBoosterCount() {
+    return _pref?.getInt(_boosterCount) ?? 0;
+  }
+
+
 
 
   static setUserLogin(bool value) async {

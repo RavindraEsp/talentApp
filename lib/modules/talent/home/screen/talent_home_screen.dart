@@ -11,12 +11,10 @@ import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
-import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
 import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
@@ -37,6 +35,12 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
         .getHomeDataForTalent(onFailure: (message) {
       Common.showErrorSnackBar(context, message);
     });
+
+    Provider.of<TalentHomeScreenProvider>(context, listen: false)
+        .getBoostPlan(onFailure: (message) {
+      Common.showErrorSnackBar(context, message);
+    });
+
   }
 
   @override
@@ -94,44 +98,50 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                 //   fit: BoxFit.fill,
                 // )
 
-                Positioned(
-                  bottom: 10.sp,
-                  left: 187.w,
-                  child: GestureDetector(
-                    onTap: (){
-                      boastBottomSheet();
-                    //  showPromotedDialog(context: context);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.only(right:15.sp,left: 65.sp),
-                      decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                              colors:ColorUtility.boostGradientColor
-                          ),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30.r),
-                            bottomRight: Radius.circular(30.r),
-                          )
-                      ),
-                      height: 32.sp,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(ImageUtility.boostIcon,
-                            height: 27.sp,),
+                Consumer<TalentHomeScreenProvider>(
 
-                          Padding(
-                            padding:  EdgeInsets.only(left: 7.w),
-                            child: Text(
-                              "5/20",
-                              style: StyleUtility.quicksandMediumWhiteTextStyle.copyWith(
-                                  fontSize: TextSizeUtility.textSize16.sp
-                              ),),
-                          )
-                        ],
+                  builder: (context, talentHomeScreenProvider,child) {
+                    return Positioned(
+                      bottom: 10.sp,
+                      left: 187.w,
+                      child: GestureDetector(
+                        onTap: (){
+                          boostBottomSheet(talentHomeScreenProvider);
+                        //  showPromotedDialog(context: context);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(right:15.sp,left: 65.sp),
+                          decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  colors:ColorUtility.boostGradientColor
+                              ),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30.r),
+                                bottomRight: Radius.circular(30.r),
+                              )
+                          ),
+                          height: 32.sp,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(ImageUtility.boostIcon,
+                                height: 27.sp,),
+
+                              Padding(
+                                padding:  EdgeInsets.only(left: 7.w),
+                                child: Text(
+                                //  "5/20",
+                                  "${Preference().getBoosterCount()}",
+                                  style: StyleUtility.quicksandMediumWhiteTextStyle.copyWith(
+                                      fontSize: TextSizeUtility.textSize16.sp
+                                  ),),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  }
                 ),
 
                 ClipOval(
@@ -224,7 +234,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
     );
   }
 
-  boastBottomSheet() {
+  boostBottomSheet(TalentHomeScreenProvider talentHomeScreenProvider) {
     showModalBottomSheet<void>(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
@@ -254,7 +264,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                         ),
                       )),
                   Text(
-                    'Boost Your Profile',
+                    context.loc.titleBoostYourProfile,
                     style: StyleUtility.kantumruyProSemiBold5457BETextStyle
                         .copyWith(fontSize: TextSizeUtility.textSize22.sp),
                   ),
@@ -264,9 +274,9 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Text(
-                      'Promote your profile and appear first with the cast.A profile that the cast see first will have more chance to get into the audition.',
+                      context.loc.descriptionBoostYourProfile,
                       style:
-                          StyleUtility.quicksandRegularBlackTextStyle.copyWith(
+                      StyleUtility.quicksandRegularBlackTextStyle.copyWith(
                         fontSize: TextSizeUtility.textSize16.sp,
                       ),
                       textAlign: TextAlign.center,
@@ -275,211 +285,282 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
                   SizedBox(
                     height: 26.h,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              border:
-                                  Border.all(color: ColorUtility.colorD6D6D8)),
-                          child: Column(
-                            children: [
-                              Text(
-                                '10',
-                                style: StyleUtility
-                                    .kantumruyProSemiBold5457BETextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize22.sp),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                'Boost',
-                                style: StyleUtility
-                                    .kantumruyProSemiBold5457BETextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize16.sp),
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              Text(
-                                '₪180',
-                                style: StyleUtility
-                                    .quicksandSemiBoldBlackTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize16.sp),
-                              ),
-                              SizedBox(
-                                height: 12.h,
-                              ),
-                              CustomButtonTopToBottomColor(
-                                height: 35,
-                                buttonText: "Boost Me",
-                                padding: 0.0,
-                                textStyle: StyleUtility.buttonTextStyle
-                                    .copyWith(
-                                        fontSize:
-                                            TextSizeUtility.textSize12.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
-                          decoration: BoxDecoration(
-                            color: ColorUtility.color5457BE,
-                              borderRadius: BorderRadius.circular(10.r),
-                              border:
-                              Border.all(color: ColorUtility.color5457BE)),
-                          child: Column(
-                            children: [
-                              Text(
-                                '10',
-                                style: StyleUtility
-                                    .kantumruyProSemiBoldWhiteTextStyle
-                                    .copyWith(
-                                    fontSize:
-                                    TextSizeUtility.textSize22.sp),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                'Boost',
-                                style: StyleUtility
-                                    .kantumruyProSemiBoldWhiteTextStyle
-                                    .copyWith(
-                                    fontSize:
-                                    TextSizeUtility.textSize16.sp),
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              Text(
-                                '₪180',
-                                style: StyleUtility
-                                    .kantumruyProSemiBoldWhiteTextStyle
-                                    .copyWith(
-                                    fontSize:
-                                    TextSizeUtility.textSize16.sp),
-                              ),
-                              SizedBox(
-                                height: 12.h,
-                              ),
-                              Container(
-                                height: 35,
-                                decoration: BoxDecoration(
-                                 color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30.r),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: Container(
+                  //         padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //         decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(10.r),
+                  //             border:
+                  //                 Border.all(color: ColorUtility.colorD6D6D8)),
+                  //         child: Column(
+                  //           children: [
+                  //             Text(
+                  //               '10',
+                  //               style: StyleUtility
+                  //                   .kantumruyProSemiBold5457BETextStyle
+                  //                   .copyWith(
+                  //                       fontSize:
+                  //                           TextSizeUtility.textSize22.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 5.h,
+                  //             ),
+                  //             Text(
+                  //               'Boost',
+                  //               style: StyleUtility
+                  //                   .kantumruyProSemiBold5457BETextStyle
+                  //                   .copyWith(
+                  //                       fontSize:
+                  //                           TextSizeUtility.textSize16.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 8.h,
+                  //             ),
+                  //             Text(
+                  //               '₪180',
+                  //               style: StyleUtility
+                  //                   .quicksandSemiBoldBlackTextStyle
+                  //                   .copyWith(
+                  //                       fontSize:
+                  //                           TextSizeUtility.textSize16.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 12.h,
+                  //             ),
+                  //             CustomButtonTopToBottomColor(
+                  //               height: 35,
+                  //               buttonText: "Boost Me",
+                  //               padding: 0.0,
+                  //               textStyle: StyleUtility.buttonTextStyle
+                  //                   .copyWith(
+                  //                       fontSize:
+                  //                           TextSizeUtility.textSize12.sp),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 7.w,
+                  //     ),
+                  //     Expanded(
+                  //       child: Container(
+                  //         padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //         decoration: BoxDecoration(
+                  //           color: ColorUtility.color5457BE,
+                  //             borderRadius: BorderRadius.circular(10.r),
+                  //             border:
+                  //             Border.all(color: ColorUtility.color5457BE)),
+                  //         child: Column(
+                  //           children: [
+                  //             Text(
+                  //               '10',
+                  //               style: StyleUtility
+                  //                   .kantumruyProSemiBoldWhiteTextStyle
+                  //                   .copyWith(
+                  //                   fontSize:
+                  //                   TextSizeUtility.textSize22.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 5.h,
+                  //             ),
+                  //             Text(
+                  //               'Boost',
+                  //               style: StyleUtility
+                  //                   .kantumruyProSemiBoldWhiteTextStyle
+                  //                   .copyWith(
+                  //                   fontSize:
+                  //                   TextSizeUtility.textSize16.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 8.h,
+                  //             ),
+                  //             Text(
+                  //               '₪180',
+                  //               style: StyleUtility
+                  //                   .kantumruyProSemiBoldWhiteTextStyle
+                  //                   .copyWith(
+                  //                   fontSize:
+                  //                   TextSizeUtility.textSize16.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 12.h,
+                  //             ),
+                  //             Container(
+                  //               height: 35,
+                  //               decoration: BoxDecoration(
+                  //                color: Colors.white,
+                  //                 borderRadius: BorderRadius.circular(30.r),
+                  //               ),
+                  //               child: ElevatedButton(
+                  //                   onPressed: (){},
+                  //                   style: ElevatedButton.styleFrom(
+                  //                     backgroundColor: Colors.transparent,
+                  //                     shadowColor: Colors.transparent.withOpacity(0.1),
+                  //                     shape: RoundedRectangleBorder(
+                  //                         borderRadius: BorderRadius.circular(30.r)),
+                  //                   ),
+                  //                   child: Padding(
+                  //                     padding: EdgeInsets.symmetric(horizontal: 0.0),
+                  //                     child: Row(
+                  //                       mainAxisSize: MainAxisSize.min,
+                  //                       mainAxisAlignment: MainAxisAlignment.center,
+                  //                       crossAxisAlignment: CrossAxisAlignment.center,
+                  //                       children: [
+                  //
+                  //
+                  //                         Text("Boost Me",
+                  //                             maxLines: 1,
+                  //                         style:  StyleUtility
+                  //                               .kantumruyProSemiBold5457BETextStyle
+                  //                               .copyWith(
+                  //                           color: ColorUtility.color5457BE,
+                  //                               fontSize:
+                  //                               TextSizeUtility.textSize12.sp),),
+                  //                       ],
+                  //                     ),
+                  //                   )),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 7.w,
+                  //     ),
+                  //     Expanded(
+                  //       child: Container(
+                  //         padding: EdgeInsets.symmetric(vertical: 10.h),
+                  //         decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(10.r),
+                  //             border:
+                  //             Border.all(color: ColorUtility.colorD6D6D8)),
+                  //         child: Column(
+                  //           children: [
+                  //             Text(
+                  //               '1',
+                  //               style: StyleUtility
+                  //                   .kantumruyProSemiBold5457BETextStyle
+                  //                   .copyWith(
+                  //                   fontSize:
+                  //                   TextSizeUtility.textSize22.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 5.h,
+                  //             ),
+                  //             Text(
+                  //               'Boost',
+                  //               style: StyleUtility
+                  //                   .kantumruyProSemiBold5457BETextStyle
+                  //                   .copyWith(
+                  //                   fontSize:
+                  //                   TextSizeUtility.textSize16.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 8.h,
+                  //             ),
+                  //             Text(
+                  //               '₪20',
+                  //               style: StyleUtility
+                  //                   .quicksandSemiBoldBlackTextStyle
+                  //                   .copyWith(
+                  //                   fontSize:
+                  //                   TextSizeUtility.textSize16.sp),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 12.h,
+                  //             ),
+                  //             CustomButtonTopToBottomColor(
+                  //               height: 35,
+                  //               buttonText: "Boost Me",
+                  //               padding: 0.0,
+                  //               textStyle: StyleUtility.buttonTextStyle
+                  //                   .copyWith(
+                  //                 color: ColorUtility.colorWhite,
+                  //                   fontSize:
+                  //                   TextSizeUtility.textSize12.sp),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+
+
+                  SizedBox(
+                    height: 170.h,
+                    child: ListView.builder(
+                      //  itemCount: 4,
+                        itemCount: talentHomeScreenProvider.boostPlanResponseModel.data?.length ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context,index){
+
+                          var boostData = talentHomeScreenProvider.boostPlanResponseModel.data?[index];
+                          return Container(
+                            // padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            margin: EdgeInsets.only(right: 10.w),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                border:
+                                Border.all(color: ColorUtility.colorD6D6D8)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                //  '10',
+                                  "${boostData?.count ?? ""}",
+                                  style: StyleUtility
+                                      .kantumruyProSemiBold5457BETextStyle
+                                      .copyWith(
+                                      fontSize:
+                                      TextSizeUtility.textSize22.sp),
                                 ),
-                                child: ElevatedButton(
-                                    onPressed: (){},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shadowColor: Colors.transparent.withOpacity(0.1),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30.r)),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-
-
-                                          Text("Boost Me",
-                                              maxLines: 1,
-                                          style:  StyleUtility
-                                                .kantumruyProSemiBold5457BETextStyle
-                                                .copyWith(
-                                            color: ColorUtility.color5457BE,
-                                                fontSize:
-                                                TextSizeUtility.textSize12.sp),),
-                                        ],
-                                      ),
-                                    )),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.h),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              border:
-                              Border.all(color: ColorUtility.colorD6D6D8)),
-                          child: Column(
-                            children: [
-                              Text(
-                                '1',
-                                style: StyleUtility
-                                    .kantumruyProSemiBold5457BETextStyle
-                                    .copyWith(
-                                    fontSize:
-                                    TextSizeUtility.textSize22.sp),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                'Boost',
-                                style: StyleUtility
-                                    .kantumruyProSemiBold5457BETextStyle
-                                    .copyWith(
-                                    fontSize:
-                                    TextSizeUtility.textSize16.sp),
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              Text(
-                                '₪20',
-                                style: StyleUtility
-                                    .quicksandSemiBoldBlackTextStyle
-                                    .copyWith(
-                                    fontSize:
-                                    TextSizeUtility.textSize16.sp),
-                              ),
-                              SizedBox(
-                                height: 12.h,
-                              ),
-                              CustomButtonTopToBottomColor(
-                                height: 35,
-                                buttonText: "Boost Me",
-                                padding: 0.0,
-                                textStyle: StyleUtility.buttonTextStyle
-                                    .copyWith(
-                                  color: ColorUtility.colorWhite,
-                                    fontSize:
-                                    TextSizeUtility.textSize12.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  context.loc.boost,
+                                  style: StyleUtility
+                                      .kantumruyProSemiBold5457BETextStyle
+                                      .copyWith(
+                                      fontSize:
+                                      TextSizeUtility.textSize16.sp),
+                                ),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Text(
+                                 // '₪180',
+                                  "₪${boostData?.price ?? ""}",
+                                  style: StyleUtility
+                                      .quicksandSemiBoldBlackTextStyle
+                                      .copyWith(
+                                      fontSize:
+                                      TextSizeUtility.textSize16.sp),
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                CustomButtonTopToBottomColor(
+                                  height: 35,
+                                  buttonText: context.loc.buttonBoostMe,
+                                  padding: 0.0,
+                                  textStyle: StyleUtility.buttonTextStyle
+                                      .copyWith(
+                                      fontSize:
+                                      TextSizeUtility.textSize12.sp),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                  )
                 ],
-              ),
+              )
             ),
           );
         });

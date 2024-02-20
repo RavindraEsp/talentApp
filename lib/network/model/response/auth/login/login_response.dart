@@ -36,6 +36,7 @@ class Data {
   String? profilePic;
   String? jwtToken;
   bool? isCardcreated;
+  int? boostCount;
 
   Data(
       {this.id,
@@ -47,7 +48,8 @@ class Data {
         this.gender,
         this.profilePic,
         this.jwtToken,
-        this.isCardcreated
+        this.isCardcreated,
+        this.boostCount
       });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,7 @@ class Data {
     profilePic = json['profilePic'];
     jwtToken = json['jwtToken'];
     isCardcreated = json['isCardcreated'];
+    boostCount = json['boostCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +78,7 @@ class Data {
     data['profilePic'] = this.profilePic;
     data['jwtToken'] = this.jwtToken;
     data['isCardcreated'] = this.isCardcreated;
+    data['boostCount'] = this.boostCount;
     return data;
   }
 }
