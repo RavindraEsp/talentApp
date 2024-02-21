@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
+import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/auth/login/provider/cast_login_provider.dart';
 import 'package:talent_app/network/model/request/auth/login_request.dart';
 import 'package:talent_app/routes/route_name.dart';
@@ -343,7 +345,9 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                       Expanded(
                                         child: SocialButton(
                                           buttonText: context.loc.buttonVia,
-                                          onTap: () {},
+                                          onTap: () {
+                                            fbLogin();
+                                          },
                                           icon: ImageUtility.fbIcon,
                                         ),
                                       ),
@@ -367,5 +371,33 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
         ],
       ),
     );
+  }
+
+  fbLogin() async {
+    final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
+// or FacebookAuth.i.login()
+    if (result.status == LoginStatus.success) {
+      // you are logged
+      final AccessToken accessToken = result.accessToken!;
+
+          // Fetch user profile
+          final Map<String, dynamic> userProfile = await FacebookAuth.instance.getUserData(
+            fields: "email,name,picture.width(200)",
+          );
+
+          // Use the user profile data
+          String name = userProfile['name'];
+          String email = userProfile['email'];
+          String profilePictureUrl = userProfile['picture']['data']['url'];
+
+          AppLogger.logD('User Name: $name');
+          AppLogger.logD('User Email: $email');
+          AppLogger.logD('User Profile Picture: $profilePictureUrl');
+
+
+        } else {
+      AppLogger.logD(result.status);
+      AppLogger.logD(result.message);
+    }
   }
 }

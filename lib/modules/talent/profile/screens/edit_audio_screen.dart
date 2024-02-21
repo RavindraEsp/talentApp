@@ -138,6 +138,8 @@ class _EditAudioScreenState extends State<EditAudioScreen> {
                                 ),
                               ),
                             ),
+
+
                             Center(
                               child: SizedBox(
                                 height: 39.w,
@@ -197,7 +199,6 @@ class _EditAudioScreenState extends State<EditAudioScreen> {
                 if (selectedAudios.isEmpty) {
                   Common.showErrorSnackBar(context, StringsUtility.uploadAudio);
                 }else{
-
                   Common.showLoadingDialog(context);
                   editAudioScreenProvider.updateTalentProfileData(
                       onSuccess: (message) {
