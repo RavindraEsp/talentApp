@@ -346,7 +346,6 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                         child: SocialButton(
                                           buttonText: context.loc.buttonVia,
                                           onTap: () {
-                                            fbLogin();
                                           },
                                           icon: ImageUtility.fbIcon,
                                         ),
