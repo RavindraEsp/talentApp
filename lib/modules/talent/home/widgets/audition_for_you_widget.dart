@@ -232,7 +232,7 @@ class AuditionForYouWidget extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
-                                                height: 34,
+                                                height: 34.h,
                                                 decoration: BoxDecoration(
                                                   color:
                                                       ColorUtility.color909EAF,
@@ -322,6 +322,7 @@ class AuditionForYouWidget extends StatelessWidget {
                                                     style: StyleUtility
                                                         .kantumruyProRegular5457BETextStyle
                                                         .copyWith(
+                                                      fontSize: TextSizeUtility.textSize12.sp,
                                                             decoration:
                                                                 TextDecoration
                                                                     .underline),

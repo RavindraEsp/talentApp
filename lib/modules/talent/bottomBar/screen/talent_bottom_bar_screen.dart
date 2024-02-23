@@ -22,58 +22,65 @@ import 'package:talent_app/utilities/style_utility.dart';
 
 class TalentBottomBarScreen extends StatefulWidget {
   int selectIndex;
+ final int selectHomeIndex;
 
-  TalentBottomBarScreen({super.key, required this.selectIndex});
+  TalentBottomBarScreen({super.key, required this.selectIndex, required this.selectHomeIndex});
 
   @override
-  State createState() => _TalentBottomBarScreenState(selectIndex);
+  State createState() => _TalentBottomBarScreenState(selectIndex,selectHomeIndex);
 }
 
 //class _BottomBarScreenState extends State<BottomBarScreen> {
 class _TalentBottomBarScreenState extends State {
-  final List<Widget> _children = [
-
-
-    ChangeNotifierProvider(
-      create: (context) => TalentHomeScreenProvider(),
-      child: const TalentHomeScreen(),
-    ),
-
-
-
-    ChangeNotifierProvider(
-      create: (context) => NotificationProvider(),
-      child: const NotificationScreen(
-        userType: UserType.talent,
-      ),
-    ),
-
-
-
-    ChangeNotifierProvider(
-      create: (context) => ChatUserListScreenProvider(),
-      child: const   ChatUserListScreen(userType: UserType.talent),
-    ),
-
-
-
-
-    ChangeNotifierProvider(
-      create: (context) => EducationListScreenProvider(),
-      child: const EducationListScreen(),
-    ),
-
-    ChangeNotifierProvider(
-      create: (context) => TalentProfileScreenProvider(),
-      child: const TalentProfileScreen(),
-    ),
-
-
-  ];
+  late final List<Widget> _children;
 
   late int selectIndex;
+  final int selectHomeIndex;
 
-  _TalentBottomBarScreenState(this.selectIndex);
+  _TalentBottomBarScreenState(this.selectIndex,this.selectHomeIndex);
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _children = [
+
+
+      ChangeNotifierProvider(
+        create: (context) => TalentHomeScreenProvider(),
+        child:  TalentHomeScreen(
+          selectHomeTab: selectHomeIndex,
+        ),
+      ),
+
+      ChangeNotifierProvider(
+        create: (context) => NotificationProvider(),
+        child: const NotificationScreen(
+          userType: UserType.talent,
+        ),
+      ),
+
+      ChangeNotifierProvider(
+        create: (context) => ChatUserListScreenProvider(),
+        child: const   ChatUserListScreen(userType: UserType.talent),
+      ),
+
+      ChangeNotifierProvider(
+        create: (context) => EducationListScreenProvider(),
+        child: const EducationListScreen(),
+      ),
+
+      ChangeNotifierProvider(
+        create: (context) => TalentProfileScreenProvider(),
+        child: const TalentProfileScreen(),
+      ),
+
+
+    ];
+
+  }
 
   @override
   Widget build(BuildContext context) {

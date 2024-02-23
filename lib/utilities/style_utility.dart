@@ -55,21 +55,11 @@ class StyleUtility {
   static TextStyle quicksandRegular9F9E9ETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400, color: ColorUtility.color9F9E9E);
 
-
   static TextStyle quicksandRegular787E84TextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400, color: ColorUtility.color787E84);
 
   static TextStyle quicksandRegular858686TextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400, color: ColorUtility.color858686);
-
-
-
-
-
-
-
-
-
 
   static TextStyle selectTabTextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w500,
@@ -102,18 +92,12 @@ class StyleUtility {
       color: Colors.black);
 
   static TextStyle quicksandBoldBlackTextStyle =
-  GoogleFonts.quicksand(
-      fontWeight: FontWeight.w700,
-      color: Colors.black);
+      GoogleFonts.quicksand(fontWeight: FontWeight.w700, color: Colors.black);
 
-  static TextStyle quicksandSemiBold76768BTextStyle =
-  GoogleFonts.quicksand(
-  fontWeight: FontWeight.w700,
-  color: ColorUtility.color76768B);
+  static TextStyle quicksandSemiBold76768BTextStyle = GoogleFonts.quicksand(
+      fontWeight: FontWeight.w700, color: ColorUtility.color76768B);
 
-
-  static TextStyle quicksandMediumBlackTextStyle =
-  GoogleFonts.quicksand(
+  static TextStyle quicksandMediumBlackTextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w500,
       //  fontSize: TextSizeUtility.textSize16,
       color: Colors.black);
@@ -123,28 +107,16 @@ class StyleUtility {
       //   fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
 
-
   static TextStyle quicksandBold5457BETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w700,
       //   fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
 
-
-
-
-
-
   static TextStyle quicksandMedium5457BETextStyle = GoogleFonts.quicksand(
-      fontWeight: FontWeight.w500,
-      color: ColorUtility.color5457BE);
-
+      fontWeight: FontWeight.w500, color: ColorUtility.color5457BE);
 
   static TextStyle quicksandMediumACACAFTextStyle = GoogleFonts.quicksand(
-      fontWeight: FontWeight.w500,
-      color: ColorUtility.colorACACAF);
-
-
-
+      fontWeight: FontWeight.w500, color: ColorUtility.colorACACAF);
 
   static TextStyle quicksandSemiBoldBlackTextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w600,
@@ -155,8 +127,7 @@ class StyleUtility {
       GoogleFonts.quicksand(fontWeight: FontWeight.w700, color: Colors.white);
 
   static TextStyle quicksandBlackWhiteTextStyle =
-  GoogleFonts.quicksand(fontWeight: FontWeight.w700,
-      color: Colors.black);
+      GoogleFonts.quicksand(fontWeight: FontWeight.w700, color: Colors.black);
 
   static TextStyle quicksandSemiBoldWhiteTextStyle =
       GoogleFonts.quicksand(fontWeight: FontWeight.w600, color: Colors.white);
@@ -169,12 +140,8 @@ class StyleUtility {
   static TextStyle quicksandRegular5457BETextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400, color: ColorUtility.color5457BE);
 
-
   static TextStyle quicksandRegular9A9A9FTextStyle = GoogleFonts.quicksand(
       fontWeight: FontWeight.w400, color: ColorUtility.color9A9A9F);
-
-
-
 
   static TextStyle kantumruyProSemiBold5457BETextStyle =
       GoogleFonts.kantumruyPro(
@@ -183,54 +150,43 @@ class StyleUtility {
           color: ColorUtility.color5457BE);
 
   static TextStyle kantumruyProSemiBoldWhiteTextStyle =
-  GoogleFonts.kantumruyPro(
-      fontWeight: FontWeight.w600,
-      color: ColorUtility.colorWhite);
+      GoogleFonts.kantumruyPro(
+          fontWeight: FontWeight.w600, color: ColorUtility.colorWhite);
 
-  static TextStyle kantumruyProMediumWhiteTextStyle =
-  GoogleFonts.kantumruyPro(
-      fontWeight: FontWeight.w500,
-      color: ColorUtility.colorWhite);
+  static TextStyle kantumruyProMediumWhiteTextStyle = GoogleFonts.kantumruyPro(
+      fontWeight: FontWeight.w500, color: ColorUtility.colorWhite);
 
-
-  static TextStyle kantumruyProBoldBlackTextStyle =
-  GoogleFonts.kantumruyPro(
+  static TextStyle kantumruyProBoldBlackTextStyle = GoogleFonts.kantumruyPro(
       fontWeight: FontWeight.w700,
       // fontSize: TextSizeUtility.textSize26,
       color: Colors.black);
 
   static TextStyle kantumruyProSemiBoldE03939TextStyle =
-  GoogleFonts.kantumruyPro(
-      fontWeight: FontWeight.w600,
-      color: ColorUtility.colorE03939);
+      GoogleFonts.kantumruyPro(
+          fontWeight: FontWeight.w600, color: ColorUtility.colorE03939);
 
   static TextStyle kantumruyProSMedium18TextStyle = GoogleFonts.kantumruyPro(
       fontWeight: FontWeight.w500,
       //  fontSize: TextSizeUtility.textSize18,
       color: Colors.white);
-  static TextStyle kantumruyProMedium5457BETextStyle =
-      GoogleFonts.kantumruyPro(
-          fontWeight: FontWeight.w500, color: ColorUtility.color5457BE);
+  static TextStyle kantumruyProMedium5457BETextStyle = GoogleFonts.kantumruyPro(
+      fontWeight: FontWeight.w500, color: ColorUtility.color5457BE);
 
   static TextStyle kantumruyProRegular5457BETextStyle =
-  GoogleFonts.kantumruyPro(
-      fontWeight: FontWeight.w400, color: ColorUtility.color5457BE);
-
+      GoogleFonts.kantumruyPro(
+          fontWeight: FontWeight.w400, color: ColorUtility.color5457BE);
 
   static TextStyle kantumruyProRegularDD4F4FTextStyle =
-  GoogleFonts.kantumruyPro(
-      fontWeight: FontWeight.w400, color: ColorUtility.colorDD4F4F);
-
-
+      GoogleFonts.kantumruyPro(
+          fontWeight: FontWeight.w400, color: ColorUtility.colorDD4F4F);
 
   static TextStyle mulishRegular16TextStyle = GoogleFonts.mulish(
       fontWeight: FontWeight.w400,
       // fontSize: TextSizeUtility.textSize16,
       color: ColorUtility.color5457BE);
 
-  static TextStyle mulishRegularBlackTextStyle = GoogleFonts.mulish(
-      fontWeight: FontWeight.w400,
-      color: Colors.black);
+  static TextStyle mulishRegularBlackTextStyle =
+      GoogleFonts.mulish(fontWeight: FontWeight.w400, color: Colors.black);
 
   static TextStyle mulishBold5457BETextStyle = GoogleFonts.mulish(
       fontWeight: FontWeight.w700,

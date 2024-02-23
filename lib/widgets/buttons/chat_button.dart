@@ -35,7 +35,7 @@ class ChatButton extends StatelessWidget {
               ]);
     final borderRadius = BorderRadius.circular(30.r);
     return Container(
-      height: TextSizeUtility.buttonHeight,
+      height: TextSizeUtility.buttonHeight.h,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: gradient,

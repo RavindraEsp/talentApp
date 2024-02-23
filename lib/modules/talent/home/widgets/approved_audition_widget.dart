@@ -177,6 +177,7 @@ class ApprovedAuditionWidget extends StatelessWidget {
                                         style: StyleUtility
                                             .kantumruyProRegular5457BETextStyle
                                             .copyWith(
+                                            fontSize: TextSizeUtility.textSize12.sp,
                                                 decoration:
                                                     TextDecoration.underline),
                                       ),

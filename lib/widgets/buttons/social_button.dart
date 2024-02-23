@@ -23,7 +23,7 @@ class SocialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(30.r);
     return Container(
-      height: TextSizeUtility.buttonHeight,
+      height: TextSizeUtility.buttonHeight.h,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: ColorUtility.colorEFEFEF,

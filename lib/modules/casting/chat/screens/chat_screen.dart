@@ -165,7 +165,6 @@ class ChatScreenState extends State<ChatScreen> {
                               Expanded(
                                 child: TextFormField(
                                   controller: provider.textEditingController,
-                                  cursorColor: Colors.white,
                                   keyboardType: TextInputType.multiline,
                                   minLines: 1,
                                   maxLines: 6,

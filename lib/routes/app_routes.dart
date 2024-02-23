@@ -355,6 +355,7 @@ class AppRoute {
                   create: (_) => BottomBarProvider(),
                   child: TalentBottomBarScreen(
                     selectIndex: arg["selectIndex"],
+                    selectHomeIndex: arg["selectHomeIndex"] ?? 0,
                   ),
                 ));
 

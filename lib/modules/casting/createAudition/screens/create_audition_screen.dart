@@ -577,7 +577,7 @@ class _CreateAuditionScreenState extends State<CreateAuditionScreen> {
                                     Expanded(
                                         child: CustomOutlineButton(
                                             buttonText: context
-                                                .loc.buttonCancelAudition,
+                                                .loc.buttonCancel,
                                             onTap: () {
                                               showCancelDialog(
                                                   context: context,

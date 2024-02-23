@@ -41,7 +41,6 @@ class SimpleTextField extends StatelessWidget {
     return Container(
       child: TextFormField(
         maxLength: maxLength,
-
         enabled: isEnable,
         obscureText: passwordObscure ?? false,
         controller: controller,
@@ -111,18 +110,24 @@ class SimpleTextField extends StatelessWidget {
           ),
           suffixIcon: suffixImage != null && suffixImage == 'password'
               ? passwordObscure == false
-                  ? InkWell(
-                      onTap: ontapObscure,
-                      child: const Icon(
-                        Icons.visibility,
-                        color: ColorUtility.color5457BE,
+                  ? SizedBox(
+                      height: 55.sp,
+                      child: InkWell(
+                        onTap: ontapObscure,
+                        child: const Icon(
+                          Icons.visibility,
+                          color: ColorUtility.color5457BE,
+                        ),
                       ),
                     )
-                  : InkWell(
-                      onTap: ontapObscure,
-                      child: const Icon(
-                        Icons.visibility_off,
-                        color: ColorUtility.color5457BE,
+                  : SizedBox(
+                      height: 55.sp,
+                      child: InkWell(
+                        onTap: ontapObscure,
+                        child: const Icon(
+                          Icons.visibility_off,
+                          color: ColorUtility.color5457BE,
+                        ),
                       ),
                     )
               : suffixImage != null

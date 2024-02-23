@@ -26,7 +26,7 @@ class CustomTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
-      height: TextSizeUtility.buttonHeight,
+      height: TextSizeUtility.buttonHeight.h,
       child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(

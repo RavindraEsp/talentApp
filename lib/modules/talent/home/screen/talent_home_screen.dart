@@ -20,16 +20,26 @@ import 'package:talent_app/widgets/custom_circular_loader_widget.dart';
 import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class TalentHomeScreen extends StatefulWidget {
-  const TalentHomeScreen({super.key});
+  final int selectHomeTab;
+  const TalentHomeScreen({super.key, required this.selectHomeTab});
 
   @override
   State<TalentHomeScreen> createState() => _TalentHomeScreenState();
 }
 
-class _TalentHomeScreenState extends State<TalentHomeScreen> {
+class _TalentHomeScreenState extends State<TalentHomeScreen> with SingleTickerProviderStateMixin{
+
+  TabController? _tabController ;
+
+
   @override
   void initState() {
     super.initState();
+
+
+ _tabController = TabController(length: 2, vsync: this, initialIndex: widget.selectHomeTab);
+ //_tabController = TabController(length: 2, vsync: this, initialIndex: 1);
+
 
     Provider.of<TalentHomeScreenProvider>(context, listen: false)
         .getHomeDataForTalent(onFailure: (message) {
@@ -42,6 +52,9 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
     });
 
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +182,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
               height: 5.h,
             ),
             TabBar(
+              controller: _tabController,
               labelPadding: const EdgeInsets.all(0),
               unselectedLabelColor: Colors.black,
               labelColor: ColorUtility.color5457BE,
@@ -207,6 +221,7 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> {
             Expanded(child: Consumer<TalentHomeScreenProvider>(
                 builder: (context, talentHomeScreenProvider, child) {
               return TabBarView(
+                controller: _tabController,
                 children: [
                   talentHomeScreenProvider.isLoading == true
                       ? const CustomCircularLoaderWidget()

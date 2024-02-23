@@ -15,6 +15,7 @@ import 'package:talent_app/utilities/constants.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
+import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/buttons/chat_button.dart';
@@ -588,6 +589,8 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                           horizontal: 10.w),
                                       child: InkWell(
                                         onTap: () {
+
+
                                           if (provider
                                                       .talantUserProfileModel
                                                       ?.data
@@ -600,8 +603,8 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       ?.first
                                                       .facebooklink ==
                                                   "") {
-                                            Common.showErrorSnackBar(
-                                                context, "No Link Avaolabe");
+                                            Common.showErrorSnackBar(context, StringsUtility.noLinkAvailable);
+
                                           }
                                           ConstantMethod.launchUrlBrowser(
                                               provider
@@ -630,7 +633,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       ?.data?.first.instalink ==
                                                   "") {
                                             Common.showErrorSnackBar(
-                                                context, "No Link Available");
+                                                context, StringsUtility.noLinkAvailable);
                                           }
                                           ConstantMethod.launchUrlBrowser(
                                               provider.talantUserProfileModel
@@ -662,7 +665,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       .youtubelink ==
                                                   "") {
                                             Common.showErrorSnackBar(
-                                                context, "No Link Available");
+                                                context, StringsUtility.noLinkAvailable);
                                           }
                                           ConstantMethod.launchUrlBrowser(
                                               provider
@@ -697,7 +700,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       .youtubelink ==
                                                   "") {
                                             Common.showErrorSnackBar(
-                                                context, "No Link Available");
+                                                context, StringsUtility.noLinkAvailable);
                                           }
                                           ConstantMethod.launchUrlBrowser(
                                               provider

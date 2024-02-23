@@ -88,7 +88,9 @@ class _TalentMenuScreenState extends State<TalentMenuScreen> {
                 Navigator.pushNamedAndRemoveUntil(
                     context,
                     RouteName.talentBottomBarScreen,
-                    arguments: {"selectIndex": 0},
+                    arguments: {"selectIndex": 0,
+                    "selectHomeIndex":1
+                    },
                         (route) => false);
 
                 // Navigator.pushNamed(
