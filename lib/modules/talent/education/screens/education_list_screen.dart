@@ -11,7 +11,6 @@ import 'package:talent_app/network/end_points.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/strings_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -116,7 +115,21 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                   child: SearchTextField(
                                     controller: searchController,
                                     hintText: context.loc.hintSearchCourses,
-                                  ),
+                                    onChange: (value) {
+                                      educationListScreenProvider.listToDisplay = searchController.text.isEmpty
+                                          ? educationListScreenProvider.educationListResponseModel?.data ?? []
+                                          : educationListScreenProvider.educationListResponseModel?.data
+                                          ?.where((item) {
+                                        // Ensure a bool is always returned. If item.title is null, treat it as an empty string.
+                                        var titleLower = item.title?.toLowerCase() ?? '';
+                                        return titleLower.contains(searchController.text.toLowerCase());
+                                      })
+                                          .toList() ?? [];
+
+
+                                      educationListScreenProvider.updateUi();
+                                    },
+                                  )
                                 ),
                                 SizedBox(
                                   width: 10.w,
@@ -171,198 +184,387 @@ class _EducationListScreenState extends State<EducationListScreen> {
                             ),
                           ),
                         ),
+
                         Expanded(
                             child: (educationListScreenProvider
-                                            .educationListResponseModel
-                                            ?.data
-                                            ?.length ??
-                                        0) >
-                                    0
+                                .listToDisplay
+                                ?.length ??
+                                0) >
+                                0
                                 ? ListView.builder(
-                                    padding: EdgeInsets.only(
-                                        bottom: 20.h, top: 22.h),
-                                    itemCount: educationListScreenProvider
-                                            .educationListResponseModel
-                                            ?.data
-                                            ?.length ??
-                                        0,
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          if (educationListScreenProvider
-                                                      .educationListResponseModel
-                                                      ?.data?[index]
-                                                      .videolink !=
-                                                  null &&
-                                              educationListScreenProvider
-                                                      .educationListResponseModel
-                                                      ?.data?[index]
-                                                      .videolink !=
-                                                  "") {
-                                            Navigator.pushNamed(context,
-                                                RouteName.videoPlayerScreen,
-                                                arguments: {
-                                                  "videoFromApi":
-                                                      educationListScreenProvider
-                                                          .educationListResponseModel
-                                                          ?.data?[index]
-                                                          .videolink ?? ""
-                                                });
-                                          }else{
-                                            Common.showErrorSnackBar(context,
-                                                StringsUtility.videoNotAvailable);
+                                padding: EdgeInsets.only(
+                                    bottom: 20.h, top: 22.h),
+                                itemCount: educationListScreenProvider
+                                    .listToDisplay
+                                    ?.length ??
+                                    0,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      if (educationListScreenProvider
+                                          .listToDisplay?[index]
+                                          .videolink !=
+                                          null &&
+                                          educationListScreenProvider
+                                              .listToDisplay?[index]
+                                              .videolink !=
+                                              "") {
+                                        Navigator.pushNamed(context,
+                                            RouteName.videoPlayerScreen,
+                                            arguments: {
+                                              "videoFromApi":
+                                              educationListScreenProvider.listToDisplay?[index]
+                                                  .videolink ?? ""
+                                            });
+                                      }else{
+                                        Common.showErrorSnackBar(context,
+                                            StringsUtility.videoNotAvailable);
 
-                                          }
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              left: 20.w,
-                                              right: 20.w,
-                                              bottom: 12.h),
-                                          padding: EdgeInsets.only(
-                                              top: 9.w,
-                                              left: 9.w,
-                                              right: 9.w,
-                                              bottom: 11.w),
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
+                                      }
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          left: 20.w,
+                                          right: 20.w,
+                                          bottom: 12.h),
+                                      padding: EdgeInsets.only(
+                                          top: 9.w,
+                                          left: 9.w,
+                                          right: 9.w,
+                                          bottom: 11.w),
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                        BorderRadius.circular(10.r),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          ClipRRect(
                                             borderRadius:
-                                                BorderRadius.circular(10.r),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(7.r),
-                                                child: CachedNetworkImage(
-                                                    width: 117.h,
-                                                    height: 90.h,
-                                                    fit: BoxFit.cover,
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        const Center(
-                                                            child:
-                                                                CircularProgressIndicator()),
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        Container(
-                                                            color: Colors.grey,
-                                                            child: Center(
-                                                                child: Icon(
+                                            BorderRadius.circular(7.r),
+                                            child: CachedNetworkImage(
+                                                width: 117.h,
+                                                height: 90.h,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context,
+                                                    url) =>
+                                                const Center(
+                                                    child:
+                                                    CircularProgressIndicator()),
+                                                errorWidget: (context, url,
+                                                    error) =>
+                                                    Container(
+                                                        color: Colors.grey,
+                                                        child: Center(
+                                                            child: Icon(
                                                               Icons.error,
                                                               size: 25.sp,
                                                             ))),
-                                                    imageUrl:
-                                                        "${Endpoints.imageBaseUrl}${educationListScreenProvider.educationListResponseModel?.data?[index].thumbnailImage ?? ""}"),
-                                              ),
-                                              SizedBox(
-                                                width: 8.w,
-                                              ),
-                                              Expanded(
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
+                                                imageUrl:
+                                                "${Endpoints.imageBaseUrl}${educationListScreenProvider.listToDisplay?[index].thumbnailImage ?? ""}"),
+                                          ),
+                                          SizedBox(
+                                            width: 8.w,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisSize:
+                                              MainAxisSize.min,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  // "How to pass an audition  successfully",
+                                                  educationListScreenProvider
+                                                      .listToDisplay?[index]
+                                                      .title ??
+                                                      "",
+                                                  style: StyleUtility
+                                                      .quicksandSemiBoldBlackTextStyle
+                                                      .copyWith(
+                                                    fontSize:
+                                                    TextSizeUtility
+                                                        .textSize14.sp,
+                                                  ),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                  TextOverflow.ellipsis,
+                                                ),
+                                                SizedBox(
+                                                  height: 12.h,
+                                                ),
+                                                Row(
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  CrossAxisAlignment
+                                                      .center,
                                                   children: [
+                                                    Image.asset(
+                                                      ImageUtility
+                                                          .calenderVerifiedIcon,
+                                                      width: 14.w,
+                                                      fit: BoxFit.fill,
+                                                      color: ColorUtility
+                                                          .color5457BE,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5.w,
+                                                    ),
                                                     Text(
-                                                      // "How to pass an audition  successfully",
-                                                      educationListScreenProvider
-                                                              .educationListResponseModel
-                                                              ?.data?[index]
-                                                              .title ??
-                                                          "",
+                                                      // "Uploaded on 18/8/2023",
+                                                      "${context.loc.uploadedOn} ${educationListScreenProvider.listToDisplay?[index].date ?? ""}",
                                                       style: StyleUtility
-                                                          .quicksandSemiBoldBlackTextStyle
+                                                          .quicksandRegular858686TextStyle
                                                           .copyWith(
-                                                        fontSize:
-                                                            TextSizeUtility
-                                                                .textSize14.sp,
-                                                      ),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 12.h,
-                                                    ),
-                                                    Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Image.asset(
-                                                          ImageUtility
-                                                              .calenderVerifiedIcon,
-                                                          width: 14.w,
-                                                          fit: BoxFit.fill,
-                                                          color: ColorUtility
-                                                              .color5457BE,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5.w,
-                                                        ),
-                                                        Text(
-                                                          // "Uploaded on 18/8/2023",
-                                                          "${context.loc.uploadedOn} ${educationListScreenProvider.educationListResponseModel?.data?[index].date ?? ""}",
-                                                          style: StyleUtility
-                                                              .quicksandRegular858686TextStyle
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      TextSizeUtility
-                                                                          .textSize12
-                                                                          .sp),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 8.h,
-                                                    ),
-                                                    Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Image.asset(
-                                                          ImageUtility
-                                                              .clockIcon,
-                                                          width: 14.w,
-                                                          color: ColorUtility
-                                                              .color5457BE,
-                                                          fit: BoxFit.fill,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5.w,
-                                                        ),
-                                                        Text(
-                                                          //"09:00",
-                                                          educationListScreenProvider
-                                                                  .educationListResponseModel
-                                                                  ?.data?[index]
-                                                                  .time ??
-                                                              "",
-
-                                                          style: StyleUtility
-                                                              .quicksandRegular787E84TextStyle
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      TextSizeUtility
-                                                                          .textSize12
-                                                                          .sp),
-                                                        ),
-                                                      ],
+                                                          fontSize:
+                                                          TextSizeUtility
+                                                              .textSize12
+                                                              .sp),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                            ],
+                                                SizedBox(
+                                                  height: 8.h,
+                                                ),
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .center,
+                                                  children: [
+                                                    Image.asset(
+                                                      ImageUtility
+                                                          .clockIcon,
+                                                      width: 14.w,
+                                                      color: ColorUtility
+                                                          .color5457BE,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5.w,
+                                                    ),
+                                                    Text(
+                                                      //"09:00",
+                                                      educationListScreenProvider
+                                                          .listToDisplay?[index]
+                                                          .time ??
+                                                          "",
+
+                                                      style: StyleUtility
+                                                          .quicksandRegular787E84TextStyle
+                                                          .copyWith(
+                                                          fontSize:
+                                                          TextSizeUtility
+                                                              .textSize12
+                                                              .sp),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    })
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                })
                                 : const NoDataWidget())
+
+
+                        // Expanded(
+                        //     child: (educationListScreenProvider
+                        //                     .educationListResponseModel
+                        //                     ?.data
+                        //                     ?.length ??
+                        //                 0) >
+                        //             0
+                        //         ? ListView.builder(
+                        //             padding: EdgeInsets.only(
+                        //                 bottom: 20.h, top: 22.h),
+                        //             itemCount: educationListScreenProvider
+                        //                     .educationListResponseModel
+                        //                     ?.data
+                        //                     ?.length ??
+                        //                 0,
+                        //             itemBuilder: (context, index) {
+                        //               return GestureDetector(
+                        //                 onTap: () {
+                        //                   if (educationListScreenProvider
+                        //                               .educationListResponseModel
+                        //                               ?.data?[index]
+                        //                               .videolink !=
+                        //                           null &&
+                        //                       educationListScreenProvider
+                        //                               .educationListResponseModel
+                        //                               ?.data?[index]
+                        //                               .videolink !=
+                        //                           "") {
+                        //                     Navigator.pushNamed(context,
+                        //                         RouteName.videoPlayerScreen,
+                        //                         arguments: {
+                        //                           "videoFromApi":
+                        //                               educationListScreenProvider
+                        //                                   .educationListResponseModel
+                        //                                   ?.data?[index]
+                        //                                   .videolink ?? ""
+                        //                         });
+                        //                   }else{
+                        //                     Common.showErrorSnackBar(context,
+                        //                         StringsUtility.videoNotAvailable);
+                        //
+                        //                   }
+                        //                 },
+                        //                 child: Container(
+                        //                   margin: EdgeInsets.only(
+                        //                       left: 20.w,
+                        //                       right: 20.w,
+                        //                       bottom: 12.h),
+                        //                   padding: EdgeInsets.only(
+                        //                       top: 9.w,
+                        //                       left: 9.w,
+                        //                       right: 9.w,
+                        //                       bottom: 11.w),
+                        //                   width: double.infinity,
+                        //                   decoration: BoxDecoration(
+                        //                     color: Colors.white,
+                        //                     borderRadius:
+                        //                         BorderRadius.circular(10.r),
+                        //                   ),
+                        //                   child: Row(
+                        //                     mainAxisSize: MainAxisSize.min,
+                        //                     children: [
+                        //                       ClipRRect(
+                        //                         borderRadius:
+                        //                             BorderRadius.circular(7.r),
+                        //                         child: CachedNetworkImage(
+                        //                             width: 117.h,
+                        //                             height: 90.h,
+                        //                             fit: BoxFit.cover,
+                        //                             placeholder: (context,
+                        //                                     url) =>
+                        //                                 const Center(
+                        //                                     child:
+                        //                                         CircularProgressIndicator()),
+                        //                             errorWidget: (context, url,
+                        //                                     error) =>
+                        //                                 Container(
+                        //                                     color: Colors.grey,
+                        //                                     child: Center(
+                        //                                         child: Icon(
+                        //                                       Icons.error,
+                        //                                       size: 25.sp,
+                        //                                     ))),
+                        //                             imageUrl:
+                        //                                 "${Endpoints.imageBaseUrl}${educationListScreenProvider.educationListResponseModel?.data?[index].thumbnailImage ?? ""}"),
+                        //                       ),
+                        //                       SizedBox(
+                        //                         width: 8.w,
+                        //                       ),
+                        //                       Expanded(
+                        //                         child: Column(
+                        //                           mainAxisSize:
+                        //                               MainAxisSize.min,
+                        //                           crossAxisAlignment:
+                        //                               CrossAxisAlignment.start,
+                        //                           children: [
+                        //                             Text(
+                        //                               // "How to pass an audition  successfully",
+                        //                               educationListScreenProvider
+                        //                                       .educationListResponseModel
+                        //                                       ?.data?[index]
+                        //                                       .title ??
+                        //                                   "",
+                        //                               style: StyleUtility
+                        //                                   .quicksandSemiBoldBlackTextStyle
+                        //                                   .copyWith(
+                        //                                 fontSize:
+                        //                                     TextSizeUtility
+                        //                                         .textSize14.sp,
+                        //                               ),
+                        //                               maxLines: 2,
+                        //                               overflow:
+                        //                                   TextOverflow.ellipsis,
+                        //                             ),
+                        //                             SizedBox(
+                        //                               height: 12.h,
+                        //                             ),
+                        //                             Row(
+                        //                               crossAxisAlignment:
+                        //                                   CrossAxisAlignment
+                        //                                       .center,
+                        //                               children: [
+                        //                                 Image.asset(
+                        //                                   ImageUtility
+                        //                                       .calenderVerifiedIcon,
+                        //                                   width: 14.w,
+                        //                                   fit: BoxFit.fill,
+                        //                                   color: ColorUtility
+                        //                                       .color5457BE,
+                        //                                 ),
+                        //                                 SizedBox(
+                        //                                   width: 5.w,
+                        //                                 ),
+                        //                                 Text(
+                        //                                   // "Uploaded on 18/8/2023",
+                        //                                   "${context.loc.uploadedOn} ${educationListScreenProvider.educationListResponseModel?.data?[index].date ?? ""}",
+                        //                                   style: StyleUtility
+                        //                                       .quicksandRegular858686TextStyle
+                        //                                       .copyWith(
+                        //                                           fontSize:
+                        //                                               TextSizeUtility
+                        //                                                   .textSize12
+                        //                                                   .sp),
+                        //                                 ),
+                        //                               ],
+                        //                             ),
+                        //                             SizedBox(
+                        //                               height: 8.h,
+                        //                             ),
+                        //                             Row(
+                        //                               crossAxisAlignment:
+                        //                                   CrossAxisAlignment
+                        //                                       .center,
+                        //                               children: [
+                        //                                 Image.asset(
+                        //                                   ImageUtility
+                        //                                       .clockIcon,
+                        //                                   width: 14.w,
+                        //                                   color: ColorUtility
+                        //                                       .color5457BE,
+                        //                                   fit: BoxFit.fill,
+                        //                                 ),
+                        //                                 SizedBox(
+                        //                                   width: 5.w,
+                        //                                 ),
+                        //                                 Text(
+                        //                                   //"09:00",
+                        //                                   educationListScreenProvider
+                        //                                           .educationListResponseModel
+                        //                                           ?.data?[index]
+                        //                                           .time ??
+                        //                                       "",
+                        //
+                        //                                   style: StyleUtility
+                        //                                       .quicksandRegular787E84TextStyle
+                        //                                       .copyWith(
+                        //                                           fontSize:
+                        //                                               TextSizeUtility
+                        //                                                   .textSize12
+                        //                                                   .sp),
+                        //                                 ),
+                        //                               ],
+                        //                             ),
+                        //                           ],
+                        //                         ),
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             })
+                        //         : const NoDataWidget())
+
+
                       ],
                     ),
             );

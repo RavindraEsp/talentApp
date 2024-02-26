@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talent_app/logger/app_logger.dart';
-import 'package:talent_app/modules/talent/education/model/education_list_response_model.dart';
+import 'package:talent_app/modules/talent/education/model/education_list_response_model.dart' as ed;
 import 'package:talent_app/modules/talent/education/model/fliter_list_response_model.dart';
 import 'package:talent_app/network/repository/education_repository.dart';
 
@@ -9,8 +9,10 @@ class EducationListScreenProvider extends ChangeNotifier {
   bool isLoading = false;
   bool filterLoading = false;
 
-  EducationListResponseModel? educationListResponseModel;
+  ed.EducationListResponseModel? educationListResponseModel;
   FilterListResponseModel? filterListResponseModel;
+
+  List<ed.Data>? listToDisplay;
 
   List<int> subjectsIds = [];
   List<int> filterIds = [];
@@ -30,11 +32,16 @@ class EducationListScreenProvider extends ChangeNotifier {
       "eduFilterIds": filterIds,
       "eduLevIds": levelsIds
     };
-    educationListResponseModel = EducationListResponseModel();
+    educationListResponseModel = ed.EducationListResponseModel();
     isLoading = true;
     educationRepository.getEducationList(request: data).then((value) {
       if (value.success == true) {
         educationListResponseModel = value;
+
+       // Added duplicate list
+        listToDisplay =  educationListResponseModel?.data ;
+
+
       } else {
         onFailure.call(value.msg ?? "");
       }
@@ -114,6 +121,11 @@ class EducationListScreenProvider extends ChangeNotifier {
 
 
   }
+
+updateUi(){
+    notifyListeners();
+}
+
 
 
 }

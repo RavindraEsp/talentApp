@@ -7,7 +7,7 @@ import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({
+   SearchTextField({
     Key? key,
     required this.controller,
     required this.hintText,
@@ -18,6 +18,7 @@ class SearchTextField extends StatelessWidget {
     this.suffixImage,
     this.validator,
     this.isEnable = true,
+     this.onChange,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -30,6 +31,7 @@ class SearchTextField extends StatelessWidget {
 
   final FormFieldValidator? validator;
   final bool? isEnable;
+   ValueChanged<String>? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,10 @@ class SearchTextField extends StatelessWidget {
         ),
         textAlignVertical: TextAlignVertical.center,
         inputFormatters: inputFormatter,
+        onChanged: (value){
+
+          onChange?.call(value);
+        },
         decoration: InputDecoration(
 
           contentPadding: EdgeInsets.only(left: 20.w, top: 16, bottom: 16, right: 5.w),
