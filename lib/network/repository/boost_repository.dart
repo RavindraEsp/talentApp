@@ -25,6 +25,20 @@ class BoostRepository {
         .then((value) => BoostPlanResponseModel.fromJson(value));
   }
 
+  Future<BasicResponse> purchasePlan(
+      {Map? request}) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.purchaseBoostPlan,data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+  Future<BasicResponse> boostProfile(
+      {Map? request}) {
+    return dioHttpService
+        .post(Endpoints.baseUrl + Endpoints.apiEndPoints.boostProfile,data: request)
+        .then((value) => BasicResponse.fromJson(value));
+  }
+
+
 
 
 }

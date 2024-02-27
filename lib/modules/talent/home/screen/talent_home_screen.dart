@@ -144,7 +144,8 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> with SingleTickerPr
                                 padding:  EdgeInsets.only(left: 7.w),
                                 child: Text(
                                 //  "5/20",
-                                  "${Preference().getBoosterCount()}",
+                                //  "${Preference().getBoosterCount()}",
+                                  "${Preference().getBoosterCount()}/20",
                                   style: StyleUtility.quicksandMediumWhiteTextStyle.copyWith(
                                       fontSize: TextSizeUtility.textSize16.sp
                                   ),),
@@ -564,6 +565,27 @@ class _TalentHomeScreenState extends State<TalentHomeScreen> with SingleTickerPr
                                   height: 35,
                                   buttonText: context.loc.buttonBoostMe,
                                   padding: 0.0,
+                                  onTap: (){
+                                    Common.showLoadingDialog(context);
+
+                                    talentHomeScreenProvider.purchasePlan(onFailure: (message){
+                                      Navigator.pop(context);
+                                      Common.showErrorToast(context, message);
+
+                                    }, onSuccess: (message){
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+
+                                     var totalBooster =  Preference().getBoosterCount() + (boostData?.count ?? 0);
+
+                                     Preference.setBoosterCount(totalBooster);
+                                     talentHomeScreenProvider.updateUi();
+                                      Common.showSuccessToast(context, message);
+                                    }, planId: boostData?.id);
+
+
+
+                                  },
                                   textStyle: StyleUtility.buttonTextStyle
                                       .copyWith(
                                       fontSize:

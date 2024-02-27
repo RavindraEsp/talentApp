@@ -66,4 +66,6 @@ class ApiEndPoints {
   String get  getEducationFilters => "get/getEducationFilters";
 
   String get  getBoostPlanData => "get/getboostplanData";
+  String get  purchaseBoostPlan => "auth/purchaseboostPlan";
+  String get  boostProfile => "auth/boostProfile";
 }

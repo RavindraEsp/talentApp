@@ -48,16 +48,15 @@ class ApprovedAuditionWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.r),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Colors.grey.withOpacity(0.5), //color of shadow
-                      //     spreadRadius: 0, //spread radius
-                      //     blurRadius: 7, // blur radius
-                      //     //   offset: Offset(0, 2), // changes position of shadow
-                      //     offset: Offset(0, 0), // changes position of shadow
-                      //   ),
-                      //   //you can set more BoxShadow() here
-                      // ],
+                     boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2), // Shadow color
+                          spreadRadius: 1, // Spread radius
+                          blurRadius: 7, // Blur radius
+                          offset: const Offset(0, 0), // Changes position of shadow
+                        ),
+                      ],
+
                     ),
                     child: IntrinsicHeight(
                       child: Row(

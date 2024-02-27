@@ -32,7 +32,15 @@ class AuditionCreatedWidget extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r)),
+                      borderRadius: BorderRadius.circular(10.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2), // Shadow color
+                        spreadRadius: 1, // Spread radius
+                        blurRadius: 7, // Blur radius
+                        offset: const Offset(0, 0), // Changes position of shadow
+                      ),
+                    ],),
                   child: IntrinsicHeight(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -76,9 +84,9 @@ class AuditionCreatedWidget extends StatelessWidget {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                const SizedBox(
+                                 SizedBox(
                                 //  height: 13.h,
-                                  height: 18,
+                                  height: 17.h,
                                 ),
 
 

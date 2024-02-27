@@ -1,15 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/talent/auditionDetails/screens/audition_detail_screen.dart';
 import 'package:talent_app/modules/talent/home/providers/talent_home_screen_provider.dart';
+import 'package:talent_app/modules/talent/home/widgets/promoted_dialog.dart';
 import 'package:talent_app/network/model/response/talent/talent_home/talent_home_response_model.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_dialog.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
+import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
 import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
@@ -46,7 +50,16 @@ class AuditionForYouWidget extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.r)),
+                            borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2), // Shadow color
+                              spreadRadius: 1, // Spread radius
+                              blurRadius: 7, // Blur radius
+                              offset: const Offset(0, 0), // Changes position of shadow
+                            ),
+                          ],
+                        ),
                         child: IntrinsicHeight(
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -159,7 +172,16 @@ class AuditionForYouWidget extends StatelessWidget {
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.r)),
+                                borderRadius: BorderRadius.circular(10.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2), // Shadow color
+                                  spreadRadius: 1, // Spread radius
+                                  blurRadius: 7, // Blur radius
+                                  offset: const Offset(0, 0), // Changes position of shadow
+                                ),
+                              ],
+                            ),
                             child: IntrinsicHeight(
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -183,28 +205,104 @@ class AuditionForYouWidget extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
                                             children: [
-                                              Image.asset(
-                                                ImageUtility.calenderIcon,
-                                                width: 14.w,
-                                                fit: BoxFit.fill,
-                                              ),
-                                              SizedBox(
-                                                width: 5.w,
-                                              ),
-                                              Text(
-                                                //  "Audition date 18/8/2023  |  19/8/2023",
-                                                "${context.loc.auditionDate} ${auditionforyouList?[index].getAuditionDateArr?[0].date ?? ""}",
+                                              Expanded(
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset(
+                                                      ImageUtility.calenderIcon,
+                                                      width: 14.w,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5.w,
+                                                    ),
+                                                    Text(
+                                                      //  "Audition date 18/8/2023  |  19/8/2023",
+                                                      "${context.loc.auditionDate} ${auditionforyouList?[index].getAuditionDateArr?[0].date ?? ""}",
 
-                                                style: StyleUtility
-                                                    .quicksandRegular8B8B8BTextStyle
-                                                    .copyWith(
-                                                        fontSize:
-                                                            TextSizeUtility
-                                                                .textSize13.sp),
+                                                      style: StyleUtility
+                                                          .quicksandRegular8B8B8BTextStyle
+                                                          .copyWith(
+                                                              fontSize:
+                                                                  TextSizeUtility
+                                                                      .textSize13.sp),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
+
+                                              (auditionforyouList?[index]
+                                                  .isBoosted ?? 0) == 0 ?
+
+                                              InkWell(
+                                                onTap: (){
+
+
+                                                  CommonDialog.showLoadingDialog(context);
+                                                  talentHomeScreenProvider?.boostProfile(
+                                                    auditionId: auditionforyouList?[index]
+                                                        .auditionId,
+                                                      index: index,
+                                                      onFailure: (message){
+                                                        Navigator.pop(context);
+                                                        Common.showErrorSnackBar(context, message);
+                                                      },
+                                                  onSuccess: (message){
+                                                    Navigator.pop(context);
+
+                                                    int remainingBoost =  Preference().getBoosterCount() - 1;
+
+                                                    Preference.setBoosterCount(remainingBoost);
+
+                                                    talentHomeScreenProvider?.updateUi();
+                                                    showPromotedDialog(context: context);
+                                                  },
+                                                  );
+
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.only(right:8.w,left: 12.w,top: 4.h,bottom: 4.h),
+                                                  decoration: BoxDecoration(
+                                                      gradient: const LinearGradient(
+                                                          colors:ColorUtility.boostGradientColor
+                                                      ),
+                                                      borderRadius: BorderRadius.only(
+                                                        topLeft: Radius.circular(30.r),
+                                                        bottomLeft: Radius.circular(30.r),
+                                                      )
+                                                  ),
+                                                  height: 32.sp,
+                                                  child: Image.asset(ImageUtility.boostIcon,
+                                                    height: 27.sp,),
+                                                ),
+                                              ):
+                                              InkWell(
+                                                onTap: (){
+
+                                                  showPromotedDialog(context: context);
+
+
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.only(right:8.w,left: 12.w,top: 4.h,bottom: 4.h),
+                                                  decoration: BoxDecoration(
+
+                                                          color:ColorUtility.colorE7E7E8,
+
+                                                      borderRadius: BorderRadius.only(
+                                                        topLeft: Radius.circular(30.r),
+                                                        bottomLeft: Radius.circular(30.r),
+                                                      )
+                                                  ),
+                                                  height: 32.sp,
+                                                  child: Image.asset(ImageUtility.boostIcon,
+                                                    height: 27.sp,),
+                                                ),
+                                              ),
+
                                             ],
                                           ),
                                           const SizedBox(
@@ -350,7 +448,15 @@ class AuditionForYouWidget extends StatelessWidget {
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.r)),
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2), // Shadow color
+                                      spreadRadius: 1, // Spread radius
+                                      blurRadius: 7, // Blur radius
+                                      offset: const Offset(0, 0), // Changes position of shadow
+                                    ),
+                                  ],),
                                 child: IntrinsicHeight(
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -570,4 +676,20 @@ class AuditionForYouWidget extends StatelessWidget {
       });
     });
   }
+
+  Future<dynamic> showPromotedDialog({
+    required BuildContext context,
+
+  }) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return const PromotedAlertDialog(
+
+              title: "Your profile has been promoted for this audition"
+          );
+        }).then((value) {});
+  }
+
+
 }

@@ -78,6 +78,48 @@ class TalentHomeScreenProvider extends ChangeNotifier {
     });
   }
 
+  purchasePlan({
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+    required int? planId,
+  }) {
+    Map request = {"planId": planId, "paymentId": "00"};
+
+    boostRepository.purchasePlan(request: request).then((value) {
+      if (value.success == true) {
+        onSuccess.call(value.msg ?? "");
+      } else {
+        onFailure.call(value.msg ?? "");
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("error $error");
+      onFailure.call(error.toString());
+    });
+    notifyListeners();
+  }
+
+  boostProfile({
+    required ValueChanged<String> onFailure,
+    required ValueChanged<String> onSuccess,
+    required int? auditionId,
+    required int index,
+  }) {
+    Map request = {"auditionId": auditionId};
+
+    boostRepository.boostProfile(request: request).then((value) {
+      if (value.success == true) {
+        talentHomeResponseModel?.data?.auditionforyouList?[index].isBoosted = 1;
+        onSuccess.call(value.msg ?? "");
+      } else {
+        onFailure.call(value.msg ?? "");
+      }
+    }).onError((error, stackTrace) {
+      AppLogger.logD("Error $error");
+      onFailure.call(error.toString());
+    });
+    notifyListeners();
+  }
+
   updateUi() {
     notifyListeners();
   }

@@ -70,6 +70,7 @@ class AuditionforyouList {
   String? location;
   String? datetime;
   int? isComplete;
+  int? isBoosted;
 
   AuditionforyouList(
       {this.getAuditionDateArr,
@@ -80,7 +81,9 @@ class AuditionforyouList {
         this.description,
         this.location,
         this.datetime,
-        this.isComplete});
+        this.isComplete,
+        this.isBoosted
+      });
 
   AuditionforyouList.fromJson(Map<String, dynamic> json) {
     if (json['getAuditionDateArr'] != null) {
@@ -97,6 +100,7 @@ class AuditionforyouList {
     location = json['location'];
     datetime = json['datetime'];
     isComplete = json['isComplete'];
+    isBoosted = json['is_boosted'];
   }
 
   Map<String, dynamic> toJson() {
@@ -113,6 +117,7 @@ class AuditionforyouList {
     data['location'] = this.location;
     data['datetime'] = this.datetime;
     data['isComplete'] = this.isComplete;
+    data['is_boosted'] = this.isBoosted;
     return data;
   }
 }

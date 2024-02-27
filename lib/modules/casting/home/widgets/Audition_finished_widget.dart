@@ -9,8 +9,6 @@ import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
-import 'package:talent_app/widgets/alertDialog/confirm_alert_dialog.dart';
-import 'package:talent_app/widgets/alertDialog/success_alert_dialog.dart';
 import 'package:talent_app/widgets/buttons/custom_button_top_to_bottom_color.dart';
 import 'package:talent_app/widgets/no_data_widget.dart';
 
@@ -37,7 +35,15 @@ class AuditionFinishedWidget extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.r)),
+                      borderRadius: BorderRadius.circular(10.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2), // Shadow color
+                        spreadRadius: 1, // Spread radius
+                        blurRadius: 7, // Blur radius
+                        offset: const Offset(0, 0), // Changes position of shadow
+                      ),
+                    ],),
                   child: IntrinsicHeight(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
