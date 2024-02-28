@@ -22,16 +22,18 @@ import 'package:talent_app/widgets/setting_button_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   final UserType userType;
-  final int receiverId;
+  final int receiverId; // when come from single then receiver anf come from group then groupId
   final String roomId;
   final String title;
+  final ChatType chatType;
 
   const ChatScreen(
       {Key? key,
       required this.userType,
       required this.receiverId,
       required this.roomId,
-      required this.title})
+      required this.title,
+        required this.chatType})
       : super(key: key);
 
   @override
@@ -44,7 +46,7 @@ class ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    AppLogger.logD('Receiver id  ${widget.receiverId}');
+    AppLogger.logD('Receiver id or grop id ${widget.receiverId}');
     AppLogger.logD('user id  ${Preference().getUserId()}');
     AppLogger.logD('roomCasterId   ${widget.roomId}');
 
@@ -53,7 +55,7 @@ class ChatScreenState extends State<ChatScreen> {
       chatScreenProvider = Provider.of(context, listen: false);
 
       chatScreenProvider?.connectAndListenChatSocket(
-          receiverId: widget.receiverId, roomId: widget.roomId);
+          receiverId: widget.receiverId, roomId: widget.roomId,chatType: widget.chatType);
 
 
 
@@ -148,6 +150,10 @@ class ChatScreenState extends State<ChatScreen> {
                           messageList:
                               provider.chatMsgResponseModel?.chatHistory,
                         )),
+
+
+                        widget.chatType == ChatType.group && widget.userType == UserType.talent ?
+                            const SizedBox():
                         Container(
                           height: 50,
                           margin: const EdgeInsets.all(8.0),

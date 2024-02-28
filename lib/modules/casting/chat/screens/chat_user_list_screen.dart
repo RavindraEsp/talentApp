@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
-import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/chat/provider/chat_user_list_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
 import 'package:talent_app/network/end_points.dart';
@@ -135,21 +132,42 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
                             return GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
+
+
                                 provider.socket?.disconnect();
+
+                                Map data;
+
+                                if(provider.chatUserListResponseModel?.userList?[index].groupId == 0){ // single chat
+                                  data = {
+                                    "userType": widget.userType,
+                                    "receiverId": provider.chatUserListResponseModel?.userList?[index].apponentId,
+                                    "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
+                                    "title": provider.chatUserListResponseModel?.userList?[index].userName,
+                                    "title": provider.chatUserListResponseModel?.userList?[index].userName,
+                                  };
+                                }else{
+                                  data = {
+                                    "userType": widget.userType,
+                                    "receiverId": provider.chatUserListResponseModel?.userList?[index].groupId,
+                                    "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
+                                    "title": provider.chatUserListResponseModel?.userList?[index].userName,
+                                    "chatType": ChatType.group,
+                                  };
+                                }
+
+
                                 Navigator.pushNamed(context, RouteName.chatScreen,
-                                    arguments: {
+                                    arguments: data).then((value) => provider.connectAndListenChatSocket());
 
-                                      // "userType": widget.userType,
-                                      // "receiverId": 22,
-                                      // "roomId": "2242",
-                                      // "title": "List user",
-
-                                      "userType": widget.userType,
-                                      "receiverId": provider.chatUserListResponseModel?.userList?[index].apponentId,
-                                      "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
-                                      "title": provider.chatUserListResponseModel?.userList?[index].userName,
-
-                                    }).then((value) => provider.connectAndListenChatSocket());
+                                    // arguments: {
+                                    //
+                                    //   "userType": widget.userType,
+                                    //   "receiverId": provider.chatUserListResponseModel?.userList?[index].apponentId,
+                                    //   "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
+                                    //   "title": provider.chatUserListResponseModel?.userList?[index].userName,
+                                    //
+                                    // }).then((value) => provider.connectAndListenChatSocket());
                               },
                               child: Padding(
                                 padding: EdgeInsets.only(

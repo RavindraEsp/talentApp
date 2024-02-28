@@ -4,6 +4,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/chat/model/chat_msg_response_model.dart';
 import 'package:talent_app/network/end_points.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 
 class ChatScreenProvider extends ChangeNotifier {
@@ -20,6 +21,7 @@ class ChatScreenProvider extends ChangeNotifier {
 
   late final int receiverId;
   late final String roomId;
+  late final ChatType chatType;
 
   Future<void> scrollAnimation() async {
     return await Future.delayed(
@@ -33,17 +35,19 @@ class ChatScreenProvider extends ChangeNotifier {
   Future<void> startScrollAnimation() async {
     return await Future.delayed(
         const Duration(milliseconds: 100),
-            () => scrollController.animateTo(
+        () => scrollController.animateTo(
             scrollController.position.maxScrollExtent,
-
             duration: const Duration(milliseconds: 1),
             curve: Curves.linear));
   }
 
   connectAndListenChatSocket(
-      {required int receiverId, required String roomId}) {
+      {required int receiverId,
+      required String roomId,
+      required ChatType chatType}) {
     this.receiverId = receiverId;
     this.roomId = roomId;
+    this.chatType = chatType;
 
     userId = Preference().getUserId();
 
@@ -66,7 +70,6 @@ class ChatScreenProvider extends ChangeNotifier {
       // socket?.on('fromServer', (_) => AppLogger.logD(_));
 
       socket = IO.io(
-         // 'https://espsofttech.in:7272',
           Endpoints.socketUrl,
           IO.OptionBuilder()
               .setTransports(['websocket'])
@@ -75,71 +78,131 @@ class ChatScreenProvider extends ChangeNotifier {
               .enableReconnection()
               .build());
 
-      socket?.onConnect((_) {
-        AppLogger.logD('connect');
+      if (chatType == ChatType.single) {
+        AppLogger.logD("Single Chat");
+        socket?.onConnect((_) {
+          AppLogger.logD('connect');
 
-        final Map<String, dynamic> data = {
-          "receiverId": receiverId,
-          "senderId": userId,
-          "roomId": roomId,
+          final Map<String, dynamic> data = {
+            "receiverId": receiverId,
+            "senderId": userId,
+            "roomId": roomId,
+          };
 
-          /// pass caster id
-        };
+          AppLogger.logD(data);
+          socket?.emit('joinSingleRoom', jsonEncode(data));
 
-        AppLogger.logD(data);
+          AppLogger.logD("join room call");
+        });
 
-        socket?.emit('joinSingleRoom', jsonEncode(data));
+        socket?.on("roomUsers", (data) {
+          // get all msg
 
-        AppLogger.logD("join room call");
-      });
+          AppLogger.logD("on roomUsers =>");
+          chatMsgResponseModel = ChatMsgResponseModel.fromJson(data);
 
-      socket?.on("roomUsers", (data) {
-        // get all msg
+          loading = false;
 
-        AppLogger.logD("on roomUsers =>");
-        chatMsgResponseModel = ChatMsgResponseModel.fromJson(data);
+          startScrollAnimation();
 
-        loading = false;
+          Future.delayed(const Duration(milliseconds: 100))
+              .then((value) => startScrollAnimation());
 
-        startScrollAnimation();
+          AppLogger.logD(
+              "chat msg length   ${chatMsgResponseModel?.chatHistory?.length}");
 
+          final Map mapData = data as Map;
 
-        Future.delayed(const Duration(milliseconds: 100)).then((value) => startScrollAnimation());
+          AppLogger.logD("roomUsers data is in start $mapData");
 
+          notifyListeners();
+        });
 
-        AppLogger.logD(
-            "chat msg length   ${chatMsgResponseModel?.chatHistory?.length}");
+        socket?.on("message", (data) {
+          AppLogger.logD("on message =>");
 
-        final Map mapData = data as Map;
+          final Map mapData = data as Map;
 
-        AppLogger.logD("roomUsers data is in start $mapData");
+          AppLogger.logD("message is ${data["text"]["message"].toString()}");
+          AppLogger.logD("message data is  ${mapData}");
 
-        notifyListeners();
-      });
+          chatMsgResponseModel?.chatHistory?.add(ChatHistory(
+              id: data["text"]["id"],
+              auditionId: data["text"]["auditionId"],
+              senderId: data["text"]["senderId"],
+              receiverId: data["text"]["receiverId"],
+              message: data["text"]["message"],
+              isRead: data["text"]["isRead"],
+              datetime: data["text"]["datetime"],
+              profilePic: data["text"]["profilePic"]));
 
-      socket?.on("message", (data) {
-        AppLogger.logD("on message =>");
+          scrollAnimation();
 
-        final Map mapData = data as Map;
+          notifyListeners();
+        });
+      } else {
+        AppLogger.logD("Group Chat");
 
-        AppLogger.logD("message is ${data["text"]["message"].toString()}");
-        AppLogger.logD("message data is  ${mapData}");
+        socket?.onConnect((_) {
+          AppLogger.logD('connect');
 
-        chatMsgResponseModel?.chatHistory?.add(ChatHistory(
-            id: data["text"]["id"],
-            auditionId: data["text"]["auditionId"],
-            senderId: data["text"]["senderId"],
-            receiverId: data["text"]["receiverId"],
-            message: data["text"]["message"],
-            isRead: data["text"]["isRead"],
-            datetime: data["text"]["datetime"],
-            profilePic: data["text"]["profilePic"]
-        ));
+          final Map<String, dynamic> data = {
+            "senderId": userId,
+            "roomId": roomId,
+          };
 
-        scrollAnimation();
+          AppLogger.logD(data);
+          socket?.emit('joinGroupRoom', jsonEncode(data));
 
-        notifyListeners();
-      });
+          AppLogger.logD("joinGroupRoom call");
+        });
+
+        socket?.on("roomGroupUsers", (data) {
+          // get all msg
+
+          AppLogger.logD("on roomGroupUsers =>");
+          chatMsgResponseModel = ChatMsgResponseModel.fromJson(data);
+
+          loading = false;
+
+          startScrollAnimation();
+
+          Future.delayed(const Duration(milliseconds: 100))
+              .then((value) => startScrollAnimation());
+
+          AppLogger.logD(
+              "chat msg length   ${chatMsgResponseModel?.chatHistory?.length}");
+
+          final Map mapData = data as Map;
+
+          AppLogger.logD("roomGroupUsers data is in start $mapData");
+
+          notifyListeners();
+        });
+
+        socket?.on("groupmessage", (data) {
+          AppLogger.logD("on groupmessage =>");
+
+          final Map mapData = data as Map;
+
+          AppLogger.logD("message is ${data["text"]["message"].toString()}");
+          AppLogger.logD("message data is  ${mapData}");
+
+          chatMsgResponseModel?.chatHistory?.add(ChatHistory(
+              id: data["text"]["id"],
+              auditionId: data["text"]["auditionId"],
+              senderId: data["text"]["senderId"],
+              receiverId: data["text"]["receiverId"],
+              message: data["text"]["message"],
+              isRead: data["text"]["isRead"],
+              datetime: data["text"]["datetime"],
+              profilePic: data["text"]["profilePic"]));
+
+          scrollAnimation();
+
+          notifyListeners();
+        });
+      }
 
       socket?.onDisconnect((_) => AppLogger.logD('disconnect'));
       socket?.on('fromServer', (_) => AppLogger.logD(_));
@@ -167,9 +230,17 @@ class ChatScreenProvider extends ChangeNotifier {
   }
 
   sendMessage(String msg) {
-    var data = jsonEncode(
-        {"senderId": userId, "receiverId": receiverId, "message": msg});
-    AppLogger.logD("chatSingleMessage sent $data");
-    socket?.emit('chatSingleMessage', data);
+    if (chatType == ChatType.single) {
+      var data = jsonEncode(
+          {"senderId": userId, "receiverId": receiverId, "message": msg});
+      AppLogger.logD("chatSingleMessage sent $data");
+      socket?.emit('chatSingleMessage', data);
+    } else {
+      var data = jsonEncode(
+          {"groupId": receiverId, "senderId": userId, "message": msg});
+      AppLogger.logD("chatGroupMessage sent $data");
+      socket?.emit('chatGroupMessage', data);
+    }
   }
+
 }

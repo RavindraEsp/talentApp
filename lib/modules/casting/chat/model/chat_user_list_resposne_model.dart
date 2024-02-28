@@ -33,6 +33,7 @@ class ChatUserListResponseModel {
 
 class UserList {
   int? id;
+  int? groupId;
   int? senderId;
   int? apponentId;
   String? roomId;
@@ -46,6 +47,7 @@ class UserList {
 
   UserList(
       {this.id,
+        this.groupId,
         this.senderId,
         this.apponentId,
         this.roomId,
@@ -59,6 +61,7 @@ class UserList {
 
   UserList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    groupId = json['groupId'];
     senderId = json['senderId'];
     apponentId = json['apponentId'];
     roomId = json['roomId'];
@@ -74,6 +77,7 @@ class UserList {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['groupId'] = this.groupId;
     data['senderId'] = this.senderId;
     data['apponentId'] = this.apponentId;
     data['roomId'] = this.roomId;

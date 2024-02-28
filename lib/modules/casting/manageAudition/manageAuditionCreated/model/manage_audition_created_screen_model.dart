@@ -252,16 +252,22 @@ class ApprovedUsers {
   String? date;
   String? time;
   int? spotCount;
+  String? groupRoomId;
+  int? groupId;
+  String? groupName;
   List<UserList>? userList;
   int? appliedCount;
 
   ApprovedUsers(
-      {this.date, this.time, this.spotCount, this.userList, this.appliedCount});
+      {this.date, this.time, this.spotCount,this.groupRoomId,this.groupId,this.groupName, this.userList, this.appliedCount});
 
   ApprovedUsers.fromJson(Map<String, dynamic> json) {
     date = json['date'];
     time = json['time'];
     spotCount = json['spotCount'];
+    groupRoomId = json['groupRoomId'];
+    groupId = json['groupId'];
+    groupName = json['groupName'];
     if (json['userList'] != null) {
       userList = <UserList>[];
       json['userList'].forEach((v) {
@@ -276,6 +282,9 @@ class ApprovedUsers {
     data['date'] = this.date;
     data['time'] = this.time;
     data['spotCount'] = this.spotCount;
+    data['groupRoomId'] = this.groupRoomId;
+    data['groupId'] = this.groupId;
+    data['groupName'] = this.groupName;
     if (this.userList != null) {
       data['userList'] = this.userList!.map((v) => v.toJson()).toList();
     }

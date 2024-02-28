@@ -11,6 +11,7 @@ import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_dialog.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';
@@ -457,7 +458,21 @@ class ApprovedTabBarWidget extends StatelessWidget {
                                     buttonText:
                                         context.loc.buttonSendAGroupMessage,
                                     icon: ImageUtility.messageNavIcon,
-                                    onTap: () {}),
+                                    onTap: () {
+
+                                      Navigator.pushNamed(context,
+                                          RouteName.chatScreen,
+                                          arguments: {
+                                            "userType": UserType.cast,
+                                            "receiverId":provider.managAuditionCreatedScreenModel?.data?.approvedUsers?[mainIndex].groupId,  // pass group id in this
+                                             "roomId":provider.managAuditionCreatedScreenModel?.data?.approvedUsers?[mainIndex].groupRoomId,
+                                            "title":provider.managAuditionCreatedScreenModel?.data?.approvedUsers?[mainIndex].groupName ?? "",
+                                            "chatType":ChatType.group
+                                          }
+                                      );
+
+
+                                    }),
                               )
                             ],
                           ),

@@ -272,7 +272,6 @@ class _AppliedTabBarWidgetState extends State<AppliedTabBarWidget> {
                                                   arguments: {
                                                     "userType": UserType.cast,
                                                     "receiverId":provider.appliedUser?.talentUserId,
-                                                  //  "roomId":"${Preference().getUserId()}${provider.appliedUser?.talentUserId}",
                                                     "roomId":provider.appliedUser?.roomId,
                                                     "title":provider.appliedUser?.username ?? ""
                                                   }

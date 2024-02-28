@@ -67,6 +67,7 @@ import 'package:talent_app/modules/talent/profile/screens/edit_video_gallery_scr
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
 import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
+import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/widgets/audio_player/audio_player_screen.dart';
 import 'package:talent_app/widgets/video_player/video_player_screen.dart';
 
@@ -287,6 +288,9 @@ class AppRoute {
                     receiverId: arg["receiverId"] ?? 0,
                     roomId: arg["roomId"] ?? "",
                     title: arg["title"] ?? "",
+                    chatType: arg["chatType"] ?? ChatType.single,
+
+
                   ),
                 ));
 

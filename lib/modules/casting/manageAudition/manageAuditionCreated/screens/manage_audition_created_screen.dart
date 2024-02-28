@@ -7,6 +7,7 @@ import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/applied_tab_bar_widget.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/approved_tab_bar_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
+import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -35,7 +36,11 @@ class _ManageAuditionCreatedScreenState
     AppLogger.logD("auditionId ${widget.auditionId}");
 
     Provider.of<ManageAuditionCreatedScreenProvider>(context, listen: false)
-        .getCreatedAuditionManage(widget.auditionId, onFailure: (message) {});
+        .getCreatedAuditionManage(widget.auditionId, onFailure: (message) {
+
+          Navigator.pop(context);
+          Common.showErrorToast(context, message);
+    });
   }
 
   TextEditingController searchController = TextEditingController();
