@@ -606,7 +606,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                             Common.showErrorSnackBar(context, StringsUtility.noLinkAvailable);
 
                                           }
-                                          ConstantMethod.launchUrlBrowser(
+                                          Constant.launchUrlBrowser(
                                               provider
                                                       .talantUserProfileModel
                                                       ?.data
@@ -635,7 +635,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                             Common.showErrorSnackBar(
                                                 context, StringsUtility.noLinkAvailable);
                                           }
-                                          ConstantMethod.launchUrlBrowser(
+                                          Constant.launchUrlBrowser(
                                               provider.talantUserProfileModel
                                                       ?.data?.first.instalink ??
                                                   "");
@@ -667,7 +667,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                             Common.showErrorSnackBar(
                                                 context, StringsUtility.noLinkAvailable);
                                           }
-                                          ConstantMethod.launchUrlBrowser(
+                                          Constant.launchUrlBrowser(
                                               provider
                                                       .talantUserProfileModel
                                                       ?.data
@@ -702,7 +702,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                             Common.showErrorSnackBar(
                                                 context, StringsUtility.noLinkAvailable);
                                           }
-                                          ConstantMethod.launchUrlBrowser(
+                                          Constant.launchUrlBrowser(
                                               provider
                                                       .talantUserProfileModel
                                                       ?.data

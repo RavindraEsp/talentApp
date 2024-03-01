@@ -12,6 +12,7 @@ import 'package:talent_app/modules/casting/editAudition/model/edit_audition_scee
 import 'package:talent_app/network/repository/audition_repository.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:talent_app/utilities/constants.dart';
 
 
 class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
@@ -76,14 +77,16 @@ class EditAuditionPlaceTimeScreenProvider extends ChangeNotifier {
         strictbounds: false,
         region: "ar",
         context: context,
-        apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+     //   apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+        apiKey: Constant.mapKey,
         mode: Mode.overlay,
         language: "en",
         components: [Component(Component.country, "ind"),Component(Component.country, "il")]);
 
     if (p != null) {
       GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+      //  apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+        apiKey: Constant.mapKey,
       ); //Same API_KEY as above
       PlacesDetailsResponse detail =
       await _places.getDetailsByPlaceId(p.placeId!);

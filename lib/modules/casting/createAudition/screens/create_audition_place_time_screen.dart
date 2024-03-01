@@ -14,6 +14,7 @@ import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
 import 'package:talent_app/utilities/common_method.dart';
+import 'package:talent_app/utilities/constants.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/strings_utility.dart';
@@ -85,7 +86,8 @@ class _CreateAuditionPlaceTimeScreenState
         strictbounds: false,
         region: "ar",
         context: context,
-        apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+       // apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+        apiKey: Constant.mapKey,
         mode: Mode.overlay,
         language: "en",
         components: [Component(Component.country, "ind"),Component(Component.country, "il")]
@@ -93,7 +95,8 @@ class _CreateAuditionPlaceTimeScreenState
 
     if (p != null) {
       GoogleMapsPlaces _places = GoogleMapsPlaces(
-        apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+       // apiKey: "AIzaSyC0apFqdYGTRVuRDkuD7AurpXUVk-IZy3w",
+        apiKey: Constant.mapKey,
       ); //Same API_KEY as above
       PlacesDetailsResponse detail =
           await _places.getDetailsByPlaceId(p.placeId!);

@@ -153,7 +153,16 @@ class ChatScreenState extends State<ChatScreen> {
 
 
                         widget.chatType == ChatType.group && widget.userType == UserType.talent ?
-                            const SizedBox():
+                            Container(
+                              width: double.infinity,
+                              color:Colors.white,
+                              alignment:Alignment.center,
+                              padding:  EdgeInsets.symmetric(vertical: 20.h),
+                              margin:  EdgeInsets.only(top: 8.h),
+                              child:  Text("Only caster can send messages",style: StyleUtility.inputTextStyle.copyWith(
+                                fontSize: TextSizeUtility.textSize14.sp,
+                              ),),
+                            ):
                         Container(
                           height: 50,
                           margin: const EdgeInsets.all(8.0),

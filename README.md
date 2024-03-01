@@ -48,3 +48,11 @@ socket_io_client: ^2.0.3+1
 
 chat from caster app detail screen then roomId = castId+talentId
 
+
+
+facebook 
+
+app id: 1130857578098564
+
+facebook_client_token 81a775c698fcc57502fd6ba563a7fcea
+

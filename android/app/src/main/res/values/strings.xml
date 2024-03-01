@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <string name="facebook_app_id">767784651900663</string>-->
-<!--    <string name="facebook_client_token">116e708138302281bae8c9002cf077eb</string>-->
 
-    <string name="facebook_app_id">6928906283887319</string>
-    <string name="fb_login_protocol_scheme">fb6928906283887319</string>
-    <string name="facebook_client_token">a7b40d6b4813e0d7a5e591862f5f718a</string>
 
+<!--    <string name="facebook_app_id">6928906283887319</string>  // ravin ac-->
+<!--    <string name="facebook_client_token">a7b40d6b4813e0d7a5e591862f5f718a</string>-->
+
+
+    <string name="facebook_app_id">1130857578098564</string>  // client ac
+    <string name="facebook_client_token">81a775c698fcc57502fd6ba563a7fcea</string>
 
 
     </resources>

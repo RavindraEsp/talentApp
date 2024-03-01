@@ -346,6 +346,7 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                         child: SocialButton(
                                           buttonText: context.loc.buttonVia,
                                           onTap: () {
+                                            fbLogin();
                                           },
                                           icon: ImageUtility.fbIcon,
                                         ),
@@ -373,6 +374,8 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
   }
 
   fbLogin() async {
+
+    await FacebookAuth.instance.logOut();
     final LoginResult result = await FacebookAuth.instance.login(); // by default we request the email and the public profile
 // or FacebookAuth.i.login()
     if (result.status == LoginStatus.success) {
@@ -388,10 +391,13 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
           String name = userProfile['name'];
           String email = userProfile['email'];
           String profilePictureUrl = userProfile['picture']['data']['url'];
+          String id = userProfile['id'];
 
           AppLogger.logD('User Name: $name');
           AppLogger.logD('User Email: $email');
           AppLogger.logD('User Profile Picture: $profilePictureUrl');
+          AppLogger.logD('User Profile Picture: $id');
+          Common.showSuccessToast(context, "Lgoin from $name");
 
 
         } else {
