@@ -188,7 +188,7 @@ class _AddYourPhotoScreenState extends State<AddYourPhotoScreen> {
 
                               AppLogger.logD("Image le ${selectedImages.length}");
                               if(selectedImages.isEmpty){
-                                Common.showErrorSnackBar(context, StringsUtility.uploadImage);
+                                Common.showErrorSnackBar(context, context.loc.pleaseSelectImage);
                               }else{
                                 // Navigator.pushNamed(
                                 //     context, RouteName.addYourVideoScreen);

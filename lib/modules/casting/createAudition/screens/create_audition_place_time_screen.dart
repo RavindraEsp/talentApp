@@ -214,11 +214,11 @@ class _CreateAuditionPlaceTimeScreenState
                     if (createAuditionPlaceTimeProvider
                         .location == null) {
                       Common.showErrorSnackBar(
-                          context, StringsUtility.validationLocation);
+                          context, context.loc.pleaseSelectLocation);
                     } else if (createAuditionPlaceTimeProvider
                         .dateTimeList.isEmpty) {
                       Common.showErrorSnackBar(
-                          context, StringsUtility.validationAddDAteTime);
+                          context, context.loc.pleaseAddDateTimeAndSpots);
                     } else {
                       Common.showLoadingDialog(context);
                       createAuditionPlaceTimeProvider.createAudition(

@@ -603,7 +603,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       ?.first
                                                       .facebooklink ==
                                                   "") {
-                                            Common.showErrorSnackBar(context, StringsUtility.noLinkAvailable);
+                                            Common.showErrorSnackBar(context, context.loc.noLinkAvailable);
 
                                           }
                                           Constant.launchUrlBrowser(
@@ -633,7 +633,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       ?.data?.first.instalink ==
                                                   "") {
                                             Common.showErrorSnackBar(
-                                                context, StringsUtility.noLinkAvailable);
+                                                context, context.loc.noLinkAvailable);
                                           }
                                           Constant.launchUrlBrowser(
                                               provider.talantUserProfileModel
@@ -665,7 +665,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       .youtubelink ==
                                                   "") {
                                             Common.showErrorSnackBar(
-                                                context, StringsUtility.noLinkAvailable);
+                                                context, context.loc.noLinkAvailable);
                                           }
                                           Constant.launchUrlBrowser(
                                               provider
@@ -700,7 +700,7 @@ class _SeeUserProfileScreenState extends State<SeeUserProfileScreen> {
                                                       .youtubelink ==
                                                   "") {
                                             Common.showErrorSnackBar(
-                                                context, StringsUtility.noLinkAvailable);
+                                                context, context.loc.noLinkAvailable);
                                           }
                                           Constant.launchUrlBrowser(
                                               provider

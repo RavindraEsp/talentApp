@@ -8,7 +8,6 @@ import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/widgets/approved_tab_bar_widget.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
-import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
 import 'package:talent_app/utilities/text_size_utility.dart';

@@ -90,10 +90,10 @@ class _EditAuditionPlaceTimeScreenState
                         onTap: () {
                           if (provider.location == null) {
                             Common.showErrorSnackBar(
-                                context, StringsUtility.validationLocation);
+                                context, context.loc.pleaseSelectLocation);
                           } else if (provider.dateTimeList.isEmpty) {
                             Common.showErrorSnackBar(
-                                context, StringsUtility.validationAddDAteTime);
+                                context, context.loc.pleaseAddDateTimeAndSpots);
                           } else {
                             Common.showLoadingDialog(context);
                             provider.updateBtnClick(

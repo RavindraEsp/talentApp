@@ -205,7 +205,7 @@ class _TalentCreateCardScreenState extends State<TalentCreateCardScreen> {
                                 },
                                 child: SimpleTextField(
                                   controller: birthdayController,
-                                  hintText: "DD/MM/YYYY",
+                                  hintText: "YYYY/MM/DD",
                                   isEnable: false,
                                   suffixImage: ImageUtility.calenderIcon,
                                   validator: Validators(context).validatorBirthday,

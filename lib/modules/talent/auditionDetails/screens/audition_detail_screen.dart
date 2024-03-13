@@ -514,8 +514,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                                     auditionDetails.auditionId,
                                                 auditionDateId: selectDateId);
                                       } else {
-                                        Common.showErrorSnackBar(context,
-                                            StringsUtility.selectAuditionDate);
+                                        Common.showErrorSnackBar(context,context.loc.pleaseSelectAuditionDate);
                                       }
                                     },
                                   ),
@@ -567,7 +566,7 @@ class _AuditionDetailScreenState extends State<AuditionDetailScreen> {
                                         );
                                       } else {
                                         Common.showErrorSnackBar(context,
-                                            StringsUtility.selectAuditionDate);
+                                            context.loc.pleaseSelectAuditionDate);
                                       }
 
                                       // showNewScheduleSuccessDialog(

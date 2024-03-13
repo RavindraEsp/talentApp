@@ -309,7 +309,7 @@ class _TalentCreateCardStepTwoScreenState
                                           if(_formKey.currentState!.validate()){
                                             if(talentCreateCardStepTwoProvider.talentBodyData.isEmpty){
 
-                                              Common.showErrorSnackBar(context, StringsUtility.selectValueText);
+                                              Common.showErrorSnackBar(context, context.loc.pleaseFillAllDetails);
 
                                             }else{
                                               Navigator.pushNamed(

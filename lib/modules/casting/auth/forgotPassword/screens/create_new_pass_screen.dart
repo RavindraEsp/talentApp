@@ -72,6 +72,7 @@ class _CreateNewPassScreenState extends State<CreateNewPassScreen> {
                         backgroundColor: Colors.transparent,
                         elevation: 0,
                         centerTitle: true,
+                        iconTheme: const IconThemeData(color: Colors.white),
                         title: Text(
                           "Create new password",
                           style: StyleUtility.headerTextStyle.copyWith(

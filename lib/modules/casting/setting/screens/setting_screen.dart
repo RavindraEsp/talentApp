@@ -62,7 +62,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Navigator.pushNamedAndRemoveUntil(
                         context,
                         RouteName.talentBottomBarScreen,
-                        arguments: {"selectIndex": 3},
+                        arguments: {"selectIndex": 4},
                         (route) => false);
                   }
                   // Navigator.pushNamedAndRemoveUntil(

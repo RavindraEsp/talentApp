@@ -165,7 +165,7 @@ class _EditPhotoGalleryScreenState extends State<EditPhotoGalleryScreen> {
               onTap: () {
                 AppLogger.logD("Image length ${selectedImages.length}");
                 if (selectedImages.isEmpty) {
-                  Common.showErrorSnackBar(context, StringsUtility.uploadImage);
+                  Common.showErrorSnackBar(context, context.loc.pleaseSelectImage);
                 } else {
                   Common.showLoadingDialog(context);
                   editPhotoGalleryScreenProvider.updateTalentProfileData(

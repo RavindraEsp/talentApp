@@ -280,6 +280,17 @@
   "dateTimeAddValidation": "Please Fill All field.",
   "applied": "Applied",
   "auditionDate": "Audition date",
-  "done": "Done"
+  "done": "Done",
+  "noLinkAvailable": "No Link Available",
+  "pleaseFillAllDetails": "Please fill all details.",
+  "pleaseSelectImage": "Please select image.",
+  "pleaseSelectAudio": "Please select audio.",
+  "pleaseSelectVideo": "Please select video.",
+  "pleaseSelectCategory": "Please select category.",
+  "pleaseSelectAuditionDate": "Please select audition date.",
+  "pleaseSelectLocation": "Please select Location.",
+  "pleaseAddDateTimeAndSpots": "Please Add Date,Time and Spots.",
+  "filterListNotLoaded": "Filter list not loaded.",
+  "videoNotAvailable": "Video not available."
 }
 

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -6,9 +8,10 @@ import 'color_utility.dart';
 class Common {
   Common._();
 
-  // static const dateFormatForAddDate = 'yyyy-MM-dd';
   static const dateFormatForAddDate = 'dd/MM/yyyy';
+
   static const dateFormatForbirthday = 'yyyy-MM-dd';
+
   static const dateFormat = 'dd/MM/yyyy hh:mm a';
 
   static showErrorSnackBar(BuildContext context, String message) {
@@ -76,6 +79,7 @@ class Common {
       context: ctx,
       builder: (BuildContext context) {
         return Dialog(
+          backgroundColor: Colors.white,
             child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.70,
           height: MediaQuery.of(context).size.height * 0.2,
@@ -106,23 +110,7 @@ class Common {
     );
   }
 
-  static Widget loadingIndicator() {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-              child: Container(
-            height: 25.0,
-            width: 25.0,
-            child: const CircularProgressIndicator(
-              strokeWidth: 2.0,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                Colors.blue,
-              ),
-            ),
-          )),
-        ]);
-  }
+
 
   static selectDate(
       BuildContext context, TextEditingController dateController) async {
@@ -139,11 +127,13 @@ class Common {
                 // Set the primary color
                 onPrimary: Colors.white, // Set the text color
               ),
-              dialogBackgroundColor: Colors.white, // Set the background color
+              dialogBackgroundColor: Colors.white, // Set the background color// Set the background color
             ),
             child: child!,
           );
-        });
+        }
+
+        );
     if (selected != null) {
       String formattedDate = DateFormat(dateFormatForAddDate).format(selected);
       dateController.text = formattedDate;

@@ -170,7 +170,7 @@ class _EditVideoGalleryScreenState extends State<EditVideoGalleryScreen> {
                 onTap: () {
                   AppLogger.logD("Audio length ${selectedVideos.length}");
                   if (selectedVideos.isEmpty) {
-                    Common.showErrorSnackBar(context, StringsUtility.uploadVideo);
+                    Common.showErrorSnackBar(context, context.loc.pleaseSelectVideo);
                   }else{
 
                     Common.showLoadingDialog(context);

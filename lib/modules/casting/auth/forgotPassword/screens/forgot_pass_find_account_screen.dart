@@ -79,6 +79,7 @@ class _ForgotPassFindAccountScreenState
                               backgroundColor: Colors.transparent,
                               elevation: 0,
                               centerTitle: true,
+                              iconTheme: const IconThemeData(color: Colors.white),
                               title: Text(
                                 context.loc.headerFindYourAccount,
                                 style: StyleUtility.headerTextStyle.copyWith(

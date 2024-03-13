@@ -498,7 +498,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                                     if(_formKey.currentState!.validate()){
                                                       if((addInfoProvider.selectedLookingForIds?.length ?? 0) == 0 ){
 
-                                                        Common.showErrorSnackBar(context, StringsUtility.selectCategory);
+                                                        Common.showErrorSnackBar(context, context.loc.pleaseSelectCategory);
                                                       }else {
 
                                                         Common.showLoadingDialog(context);

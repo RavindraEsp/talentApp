@@ -163,7 +163,7 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                           });
                                     } else {
                                       Common.showErrorSnackBar(context,
-                                          StringsUtility.filterListNotLoaded);
+                                          context.loc.filterListNotLoaded);
                                     }
                                   },
                                   child: Container(
@@ -217,8 +217,9 @@ class _EducationListScreenState extends State<EducationListScreen> {
                                                   .videolink ?? ""
                                             });
                                       }else{
+
                                         Common.showErrorSnackBar(context,
-                                            StringsUtility.videoNotAvailable);
+                                            context.loc.videoNotAvailable);
 
                                       }
                                     },

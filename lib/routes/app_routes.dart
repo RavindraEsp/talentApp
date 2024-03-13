@@ -65,12 +65,10 @@ import 'package:talent_app/modules/talent/profile/screens/edit_photo_gallery_scr
 import 'package:talent_app/modules/talent/profile/screens/edit_tell_us_about_screen.dart';
 import 'package:talent_app/modules/talent/profile/screens/edit_video_gallery_screen.dart';
 import 'package:talent_app/modules/talent/subscribe/screens/subscribe_screen.dart';
-import 'package:talent_app/modules/talent/widgets/talent_setting_screen.dart';
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/widgets/audio_player/audio_player_screen.dart';
 import 'package:talent_app/widgets/video_player/video_player_screen.dart';
-
 import '../modules/talent/createCard/provider/talent_create_card_step_two_provider.dart';
 import '../modules/talent/profile/providers/edit_photo_gallery_screen_provider.dart';
 
@@ -289,8 +287,6 @@ class AppRoute {
                     roomId: arg["roomId"] ?? "",
                     title: arg["title"] ?? "",
                     chatType: arg["chatType"] ?? ChatType.single,
-
-
                   ),
                 ));
 
@@ -362,11 +358,6 @@ class AppRoute {
                     selectHomeIndex: arg["selectHomeIndex"] ?? 0,
                   ),
                 ));
-
-      case RouteName.talentSettingScreen:
-        return MaterialPageRoute(
-          builder: (context) => const TalentSettingScreen(),
-        );
 
       case RouteName.talentMenuScreen:
         return MaterialPageRoute(

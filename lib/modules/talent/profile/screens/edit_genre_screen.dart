@@ -230,7 +230,7 @@ class _EditGenreScreenState extends State<EditGenreScreen> {
                                         0) ==
                                     0) {
                                   Common.showErrorSnackBar(
-                                      context, StringsUtility.selectCategory);
+                                      context, context.loc.pleaseSelectCategory);
                                 } else {
                                   Common.showLoadingDialog(context);
                                   editGenreScreenProvider

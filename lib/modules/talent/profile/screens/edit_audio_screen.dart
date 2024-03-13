@@ -197,7 +197,7 @@ class _EditAudioScreenState extends State<EditAudioScreen> {
               onTap: () {
                 AppLogger.logD("Audio length ${selectedAudios.length}");
                 if (selectedAudios.isEmpty) {
-                  Common.showErrorSnackBar(context, StringsUtility.uploadAudio);
+                  Common.showErrorSnackBar(context, context.loc.pleaseSelectAudio);
                 }else{
                   Common.showLoadingDialog(context);
                   editAudioScreenProvider.updateTalentProfileData(

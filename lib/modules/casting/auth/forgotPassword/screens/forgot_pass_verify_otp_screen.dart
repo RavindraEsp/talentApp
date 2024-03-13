@@ -6,6 +6,7 @@ import 'package:talent_app/modules/casting/auth/forgotPassword/provider/ForgotPa
 import 'package:talent_app/routes/route_name.dart';
 import 'package:talent_app/utilities/color_utility.dart';
 import 'package:talent_app/utilities/common.dart';
+import 'package:talent_app/utilities/common_method.dart';
 import 'package:talent_app/utilities/enums.dart';
 import 'package:talent_app/utilities/image_utility.dart';
 import 'package:talent_app/utilities/style_utility.dart';
@@ -75,15 +76,11 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                           margin: EdgeInsets.only(left: 24.w, top: 22.h),
                           child: AppBar(
                             automaticallyImplyLeading: true,
-                            leading: InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Icon(Icons.arrow_back),
-                            ),
+
                             backgroundColor: Colors.transparent,
                             elevation: 0,
                             centerTitle: true,
+                            iconTheme: const IconThemeData(color: Colors.white),
                             title: Text(
                               context.loc.headerVerifyYourEmail,
                               style: StyleUtility.headerTextStyle.copyWith(
@@ -149,7 +146,9 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                                               Navigator.pop(context);
                                               Common.showSuccessToast(
                                                   context, message);
-                                            },
+                                              CommonMethod.hideKeyBoard(context);
+
+                                                },
                                             onFailure: (message) {
                                               Navigator.pop(context);
                                             },
