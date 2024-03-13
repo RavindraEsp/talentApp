@@ -11,7 +11,12 @@ class ChatUserListScreenProvider extends ChangeNotifier {
 
   IO.Socket? socket;
   bool loading = true;
+
+
+  ChatUserListResponseModel? displayUserListResponseModel;
   ChatUserListResponseModel? chatUserListResponseModel;
+
+
 
   connectAndListenChatSocket() {
     int userId = Preference().getUserId();
@@ -19,7 +24,6 @@ class ChatUserListScreenProvider extends ChangeNotifier {
     AppLogger.logD("User id $userId");
     try {
       socket = IO.io(
-         // 'https://espsofttech.in:7272',
           Endpoints.socketUrl,
           IO.OptionBuilder()
               .setTransports(['websocket'])
@@ -47,9 +51,15 @@ class ChatUserListScreenProvider extends ChangeNotifier {
 
         AppLogger.logD("on roomUsersAll =>");
 
+        displayUserListResponseModel = ChatUserListResponseModel.fromJson(data);
+
         chatUserListResponseModel = ChatUserListResponseModel.fromJson(data);
+
+
+
+
         AppLogger.logD(
-            "userList length   ${chatUserListResponseModel?.userList?.length}");
+            "userList length   ${displayUserListResponseModel?.userList?.length}");
 
         loading = false;
 
@@ -65,9 +75,12 @@ class ChatUserListScreenProvider extends ChangeNotifier {
 
         AppLogger.logD("on allroommessage$userId =>");
 
+        displayUserListResponseModel = ChatUserListResponseModel.fromJson(data);
+
         chatUserListResponseModel = ChatUserListResponseModel.fromJson(data);
+
         AppLogger.logD(
-            "userList length   ${chatUserListResponseModel?.userList?.length}");
+            "userList length   ${displayUserListResponseModel?.userList?.length}");
 
         loading = false;
 
@@ -102,4 +115,24 @@ class ChatUserListScreenProvider extends ChangeNotifier {
       AppLogger.logD(e.toString());
     }
   }
+
+  void filterUsers(String searchText) {
+    if (searchText.isEmpty) {
+      displayUserListResponseModel?.userList = chatUserListResponseModel?.userList;
+      AppLogger.logD("emty text");
+    } else {
+      displayUserListResponseModel?.userList = [];
+      displayUserListResponseModel?.userList?.addAll(
+        chatUserListResponseModel?.userList?.where((user) => user.userName.toString().toLowerCase().contains(searchText.toLowerCase())).toList() ?? [],
+      );
+    }
+
+    notifyListeners();
+
+    AppLogger.logD("Display ${displayUserListResponseModel?.userList?.length}");
+    AppLogger.logD("All User ${chatUserListResponseModel?.userList?.length}");
+    AppLogger.logD("Filter call");
+  }
+
+
 }

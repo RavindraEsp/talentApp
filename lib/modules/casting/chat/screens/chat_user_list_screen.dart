@@ -103,215 +103,238 @@ class _ChatUserListScreenState extends State<ChatUserListScreen> {
             builder: (context, provider,child) {
               return Expanded(
                 child: provider.loading == true ? const CustomCircularLoaderWidget():
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: (){
+                        CommonMethod.hideKeyBoard(context);
+                        },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 20.w, right: 20.w, top: 18.h, bottom: 16.h),
+                            child: Text(
+                              context.loc.headerChats,
+                              style: StyleUtility.kantumruyProSemiBold5457BETextStyle
+                                  .copyWith(fontSize: TextSizeUtility.textSize26.sp),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                            child: SearchTextField(
+                                onChange: (value){
+                                  chatUserListScreenProvider?.filterUsers(value);
+                                },
+                                controller: provider.searchController, hintText: "Search Candidate"),
+                          ),
+                          (provider.displayUserListResponseModel?.userList?.length ?? 0) != 0 ?
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
 
-                (provider.chatUserListResponseModel?.userList?.length ?? 0) != 0 ?
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                                Expanded(
+                                  child: ListView.builder(
+                                      padding: EdgeInsets.only(top: 20.h, bottom: 35.h),
+                                      itemCount: provider.displayUserListResponseModel?.userList?.length ?? 0,
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          behavior: HitTestBehavior.opaque,
+                                          onTap: () {
 
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 20.w, right: 20.w, top: 18.h, bottom: 16.h),
-                      child: Text(
-                        context.loc.headerChats,
-                        style: StyleUtility.kantumruyProSemiBold5457BETextStyle
-                            .copyWith(fontSize: TextSizeUtility.textSize26.sp),
+
+                                            provider.socket?.disconnect();
+
+                                            Map data;
+
+                                            if(provider.displayUserListResponseModel?.userList?[index].groupId == 0){ // single chat
+                                              data = {
+                                                "userType": widget.userType,
+                                                "receiverId": provider.displayUserListResponseModel?.userList?[index].apponentId,
+                                                "roomId": provider.displayUserListResponseModel?.userList?[index].roomId,
+                                                "title": provider.displayUserListResponseModel?.userList?[index].userName,
+                                                "title": provider.displayUserListResponseModel?.userList?[index].userName,
+                                              };
+                                            }else{
+                                              data = {
+                                                "userType": widget.userType,
+                                                "receiverId": provider.displayUserListResponseModel?.userList?[index].groupId,
+                                                "roomId": provider.displayUserListResponseModel?.userList?[index].roomId,
+                                                "title": provider.displayUserListResponseModel?.userList?[index].userName,
+                                                "chatType": ChatType.group,
+                                              };
+                                            }
+
+
+                                            CommonMethod.hideKeyBoard(context);
+                                            provider.searchController.clear();
+                                            Navigator.pushNamed(context, RouteName.chatScreen,
+                                                arguments: data).then((value) => provider.connectAndListenChatSocket());
+
+                                            // arguments: {
+                                            //
+                                            //   "userType": widget.userType,
+                                            //   "receiverId": provider.chatUserListResponseModel?.userList?[index].apponentId,
+                                            //   "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
+                                            //   "title": provider.chatUserListResponseModel?.userList?[index].userName,
+                                            //
+                                            // }).then((value) => provider.connectAndListenChatSocket());
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              left: 20.w,
+                                              right: 20.w,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                index == 0
+                                                    ? Container(
+                                                    width: double.infinity,
+                                                    height: 1,
+                                                    color: ColorUtility.colorD6D6D8)
+                                                    : const SizedBox(),
+                                                Container(
+                                                  padding: EdgeInsets.only(top: 17.h, bottom: 20.h),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+
+                                                      // Image.asset(
+                                                      //   ImageUtility.dummyProfileImage,
+                                                      //   width: 55.w,
+                                                      //   height: 55.w,
+                                                      // ),
+
+
+                                                      ClipOval(
+                                                        child: CachedNetworkImage(
+                                                            width: 55.sp,
+                                                            height: 55.sp,
+                                                            fit: BoxFit.cover,
+                                                            placeholder: (context, url) =>
+                                                            const Center(child: CircularProgressIndicator()),
+                                                            errorWidget: (context, url, error) => Container(
+                                                                color: Colors.grey,
+                                                                child: Center(
+                                                                    child: Icon(
+                                                                      Icons.error,
+                                                                      size: 25.sp,
+                                                                    ))),
+                                                            imageUrl:
+                                                            "${Endpoints.imageBaseUrl}${provider.displayUserListResponseModel?.userList?[index].userProfile ?? ""}"),
+                                                      ),
+
+
+                                                      SizedBox(
+                                                        width: 12.w,
+                                                      ),
+                                                      Expanded(
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                            children: [
+                                                              Row(
+                                                                crossAxisAlignment:
+                                                                CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      // "Michaela Cohoen",
+                                                                      provider.displayUserListResponseModel?.userList?[index].userName ?? "",
+                                                                      style: StyleUtility
+                                                                          .quicksandBoldBlackTextStyle
+                                                                          .copyWith(
+                                                                          fontSize: TextSizeUtility
+                                                                              .textSize18.sp),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    // "Yesterday",
+
+                                                                    CommonMethod.getDateTime(provider.displayUserListResponseModel?.userList?[index].datetime ?? "")
+                                                                    ,
+                                                                    style: StyleUtility
+                                                                        .quicksandRegular787E84TextStyle
+                                                                        .copyWith(
+                                                                        fontSize: TextSizeUtility
+                                                                            .textSize14.sp),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 8.h,
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Expanded(
+
+                                                                    child: Text(
+                                                                      // "Hi, I’m glad you applied to the audition See you there",
+                                                                      provider.displayUserListResponseModel?.userList?[index].message ?? "",
+                                                                      style: StyleUtility
+                                                                          .quicksandRegular787E84TextStyle
+                                                                          .copyWith(
+                                                                          fontSize: TextSizeUtility
+                                                                              .textSize14.sp),
+                                                                      maxLines: 2,
+                                                                      overflow: TextOverflow.ellipsis,
+                                                                    ),
+                                                                  ),
+                                                                  (provider.displayUserListResponseModel?.userList?[index].msgCount ?? "") != ""
+                                                                      && (provider.displayUserListResponseModel?.userList?[index].msgCount ?? "") != "0"
+                                                                      ?
+                                                                  Container(
+                                                                    padding: EdgeInsets.all(10.sp),
+
+                                                                    decoration: const BoxDecoration(
+                                                                        shape: BoxShape.circle,
+                                                                        color: ColorUtility.color5457BE
+                                                                    ),
+                                                                    child: Center(child:Text(
+                                                                      provider.displayUserListResponseModel?.userList?[index].msgCount ?? "",
+                                                                      style: StyleUtility
+                                                                          .quicksandMediumWhiteTextStyle.copyWith(
+                                                                          fontSize: TextSizeUtility.textSize14.sp
+                                                                      )
+                                                                          .copyWith(
+                                                                          fontSize: TextSizeUtility
+                                                                              .textSize14.sp),
+                                                                      maxLines: 1,
+                                                                      overflow: TextOverflow.ellipsis,
+                                                                    ),),
+                                                                  ):const SizedBox()
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ))
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                    width: double.infinity,
+                                                    height: 1,
+                                                    color: ColorUtility.colorD6D6D8),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                )
+                              ],
+                            ),
+                          ):const Expanded(
+                            child: NoDataWidget(
+                            ),
+                          ),
+
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      child: SearchTextField(
-                          controller: provider.searchController, hintText: "Search Candidate"),
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                          padding: EdgeInsets.only(top: 20.h, bottom: 35.h),
-                          itemCount: provider.chatUserListResponseModel?.userList?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () {
-
-
-                                provider.socket?.disconnect();
-
-                                Map data;
-
-                                if(provider.chatUserListResponseModel?.userList?[index].groupId == 0){ // single chat
-                                  data = {
-                                    "userType": widget.userType,
-                                    "receiverId": provider.chatUserListResponseModel?.userList?[index].apponentId,
-                                    "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
-                                    "title": provider.chatUserListResponseModel?.userList?[index].userName,
-                                    "title": provider.chatUserListResponseModel?.userList?[index].userName,
-                                  };
-                                }else{
-                                  data = {
-                                    "userType": widget.userType,
-                                    "receiverId": provider.chatUserListResponseModel?.userList?[index].groupId,
-                                    "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
-                                    "title": provider.chatUserListResponseModel?.userList?[index].userName,
-                                    "chatType": ChatType.group,
-                                  };
-                                }
-
-
-                                Navigator.pushNamed(context, RouteName.chatScreen,
-                                    arguments: data).then((value) => provider.connectAndListenChatSocket());
-
-                                    // arguments: {
-                                    //
-                                    //   "userType": widget.userType,
-                                    //   "receiverId": provider.chatUserListResponseModel?.userList?[index].apponentId,
-                                    //   "roomId": provider.chatUserListResponseModel?.userList?[index].roomId,
-                                    //   "title": provider.chatUserListResponseModel?.userList?[index].userName,
-                                    //
-                                    // }).then((value) => provider.connectAndListenChatSocket());
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  left: 20.w,
-                                  right: 20.w,
-                                ),
-                                child: Column(
-                                  children: [
-                                    index == 0
-                                        ? Container(
-                                        width: double.infinity,
-                                        height: 1,
-                                        color: ColorUtility.colorD6D6D8)
-                                        : const SizedBox(),
-                                    Container(
-                                      padding: EdgeInsets.only(top: 17.h, bottom: 20.h),
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-
-                                          // Image.asset(
-                                          //   ImageUtility.dummyProfileImage,
-                                          //   width: 55.w,
-                                          //   height: 55.w,
-                                          // ),
-
-
-                                          ClipOval(
-                                            child: CachedNetworkImage(
-                                                width: 55.sp,
-                                                height: 55.sp,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                const Center(child: CircularProgressIndicator()),
-                                                errorWidget: (context, url, error) => Container(
-                                                    color: Colors.grey,
-                                                    child: Center(
-                                                        child: Icon(
-                                                          Icons.error,
-                                                          size: 25.sp,
-                                                        ))),
-                                                imageUrl:
-                                                "${Endpoints.imageBaseUrl}${provider.chatUserListResponseModel?.userList?[index].userProfile ?? ""}"),
-                                          ),
-
-
-                                          SizedBox(
-                                            width: 12.w,
-                                          ),
-                                          Expanded(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                         // "Michaela Cohoen",
-                                                          provider.chatUserListResponseModel?.userList?[index].userName ?? "",
-                                                          style: StyleUtility
-                                                              .quicksandBoldBlackTextStyle
-                                                              .copyWith(
-                                                              fontSize: TextSizeUtility
-                                                                  .textSize18.sp),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                       // "Yesterday",
-
-                                                        CommonMethod.getDateTime(provider.chatUserListResponseModel?.userList?[index].datetime ?? "")
-                                                        ,
-                                                        style: StyleUtility
-                                                            .quicksandRegular787E84TextStyle
-                                                            .copyWith(
-                                                            fontSize: TextSizeUtility
-                                                                .textSize14.sp),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 8.h,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-
-                                                        child: Text(
-                                                         // "Hi, I’m glad you applied to the audition See you there",
-                                                          provider.chatUserListResponseModel?.userList?[index].message ?? "",
-                                                          style: StyleUtility
-                                                              .quicksandRegular787E84TextStyle
-                                                              .copyWith(
-                                                              fontSize: TextSizeUtility
-                                                                  .textSize14.sp),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),
-                                                      ),
-                                                      (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != ""
-                                                          && (provider.chatUserListResponseModel?.userList?[index].msgCount ?? "") != "0"
-                                                          ?
-                                                      Container(
-                                                        padding: EdgeInsets.all(10.sp),
-
-                                                        decoration: const BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          color: ColorUtility.color5457BE
-                                                        ),
-                                                        child: Center(child:Text(
-                                                          provider.chatUserListResponseModel?.userList?[index].msgCount ?? "",
-                                                          style: StyleUtility
-                                                              .quicksandMediumWhiteTextStyle.copyWith(
-                                                            fontSize: TextSizeUtility.textSize14.sp
-                                                          )
-                                                              .copyWith(
-                                                              fontSize: TextSizeUtility
-                                                                  .textSize14.sp),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),),
-                                                      ):const SizedBox()
-                                                    ],
-                                                  ),
-                                                ],
-                                              ))
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                        width: double.infinity,
-                                        height: 1,
-                                        color: ColorUtility.colorD6D6D8),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
                     )
-                  ],
-                ):const NoDataWidget(
-                ),
+
+
               );
             }
           )
