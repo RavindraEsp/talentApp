@@ -55,6 +55,11 @@
     <key>NSAppleMusicUsageDescription</key>
     <string>We require access to your media library to pick audio files</string>
 
+    <key>NSAppTransportSecurity</key>
+	 <dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 
 </dict>
 </plist>
