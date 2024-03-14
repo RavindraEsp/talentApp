@@ -56,3 +56,9 @@ app id: 1130857578098564
 
 facebook_client_token 81a775c698fcc57502fd6ba563a7fcea
 
+
+https://espsofttech.in:7272/api/auth/uploads/image-1705737314705.mp3 // not working 
+
+https://espsofttech.in:7272/api/auth/uploads/image-1710410958199.mp3 // working 
+
+

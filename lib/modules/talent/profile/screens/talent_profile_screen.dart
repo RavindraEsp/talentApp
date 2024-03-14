@@ -803,6 +803,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                                                     children: [
                                                       GestureDetector(
                                                         onTap: () {
+
+                                                          AppLogger.logD("Clicked");
                                                           Navigator.pushNamed(
                                                               context,
                                                               RouteName

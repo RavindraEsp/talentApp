@@ -34,6 +34,8 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
     fullAudioUrl = "${Endpoints.imageBaseUrl}${widget.audioFromApi}";
 
+    AppLogger.logD("${fullAudioUrl}");
+
     _audioPlayer = AudioPlayer();
     _audioPlayer?.onDurationChanged.listen((Duration d) {
       setState(() {
