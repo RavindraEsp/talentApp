@@ -82,7 +82,6 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                 child: Column(
                   children: [
                     Container(
-                      // margin: EdgeInsets.only(left: 24.w, top: 5.h),
                       margin: EdgeInsets.only(left: 24.w, top: 22.h),
                       child: AppBar(
                         backgroundColor: Colors.transparent,
@@ -103,6 +102,7 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                           CommonMethod.hideKeyBoard(context);
                         },
                         child: SingleChildScrollView(
+                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: Consumer<CastLoginProvider>(
                               builder: (context, castLoginProvider, child) {
                             return Padding(
@@ -264,17 +264,6 @@ class _CastLoginScreenState extends State<CastLoginScreen> {
                                                           .talentCreateCardScreen,
                                                           (route) => false);
                                                 }
-
-                                                // Navigator.pushNamedAndRemoveUntil(
-                                                //     context,
-                                                //     RouteName
-                                                //         .talentBottomBarScreen,
-                                                //     arguments: {
-                                                //       "selectIndex": 0
-                                                //     },
-                                                //     (route) => false);
-
-
 
                                               }
                                             },

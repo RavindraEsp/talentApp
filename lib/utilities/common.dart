@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:talent_app/utilities/common_method.dart';
 import 'color_utility.dart';
 
 class Common {
@@ -14,39 +15,32 @@ class Common {
 
   static const dateFormat = 'dd/MM/yyyy hh:mm a';
 
+
+
   static showErrorSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 2),
-      backgroundColor: ColorUtility.colorDD4F4F,
-      content: Text(
-        message,
-      ),
-    ));
+    // ScaffoldMessenger.of(context).clearSnackBars();
+    // return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   duration: const Duration(seconds: 2),
+    //   backgroundColor: ColorUtility.colorDD4F4F,
+    //   content: Text(
+    //     message,
+    //   ),
+    // ));
+
+    Fluttertoast.cancel();
+    return Fluttertoast.showToast(
+        msg: message.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
-  static showSuccessSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 2),
-      backgroundColor: ColorUtility.color1B9D16,
-      content: Text(
-        message,
-      ),
-    ));
-  }
 
 
-  static showWarningSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 2),
-      backgroundColor: ColorUtility.colorEFC275,
-      content: Text(
-        message,
-      ),
-    ));
-  }
+
 
   static showSuccessToast(BuildContext context, String message) {
     Fluttertoast.cancel();

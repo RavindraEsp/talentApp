@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:talent_app/extension/context_extension.dart';
 import 'package:talent_app/logger/app_logger.dart';
 import 'package:talent_app/modules/casting/manageAudition/manageAuditionCreated/model/telent_user_profile_model.dart';
+import 'package:talent_app/modules/demo_screen.dart';
 import 'package:talent_app/modules/talent/commonModels/drop_down_model.dart';
 import 'package:talent_app/modules/talent/profile/providers/talent_profile_screen_provider.dart';
 import 'package:talent_app/modules/talent/widgets/talent_menu_widget.dart';
@@ -67,6 +68,12 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
     DropDownModel("Female", "2")
   ];
 
+
+  int? selectedDay;
+  int? selectedMonth;
+  int? selectedYear;
+
+
   @override
   void initState() {
     super.initState();
@@ -77,6 +84,10 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
     }, onSuccess: (talantUserProfileModel) {
       setAutoFillValue(talantUserProfileModel);
     });
+
+    selectedYear = 2001;
+    selectedDay = 01;
+    selectedMonth = 07;
   }
 
   setAutoFillValue(TalantUserProfileModel talantUserProfileModel) {
@@ -138,7 +149,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
         },
         onSuccess: (msg) {
           Navigator.pop(context);
-          Common.showSuccessSnackBar(context, msg);
+          Common.showSuccessToast(context, msg);
           getTalentProfileDataAfterUpdate(talentProfileScreenProvider);
         });
   }
@@ -146,7 +157,7 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+    //  resizeToAvoidBottomInset: false,
       body: Column(children: [
         Container(
           width: double.infinity,
@@ -197,6 +208,28 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                             SizedBox(
                               height: 30.h,
                             ),
+
+
+                            ///tt
+
+
+                            // DateOfBirthdayWidget(selectedDay: selectedDay,
+                            //     selectedMonth: selectedMonth,
+                            //   selectedYear: selectedYear,
+                            //   onDayChange: (value){
+                            //
+                            //   selectedDay = value;
+                            //   },
+                            //   onMonthChange: (value){
+                            //   selectedMonth = value;
+                            //   }, onYearChange: (value){
+                            //
+                            //   selectedYear = value;
+                            //   },
+                            // )
+
+                            ///ttt
+                          //  ,
                             Text(
                               context.loc.titleYourProfileDetails,
                               style: StyleUtility
@@ -1167,6 +1200,10 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                               buttonText: context.loc.buttonUpdate,
                               buttonType: ButtonType.blue,
                               onTap: () async {
+
+                                AppLogger.logD("mont ${selectedMonth}");
+                                AppLogger.logD("yea ${selectedYear}");
+                                AppLogger.logD("day ${selectedDay}");
                                 if (_formKey.currentState!.validate()) {
                                   Common.showLoadingDialog(context);
                                   talentProfileScreenProvider
@@ -1212,8 +1249,8 @@ class _TalentProfileScreenState extends State<TalentProfileScreen> {
                               },
                             ),
                             SizedBox(
-                             // height: 35.h,
-                              height: 150.h,
+                              height: 35.h,
+                            //  height: 150.h,
                             ),
                           ]),
                     ));

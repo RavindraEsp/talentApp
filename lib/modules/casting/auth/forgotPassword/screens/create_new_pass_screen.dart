@@ -87,6 +87,7 @@ class _CreateNewPassScreenState extends State<CreateNewPassScreen> {
                           CommonMethod.hideKeyBoard(context);
                         },
                         child: SingleChildScrollView(
+                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                           child: Consumer<CreateNewPassScreenProvider>(
                             builder: (context, createNewPassScreenProvider,child) {
                               return Padding(

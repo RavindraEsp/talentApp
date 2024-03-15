@@ -85,6 +85,8 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
       backgroundColor: ColorUtility.colorWhite,
       body: Stack(
         children: [
@@ -135,6 +137,7 @@ class _AddInfoScreenState extends State<AddInfoScreen> {
                                     CommonMethod.hideKeyBoard(context);
                                   },
                                   child: SingleChildScrollView(
+                                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                                     child: Container(
                                       margin: EdgeInsets.only(
                                           left: 20.w, right: 20.w, top: 18.h),

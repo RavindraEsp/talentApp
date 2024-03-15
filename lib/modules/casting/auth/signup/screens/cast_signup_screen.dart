@@ -37,9 +37,7 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
   TextEditingController phoneController = TextEditingController();
   bool passwordObscure = true;
   bool confPasswordObscure = true;
-  // String passPrefixImage = ImageUtility.eyeOpenIcon;
   String passPrefixImage = ImageUtility.eyeCloseIcon;
-  // String confPassPrefixImage = ImageUtility.eyeOpenIcon;
   String confPassPrefixImage = ImageUtility.eyeCloseIcon;
   bool isChecked = false;
   final _formKey = GlobalKey<FormState>();
@@ -66,8 +64,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                   gradient: LinearGradient(
                       begin: Alignment.bottomLeft,
                       end: Alignment.topRight,
-                      //  colors: ColorUtility.castHeaderGradientColor
-
                       colors: widget.userType == UserType.cast
                           ? ColorUtility.castHeaderGradientColor
                           : ColorUtility.talentHeaderGradientColor)),
@@ -77,8 +73,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
-                          // ImageUtility.castSignupBgImage
-
                           widget.userType == UserType.cast
                               ? ImageUtility.castSignupBgImage
                               : ImageUtility.talentSignupBgImage),
@@ -91,7 +85,6 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                     return Column(
                       children: [
                         Container(
-                          //  margin: EdgeInsets.only(left: 24.w, top: 5.h),
                           margin: EdgeInsets.only(left: 24.w, top: 22.h),
                           child: AppBar(
                             backgroundColor: Colors.transparent,
@@ -107,6 +100,7 @@ class _CastSignupScreenState extends State<CastSignupScreen> {
                         ),
                         Expanded(
                           child: SingleChildScrollView(
+                            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: Column(

@@ -14,7 +14,10 @@ import 'package:talent_app/routes/app_routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:talent_app/utilities/shared_preference.dart';
 import 'package:talent_app/widgets/audio_player/audio_player_screen.dart';
+import 'package:talent_app/widgets/full_image_view_screen.dart';
 import 'package:talent_app/widgets/video_player/video_player_screen.dart';
+
+import 'modules/demo_screen.dart';
 
 
 void main() {
@@ -81,29 +84,15 @@ class _MyAppState extends State<MyApp> {
               primarySwatch: Colors.blue,
             ),
 
-            home: const SplashScreen(),
-
-          //  home: const EducationListScreen(),
+             home: const SplashScreen(),
 
 
-            //final
-          //  home:  AudioPlayerScreen(),
-
-            //final
-          //  home:  VideoPlayerScreen(file: 'image-1705662962037.mp4',),
-
-
-          //  home:CastBottomBarScreen(selectIndex: 0),
-          //  home:TalentBottomBarScreen(selectIndex: 0),
-           // home:SubscribeScreen(),
-           // home:const TalentCreateCardScreen(),
+          //   home:  DateOfBirthdayWidget(selectedDay: null,
+          //   selectedMonth: null,
+          //   selectedYear: null,),
+          //  home:  FullImageViewScreen(imageFromApi: "",),
 
 
-
-           // home: const EditVideoGalleryScreen(),
-
-         //   home: TalentBottomBarScreen(selectIndex: 0,),
-          //  home: const AuditionDetailScreen(),
 
             onGenerateRoute: AppRoute.generateRoute,
 

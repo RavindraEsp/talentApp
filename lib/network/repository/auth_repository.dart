@@ -24,11 +24,18 @@ class AuthRepository {
         .then((value) => SignupSendOtpResponse.fromJson(value));
   }
 
-  Future<BasicResponse> signUp(SignupRequest request) {
+  // Future<BasicResponse> signUp(SignupRequest request) {
+  //   return dioHttpService
+  //       .post(Endpoints.baseUrl + Endpoints.apiEndPoints.signUp,
+  //           data: request.toJson())
+  //       .then((value) => BasicResponse.fromJson(value));
+  // }
+
+  Future<LoginResponse> signUp(SignupRequest request) {
     return dioHttpService
         .post(Endpoints.baseUrl + Endpoints.apiEndPoints.signUp,
-            data: request.toJson())
-        .then((value) => BasicResponse.fromJson(value));
+        data: request.toJson())
+        .then((value) => LoginResponse.fromJson(value));
   }
 
   Future<LoginResponse> login(LoginRequest request) {

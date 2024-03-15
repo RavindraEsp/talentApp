@@ -89,6 +89,7 @@ class _ForgotPassFindAccountScreenState
                           ),
                           Expanded(
                             child: SingleChildScrollView(
+                              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                                 child: Column(

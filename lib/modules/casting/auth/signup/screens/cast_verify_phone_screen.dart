@@ -238,14 +238,10 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
                                         Common.showErrorToast(context,
                                             "Please enter 4 digit otp.");
                                       } else {
-                                        /// TODO temp
-
-                                        // showCongratulationDialog(
-                                        //     context: context,
-                                        //     onButtonTap: () {});
 
                                         CommonDialog.showLoadingDialog(context);
                                         provider.signUp(
+                                          userType: widget.userType,
                                             onSuccess: (message) {
                                               Navigator.pop(context);
 
@@ -310,19 +306,34 @@ class _CastVerifyPhoneScreenState extends State<CastVerifyPhoneScreen> {
           );
         }).then((value) {
       if (widget.userType == UserType.cast) {
-        Navigator.pop(context);
-        Navigator.pop(context);
-        Navigator.pushNamed(context, RouteName.castLoginScreen,
-            arguments: {"userType": UserType.cast});
-      } else {
-        // Navigator.pop(context);
-        // Navigator.pop(context);
-        // Navigator.pushNamed(context, RouteName.talentCreateCardScreen);
 
         Navigator.pop(context);
         Navigator.pop(context);
-        Navigator.pushNamed(context, RouteName.castLoginScreen,
-            arguments: {"userType": UserType.talent});
+
+        // Navigator.pushNamed(context, RouteName.castLoginScreen,
+        //     arguments: {"userType": UserType.cast});
+
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            RouteName
+                .castCreateCardScreen,
+                (route) => false);
+
+
+
+      } else {
+
+        Navigator.pop(context);
+        Navigator.pop(context);
+        // Navigator.pushNamed(context, RouteName.castLoginScreen,
+        //     arguments: {"userType": UserType.talent});
+
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            RouteName
+                .talentCreateCardScreen,
+                (route) => false);
+
       }
     });
   }

@@ -79,7 +79,8 @@ class _CastCreateCardScreenState extends State<CastCreateCardScreen> {
                         child: Form(
                     key: _createCardKey,
                     child: ListView(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom,left: 20.w,right: 20.w),
+                        //  padding: EdgeInsets.symmetric(horizontal: 20.w),
                           children: [
                             SizedBox(
                               height: 30.h,

@@ -18,6 +18,7 @@ class CastLoginProvider extends ChangeNotifier {
   }) {
     authRepository.login(request).then((value) {
       if (value.success == true) {
+
         Preference.setProfileImage(value.data?.profilePic ?? "");
         Preference.setAccessToken(value.data?.jwtToken ?? "");
         Preference.setUserName(value.data?.userName ?? "");

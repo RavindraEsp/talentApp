@@ -88,140 +88,149 @@ class _ForgotPassVerifyOtpScreenState extends State<ForgotPassVerifyOtpScreen> {
                             ),
                           ),
                         ),
-                        Expanded(child: Consumer<ForgotPassVerifyOtpProvider>(
-                            builder: (context, provider, child) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 25.h,
-                                ),
-                                RichText(
-                                  text: TextSpan(
-                                    text: context.loc.enter4DigitCodeEmail,
-                                    style: StyleUtility
-                                        .quicksandRegular16TextStyle
-                                        .copyWith(
-                                      fontSize: TextSizeUtility.textSize16.sp,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: " ${widget.email}",
-                                        style: StyleUtility
-                                            .quicksandRegular16TextStyle
-                                            .copyWith(
-                                                color: ColorUtility.color5457BE,
-                                                fontSize: TextSizeUtility
-                                                    .textSize16.sp,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                        Expanded(child: SingleChildScrollView(
+                          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Consumer<ForgotPassVerifyOtpProvider>(
+                              builder: (context, provider, child) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Column(
+                                children: [
+
+
+                                  SizedBox(
+                                    height: 25.h,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 35.h,
-                                ),
-                                CustomOtpTextField(controller: otpController),
-                                SizedBox(
-                                  height: 30.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      context.loc.didntReceive,
+                                  RichText(
+                                    text: TextSpan(
+                                      text: context.loc.enter4DigitCodeEmail,
                                       style: StyleUtility
-                                          .mulishRegular16TextStyle
+                                          .quicksandRegular16TextStyle
                                           .copyWith(
-                                        color: ColorUtility.color9A9A9F,
                                         fontSize: TextSizeUtility.textSize16.sp,
                                       ),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: " ${widget.email}",
+                                          style: StyleUtility
+                                              .quicksandRegular16TextStyle
+                                              .copyWith(
+                                                  color: ColorUtility.color5457BE,
+                                                  fontSize: TextSizeUtility
+                                                      .textSize16.sp,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        Common.showLoadingDialog(context);
-                                        provider.forgotPassGetOtp(
-                                            onSuccess: (message) {
-                                              Navigator.pop(context);
-                                              Common.showSuccessToast(
-                                                  context, message);
-                                              CommonMethod.hideKeyBoard(context);
-
-                                                },
-                                            onFailure: (message) {
-                                              Navigator.pop(context);
-                                            },
-                                            request: {
-                                              "emailormobile": widget.email,
-                                              "userType": widget.userType ==
-                                                      UserType.talent
-                                                  ? 1
-                                                  : 2
-                                            });
-                                      },
-                                      child: Text(
-                                        context.loc.resendCode,
+                                  ),
+                                  SizedBox(
+                                    height: 35.h,
+                                  ),
+                                  CustomOtpTextField(controller: otpController),
+                                  SizedBox(
+                                    height: 30.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        context.loc.didntReceive,
                                         style: StyleUtility
                                             .mulishRegular16TextStyle
                                             .copyWith(
-                                                fontSize: TextSizeUtility
-                                                    .textSize16.sp,
-                                                color: ColorUtility.color5457BE,
-                                                fontWeight: FontWeight.bold),
+                                          color: ColorUtility.color9A9A9F,
+                                          fontSize: TextSizeUtility.textSize16.sp,
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 89.h,
-                                ),
-                                CustomButton(
-                                    buttonText: context.loc.buttonContinue,
-                                    //  buttonType: ButtonType.yellow,
-                                    buttonType: widget.userType == UserType.cast
-                                        ? ButtonType.yellow
-                                        : ButtonType.blue,
-                                    onTap: () {
-                                      if (otpController.text.length != 4) {
-                                        Common.showErrorToast(
-                                            context, context.loc.validationOtp);
-                                      } else {
-                                        Common.showLoadingDialog(context);
-                                        forgotPassVerifyOtpProvider
-                                            .forgotPassMobileotpVerify(
-                                                onSuccess: (message) {
-                                                  Navigator.pop(context);
-                                                  Common.showSuccessToast(
-                                                      context, message);
+                                      InkWell(
+                                        onTap: () {
+                                          Common.showLoadingDialog(context);
+                                          provider.forgotPassGetOtp(
+                                              onSuccess: (message) {
+                                                Navigator.pop(context);
+                                                Common.showSuccessToast(
+                                                    context, message);
+                                                CommonMethod.hideKeyBoard(context);
 
-                                                  Navigator.pushNamed(
-                                                      context,
-                                                      RouteName
-                                                          .createNewPassScreen,
-                                                      arguments: {
-                                                        "userType":
-                                                            widget.userType,
-                                                        "email": widget.email,
-                                                        "otp":
-                                                            otpController.text,
-                                                      });
-                                                },
-                                                onFailure: (message) {
-                                                  Navigator.pop(context);
-                                                  Common.showErrorToast(
-                                                      context, message);
-                                                },
-                                                request: {
-                                              "emailormobile": widget.email,
-                                              "otp": otpController.text
-                                            });
-                                      }
-                                    })
-                              ],
-                            ),
-                          );
-                        })),
+                                                  },
+                                              onFailure: (message) {
+                                                Navigator.pop(context);
+                                              },
+                                              request: {
+                                                "emailormobile": widget.email,
+                                                "userType": widget.userType ==
+                                                        UserType.talent
+                                                    ? 1
+                                                    : 2
+                                              });
+                                        },
+                                        child: Text(
+                                          context.loc.resendCode,
+                                          style: StyleUtility
+                                              .mulishRegular16TextStyle
+                                              .copyWith(
+                                                  fontSize: TextSizeUtility
+                                                      .textSize16.sp,
+                                                  color: ColorUtility.color5457BE,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 89.h,
+                                  ),
+                                  CustomButton(
+                                      buttonText: context.loc.buttonContinue,
+                                      //  buttonType: ButtonType.yellow,
+                                      buttonType: widget.userType == UserType.cast
+                                          ? ButtonType.yellow
+                                          : ButtonType.blue,
+                                      onTap: () {
+                                        if (otpController.text.length != 4) {
+                                          Common.showErrorToast(
+                                              context, context.loc.validationOtp);
+                                        } else {
+                                          Common.showLoadingDialog(context);
+                                          forgotPassVerifyOtpProvider
+                                              .forgotPassMobileotpVerify(
+                                                  onSuccess: (message) {
+                                                    Navigator.pop(context);
+                                                    Common.showSuccessToast(
+                                                        context, message);
+
+                                                    Navigator.pushNamed(
+                                                        context,
+                                                        RouteName
+                                                            .createNewPassScreen,
+                                                        arguments: {
+                                                          "userType":
+                                                              widget.userType,
+                                                          "email": widget.email,
+                                                          "otp":
+                                                              otpController.text,
+                                                        });
+                                                  },
+                                                  onFailure: (message) {
+                                                    Navigator.pop(context);
+                                                    Common.showErrorToast(
+                                                        context, message);
+                                                  },
+                                                  request: {
+                                                "emailormobile": widget.email,
+                                                "otp": otpController.text
+                                              });
+                                        }
+                                      }),
+
+                                  SizedBox(
+                                    height: 25.h,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                        )),
                       ])),
                 ),
               ],
